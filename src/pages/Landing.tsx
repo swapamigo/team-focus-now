@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Shield, Trophy, Users, Sparkles, Lock, BarChart3 } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const features = [
   { icon: Trophy, title: "Team-Wettbewerbe", desc: "Teams treten in fairen Challenges um die geringste Ablenkungszeit an." },
@@ -12,6 +13,10 @@ const features = [
 ];
 
 export default function Landing() {
+  const { session, profile, loading } = useAuth();
+  if (!loading && session) {
+    return <Navigate to={profile && !profile.onboarded ? "/onboarding/role" : "/app"} replace />;
+  }
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}

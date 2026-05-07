@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,10 @@ interface Props { mode: "login" | "register" }
 export default function AuthPage({ mode }: Props) {
   const nav = useNavigate();
   const loc = useLocation();
+  const { session, profile, loading: authLoading } = useAuth();
+  if (!authLoading && session) {
+    return <Navigate to={profile && !profile.onboarded ? "/onboarding/role" : "/app"} replace />;
+  }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
