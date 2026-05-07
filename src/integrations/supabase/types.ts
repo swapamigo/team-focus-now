@@ -786,6 +786,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_invite: {
+        Args: { _company_id: string; _team_id?: string }
+        Returns: string
+      }
+      create_workspace: {
+        Args: { _industry?: string; _name: string }
+        Returns: string
+      }
+      delete_my_account: { Args: never; Returns: undefined }
       get_user_company: { Args: { _user_id: string }; Returns: string }
       get_user_team: { Args: { _user_id: string }; Returns: string }
       has_company_role: {
@@ -807,6 +816,7 @@ export type Database = {
         Args: { _company_id: string; _user_id: string }
         Returns: boolean
       }
+      join_with_invite: { Args: { _code: string }; Returns: string }
     }
     Enums: {
       app_role: "manager" | "employee"
