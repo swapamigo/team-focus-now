@@ -23,29 +23,18 @@ export default function EmployeeOnboarding() {
     if (!consent) return toast.error("Bitte den Datenschutzhinweis akzeptieren.");
     setLoading(true);
     try {
-      const { data: invite, error } = await supabase
-        .from("invites")
-        .select("*")
-        .eq("code", code.trim())
-        .is("used_at", null)
-        .maybeSingle();
-      if (error || !invite) throw new Error("Einladungs-Code ungültig oder bereits verwendet.");
-
-      await Promise.all([
-        supabase.from("user_roles").insert({ user_id: user.id, role: "employee", company_id: invite.company_id }),
-        supabase.from("company_members").insert({ user_id: user.id, company_id: invite.company_id }),
-        invite.team_id
-          ? supabase.from("team_members").insert({ user_id: user.id, team_id: invite.team_id })
-          : Promise.resolve(),
-        supabase.from("invites").update({ used_at: new Date().toISOString(), used_by: user.id }).eq("id", invite.id),
-        supabase.from("profiles").update({ consent_accepted_at: new Date().toISOString(), onboarded: true }).eq("id", user.id),
-      ]);
-
+      const { error } = await supabase.rpc("join_with_invite", { _code: code.trim() });
+      if (error) throw error;
       toast.success("Willkommen im Team!");
       await refresh();
       nav("/app");
     } catch (err: any) {
-      toast.error(err.message ?? "Fehler beim Beitreten");
+      const msg = err.message?.includes("invite_not_found")
+        ? "Einladungs-Code ungültig."
+        : err.message?.includes("invite_expired")
+        ? "Einladungs-Code abgelaufen."
+        : err.message ?? "Fehler beim Beitreten";
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
