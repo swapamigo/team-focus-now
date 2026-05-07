@@ -2,6 +2,7 @@ import { Link, Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Shield, Trophy, Users, Sparkles, Lock, BarChart3 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import Logo from "@/components/Logo";
 
 const features = [
   { icon: Trophy, title: "Team-Wettbewerbe", desc: "Teams treten in fairen Challenges um die geringste Ablenkungszeit an." },
@@ -25,11 +26,8 @@ export default function Landing() {
       {/* Header */}
       <header className="sticky top-0 z-50 glass border-b border-border/40">
         <div className="container flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="h-9 w-9 rounded-2xl gradient-primary shadow-glow grid place-items-center">
-              <Sparkles className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="font-semibold text-lg tracking-tight">Team Focus</span>
+          <Link to="/" className="flex items-center">
+            <Logo withWordmark />
           </Link>
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost" size="sm">
