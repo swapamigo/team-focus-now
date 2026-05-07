@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Sparkles } from "lucide-react";
+import Logo from "@/components/Logo";
 import { z } from "zod";
 
 const schema = z.object({
@@ -20,9 +20,12 @@ interface Props { mode: "login" | "register" }
 export default function AuthPage({ mode }: Props) {
   const nav = useNavigate();
   const loc = useLocation();
-  const { session, profile, loading: authLoading } = useAuth();
+  const { session, profile, role, loading: authLoading } = useAuth();
   if (!authLoading && session) {
-    return <Navigate to={profile && !profile.onboarded ? "/onboarding/role" : "/app"} replace />;
+    const target = profile && !profile.onboarded
+      ? "/onboarding/role"
+      : role === "manager" ? "/manager" : "/app";
+    return <Navigate to={target} replace />;
   }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -79,11 +82,8 @@ export default function AuthPage({ mode }: Props) {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <header className="container py-6">
-        <Link to="/" className="inline-flex items-center gap-2">
-          <div className="h-9 w-9 rounded-2xl gradient-primary grid place-items-center">
-            <Sparkles className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="font-semibold text-lg">Team Focus</span>
+        <Link to="/" className="inline-flex items-center">
+          <Logo withWordmark />
         </Link>
       </header>
 

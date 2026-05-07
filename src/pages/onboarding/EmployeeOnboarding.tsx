@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Sparkles, Shield } from "lucide-react";
+import { Shield } from "lucide-react";
+import Logo from "@/components/Logo";
 
 export default function EmployeeOnboarding() {
   const { user, refresh } = useAuth();
@@ -23,29 +24,18 @@ export default function EmployeeOnboarding() {
     if (!consent) return toast.error("Bitte den Datenschutzhinweis akzeptieren.");
     setLoading(true);
     try {
-      const { data: invite, error } = await supabase
-        .from("invites")
-        .select("*")
-        .eq("code", code.trim())
-        .is("used_at", null)
-        .maybeSingle();
-      if (error || !invite) throw new Error("Einladungs-Code ungültig oder bereits verwendet.");
-
-      await Promise.all([
-        supabase.from("user_roles").insert({ user_id: user.id, role: "employee", company_id: invite.company_id }),
-        supabase.from("company_members").insert({ user_id: user.id, company_id: invite.company_id }),
-        invite.team_id
-          ? supabase.from("team_members").insert({ user_id: user.id, team_id: invite.team_id })
-          : Promise.resolve(),
-        supabase.from("invites").update({ used_at: new Date().toISOString(), used_by: user.id }).eq("id", invite.id),
-        supabase.from("profiles").update({ consent_accepted_at: new Date().toISOString(), onboarded: true }).eq("id", user.id),
-      ]);
-
+      const { error } = await supabase.rpc("join_with_invite", { _code: code.trim() });
+      if (error) throw error;
       toast.success("Willkommen im Team!");
       await refresh();
       nav("/app");
     } catch (err: any) {
-      toast.error(err.message ?? "Fehler beim Beitreten");
+      const msg = err.message?.includes("invite_not_found")
+        ? "Einladungs-Code ungültig."
+        : err.message?.includes("invite_expired")
+        ? "Einladungs-Code abgelaufen."
+        : err.message ?? "Fehler beim Beitreten";
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -53,11 +43,8 @@ export default function EmployeeOnboarding() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <header className="container py-6 flex items-center gap-2">
-        <div className="h-9 w-9 rounded-2xl gradient-primary grid place-items-center">
-          <Sparkles className="h-5 w-5 text-primary-foreground" />
-        </div>
-        <span className="font-semibold text-lg">Team Focus</span>
+      <header className="container py-6">
+        <Logo withWordmark />
       </header>
       <div className="flex-1 grid place-items-center px-4 pb-12">
         <form onSubmit={submit} className="w-full max-w-md surface-card p-8 animate-scale-in space-y-5">

@@ -1,16 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { Building2, UserCircle2, Sparkles } from "lucide-react";
+import { Building2, UserCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Logo from "@/components/Logo";
 
 export default function RoleSelect() {
   const nav = useNavigate();
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <header className="container py-6 flex items-center gap-2">
-        <div className="h-9 w-9 rounded-2xl gradient-primary grid place-items-center">
-          <Sparkles className="h-5 w-5 text-primary-foreground" />
-        </div>
-        <span className="font-semibold text-lg">Team Focus</span>
+      <header className="container py-6">
+        <Logo withWordmark />
       </header>
       <div className="flex-1 grid place-items-center px-4 pb-12">
         <div className="w-full max-w-2xl text-center animate-fade-in">

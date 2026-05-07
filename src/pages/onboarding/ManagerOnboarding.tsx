@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Sparkles, Shield } from "lucide-react";
+import { Shield } from "lucide-react";
+import Logo from "@/components/Logo";
 
 export default function ManagerOnboarding() {
   const { user, refresh } = useAuth();
@@ -24,26 +25,22 @@ export default function ManagerOnboarding() {
     if (!consent) return toast.error("Bitte den Datenschutzhinweis akzeptieren.");
     setLoading(true);
     try {
-      const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 40) + "-" + Math.random().toString(36).slice(2, 6);
-      const { data: company, error: cErr } = await supabase
-        .from("companies").insert({ name, slug, industry, owner_id: user.id }).select().single();
-      if (cErr) throw cErr;
+      const { data: companyId, error } = await supabase.rpc("create_workspace", {
+        _name: name.trim(),
+        _industry: industry || null,
+      });
+      if (error) throw error;
 
-      await Promise.all([
-        supabase.from("user_roles").insert({ user_id: user.id, role: "manager", company_id: company.id }),
-        supabase.from("company_members").insert({ user_id: user.id, company_id: company.id }),
-        supabase.from("subscriptions").insert({ company_id: company.id, status: "trial", seats: 1 }),
-        supabase.from("profiles").update({ consent_accepted_at: new Date().toISOString(), onboarded: true }).eq("id", user.id),
-      ]);
-
-      // Seed Demo via Edge Function
       toast.success("Workspace erstellt – Demo-Daten werden geladen…");
-      const { error: seedErr } = await supabase.functions.invoke("seed-demo", { body: { company_id: company.id } });
+      const { error: seedErr } = await supabase.functions.invoke("seed-demo", {
+        body: { company_id: companyId },
+      });
       if (seedErr) console.warn("Seed:", seedErr);
 
       await refresh();
-      nav("/app");
+      nav("/manager", { replace: true });
     } catch (err: any) {
+      console.error(err);
       toast.error(err.message ?? "Fehler beim Erstellen");
     } finally {
       setLoading(false);
@@ -52,11 +49,8 @@ export default function ManagerOnboarding() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <header className="container py-6 flex items-center gap-2">
-        <div className="h-9 w-9 rounded-2xl gradient-primary grid place-items-center">
-          <Sparkles className="h-5 w-5 text-primary-foreground" />
-        </div>
-        <span className="font-semibold text-lg">Team Focus</span>
+      <header className="container py-6">
+        <Logo withWordmark />
       </header>
       <div className="flex-1 grid place-items-center px-4 pb-12">
         <form onSubmit={submit} className="w-full max-w-md surface-card p-8 animate-scale-in space-y-5">

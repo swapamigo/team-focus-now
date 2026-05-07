@@ -1,18 +1,22 @@
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { Sparkles } from "lucide-react";
+import Logo from "@/components/Logo";
 
-export default function ProtectedRoute({ children, requireOnboarded = true }: { children: ReactNode; requireOnboarded?: boolean }) {
-  const { session, profile, loading } = useAuth();
+interface Props {
+  children: ReactNode;
+  requireOnboarded?: boolean;
+  requireRole?: "manager" | "employee";
+}
+
+export default function ProtectedRoute({ children, requireOnboarded = true, requireRole }: Props) {
+  const { session, profile, role, loading } = useAuth();
 
   if (loading) {
     return (
       <div className="min-h-screen grid place-items-center bg-background">
         <div className="flex flex-col items-center gap-3 text-muted-foreground">
-          <div className="h-12 w-12 rounded-2xl gradient-primary grid place-items-center animate-pulse-glow">
-            <Sparkles className="h-6 w-6 text-primary-foreground" />
-          </div>
+          <div className="animate-pulse-glow"><Logo size={48} /></div>
           <p className="text-sm">Lädt…</p>
         </div>
       </div>
@@ -20,5 +24,8 @@ export default function ProtectedRoute({ children, requireOnboarded = true }: { 
   }
   if (!session) return <Navigate to="/login" replace />;
   if (requireOnboarded && profile && !profile.onboarded) return <Navigate to="/onboarding/role" replace />;
+  if (requireRole && role && role !== requireRole) {
+    return <Navigate to={role === "manager" ? "/manager" : "/app"} replace />;
+  }
   return <>{children}</>;
 }

@@ -2,8 +2,12 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Shield, LogOut, User, Sparkles } from "lucide-react";
+import { Shield, LogOut, User, Sparkles, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function SettingsPage() {
   const { profile, role } = useAuth();
@@ -15,11 +19,19 @@ export default function SettingsPage() {
     nav("/");
   };
 
+  const deleteAccount = async () => {
+    const { error } = await supabase.rpc("delete_my_account");
+    if (error) return toast.error("Fehler: " + error.message);
+    await supabase.auth.signOut();
+    toast.success("Konto gelöscht.");
+    nav("/");
+  };
+
   const simulate = async () => {
     toast.info("Simuliere neuen Tag…");
     const { error } = await supabase.functions.invoke("simulate-tick", {});
     if (error) return toast.error("Fehler bei Simulation");
-    toast.success("Demo-Daten aktualisiert. Lade Dashboard neu.");
+    toast.success("Demo-Daten aktualisiert.");
     setTimeout(() => window.location.reload(), 500);
   };
 
@@ -63,11 +75,34 @@ export default function SettingsPage() {
         </Button>
       </section>
 
-      <section className="px-5">
-        <Button onClick={logout} variant="ghost" className="w-full h-12 rounded-2xl text-destructive hover:text-destructive">
+      <section className="px-5 space-y-2">
+        <Button onClick={logout} variant="ghost" className="w-full h-12 rounded-2xl">
           <LogOut className="h-4 w-4 mr-2" />
           Abmelden
         </Button>
+
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="ghost" className="w-full h-12 rounded-2xl text-destructive hover:text-destructive">
+              <Trash2 className="h-4 w-4 mr-2" />
+              Konto löschen
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Konto endgültig löschen?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Dein Konto und alle deine Daten (Statistiken, Mitgliedschaften) werden unwiderruflich entfernt.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Abbrechen</AlertDialogCancel>
+              <AlertDialogAction onClick={deleteAccount} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                Endgültig löschen
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </section>
     </div>
   );
