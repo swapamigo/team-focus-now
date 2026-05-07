@@ -14,6 +14,12 @@ import StatsPage from "./pages/employee/Stats";
 import TeamsPage from "./pages/employee/Teams";
 import NotificationsPage from "./pages/employee/Notifications";
 import SettingsPage from "./pages/employee/Settings";
+import ManagerShell from "./components/app/ManagerShell";
+import ManagerDashboard from "./pages/manager/Dashboard";
+import ManagerTeams from "./pages/manager/Teams";
+import ManagerInvites from "./pages/manager/Invites";
+import ManagerChallenges from "./pages/manager/Challenges";
+import ManagerSettings from "./pages/manager/Settings";
 import ProtectedRoute from "./components/app/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 
@@ -34,12 +40,20 @@ const App = () => (
           <Route path="/onboarding/manager" element={<ProtectedRoute requireOnboarded={false}><ManagerOnboarding /></ProtectedRoute>} />
           <Route path="/onboarding/employee" element={<ProtectedRoute requireOnboarded={false}><EmployeeOnboarding /></ProtectedRoute>} />
 
-          <Route path="/app" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
+          <Route path="/app" element={<ProtectedRoute requireRole="employee"><AppShell /></ProtectedRoute>}>
             <Route index element={<EmployeeDashboard />} />
             <Route path="stats" element={<StatsPage />} />
             <Route path="teams" element={<TeamsPage />} />
             <Route path="notifications" element={<NotificationsPage />} />
             <Route path="settings" element={<SettingsPage />} />
+          </Route>
+
+          <Route path="/manager" element={<ProtectedRoute requireRole="manager"><ManagerShell /></ProtectedRoute>}>
+            <Route index element={<ManagerDashboard />} />
+            <Route path="teams" element={<ManagerTeams />} />
+            <Route path="invites" element={<ManagerInvites />} />
+            <Route path="challenges" element={<ManagerChallenges />} />
+            <Route path="settings" element={<ManagerSettings />} />
           </Route>
 
           <Route path="/index" element={<Navigate to="/" replace />} />
