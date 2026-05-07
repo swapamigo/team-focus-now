@@ -13,9 +13,12 @@ const features = [
 ];
 
 export default function Landing() {
-  const { session, profile, loading } = useAuth();
+  const { session, profile, role, loading } = useAuth();
   if (!loading && session) {
-    return <Navigate to={profile && !profile.onboarded ? "/onboarding/role" : "/app"} replace />;
+    const target = profile && !profile.onboarded
+      ? "/onboarding/role"
+      : role === "manager" ? "/manager" : "/app";
+    return <Navigate to={target} replace />;
   }
   return (
     <div className="min-h-screen bg-background">
