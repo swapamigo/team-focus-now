@@ -99,7 +99,7 @@ export default function EmployeeDashboard() {
 
       {/* High Focus Banner */}
       {highFocusActive && (
-        <div className="mx-5 mb-4 rounded-3xl gradient-focus p-5 text-focus-foreground shadow-glow animate-scale-in">
+        <div className="mx-5 mb-4 rounded-2xl gradient-focus p-5 text-focus-foreground shadow-md animate-scale-in">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-white/20 grid place-items-center">
               <Flame className="h-5 w-5" />
@@ -189,8 +189,8 @@ export default function EmployeeDashboard() {
               <div className="w-7 text-center">
                 {i === 0 ? <span className="text-lg">🥇</span> : i === 1 ? <span className="text-lg">🥈</span> : i === 2 ? <span className="text-lg">🥉</span> : <span className="text-sm font-medium text-muted-foreground">{i + 1}.</span>}
               </div>
-              <div className="h-10 w-10 rounded-2xl grid place-items-center text-xl shrink-0" style={{ background: `${t.team_color}1f` }}>
-                {t.team_emoji ?? "🚀"}
+              <div className="h-10 w-10 rounded-lg grid place-items-center text-xs font-semibold text-white shrink-0" style={{ background: t.team_color }}>
+                {t.team_name.slice(0, 2).toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-medium truncate">{t.team_name} {t.is_own && <span className="text-xs text-primary ml-1">(Dein Team)</span>}</p>
@@ -203,7 +203,7 @@ export default function EmployeeDashboard() {
 
       {/* Datenschutz-Hinweis */}
       <section className="px-5">
-        <div className="rounded-3xl bg-secondary/60 p-4 flex items-start gap-3">
+        <div className="rounded-2xl bg-secondary/60 p-4 flex items-start gap-3">
           <Sparkles className="h-4 w-4 text-primary shrink-0 mt-0.5" />
           <p className="text-xs text-muted-foreground leading-relaxed">
             Du siehst nie individuelle Werte deiner Kolleg:innen. Nur dein eigener Wert und Team-Aggregate.
