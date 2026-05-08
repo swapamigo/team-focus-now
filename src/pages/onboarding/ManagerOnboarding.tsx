@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -11,12 +11,16 @@ import { Shield } from "lucide-react";
 import Logo from "@/components/Logo";
 
 export default function ManagerOnboarding() {
-  const { user, refresh } = useAuth();
-  const nav = useNavigate();
+  const { user, profile, role } = useAuth();
   const [name, setName] = useState("");
   const [industry, setIndustry] = useState("");
   const [consent, setConsent] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Wenn bereits onboarded, sofort weiterleiten – verhindert das Zurückwerfen.
+  if (profile?.onboarded) {
+    return <Navigate to={role === "employee" ? "/app" : "/manager"} replace />;
+  }
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,12 +41,11 @@ export default function ManagerOnboarding() {
       });
       if (seedErr) console.warn("Seed:", seedErr);
 
-      await refresh();
-      nav("/manager", { replace: true });
+      // Hard-Reload, damit Auth-Context und Routen sauber neu initialisieren.
+      window.location.replace("/manager");
     } catch (err: any) {
       console.error(err);
       toast.error(err.message ?? "Fehler beim Erstellen");
-    } finally {
       setLoading(false);
     }
   };
@@ -61,14 +64,14 @@ export default function ManagerOnboarding() {
 
           <div className="space-y-1.5">
             <Label htmlFor="name">Unternehmen / Workspace</Label>
-            <Input id="name" required value={name} onChange={(e) => setName(e.target.value)} placeholder="Mustermann GmbH" className="h-11 rounded-xl" />
+            <Input id="name" required value={name} onChange={(e) => setName(e.target.value)} placeholder="Mustermann GmbH" className="h-11" />
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="industry">Branche (optional)</Label>
-            <Input id="industry" value={industry} onChange={(e) => setIndustry(e.target.value)} placeholder="Beratung, Tech, Handel…" className="h-11 rounded-xl" />
+            <Input id="industry" value={industry} onChange={(e) => setIndustry(e.target.value)} placeholder="Beratung, Tech, Handel…" className="h-11" />
           </div>
 
-          <div className="flex items-start gap-3 rounded-2xl bg-secondary p-4">
+          <div className="flex items-start gap-3 rounded-xl bg-secondary p-4">
             <Shield className="h-5 w-5 text-primary shrink-0 mt-0.5" />
             <div className="text-xs text-muted-foreground leading-relaxed">
               Team Focus erhebt nur aggregierte Zeitdaten. Keine Inhalte, keine Screenshots, keine Tastatureingaben.
@@ -81,7 +84,7 @@ export default function ManagerOnboarding() {
             <span className="text-sm">Ich habe den Datenschutzhinweis gelesen und akzeptiere ihn.</span>
           </label>
 
-          <Button type="submit" disabled={loading} className="w-full h-12 rounded-2xl shadow-glow">
+          <Button type="submit" disabled={loading} className="w-full h-12">
             {loading ? "Wird erstellt…" : "Workspace erstellen"}
           </Button>
         </form>

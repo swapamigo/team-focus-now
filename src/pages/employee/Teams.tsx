@@ -61,8 +61,8 @@ export default function TeamsPage() {
                 <div className="w-8 text-center">
                   {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : <span className="text-sm font-medium text-muted-foreground">{i + 1}.</span>}
                 </div>
-                <div className="h-11 w-11 rounded-2xl grid place-items-center text-xl shrink-0" style={{ background: `${t.teams.color}1f` }}>
-                  {t.teams.emoji ?? "🚀"}
+                <div className="h-11 w-11 rounded-lg grid place-items-center text-xs font-semibold text-white shrink-0" style={{ background: t.teams.color }}>
+                  {t.teams.name.slice(0, 2).toUpperCase()}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium">{t.teams.name} {isOwn && <span className="text-xs text-primary ml-1">(Du)</span>}</p>

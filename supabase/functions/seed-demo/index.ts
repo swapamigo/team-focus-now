@@ -11,10 +11,10 @@ const corsHeaders = {
 interface Body { company_id: string }
 
 const TEAM_DEFS = [
-  { name: 'Falken', emoji: '🦅', color: '#6366f1' },
-  { name: 'Wölfe', emoji: '🐺', color: '#8b5cf6' },
-  { name: 'Pandas', emoji: '🐼', color: '#10b981' },
-  { name: 'Tiger', emoji: '🐯', color: '#f59e0b' },
+  { name: 'Alpha', emoji: null, color: '#6366f1' },
+  { name: 'Beta',  emoji: null, color: '#8b5cf6' },
+  { name: 'Gamma', emoji: null, color: '#10b981' },
+  { name: 'Delta', emoji: null, color: '#f59e0b' },
 ];
 
 const FIRST = ['Anna','Ben','Clara','David','Emma','Felix','Greta','Hans','Ida','Jonas','Klara','Lena','Max','Nina','Oskar','Paula','Quentin','Rita','Sven','Tina'];
