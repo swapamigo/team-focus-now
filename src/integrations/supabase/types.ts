@@ -317,6 +317,7 @@ export type Database = {
       high_focus_periods: {
         Row: {
           active: boolean
+          ad_hoc_until: string | null
           company_id: string
           created_at: string
           end_time: string
@@ -328,6 +329,7 @@ export type Database = {
         }
         Insert: {
           active?: boolean
+          ad_hoc_until?: string | null
           company_id: string
           created_at?: string
           end_time: string
@@ -339,6 +341,7 @@ export type Database = {
         }
         Update: {
           active?: boolean
+          ad_hoc_until?: string | null
           company_id?: string
           created_at?: string
           end_time?: string
@@ -664,6 +667,60 @@ export type Database = {
           },
         ]
       }
+      user_allowed_apps: {
+        Row: {
+          app_name: string
+          company_id: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          app_name: string
+          company_id: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          app_name?: string
+          company_id?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_breaks: {
+        Row: {
+          company_id: string
+          created_at: string
+          end_time: string
+          id: string
+          label: string
+          start_time: string
+          user_id: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          end_time: string
+          id?: string
+          label: string
+          start_time: string
+          user_id: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          end_time?: string
+          id?: string
+          label?: string
+          start_time?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           company_id: string | null
@@ -685,6 +742,36 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      user_work_schedules: {
+        Row: {
+          company_id: string
+          created_at: string
+          end_time: string
+          id: string
+          start_time: string
+          user_id: string
+          weekday: number
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          end_time: string
+          id?: string
+          start_time: string
+          user_id: string
+          weekday: number
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          end_time?: string
+          id?: string
+          start_time?: string
+          user_id?: string
+          weekday?: number
         }
         Relationships: []
       }
