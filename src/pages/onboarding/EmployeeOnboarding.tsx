@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -11,12 +11,15 @@ import { Shield } from "lucide-react";
 import Logo from "@/components/Logo";
 
 export default function EmployeeOnboarding() {
-  const { user, refresh } = useAuth();
-  const nav = useNavigate();
+  const { user, profile, role } = useAuth();
   const [params] = useSearchParams();
   const [code, setCode] = useState(params.get("invite") ?? "");
   const [consent, setConsent] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  if (profile?.onboarded) {
+    return <Navigate to={role === "manager" ? "/manager" : "/app"} replace />;
+  }
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,8 +30,7 @@ export default function EmployeeOnboarding() {
       const { error } = await supabase.rpc("join_with_invite", { _code: code.trim() });
       if (error) throw error;
       toast.success("Willkommen im Team!");
-      await refresh();
-      nav("/app");
+      window.location.replace("/app");
     } catch (err: any) {
       const msg = err.message?.includes("invite_not_found")
         ? "Einladungs-Code ungültig."
@@ -36,7 +38,6 @@ export default function EmployeeOnboarding() {
         ? "Einladungs-Code abgelaufen."
         : err.message ?? "Fehler beim Beitreten";
       toast.error(msg);
-    } finally {
       setLoading(false);
     }
   };
@@ -55,10 +56,10 @@ export default function EmployeeOnboarding() {
 
           <div className="space-y-1.5">
             <Label htmlFor="code">Einladungs-Code</Label>
-            <Input id="code" required value={code} onChange={(e) => setCode(e.target.value)} placeholder="z. B. TF-AB12CD" className="h-11 rounded-xl font-mono uppercase" />
+            <Input id="code" required value={code} onChange={(e) => setCode(e.target.value)} placeholder="z. B. AB12CD34" className="h-11 font-mono uppercase" />
           </div>
 
-          <div className="flex items-start gap-3 rounded-2xl bg-secondary p-4">
+          <div className="flex items-start gap-3 rounded-xl bg-secondary p-4">
             <Shield className="h-5 w-5 text-primary shrink-0 mt-0.5" />
             <div className="text-xs text-muted-foreground leading-relaxed">
               Es werden nur aggregierte Zeitdaten erhoben. Du siehst nie individuelle Werte deiner Kolleg:innen.
@@ -71,7 +72,7 @@ export default function EmployeeOnboarding() {
             <span className="text-sm">Ich nehme freiwillig teil und akzeptiere den Datenschutzhinweis.</span>
           </label>
 
-          <Button type="submit" disabled={loading} className="w-full h-12 rounded-2xl shadow-glow">
+          <Button type="submit" disabled={loading} className="w-full h-12">
             {loading ? "Wird verbunden…" : "Beitreten"}
           </Button>
         </form>

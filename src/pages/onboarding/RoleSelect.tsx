@@ -1,10 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Building2, UserCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 import Logo from "@/components/Logo";
 
 export default function RoleSelect() {
   const nav = useNavigate();
+  const { profile, role } = useAuth();
+  if (profile?.onboarded) {
+    return <Navigate to={role === "manager" ? "/manager" : "/app"} replace />;
+  }
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <header className="container py-6">
