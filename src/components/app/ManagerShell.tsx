@@ -1,14 +1,15 @@
 import { Outlet, NavLink, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, Trophy, UserPlus, Settings as Cog } from "lucide-react";
+import { LayoutDashboard, Users, Trophy, UserPlus, Settings as Cog, UserCog } from "lucide-react";
 import Logo from "@/components/Logo";
 import { cn } from "@/lib/utils";
 
 const items = [
   { to: "/manager", icon: LayoutDashboard, label: "Übersicht", end: true },
   { to: "/manager/teams", icon: Users, label: "Teams" },
+  { to: "/manager/members", icon: UserCog, label: "Personen" },
   { to: "/manager/invites", icon: UserPlus, label: "Einladungen" },
   { to: "/manager/challenges", icon: Trophy, label: "Challenges" },
-  { to: "/manager/settings", icon: Cog, label: "Einstellungen" },
+  { to: "/manager/settings", icon: Cog, label: "Mehr" },
 ];
 
 export default function ManagerShell() {
@@ -58,7 +59,7 @@ export default function ManagerShell() {
                   to={it.to}
                   end={it.end}
                   className={cn(
-                    "flex flex-col items-center gap-1 px-3 py-1.5 rounded-2xl",
+                    "flex flex-col items-center gap-1 px-2 py-1.5 rounded-lg",
                     active ? "text-primary" : "text-muted-foreground"
                   )}
                 >
