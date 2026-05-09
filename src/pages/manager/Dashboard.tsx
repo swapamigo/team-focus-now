@@ -118,10 +118,10 @@ export default function ManagerDashboard() {
   };
 
   const simulate = async () => {
-    toast.info("Simuliere neuen Tag…");
-    const { error } = await supabase.functions.invoke("simulate-tick", {});
+    toast.info("Simuliere Demo-Monat…");
+    const { error } = await supabase.functions.invoke("simulate-month", {});
     if (error) return toast.error("Fehler bei Simulation");
-    toast.success("Daten aktualisiert.");
+    toast.success("30 Tage Demo-Daten aktualisiert.");
     load();
   };
 
