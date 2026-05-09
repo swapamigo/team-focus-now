@@ -75,7 +75,7 @@ export default function SettingsPage() {
       <section className="px-5 mb-5">
         <Button onClick={simulate} variant="outline" className="w-full h-12 rounded-2xl">
           <Sparkles className="h-4 w-4 mr-2" />
-          Demo-Tag simulieren
+          Demo-Monat simulieren
         </Button>
       </section>
 
