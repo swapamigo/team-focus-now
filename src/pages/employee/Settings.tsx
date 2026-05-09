@@ -20,19 +20,23 @@ export default function SettingsPage() {
   };
 
   const deleteAccount = async () => {
-    const { error } = await supabase.rpc("delete_my_account");
-    if (error) return toast.error("Fehler: " + error.message);
+    toast.loading("Konto wird gelöscht…", { id: "del" });
+    const { error } = await supabase.functions.invoke("delete-account", {});
+    if (error) {
+      toast.error("Fehler: " + error.message, { id: "del" });
+      return;
+    }
     await supabase.auth.signOut();
-    toast.success("Konto gelöscht.");
-    nav("/");
+    toast.success("Konto gelöscht.", { id: "del" });
+    window.location.replace("/");
   };
 
   const simulate = async () => {
-    toast.info("Simuliere neuen Tag…");
-    const { error } = await supabase.functions.invoke("simulate-tick", {});
+    toast.info("Simuliere Demo-Monat…");
+    const { error } = await supabase.functions.invoke("simulate-month", {});
     if (error) return toast.error("Fehler bei Simulation");
-    toast.success("Demo-Daten aktualisiert.");
-    setTimeout(() => window.location.reload(), 500);
+    toast.success("30 Tage Demo-Daten aktualisiert.");
+    setTimeout(() => window.location.reload(), 600);
   };
 
   return (
