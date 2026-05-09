@@ -19,11 +19,15 @@ export default function ManagerSettings() {
   };
 
   const deleteAccount = async () => {
-    const { error } = await supabase.rpc("delete_my_account");
-    if (error) return toast.error("Fehler: " + error.message);
+    toast.loading("Konto wird gelöscht…", { id: "del" });
+    const { error } = await supabase.functions.invoke("delete-account", {});
+    if (error) {
+      toast.error("Fehler: " + error.message, { id: "del" });
+      return;
+    }
     await supabase.auth.signOut();
-    toast.success("Konto gelöscht.");
-    nav("/");
+    toast.success("Konto gelöscht.", { id: "del" });
+    window.location.replace("/");
   };
 
   return (

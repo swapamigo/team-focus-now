@@ -21,18 +21,22 @@ export default function AuthPage({ mode }: Props) {
   const nav = useNavigate();
   const loc = useLocation();
   const { session, profile, role, loading: authLoading } = useAuth();
+  const params = new URLSearchParams(loc.search);
+  const redirectParam = params.get("redirect");
+  const inviteCode = params.get("invite");
+
   if (!authLoading && session) {
-    const target = profile && !profile.onboarded
-      ? "/onboarding/role"
-      : role === "manager" ? "/manager" : "/app";
+    const target = redirectParam
+      ? redirectParam
+      : profile && !profile.onboarded
+        ? "/onboarding/role"
+        : role === "manager" ? "/manager" : "/app";
     return <Navigate to={target} replace />;
   }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const inviteCode = new URLSearchParams(loc.search).get("invite");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,14 +73,17 @@ export default function AuthPage({ mode }: Props) {
 
   const handleGoogle = async () => {
     setLoading(true);
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
+    const redirectUri = redirectParam
+      ? `${window.location.origin}${redirectParam}`
+      : window.location.origin;
+    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: redirectUri });
     if (result.error) {
       toast.error("Google-Anmeldung fehlgeschlagen");
       setLoading(false);
       return;
     }
     if (result.redirected) return;
-    nav("/app");
+    nav(redirectParam ?? "/app");
   };
 
   return (

@@ -118,10 +118,10 @@ export default function ManagerDashboard() {
   };
 
   const simulate = async () => {
-    toast.info("Simuliere neuen Tag…");
-    const { error } = await supabase.functions.invoke("simulate-tick", {});
+    toast.info("Simuliere Demo-Monat…");
+    const { error } = await supabase.functions.invoke("simulate-month", {});
     if (error) return toast.error("Fehler bei Simulation");
-    toast.success("Daten aktualisiert.");
+    toast.success("30 Tage Demo-Daten aktualisiert.");
     load();
   };
 
@@ -133,7 +133,7 @@ export default function ManagerDashboard() {
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mt-1">{companyName || "Workspace"}</h1>
         </div>
         <Button onClick={simulate} variant="outline" className="hidden sm:inline-flex">
-          <Sparkles className="h-4 w-4 mr-2" /> Tag simulieren
+          <Sparkles className="h-4 w-4 mr-2" /> Demo-Monat simulieren
         </Button>
       </header>
 
@@ -202,7 +202,7 @@ export default function ManagerDashboard() {
       </section>
 
       <Button onClick={simulate} variant="outline" className="w-full mt-6 sm:hidden">
-        <Sparkles className="h-4 w-4 mr-2" /> Demo-Tag simulieren
+        <Sparkles className="h-4 w-4 mr-2" /> Demo-Monat simulieren
       </Button>
     </div>
   );
