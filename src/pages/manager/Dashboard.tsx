@@ -133,7 +133,7 @@ export default function ManagerDashboard() {
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mt-1">{companyName || "Workspace"}</h1>
         </div>
         <Button onClick={simulate} variant="outline" className="hidden sm:inline-flex">
-          <Sparkles className="h-4 w-4 mr-2" /> Tag simulieren
+          <Sparkles className="h-4 w-4 mr-2" /> Demo-Monat simulieren
         </Button>
       </header>
 
