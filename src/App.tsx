@@ -23,6 +23,7 @@ import ManagerChallenges from "./pages/manager/Challenges";
 import ManagerSettings from "./pages/manager/Settings";
 import ProtectedRoute from "./components/app/ProtectedRoute";
 import NotFound from "./pages/NotFound";
+import JoinByCode from "./pages/JoinByCode";
 
 const queryClient = new QueryClient();
 
