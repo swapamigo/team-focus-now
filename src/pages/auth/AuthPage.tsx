@@ -73,14 +73,17 @@ export default function AuthPage({ mode }: Props) {
 
   const handleGoogle = async () => {
     setLoading(true);
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
+    const redirectUri = redirectParam
+      ? `${window.location.origin}${redirectParam}`
+      : window.location.origin;
+    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: redirectUri });
     if (result.error) {
       toast.error("Google-Anmeldung fehlgeschlagen");
       setLoading(false);
       return;
     }
     if (result.redirected) return;
-    nav("/app");
+    nav(redirectParam ?? "/app");
   };
 
   return (
