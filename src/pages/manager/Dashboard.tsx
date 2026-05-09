@@ -202,7 +202,7 @@ export default function ManagerDashboard() {
       </section>
 
       <Button onClick={simulate} variant="outline" className="w-full mt-6 sm:hidden">
-        <Sparkles className="h-4 w-4 mr-2" /> Demo-Tag simulieren
+        <Sparkles className="h-4 w-4 mr-2" /> Demo-Monat simulieren
       </Button>
     </div>
   );
