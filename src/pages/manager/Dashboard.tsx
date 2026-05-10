@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { Users, Trophy, Activity, TrendingDown, Sparkles, Zap, Clock } from "lucide-react";
+import { Users, Trophy, Activity, TrendingDown, Sparkles, Zap, Clock, CalendarRange } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 interface TeamRow {
   id: string;
@@ -20,6 +21,13 @@ interface AdHocFocus {
   multiplier: number;
 }
 
+interface MonthPoint {
+  label: string;
+  avgMinutes: number;
+}
+
+const MONTHS_DE = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+
 export default function ManagerDashboard() {
   const { companyId, profile } = useAuth();
   const [teams, setTeams] = useState<TeamRow[]>([]);
@@ -29,25 +37,29 @@ export default function ManagerDashboard() {
   const [loading, setLoading] = useState(true);
   const [adHoc, setAdHoc] = useState<AdHocFocus | null>(null);
   const [now, setNow] = useState(Date.now());
+  const [yearData, setYearData] = useState<MonthPoint[]>([]);
+  const [simulating, setSimulating] = useState(false);
 
   const load = async () => {
     if (!companyId) return;
     setLoading(true);
     const today = new Date().toISOString().slice(0, 10);
-    const [{ data: company }, { data: teamsData }, { data: members }, { data: challenge }, { data: summaries }, { data: focus }] = await Promise.all([
+    const yearAgo = new Date(); yearAgo.setDate(yearAgo.getDate() - 365);
+
+    const [{ data: company }, { data: teamsData }, { data: members }, { data: challenge }, { data: summaries }, { data: focus }, { data: yearRows }] = await Promise.all([
       supabase.from("companies").select("name").eq("id", companyId).maybeSingle(),
       supabase.from("teams").select("id, name, emoji, color").eq("company_id", companyId),
       supabase.from("company_members").select("user_id").eq("company_id", companyId),
       supabase.from("challenges").select("title").eq("company_id", companyId).eq("status", "active").maybeSingle(),
       supabase.from("daily_team_summaries").select("team_id, avg_screen_minutes").eq("company_id", companyId).eq("date", today),
       supabase.from("high_focus_periods").select("id, ad_hoc_until, multiplier").eq("company_id", companyId).not("ad_hoc_until", "is", null).order("ad_hoc_until", { ascending: false }).limit(1),
+      supabase.from("daily_team_summaries").select("date, avg_screen_minutes").eq("company_id", companyId).gte("date", yearAgo.toISOString().slice(0, 10)).order("date", { ascending: true }).limit(10000),
     ]);
 
     setCompanyName(company?.name ?? "");
     setMemberCount(members?.length ?? 0);
     setActiveChallenge(challenge?.title ?? null);
 
-    // Tatsächliche Mitgliederzahl pro Team aus team_members holen (konsistent mit Teams-Seite)
     const teamIds = (teamsData ?? []).map((t) => t.id);
     const { data: tm } = teamIds.length
       ? await supabase.from("team_members").select("team_id").in("team_id", teamIds)
@@ -68,6 +80,24 @@ export default function ManagerDashboard() {
         })
         .sort((a, b) => a.avgMin - b.avgMin)
     );
+
+    // Aggregiere Jahresdaten in Monate
+    const buckets = new Map<string, { sum: number; n: number; date: Date }>();
+    (yearRows ?? []).forEach((r: any) => {
+      const d = new Date(r.date);
+      const key = `${d.getFullYear()}-${d.getMonth()}`;
+      const cur = buckets.get(key) ?? { sum: 0, n: 0, date: new Date(d.getFullYear(), d.getMonth(), 1) };
+      cur.sum += Number(r.avg_screen_minutes ?? 0);
+      cur.n += 1;
+      buckets.set(key, cur);
+    });
+    const points: MonthPoint[] = Array.from(buckets.values())
+      .sort((a, b) => a.date.getTime() - b.date.getTime())
+      .map((b) => ({
+        label: `${MONTHS_DE[b.date.getMonth()]} ${String(b.date.getFullYear()).slice(2)}`,
+        avgMinutes: Math.round(b.sum / Math.max(1, b.n)),
+      }));
+    setYearData(points);
 
     const f = focus?.[0];
     if (f && f.ad_hoc_until && new Date(f.ad_hoc_until).getTime() > Date.now()) {
@@ -93,6 +123,26 @@ export default function ManagerDashboard() {
     return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   }, [adHoc, now]);
 
+  // Jahres-Insights: Vergleich erster vs. letzter Monat
+  const yearInsight = useMemo(() => {
+    if (yearData.length < 2) return null;
+    const first = yearData[0];
+    const last = yearData[yearData.length - 1];
+    const diffMin = first.avgMinutes - last.avgMinutes;
+    // Stunden weniger pro Mitarbeiter pro Monat (≈22 Arbeitstage)
+    const hoursPerMonth = (diffMin * 22) / 60;
+    const pct = first.avgMinutes > 0 ? Math.round((diffMin / first.avgMinutes) * 100) : 0;
+    return {
+      diffMin: Math.round(diffMin),
+      hoursPerMonth: Math.round(hoursPerMonth * 10) / 10,
+      pct,
+      firstLabel: first.label,
+      lastLabel: last.label,
+      firstAvg: first.avgMinutes,
+      lastAvg: last.avgMinutes,
+    };
+  }, [yearData]);
+
   const startAdHoc = async (minutes: number) => {
     if (!companyId) return;
     const end = new Date(Date.now() + minutes * 60_000);
@@ -117,11 +167,13 @@ export default function ManagerDashboard() {
     load();
   };
 
-  const simulate = async () => {
-    toast.info("Simuliere Demo-Monat…");
-    const { error } = await supabase.functions.invoke("simulate-month", {});
+  const simulateYear = async () => {
+    setSimulating(true);
+    toast.info("Simuliere Demo-Jahr… kann einen Moment dauern.");
+    const { error } = await supabase.functions.invoke("simulate-year", {});
+    setSimulating(false);
     if (error) return toast.error("Fehler bei Simulation");
-    toast.success("30 Tage Demo-Daten aktualisiert.");
+    toast.success("365 Tage Demo-Daten aktualisiert.");
     load();
   };
 
@@ -132,8 +184,8 @@ export default function ManagerDashboard() {
           <p className="text-sm text-muted-foreground">Hallo {profile?.display_name ?? "Manager"}</p>
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mt-1">{companyName || "Workspace"}</h1>
         </div>
-        <Button onClick={simulate} variant="outline" className="hidden sm:inline-flex">
-          <Sparkles className="h-4 w-4 mr-2" /> Demo-Monat simulieren
+        <Button onClick={simulateYear} disabled={simulating} variant="outline" className="hidden sm:inline-flex">
+          <Sparkles className="h-4 w-4 mr-2" /> {simulating ? "Simuliere…" : "Demo-Jahr simulieren"}
         </Button>
       </header>
 
@@ -178,6 +230,62 @@ export default function ManagerDashboard() {
         <Stat icon={TrendingDown} label="Ø Ablenkung heute" value={teams.length ? `${Math.round(teams.reduce((s, t) => s + t.avgMin, 0) / teams.length)} min` : "—"} />
       </div>
 
+      {/* Jahresüberblick */}
+      <section className="surface-card p-6 mb-6">
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div>
+            <h2 className="font-semibold flex items-center gap-2"><CalendarRange className="h-4 w-4 text-primary" /> Jahresüberblick</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">Bildschirmzeit Ø pro Mitarbeitendem · Monatsverlauf</p>
+          </div>
+        </div>
+
+        {yearData.length < 2 ? (
+          <div className="text-center py-10 text-sm text-muted-foreground">
+            Noch keine Jahresdaten. Klicke auf <span className="font-medium">„Demo-Jahr simulieren"</span>, um den Trend zu sehen.
+          </div>
+        ) : (
+          <>
+            {yearInsight && yearInsight.diffMin > 0 && (
+              <div className="mb-5 rounded-2xl bg-gradient-to-br from-primary/10 to-success/10 border border-primary/20 p-5">
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Seit der Einführung von TeamFocus</p>
+                <p className="text-2xl md:text-3xl font-semibold tracking-tight">
+                  −{yearInsight.hoursPerMonth} Std / Monat
+                </p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Mitarbeitende sind heute durchschnittlich <span className="font-medium text-foreground">{yearInsight.diffMin} Min/Tag</span> weniger am Handy als zu Beginn ({yearInsight.pct}% Reduktion).
+                  Das sind rund <span className="font-medium text-foreground">{yearInsight.hoursPerMonth} Stunden</span> mehr Fokus pro Mitarbeitendem & Monat.
+                </p>
+                <div className="flex gap-6 mt-3 text-xs text-muted-foreground">
+                  <span><span className="font-medium text-foreground">{yearInsight.firstAvg} min</span> · {yearInsight.firstLabel}</span>
+                  <span>→</span>
+                  <span><span className="font-medium text-foreground">{yearInsight.lastAvg} min</span> · {yearInsight.lastLabel}</span>
+                </div>
+              </div>
+            )}
+
+            <div className="h-56">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={yearData}>
+                  <defs>
+                    <linearGradient id="yearGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.4} />
+                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
+                  <YAxis hide />
+                  <Tooltip
+                    contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }}
+                    formatter={(v: any) => [`${v} min`, "Ø Bildschirmzeit"]}
+                  />
+                  <Area type="monotone" dataKey="avgMinutes" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#yearGrad)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </>
+        )}
+      </section>
+
       <section className="surface-card p-6">
         <h2 className="font-semibold mb-4">Team-Ranking heute</h2>
         {loading ? (
@@ -201,8 +309,8 @@ export default function ManagerDashboard() {
         )}
       </section>
 
-      <Button onClick={simulate} variant="outline" className="w-full mt-6 sm:hidden">
-        <Sparkles className="h-4 w-4 mr-2" /> Demo-Monat simulieren
+      <Button onClick={simulateYear} disabled={simulating} variant="outline" className="w-full mt-6 sm:hidden">
+        <Sparkles className="h-4 w-4 mr-2" /> {simulating ? "Simuliere…" : "Demo-Jahr simulieren"}
       </Button>
     </div>
   );
