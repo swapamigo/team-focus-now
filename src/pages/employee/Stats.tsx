@@ -43,10 +43,46 @@ export default function StatsPage() {
         grid[dayIdx][slot] += Number(e.duration_seconds) / 60;
       });
       setHeatmap(grid);
+
+      // Jahresverlauf (12 Monate)
+      const yearAgo = new Date(); yearAgo.setDate(yearAgo.getDate() - 365);
+      const { data: yearRows } = await supabase
+        .from("daily_user_summaries")
+        .select("date, screen_minutes")
+        .eq("user_id", user.id)
+        .gte("date", yearAgo.toISOString().slice(0, 10))
+        .order("date", { ascending: true })
+        .limit(10000);
+      const buckets = new Map<string, { sum: number; n: number; date: Date }>();
+      (yearRows ?? []).forEach((r: any) => {
+        const d = new Date(r.date);
+        const key = `${d.getFullYear()}-${d.getMonth()}`;
+        const cur = buckets.get(key) ?? { sum: 0, n: 0, date: new Date(d.getFullYear(), d.getMonth(), 1) };
+        cur.sum += Number(r.screen_minutes ?? 0);
+        cur.n += 1;
+        buckets.set(key, cur);
+      });
+      setYearData(
+        Array.from(buckets.values())
+          .sort((a, b) => a.date.getTime() - b.date.getTime())
+          .map((b) => ({
+            label: `${MONTHS_DE[b.date.getMonth()]} ${String(b.date.getFullYear()).slice(2)}`,
+            avgMinutes: Math.round(b.sum / Math.max(1, b.n)),
+          }))
+      );
     })();
   }, [user]);
 
   const max = Math.max(1, ...heatmap.flat());
+
+  const yearInsight = useMemo(() => {
+    if (yearData.length < 2) return null;
+    const first = yearData[0]; const last = yearData[yearData.length - 1];
+    const diffMin = first.avgMinutes - last.avgMinutes;
+    const hoursPerMonth = Math.round(((diffMin * 22) / 60) * 10) / 10;
+    const pct = first.avgMinutes > 0 ? Math.round((diffMin / first.avgMinutes) * 100) : 0;
+    return { diffMin: Math.round(diffMin), hoursPerMonth, pct, first, last };
+  }, [yearData]);
 
   return (
     <div className="min-h-screen bg-background pb-24">
