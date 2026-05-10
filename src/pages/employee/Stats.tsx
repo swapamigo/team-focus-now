@@ -116,6 +116,43 @@ export default function StatsPage() {
         </div>
       </section>
 
+      {yearData.length >= 2 && (
+        <section className="px-5 mb-6">
+          <div className="surface-card p-5">
+            <h2 className="font-semibold flex items-center gap-2"><CalendarRange className="h-4 w-4 text-primary" /> Jahresüberblick</h2>
+            <p className="text-xs text-muted-foreground mt-0.5 mb-4">Ø Bildschirmzeit pro Monat – seit du TeamFocus nutzt</p>
+            {yearInsight && yearInsight.diffMin > 0 && (
+              <div className="mb-4 rounded-2xl bg-gradient-to-br from-primary/10 to-success/10 border border-primary/20 p-4">
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Dein Fortschritt</p>
+                <p className="text-2xl font-semibold tracking-tight">−{yearInsight.hoursPerMonth} Std / Monat</p>
+                <p className="text-xs text-muted-foreground mt-1.5">
+                  Du bist heute <span className="font-medium text-foreground">{yearInsight.diffMin} Min/Tag</span> weniger am Handy als zu Beginn ({yearInsight.pct}% weniger).
+                </p>
+              </div>
+            )}
+            <div className="h-48">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={yearData}>
+                  <defs>
+                    <linearGradient id="yearG" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.4} />
+                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
+                  <YAxis hide />
+                  <Tooltip
+                    contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }}
+                    formatter={(v: any) => [`${v} min`, "Ø Bildschirmzeit"]}
+                  />
+                  <Area type="monotone" dataKey="avgMinutes" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#yearG)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="px-5 mb-6">
         <div className="surface-card p-5">
           <h2 className="font-semibold mb-1">Fokus-Heatmap</h2>
