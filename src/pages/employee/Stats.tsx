@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMinutes, isoDate, lastNDates, formatWeekdayShort } from "@/lib/format";
-import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Area, AreaChart } from "recharts";
+import { ResponsiveContainer, XAxis, YAxis, Tooltip, Area, AreaChart } from "recharts";
+import { CalendarRange } from "lucide-react";
+
+const MONTHS_DE = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
 
 export default function StatsPage() {
   const { user } = useAuth();
   const [data, setData] = useState<{ label: string; mins: number; penalty: number }[]>([]);
   const [heatmap, setHeatmap] = useState<number[][]>([]);
+  const [yearData, setYearData] = useState<{ label: string; avgMinutes: number }[]>([]);
 
   useEffect(() => {
     if (!user) return;
