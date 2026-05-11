@@ -21,6 +21,8 @@ import ManagerMembers from "./pages/manager/Members";
 import ManagerInvites from "./pages/manager/Invites";
 import ManagerChallenges from "./pages/manager/Challenges";
 import ManagerSettings from "./pages/manager/Settings";
+import ManagerRules from "./pages/manager/Rules";
+import EmployeeRules from "./pages/employee/Rules";
 import ProtectedRoute from "./components/app/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 import JoinByCode from "./pages/JoinByCode";
@@ -48,6 +50,7 @@ const App = () => (
             <Route path="stats" element={<StatsPage />} />
             <Route path="teams" element={<TeamsPage />} />
             <Route path="notifications" element={<NotificationsPage />} />
+            <Route path="rules" element={<EmployeeRules />} />
             <Route path="settings" element={<SettingsPage />} />
           </Route>
 
@@ -57,6 +60,7 @@ const App = () => (
             <Route path="members" element={<ManagerMembers />} />
             <Route path="invites" element={<ManagerInvites />} />
             <Route path="challenges" element={<ManagerChallenges />} />
+            <Route path="rules" element={<ManagerRules />} />
             <Route path="settings" element={<ManagerSettings />} />
           </Route>
 

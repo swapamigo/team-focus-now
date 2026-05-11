@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, Trophy, UserPlus, Settings as Cog, UserCog } from "lucide-react";
+import { LayoutDashboard, Users, Trophy, UserPlus, Settings as Cog, UserCog, ShieldCheck } from "lucide-react";
 import Logo from "@/components/Logo";
 import { cn } from "@/lib/utils";
 
@@ -9,6 +9,7 @@ const items = [
   { to: "/manager/members", icon: UserCog, label: "Personen" },
   { to: "/manager/invites", icon: UserPlus, label: "Einladungen" },
   { to: "/manager/challenges", icon: Trophy, label: "Challenges" },
+  { to: "/manager/rules", icon: ShieldCheck, label: "Regeln" },
   { to: "/manager/settings", icon: Cog, label: "Mehr" },
 ];
 
