@@ -1,12 +1,12 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { Home, Trophy, BarChart3, Bell, Settings } from "lucide-react";
+import { Home, Trophy, BarChart3, ShieldCheck, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const items = [
   { to: "/app", icon: Home, label: "Heute" },
   { to: "/app/teams", icon: Trophy, label: "Teams" },
   { to: "/app/stats", icon: BarChart3, label: "Statistik" },
-  { to: "/app/notifications", icon: Bell, label: "Hinweise" },
+  { to: "/app/rules", icon: ShieldCheck, label: "Regeln" },
   { to: "/app/settings", icon: Settings, label: "Mehr" },
 ];
 
