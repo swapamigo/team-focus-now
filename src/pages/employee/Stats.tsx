@@ -3,7 +3,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMinutes, isoDate, lastNDates, formatWeekdayShort } from "@/lib/format";
 import { ResponsiveContainer, XAxis, YAxis, Tooltip, Area, AreaChart } from "recharts";
-import { CalendarRange } from "lucide-react";
+import { CalendarRange, Lock } from "lucide-react";
 
 const MONTHS_DE = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
 
@@ -90,6 +90,15 @@ export default function StatsPage() {
         <h1 className="text-3xl font-semibold tracking-tight">Statistik</h1>
         <p className="text-sm text-muted-foreground mt-0.5">Dein Verlauf der letzten 14 Tage</p>
       </header>
+
+      <section className="px-5 mb-4">
+        <div className="rounded-2xl border border-primary/20 bg-primary/5 p-3 flex items-center gap-2.5">
+          <Lock className="h-3.5 w-3.5 text-primary shrink-0" />
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
+            Diese Daten sieht <strong className="text-foreground">nur du</strong>. Erfassung ausschließlich während der Arbeitszeit.
+          </p>
+        </div>
+      </section>
 
       <section className="px-5 mb-6">
         <div className="surface-card p-5">

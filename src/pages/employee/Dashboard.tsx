@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMinutes, isoDate, lastNDates, formatWeekdayShort } from "@/lib/format";
-import { Trophy, Flame, Smartphone, AlertTriangle, TrendingUp, TrendingDown, Sparkles } from "lucide-react";
+import { Trophy, Flame, Smartphone, AlertTriangle, TrendingUp, TrendingDown, Sparkles, Lock } from "lucide-react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, Tooltip, Cell } from "recharts";
 import { cn } from "@/lib/utils";
 
@@ -201,13 +201,18 @@ export default function EmployeeDashboard() {
         </div>
       </section>
 
-      {/* Datenschutz-Hinweis */}
+      {/* Privatsphäre-Hinweis */}
       <section className="px-5">
-        <div className="rounded-2xl bg-secondary/60 p-4 flex items-start gap-3">
-          <Sparkles className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            Du siehst nie individuelle Werte deiner Kolleg:innen. Nur dein eigener Wert und Team-Aggregate.
-          </p>
+        <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 flex items-start gap-3">
+          <Lock className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+          <div className="space-y-1.5">
+            <p className="text-xs font-semibold text-foreground">Deine Privatsphäre ist geschützt 🔒</p>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              <strong className="text-foreground">Nur du</strong> siehst deine persönlichen Daten.
+              Dein Manager erhält ausschließlich <strong className="text-foreground">anonyme Team-Aggregate</strong> – nie individuelle Werte.
+              Erfasst wird nur während deiner Arbeitszeit.
+            </p>
+          </div>
         </div>
       </section>
     </div>
