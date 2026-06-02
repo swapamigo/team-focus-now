@@ -58,17 +58,40 @@ export default function SettingsPage() {
       </section>
 
       <section className="px-5 mb-5">
-        <div className="surface-card p-5">
-          <div className="flex items-start gap-3">
-            <Shield className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+        <div className="surface-card p-5 border-primary/20">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="h-9 w-9 rounded-xl gradient-primary grid place-items-center shrink-0">
+              <Shield className="h-4 w-4 text-primary-foreground" />
+            </div>
             <div>
-              <p className="font-semibold text-sm">Datenschutz</p>
+              <p className="font-semibold text-sm">Deine Privatsphäre 🔒</p>
               <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                Team Focus erhebt nur aggregierte Zeitwerte. Keine Inhalte, keine Screenshots, keine Tastatureingaben.
-                Du kannst deine Teilnahme jederzeit widerrufen.
+                Team Focus schützt deine persönlichen Daten konsequent.
               </p>
             </div>
           </div>
+          <ul className="space-y-2.5 text-xs text-muted-foreground">
+            <li className="flex items-start gap-2">
+              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
+              <span><strong className="text-foreground">Nur du</strong> siehst deine individuellen Werte – niemand sonst, auch nicht dein Manager.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
+              <span>Der Manager sieht ausschließlich <strong className="text-foreground">anonyme Team-Aggregate</strong>.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
+              <span>Erfassung <strong className="text-foreground">ausschließlich während deiner Arbeitszeit</strong> – Freizeit bleibt frei.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
+              <span>Keine Inhalte, keine Screenshots, keine Tastatureingaben – nur aggregierte Zeitwerte.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
+              <span>Du kannst deine Teilnahme jederzeit widerrufen (DSGVO).</span>
+            </li>
+          </ul>
         </div>
       </section>
 
