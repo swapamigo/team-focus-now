@@ -12,7 +12,6 @@ import AppShell from "./components/app/AppShell";
 import EmployeeDashboard from "./pages/employee/Dashboard";
 import StatsPage from "./pages/employee/Stats";
 import TeamsPage from "./pages/employee/Teams";
-import NotificationsPage from "./pages/employee/Notifications";
 import SettingsPage from "./pages/employee/Settings";
 import ManagerShell from "./components/app/ManagerShell";
 import ManagerDashboard from "./pages/manager/Dashboard";
@@ -49,7 +48,6 @@ const App = () => (
             <Route index element={<EmployeeDashboard />} />
             <Route path="stats" element={<StatsPage />} />
             <Route path="teams" element={<TeamsPage />} />
-            <Route path="notifications" element={<NotificationsPage />} />
             <Route path="rules" element={<EmployeeRules />} />
             <Route path="settings" element={<SettingsPage />} />
           </Route>

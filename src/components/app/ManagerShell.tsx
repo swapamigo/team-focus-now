@@ -1,6 +1,7 @@
 import { Outlet, NavLink, useLocation } from "react-router-dom";
 import { LayoutDashboard, Users, Trophy, UserPlus, Settings as Cog, UserCog, ShieldCheck } from "lucide-react";
 import Logo from "@/components/Logo";
+import OnboardingTour from "@/components/app/OnboardingTour";
 import { cn } from "@/lib/utils";
 
 const items = [
@@ -72,6 +73,8 @@ export default function ManagerShell() {
           })}
         </ul>
       </nav>
+
+      <OnboardingTour />
     </div>
   );
 }
