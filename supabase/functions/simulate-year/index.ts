@@ -39,10 +39,12 @@ Deno.serve(async (req) => {
     const teams = teamsRaw ?? [];
     if (teams.length === 0) return json({ error: 'no_teams' }, 400);
 
-    // Ghost-Mitarbeitende sicherstellen
+    // Ghost-Mitarbeitende: 25–30 Personen gleichmäßig auf Teams verteilen
+    const TARGET_TOTAL = 28;
+    const perTeam = Math.max(6, Math.ceil(TARGET_TOTAL / teams.length));
     for (const team of teams) {
       const { data: existing } = await admin.from('team_members').select('user_id').eq('team_id', team.id);
-      const need = Math.max(0, 6 - (existing?.length ?? 0));
+      const need = Math.max(0, perTeam - (existing?.length ?? 0));
       if (need > 0) {
         const profiles: any[] = []; const cms: any[] = []; const tms: any[] = [];
         for (let i = 0; i < need; i++) {
