@@ -279,6 +279,27 @@ export type Database = {
           },
         ]
       }
+      demo_leads: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          source: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          source?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          source?: string | null
+        }
+        Relationships: []
+      }
       free_phone_times: {
         Row: {
           company_id: string
