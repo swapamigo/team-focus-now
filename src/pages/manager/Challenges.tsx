@@ -45,7 +45,7 @@ const REWARD_SUGGESTIONS: { category: string; icon: any; tone: string; items: st
     icon: Award,
     tone: "bg-warning/10 text-warning",
     items: [
-      "„Fokus-Champion"-Badge & Anerkennung im Team-Meeting",
+      "\u201EFokus-Champion\u201C-Badge & Anerkennung im Team-Meeting",
       "Team darf nächstes Team-Event / Lunch auswählen",
       "Bevorzugter Parkplatz oder Lieblings-Arbeitsplatz für 1 Monat",
     ],
