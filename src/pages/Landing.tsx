@@ -1,19 +1,27 @@
+import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Shield, Trophy, Users, Sparkles, Lock, BarChart3, TrendingUp, Brain, Heart, Zap,
-  ArrowRight, Check, X, Star, Clock, Smile, Rocket, Eye, KeyRound,
+  ArrowRight, Check, X, Clock, Smile, Rocket, Eye, KeyRound, UserCheck, ShieldCheck,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import Logo from "@/components/Logo";
 import RoiCalculator from "@/components/landing/RoiCalculator";
 import Footer from "@/components/landing/Footer";
+import HowItWorks from "@/components/landing/HowItWorks";
+import InterruptionCycle from "@/components/landing/InterruptionCycle";
+import SocietyHealth from "@/components/landing/SocietyHealth";
+import SocialProof from "@/components/landing/SocialProof";
+import Faq from "@/components/landing/Faq";
+import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
 import mockup from "@/assets/landing-mockup.jpg";
 
+// Konsistente Leitzahlen – siehe internes Dashboard (193 → 125 min/Tag ≈ 35 %)
 const kpis = [
-  { value: "+27%", label: "produktive Stunden" },
-  { value: "−42%", label: "Smartphone-Zeit" },
-  { value: "9.1 / 10", label: "Mitarbeiter-Score" },
+  { value: "−35%", label: "Smartphone-Zeit" },
+  { value: "+22%", label: "produktive Stunden" },
+  { value: "8.7 / 10", label: "Mitarbeiter-Score" },
   { value: "5 Min", label: "Setup-Zeit" },
 ];
 
@@ -21,70 +29,66 @@ const comparison = {
   others: {
     title: "Klassische Bossware",
     badge: "Kontrolle",
-    color: "destructive",
     items: [
       { icon: Eye, text: "Screenshots & Bildschirm-Aufzeichnungen" },
       { icon: KeyRound, text: "Tastatureingaben werden mitgeschnitten" },
-      { icon: X, text: "Mitarbeiter fühlen sich überwacht" },
+      { icon: X, text: "Mitarbeitende fühlen sich überwacht" },
       { icon: X, text: "Mehr Stress, höhere Fluktuation" },
       { icon: X, text: "Reine Bestrafung, keine Verbesserung" },
     ],
   },
   us: {
-    title: "Team Focus",
+    title: "TeamFocus",
     badge: "Motivation",
-    color: "primary",
     items: [
       { icon: Shield, text: "Keine Screenshots, keine Inhalte – nur Zeitdaten" },
       { icon: Lock, text: "Erfassung nur während der Arbeitszeit" },
       { icon: Trophy, text: "Belohnungen statt Bestrafung" },
-      { icon: Heart, text: "Mitarbeiter lieben es – nachweislich" },
+      { icon: Heart, text: "Mitarbeitende lieben es – nachweislich" },
       { icon: TrendingUp, text: "Monatliche Verbesserung statt Stillstand" },
     ],
   },
 };
 
 const setupSteps = [
-  { icon: Rocket, title: "Workspace anlegen", desc: "Eine Minute. Name eingeben, fertig.", time: "1 Min" },
-  { icon: Users, title: "Mitarbeiter einladen", desc: "Einen Link teilen – kein App-Store, kein IT-Aufwand.", time: "2 Min" },
+  { icon: Rocket, title: "Workspace anlegen", desc: "Eine Minute. Namen eingeben, fertig.", time: "1 Min" },
+  { icon: Users, title: "Mitarbeitende einladen", desc: "Einen Link teilen – kein App-Store, kein IT-Aufwand.", time: "2 Min" },
   { icon: Sparkles, title: "Loslegen", desc: "Sofort sichtbare Team-Statistiken & erste Challenges starten.", time: "2 Min" },
 ];
 
 const benefits = [
   { icon: Brain, title: "Weniger Stress", desc: "Klare Fokus-Phasen statt ständiger Erreichbarkeit." },
-  { icon: Heart, title: "Mitarbeiter-freundlich", desc: "Belohnungssystem schafft echte Motivation – nicht Druck." },
-  { icon: Zap, title: "Mehr Fokus", desc: "Bis zu 30 % mehr produktive Zeit pro Tag." },
+  { icon: Heart, title: "Mitarbeiter-freundlich", desc: "Belohnungssystem schafft echte Motivation – kein Druck." },
+  { icon: Zap, title: "Mehr Fokus", desc: "Rund 22 % mehr produktive Zeit pro Tag." },
   { icon: TrendingUp, title: "Stetige Verbesserung", desc: "Monat für Monat messbar weniger Ablenkung." },
   { icon: Smile, title: "Höhere Zufriedenheit", desc: "Mitarbeitende gehen entspannter nach Hause." },
-  { icon: Trophy, title: "Team-Wettbewerbe", desc: "Faire Challenges, gewinnbare Rewards." },
+  { icon: Trophy, title: "Team-Wettbewerbe", desc: "Faire Challenges, gewinnbare Belohnungen." },
 ];
 
-const features = [
-  { icon: Trophy, title: "Belohnungssystem", desc: "Echte Anreize für fokussierte Arbeit – vom Manager frei definierbar." },
-  { icon: Users, title: "Team-Challenges", desc: "Teams treten in fairen Wettbewerben gegeneinander an." },
-  { icon: BarChart3, title: "Anonyme Aggregate", desc: "Manager sehen nur Team-Trends – nie individuelle Werte." },
-  { icon: Clock, title: "Nur Arbeitszeit", desc: "Erfasst wird ausschließlich während definierter Arbeitszeiten." },
+const privacyPoints = [
+  { icon: BarChart3, title: "Anonyme Aggregate", desc: "Führungskräfte sehen nur Team-Trends – nie individuelle Werte." },
+  { icon: ShieldCheck, title: "k-Anonymität (k = 5)", desc: "Team-Ergebnisse werden erst sichtbar, wenn das Team groß genug ist, um Rückschlüsse auf Einzelpersonen auszuschließen." },
+  { icon: Clock, title: "Nur Arbeitszeit", desc: "Erfassung ausschließlich innerhalb der definierten Arbeitszeit." },
   { icon: Shield, title: "Privacy-by-Design", desc: "Keine Screenshots, keine Keylogger, keine Inhalte." },
-  { icon: Sparkles, title: "Fokus-Zeiten", desc: "Definiere High-Focus-Phasen mit speziellen Regeln." },
-];
-
-const testimonials = [
-  { quote: "Endlich eine Bossware, vor der sich niemand fürchtet. Das Team feiert die Challenges – produktiver waren wir noch nie.", name: "Lena R.", role: "Head of Operations" },
-  { quote: "Datenschutz ernst gemeint. Kein Mikromanagement, sondern echte Eigenverantwortung. Wir haben fast keine Krankmeldungen mehr.", name: "Jonas K.", role: "CTO, B2B-SaaS" },
-  { quote: "Die monatliche Verbesserung ist verblüffend. Mitarbeiter werden besser, nicht überwachter.", name: "Maria S.", role: "Geschäftsführerin" },
+  { icon: UserCheck, title: "Freiwilligkeit & Einwilligung", desc: "Teilnahme ist freiwillig, Datenerhebung nur mit ausdrücklicher Einwilligung der Mitarbeitenden – DSGVO-konform." },
+  { icon: Sparkles, title: "Zukunftssicher", desc: "Datenschutz von Grund auf eingebaut – tragfähig auch für wachsende, hybride Teams und künftige Anforderungen." },
 ];
 
 const pricingPerks = [
   "Unbegrenzte Teams & Challenges",
-  "Anonyme Team-Statistiken",
+  "Anonyme Team-Statistiken (k-Anonymität)",
   "Belohnungssystem inklusive",
   "Erfassung nur während Arbeitszeit",
   "DSGVO-konform, EU-Hosting",
   "Setup in 5 Minuten – ohne IT",
 ];
 
+const trustLine = "Keine Kreditkarte · Setup in 5 Minuten · monatlich kündbar";
+
 export default function Landing() {
   const { session, profile, role, loading } = useAuth();
+  const [demoOpen, setDemoOpen] = useState(false);
+
   if (!loading && session) {
     const target = profile && !profile.onboarded ? "/onboarding/role" : role === "manager" ? "/manager" : "/app";
     return <Navigate to={target} replace />;
@@ -96,10 +100,11 @@ export default function Landing() {
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center"><Logo withWordmark /></Link>
           <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-            <a href="#why" className="hover:text-foreground transition-colors">Warum anders</a>
-            <a href="#setup" className="hover:text-foreground transition-colors">Setup</a>
             <a href="#calculator" className="hover:text-foreground transition-colors">ROI</a>
+            <a href="#how" className="hover:text-foreground transition-colors">So funktioniert's</a>
+            <a href="#why" className="hover:text-foreground transition-colors">Warum anders</a>
             <a href="#pricing" className="hover:text-foreground transition-colors">Preise</a>
+            <a href="#faq" className="hover:text-foreground transition-colors">FAQ</a>
           </nav>
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost" size="sm"><Link to="/login">Anmelden</Link></Button>
@@ -122,24 +127,26 @@ export default function Landing() {
             <span className="text-gradient animate-gradient-x">Höherer Umsatz.</span>
           </h1>
           <p className="mx-auto max-w-2xl text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed">
-            Team Focus motiviert Ihre Mitarbeiter – statt sie zu überwachen.
+            TeamFocus motiviert Ihre Mitarbeitenden – statt sie zu überwachen.
             Monat für Monat messbar weniger Smartphone-Ablenkung, mehr Konzentration und echte Eigenverantwortung.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button asChild size="lg" className="h-12 px-8 shadow-glow group">
               <Link to="/register">Kostenlos starten <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60"><Link to="/login">Mit Einladung beitreten</Link></Button>
+            <Button size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60" onClick={() => setDemoOpen(true)}>
+              Demo ansehen
+            </Button>
           </div>
-          <p className="mt-6 text-xs text-muted-foreground">7 € / Mitarbeiter / Monat · 30 Tage gratis · Setup in 5 Minuten</p>
+          <p className="mt-6 text-xs text-muted-foreground">{trustLine} · 30 Tage gratis · 7 € / Mitarbeitendem / Monat</p>
         </div>
 
         {/* Product mockup */}
-        <div className="container relative pb-20">
+        <div className="container relative pb-12">
           <div className="relative mx-auto max-w-5xl animate-float">
             <div className="absolute -inset-4 gradient-primary opacity-20 blur-3xl rounded-[2rem]" />
             <div className="relative surface-card-elevated overflow-hidden rounded-2xl ring-1 ring-border/40">
-              <img src={mockup} alt="Team Focus Dashboard – Mockup" width={1920} height={1080} className="w-full h-auto" />
+              <img src={mockup} alt="TeamFocus Dashboard – Mockup" width={1920} height={1080} className="w-full h-auto" />
             </div>
           </div>
         </div>
@@ -157,17 +164,25 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Why different – Vergleich */}
-      <section className="container py-24" id="why">
+      {/* 1) ROI Calculator – früh platzieren */}
+      <RoiCalculator />
+
+      {/* 2) Gesellschaftliche & gesundheitliche Dimension */}
+      <SocietyHealth />
+
+      {/* 3) Unterbrechungszyklus */}
+      <InterruptionCycle />
+
+      {/* 4) Warum anders */}
+      <section className="container py-20 md:py-24 border-t border-border/40" id="why">
         <div className="max-w-2xl mx-auto text-center mb-14">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Warum Team Focus anders ist</p>
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Warum TeamFocus anders ist</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Motivation schlägt Kontrolle.</h2>
           <p className="mt-4 text-muted-foreground text-lg">
-            Andere Bossware bestraft. Team Focus belohnt. Das ist die Zukunft moderner Produktivität.
+            Andere Bossware bestraft. TeamFocus belohnt. Das ist die Zukunft moderner Produktivität.
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
-          {/* Others */}
           <div className="glow-card p-7 border-destructive/20 bg-destructive/[0.02]">
             <div className="flex items-center justify-between mb-5">
               <h3 className="text-lg font-semibold text-muted-foreground">{comparison.others.title}</h3>
@@ -184,7 +199,6 @@ export default function Landing() {
               ))}
             </ul>
           </div>
-          {/* Us */}
           <div className="glow-card p-7 border-primary/30 ring-1 ring-primary/20 bg-primary/[0.02] relative overflow-hidden">
             <div className="absolute -top-16 -right-16 h-40 w-40 gradient-primary opacity-20 blur-3xl rounded-full" />
             <div className="relative">
@@ -207,8 +221,11 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Setup – so einfach */}
-      <section className="container py-24 border-t border-border/40" id="setup">
+      {/* 5) So funktioniert TeamFocus */}
+      <HowItWorks />
+
+      {/* 6) Setup */}
+      <section className="container py-20 md:py-24 border-t border-border/40" id="setup">
         <div className="max-w-2xl mx-auto text-center mb-14">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">In 5 Minuten startklar</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Unglaublich einfach. Sofort einsatzbereit.</h2>
@@ -231,8 +248,8 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="container py-24 border-t border-border/40">
+      {/* 7) Benefits */}
+      <section className="container py-20 md:py-24 border-t border-border/40">
         <div className="max-w-2xl mx-auto text-center mb-14">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Vorteile auf einen Blick</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Was Sie wirklich gewinnen.</h2>
@@ -250,52 +267,33 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ROI Calculator */}
-      <RoiCalculator />
-
-      {/* Features */}
-      <section className="container py-24 border-t border-border/40" id="features">
+      {/* 8) Datenschutz */}
+      <section className="container py-20 md:py-24 border-t border-border/40" id="privacy">
         <div className="max-w-2xl mx-auto text-center mb-14">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Funktionen</p>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Alles drin. Nichts überflüssig.</h2>
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Datenschutz & Vertrauen</p>
+          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Produktivität statt Überwachung.</h2>
+          <p className="mt-4 text-muted-foreground text-lg">
+            Sechs Prinzipien, mit denen TeamFocus auch durch jede Betriebsratsprüfung kommt.
+          </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {features.map((f) => (
-            <div key={f.title} className="glow-card p-6">
+          {privacyPoints.map((p) => (
+            <div key={p.title} className="glow-card p-6">
               <div className="h-11 w-11 rounded-xl bg-secondary grid place-items-center mb-4">
-                <f.icon className="h-5 w-5 text-primary" />
+                <p.icon className="h-5 w-5 text-primary" />
               </div>
-              <h3 className="font-semibold mb-1.5 text-lg">{f.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+              <h3 className="font-semibold mb-1.5 text-lg">{p.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="container py-24 border-t border-border/40">
-        <div className="max-w-2xl mx-auto text-center mb-14">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Stimmen aus der Praxis</p>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Teams, die wieder Fokus haben.</h2>
-        </div>
-        <div className="grid md:grid-cols-3 gap-5">
-          {testimonials.map((t) => (
-            <figure key={t.name} className="glow-card p-7 flex flex-col">
-              <div className="flex gap-0.5 mb-4 text-warning">
-                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
-              </div>
-              <blockquote className="text-sm leading-relaxed text-foreground/90 flex-1">„{t.quote}"</blockquote>
-              <figcaption className="mt-5 pt-5 border-t border-border/60">
-                <div className="text-sm font-semibold">{t.name}</div>
-                <div className="text-xs text-muted-foreground">{t.role}</div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
+      {/* 9) Social Proof */}
+      <SocialProof />
 
-      {/* Pricing */}
-      <section className="container py-24 border-t border-border/40" id="pricing">
+      {/* 10) Pricing */}
+      <section className="container py-20 md:py-24 border-t border-border/40" id="pricing">
         <div className="max-w-2xl mx-auto text-center mb-12">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Einfache Preise</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Ein Plan. Alles dabei.</h2>
@@ -303,10 +301,10 @@ export default function Landing() {
         <div className="max-w-xl mx-auto glow-card p-10 relative overflow-hidden">
           <div className="absolute -top-20 -right-20 h-60 w-60 gradient-primary opacity-20 blur-3xl rounded-full" />
           <div className="relative">
-            <div className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">Team Focus Pro</div>
+            <div className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">TeamFocus Pro</div>
             <div className="flex items-baseline gap-2 mb-2">
               <span className="text-6xl font-semibold tracking-tight">7&nbsp;€</span>
-              <span className="text-muted-foreground">/ Mitarbeiter / Monat</span>
+              <span className="text-muted-foreground">/ Mitarbeitendem / Monat</span>
             </div>
             <p className="text-sm text-muted-foreground mb-8">30 Tage gratis testen · monatlich kündbar · ohne Setup-Gebühr</p>
             <ul className="space-y-3 mb-8">
@@ -319,12 +317,16 @@ export default function Landing() {
                 </li>
               ))}
             </ul>
-            <Button asChild size="lg" className="w-full h-12 shadow-glow"><Link to="/register">Jetzt 30 Tage gratis testen</Link></Button>
+            <Button asChild size="lg" className="w-full h-12 shadow-glow"><Link to="/register">Kostenlos starten</Link></Button>
+            <p className="text-center text-xs text-muted-foreground mt-3">{trustLine}</p>
           </div>
         </div>
       </section>
 
-      {/* Privacy CTA */}
+      {/* 11) FAQ */}
+      <Faq />
+
+      {/* 12) Final CTA */}
       <section className="container pb-24">
         <div className="surface-card-elevated p-10 md:p-16 text-center relative overflow-hidden rounded-3xl">
           <div className="absolute inset-0 gradient-hero opacity-70 pointer-events-none" />
@@ -333,19 +335,24 @@ export default function Landing() {
             <div className="inline-flex h-14 w-14 rounded-2xl gradient-primary items-center justify-center shadow-glow mb-5">
               <Shield className="h-7 w-7 text-primary-foreground" />
             </div>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">Produktivität statt Überwachung.</h2>
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">Bereit für mehr Fokus im Team?</h2>
             <p className="max-w-xl mx-auto text-muted-foreground mb-8 text-lg leading-relaxed">
-              Keine Inhalte. Keine Screenshots. Keine Tastatureingaben. Erfasst wird ausschließlich während der Arbeitszeit – mit voller Zustimmung.
+              Starten Sie 30 Tage gratis. Keine Kreditkarte, kein Risiko – nur fokussiertere Teams.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Button asChild size="lg" className="h-12 px-8 shadow-glow"><Link to="/register">Workspace erstellen</Link></Button>
-              <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60"><Link to="/login">Demo ansehen</Link></Button>
+              <Button asChild size="lg" className="h-12 px-8 shadow-glow"><Link to="/register">Kostenlos starten</Link></Button>
+              <Button size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60" onClick={() => setDemoOpen(true)}>
+                Demo ansehen
+              </Button>
             </div>
+            <p className="mt-5 text-xs text-muted-foreground">{trustLine}</p>
           </div>
         </div>
       </section>
 
       <Footer />
+
+      <DemoLeadDialog open={demoOpen} onOpenChange={setDemoOpen} />
     </div>
   );
 }

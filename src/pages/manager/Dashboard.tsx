@@ -246,20 +246,17 @@ export default function ManagerDashboard() {
         ) : (
           <>
             {yearInsight && yearInsight.diffMin > 0 && (
-              <div className="mb-5 rounded-2xl bg-gradient-to-br from-primary/10 to-success/10 border border-primary/20 p-5">
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Seit der Einführung von TeamFocus</p>
-                <p className="text-2xl md:text-3xl font-semibold tracking-tight">
+              <div
+                className="mb-5 rounded-2xl bg-gradient-to-br from-primary/10 to-success/10 border border-primary/20 p-5"
+                title={`Seit Einführung: Ø Bildschirmzeit von ${yearInsight.firstAvg} auf ${yearInsight.lastAvg} min/Tag (${yearInsight.firstLabel} → ${yearInsight.lastLabel}).`}
+              >
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Seit Einführung von TeamFocus</p>
+                <p className="text-3xl md:text-4xl font-semibold tracking-tight">
                   −{yearInsight.hoursPerMonth} Std / Monat
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Mitarbeitende sind heute durchschnittlich <span className="font-medium text-foreground">{yearInsight.diffMin} Min/Tag</span> weniger am Handy als zu Beginn ({yearInsight.pct}% Reduktion).
-                  Das sind rund <span className="font-medium text-foreground">{yearInsight.hoursPerMonth} Stunden</span> mehr Fokus pro Mitarbeitendem & Monat.
+                  {yearInsight.pct}% weniger Bildschirmzeit ({yearInsight.firstAvg} → {yearInsight.lastAvg} Min/Tag).
                 </p>
-                <div className="flex gap-6 mt-3 text-xs text-muted-foreground">
-                  <span><span className="font-medium text-foreground">{yearInsight.firstAvg} min</span> · {yearInsight.firstLabel}</span>
-                  <span>→</span>
-                  <span><span className="font-medium text-foreground">{yearInsight.lastAvg} min</span> · {yearInsight.lastLabel}</span>
-                </div>
               </div>
             )}
 
