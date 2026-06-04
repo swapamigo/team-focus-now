@@ -177,33 +177,48 @@ export default function Landing() {
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Warum TeamFocus anders ist</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Motivation schlägt Kontrolle.</h2>
           <p className="mt-4 text-muted-foreground text-lg">
-            Andere Bossware bestraft. TeamFocus belohnt. Das ist die Zukunft moderner Produktivität.
+            Andere Bossware bestraft. TeamFocus belohnt. Entwickelt in Zusammenarbeit mit ADHS-Experte und Buchautor{" "}
+            <a
+              href="https://www.amazon.es/Leading-yourself-ADHD-fighting-yourself/dp/B0GX9F2LGX"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-foreground"
+            >
+              Chris Sorg
+            </a>
+            .
           </p>
         </div>
-        <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
-          <div className="glow-card p-7 border-destructive/20 bg-destructive/[0.02]">
-            <div className="flex items-center justify-between mb-5">
-              <h3 className="text-lg font-semibold text-muted-foreground">{comparison.others.title}</h3>
-              <span className="text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full bg-destructive/10 text-destructive font-semibold">{comparison.others.badge}</span>
+        <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
+          <div className="glow-card overflow-hidden border-destructive/20 bg-destructive/[0.02]">
+            <div className="relative h-48 md:h-56 overflow-hidden">
+              <img src={stressedImg} alt="Gestresster, abgelenkter Mitarbeitender" loading="lazy" width={1024} height={768} className="w-full h-full object-cover grayscale" />
+              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+              <span className="absolute top-3 right-3 text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full bg-destructive/10 text-destructive font-semibold backdrop-blur">{comparison.others.badge}</span>
             </div>
-            <ul className="space-y-3">
-              {comparison.others.items.map((it, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
-                  <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-destructive/10 text-destructive grid place-items-center">
-                    <X className="h-3 w-3" />
-                  </span>
-                  {it.text}
-                </li>
-              ))}
-            </ul>
+            <div className="p-7">
+              <h3 className="text-lg font-semibold text-muted-foreground mb-4">{comparison.others.title}</h3>
+              <ul className="space-y-3">
+                {comparison.others.items.map((it, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-destructive/10 text-destructive grid place-items-center">
+                      <X className="h-3 w-3" />
+                    </span>
+                    {it.text}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <div className="glow-card p-7 border-primary/30 ring-1 ring-primary/20 bg-primary/[0.02] relative overflow-hidden">
-            <div className="absolute -top-16 -right-16 h-40 w-40 gradient-primary opacity-20 blur-3xl rounded-full" />
-            <div className="relative">
-              <div className="flex items-center justify-between mb-5">
-                <h3 className="text-lg font-semibold text-gradient">{comparison.us.title}</h3>
-                <span className="text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full bg-primary/10 text-primary font-semibold">{comparison.us.badge}</span>
-              </div>
+          <div className="glow-card overflow-hidden border-primary/30 ring-1 ring-primary/20 bg-primary/[0.02] relative">
+            <div className="absolute -top-16 -right-16 h-40 w-40 gradient-primary opacity-20 blur-3xl rounded-full pointer-events-none" />
+            <div className="relative h-48 md:h-56 overflow-hidden">
+              <img src={focusedImg} alt="Glücklicher, fokussierter Mitarbeitender" loading="lazy" width={1024} height={768} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+              <span className="absolute top-3 right-3 text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full bg-primary/10 text-primary font-semibold backdrop-blur">{comparison.us.badge}</span>
+            </div>
+            <div className="p-7 relative">
+              <h3 className="text-lg font-semibold text-gradient mb-4">{comparison.us.title}</h3>
               <ul className="space-y-3">
                 {comparison.us.items.map((it, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm">
@@ -225,24 +240,16 @@ export default function Landing() {
       {/* 5b) Gesellschaftliche & gesundheitliche Dimension */}
       <SocietyHealth />
 
-      {/* 6) Setup */}
-      <section className="container py-20 md:py-24 border-t border-border/40" id="setup">
-        <div className="max-w-2xl mx-auto text-center mb-14">
+      {/* 6) Setup – kompakt */}
+      <section className="container py-16 md:py-20 border-t border-border/40" id="setup">
+        <div className="max-w-3xl mx-auto surface-card p-8 md:p-10 text-center">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">In 5 Minuten startklar</p>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Sofort einsatzbereit.</h2>
-        </div>
-        <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-          {setupSteps.map((s, i) => (
-            <div key={s.title} className="glow-card p-7 relative">
-              <div className="absolute -top-3 -left-3 h-8 w-8 rounded-full gradient-primary text-primary-foreground grid place-items-center text-sm font-semibold shadow-md">{i + 1}</div>
-              <div className="flex items-start justify-between mb-4">
-                <s.icon className="h-6 w-6 text-primary" />
-                <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold bg-secondary px-2 py-0.5 rounded-full">{s.time}</span>
-              </div>
-              <h3 className="font-semibold mb-1.5 text-lg">{s.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-            </div>
-          ))}
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-3">Sofort einsatzbereit.</h2>
+          <p className="text-muted-foreground mb-6">Workspace anlegen, Link teilen, loslegen.</p>
+          <Button asChild size="lg" className="h-12 px-8 shadow-glow group">
+            <Link to="/register">Jetzt ausprobieren <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
+          </Button>
+          <p className="mt-3 text-xs text-muted-foreground">{trustLine}</p>
         </div>
       </section>
 
