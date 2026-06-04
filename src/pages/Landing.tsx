@@ -117,8 +117,8 @@ export default function Landing() {
         <div className="absolute inset-0 gradient-hero pointer-events-none" />
         <div className="container relative pt-24 pb-12 md:pt-32 md:pb-20 text-center animate-fade-in">
           <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 backdrop-blur px-4 py-1.5 text-xs font-medium text-muted-foreground mb-6 shadow-sm">
-            <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
-            Die mitarbeiterfreundlichste Bossware
+            <ShieldCheck className="h-3.5 w-3.5 text-primary" />
+            DSGVO-konform nach deutschem Datenschutzstandard
           </div>
           <h1 className="text-5xl md:text-7xl font-semibold tracking-tight mb-6 leading-[1.05]">
             Mehr Fokus. Weniger Stress.<br />
