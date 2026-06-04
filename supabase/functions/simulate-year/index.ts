@@ -35,13 +35,28 @@ Deno.serve(async (req) => {
     const company_id = cm?.[0]?.company_id;
     if (!company_id) return json({ error: 'no_company' }, 400);
 
-    const { data: teamsRaw } = await admin.from('teams').select('id, name').eq('company_id', company_id);
-    const teams = teamsRaw ?? [];
-    if (teams.length === 0) return json({ error: 'no_teams' }, 400);
+    // Teams sicherstellen: Alpha/Beta/Gamma/Delta – bestehende Tier-/Altnamen umbenennen
+    const GREEK = ['Team Alpha', 'Team Beta', 'Team Gamma', 'Team Delta'];
+    const COLORS = ['#6366f1', '#8b5cf6', '#10b981', '#f59e0b'];
+    let { data: teamsRaw } = await admin.from('teams').select('id, name').eq('company_id', company_id).order('created_at', { ascending: true });
+    let teams = teamsRaw ?? [];
+    // Rename bestehende Teams konsequent auf Alpha/Beta/...
+    for (let i = 0; i < teams.length && i < GREEK.length; i++) {
+      if (teams[i].name !== GREEK[i]) {
+        await admin.from('teams').update({ name: GREEK[i], emoji: null }).eq('id', teams[i].id);
+        teams[i].name = GREEK[i];
+      }
+    }
+    // Fehlende anlegen
+    if (teams.length < GREEK.length) {
+      const toCreate = GREEK.slice(teams.length).map((name, idx) => ({ name, emoji: null, color: COLORS[teams.length + idx], company_id }));
+      const { data: created } = await admin.from('teams').insert(toCreate).select();
+      teams = [...teams, ...((created ?? []) as any[])];
+    }
 
-    // Ghost-Mitarbeitende: 25–30 Personen gleichmäßig auf Teams verteilen
-    const TARGET_TOTAL = 28;
-    const perTeam = Math.max(6, Math.ceil(TARGET_TOTAL / teams.length));
+    // Ghost-Mitarbeitende: 35 Personen gleichmäßig auf Teams verteilen
+    const TARGET_TOTAL = 35;
+    const perTeam = Math.ceil(TARGET_TOTAL / teams.length);
     for (const team of teams) {
       const { data: existing } = await admin.from('team_members').select('user_id').eq('team_id', team.id);
       const need = Math.max(0, perTeam - (existing?.length ?? 0));

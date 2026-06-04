@@ -76,6 +76,9 @@ export default function RoiCalculator() {
               <Label className="text-sm font-medium">Verschwendete Arbeitszeit / Mitarbeitendem / Jahr</Label>
               <span className="text-2xl font-semibold tabular-nums">{hoursPerYear} h</span>
             </div>
+            <p className="text-xs text-muted-foreground -mt-1">
+              Wie viele Stunden, denken Sie, verschwenden Ihre Mitarbeitenden im Jahr?
+            </p>
             <Slider value={[hoursPerYear]} min={154} max={720} step={1} onValueChange={(v) => setHoursPerYear(v[0])} />
             <p className="text-xs text-muted-foreground">
               {fmtPerDay(hoursPerYear)} <span className="opacity-70">(bei 250 Arbeitstagen/Jahr)</span>
@@ -85,7 +88,7 @@ export default function RoiCalculator() {
           <div className="rounded-2xl bg-secondary/60 p-4 flex items-start gap-3">
             <Info className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Spanne 154–720 h/Jahr je nach Studie. Oberwert (720 h):{" "}
+              Spanne 154–720 h/Jahr je nach Arbeitsbereich. Oberwert (720 h):{" "}
               <a href={SRC_720H} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground">
                 Quelle
               </a>
@@ -106,10 +109,12 @@ export default function RoiCalculator() {
               <p className="text-sm text-muted-foreground mt-2">
                 ≙ <strong className="text-foreground">{wastedHours.toLocaleString("de-DE")} Stunden</strong> verlorener Arbeitszeit.
               </p>
-              <a href={SRC_LOSS} target="_blank" rel="noopener noreferrer"
-                className="inline-block mt-2 text-[11px] text-muted-foreground underline underline-offset-2 hover:text-foreground">
-                Studie ansehen
-              </a>
+              <p className="text-[11px] text-muted-foreground mt-3 leading-relaxed">
+                Smartphone-Sucht am Arbeitsplatz kostet nicht nur Zeit: Studien zeigen mehr Fehler, sinkende Qualität, höhere Unfallrisiken, schlechtere Zusammenarbeit und steigenden Stress – die tatsächlichen Folgekosten liegen meist deutlich über dem reinen Stundenverlust.{" "}
+                <a href={SRC_LOSS} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground">
+                  Studie ansehen
+                </a>
+              </p>
             </div>
           </div>
 
@@ -126,7 +131,7 @@ export default function RoiCalculator() {
               </p>
               <p className="text-xs text-muted-foreground mt-3 flex items-start gap-1.5">
                 <Sparkles className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />
-                In der Praxis meist höher: weniger Fehler, mehr Konzentration.
+                In der Praxis meist höher: mehr Konzentration → weniger Fehler.
               </p>
             </div>
           </div>

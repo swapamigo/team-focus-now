@@ -2,11 +2,13 @@ import { Focus, BellRing, Split, Hourglass, Brain, ArrowRight } from "lucide-rea
 
 const nodes = [
   { icon: Focus, label: "Fokussierte Arbeit", sub: "Flow-Zustand", tone: "primary" },
-  { icon: BellRing, label: "Stimulus", sub: "Notification, Griff zum Gerät", tone: "warning" },
+  { icon: BellRing, label: "Stimulus", sub: "Griff zum Gerät", tone: "warning" },
   { icon: Split, label: "Aufmerksamkeitsverlust", sub: "Switching Cost", tone: "destructive" },
   { icon: Hourglass, label: "Wiederanlaufphase", sub: "Ø ~23 Min", tone: "destructive" },
   { icon: Brain, label: "Reduzierte Verfügbarkeit", sub: "Konzentration sinkt", tone: "muted" },
 ];
+
+const SRC_RECOVERY = "https://neurosciencenews.com/smartphone-notifications-cognition-22048/";
 
 const toneClasses: Record<string, string> = {
   primary: "bg-primary/10 text-primary border-primary/30",
@@ -42,7 +44,10 @@ export default function InterruptionCycle() {
           ))}
         </div>
         <p className="text-[11px] text-muted-foreground italic text-center mt-6">
-          Quelle: Forschung von Gloria Mark zur Wiederaufnahme nach Unterbrechungen.
+          Forschung von Gloria Mark zur Wiederaufnahme nach Unterbrechungen.{" "}
+          <a href={SRC_RECOVERY} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 not-italic hover:text-foreground">
+            Mehr Infos zur Wiederanlaufphase
+          </a>
         </p>
       </div>
     </section>
