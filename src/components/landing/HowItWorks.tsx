@@ -1,10 +1,10 @@
-import { Users, Smartphone, Zap, Trophy, ArrowRight, RotateCw } from "lucide-react";
+import { Users, Smartphone, Zap, Trophy } from "lucide-react";
 
 const steps = [
   {
     icon: Users,
-    title: "Teams treten freiwillig an.",
-    desc: "Mitarbeitende schließen sich zu Teams zusammen – motiviert durch eine mögliche Belohnung. Teilnahme ist freiwillig.",
+    title: "Teams werden automatisch zusammengewürfelt.",
+    desc: "Mitarbeitende werden zufällig in Teams aufgeteilt – motiviert durch eine gemeinsame Belohnung. Teilnahme ist freiwillig.",
   },
   {
     icon: Smartphone,
@@ -20,16 +20,8 @@ const steps = [
   {
     icon: Trophy,
     title: "Team gewinnt, Team wird belohnt.",
-    desc: "Verglichen wird nur auf Team-Ebene. Am Ende jedes Zyklus (wöchentlich, 2-, 3-wöchentlich oder monatlich – frei wählbar) gewinnt das Team mit der geringsten Ablenkungszeit. Die Belohnung legt die Führungskraft frei fest.",
+    desc: "Verglichen wird nur auf Team-Ebene. Am Ende jedes Zyklus (wöchentlich, 2-, 3-wöchentlich oder monatlich – frei wählbar) gewinnt das Team mit der geringsten Ablenkungszeit. Nur beim Gewinner-Team wird bekannt gegeben, wer mitgespielt hat. Die Belohnung legt die Führungskraft frei fest.",
   },
-];
-
-const cycle = [
-  "Ablenkungszeit messen",
-  "Team-Ranking",
-  "Gewinner",
-  "Belohnung",
-  "Neuer Zyklus",
 ];
 
 export default function HowItWorks() {
@@ -51,12 +43,12 @@ export default function HowItWorks() {
           <TeamBar name="Team Beta" minutes={142} percent={68} />
         </div>
         <p className="text-xs text-muted-foreground text-center mt-6">
-          Kürzerer Balken = weniger Ablenkungsminuten. Team A führt.
+          Kürzerer Balken = weniger Ablenkungsminuten. Team Alpha führt.
         </p>
       </div>
 
       {/* Steps */}
-      <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto mb-16">
+      <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
         {steps.map((s, i) => (
           <div key={s.title} className="glow-card p-7 relative">
             <div className="absolute -top-3 -left-3 h-8 w-8 rounded-full gradient-primary text-primary-foreground grid place-items-center text-sm font-semibold shadow-md">{i + 1}</div>
@@ -74,24 +66,6 @@ export default function HowItWorks() {
             <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
           </div>
         ))}
-      </div>
-
-      {/* Kreislauf */}
-      <div className="max-w-4xl mx-auto surface-card p-7 md:p-8">
-        <div className="flex items-center gap-2 mb-5 justify-center">
-          <RotateCw className="h-4 w-4 text-primary" />
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold">Der TeamFocus-Regelkreis</p>
-        </div>
-        <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 text-sm">
-          {cycle.map((node, i) => (
-            <div key={node} className="flex items-center gap-2 md:gap-3">
-              <span className="px-3 md:px-4 py-2 rounded-full bg-secondary/70 border border-border/60 font-medium">
-                {node}
-              </span>
-              {i < cycle.length - 1 && <ArrowRight className="h-4 w-4 text-muted-foreground" />}
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
