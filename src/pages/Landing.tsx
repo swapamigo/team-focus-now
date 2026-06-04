@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Shield, Trophy, Users, Sparkles, Lock, BarChart3, TrendingUp, Brain, Heart, Zap,
-  ArrowRight, Check, X, Clock, Smile, Rocket, Eye, KeyRound, UserCheck, ShieldCheck,
+  ArrowRight, Check, X, Clock, Rocket, Eye, KeyRound, UserCheck, ShieldCheck,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import Logo from "@/components/Logo";
