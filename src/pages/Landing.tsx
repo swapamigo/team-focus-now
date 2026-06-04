@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Shield, Trophy, Users, Sparkles, Lock, BarChart3, TrendingUp, Brain, Heart, Zap,
-  ArrowRight, Check, X, Clock, Smile, Rocket, Eye, KeyRound, UserCheck, ShieldCheck,
+  ArrowRight, Check, X, Clock, Rocket, Eye, KeyRound, UserCheck, ShieldCheck,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import Logo from "@/components/Logo";
@@ -58,20 +58,18 @@ const setupSteps = [
 
 const benefits = [
   { icon: Brain, title: "Weniger Stress", desc: "Klare Fokus-Phasen statt ständiger Erreichbarkeit." },
-  { icon: Heart, title: "Mitarbeiter-freundlich", desc: "Belohnungssystem schafft echte Motivation – kein Druck." },
   { icon: Zap, title: "Mehr Fokus", desc: "Rund 22 % mehr produktive Zeit pro Tag." },
-  { icon: TrendingUp, title: "Stetige Verbesserung", desc: "Monat für Monat messbar weniger Ablenkung." },
-  { icon: Smile, title: "Höhere Zufriedenheit", desc: "Mitarbeitende gehen entspannter nach Hause." },
-  { icon: Trophy, title: "Team-Wettbewerbe", desc: "Faire Challenges, gewinnbare Belohnungen." },
+  { icon: Heart, title: "Mitarbeiter-freundlich", desc: "Belohnung statt Druck – echte Motivation." },
+  { icon: TrendingUp, title: "Messbare Wirkung", desc: "Monat für Monat weniger Ablenkung." },
 ];
 
 const privacyPoints = [
-  { icon: BarChart3, title: "Anonyme Aggregate", desc: "Führungskräfte sehen nur Team-Trends – nie individuelle Werte." },
-  { icon: ShieldCheck, title: "k-Anonymität (k = 5)", desc: "Team-Ergebnisse werden erst sichtbar, wenn das Team groß genug ist, um Rückschlüsse auf Einzelpersonen auszuschließen." },
-  { icon: Clock, title: "Nur Arbeitszeit", desc: "Erfassung ausschließlich innerhalb der definierten Arbeitszeit." },
-  { icon: Shield, title: "Privacy-by-Design", desc: "Keine Screenshots, keine Keylogger, keine Inhalte." },
-  { icon: UserCheck, title: "Freiwilligkeit & Einwilligung", desc: "Teilnahme ist freiwillig, Datenerhebung nur mit ausdrücklicher Einwilligung der Mitarbeitenden – DSGVO-konform." },
-  { icon: Sparkles, title: "Zukunftssicher", desc: "Datenschutz von Grund auf eingebaut – tragfähig auch für wachsende, hybride Teams und künftige Anforderungen." },
+  { icon: BarChart3, label: "Nur Team-Aggregate" },
+  { icon: ShieldCheck, label: "k-Anonymität (k=5)" },
+  { icon: Clock, label: "Nur Arbeitszeit" },
+  { icon: Shield, label: "Keine Inhalte" },
+  { icon: UserCheck, label: "Freiwillig & DSGVO" },
+  { icon: Sparkles, label: "Privacy-by-Design" },
 ];
 
 const pricingPerks = [
@@ -119,8 +117,8 @@ export default function Landing() {
         <div className="absolute inset-0 gradient-hero pointer-events-none" />
         <div className="container relative pt-24 pb-12 md:pt-32 md:pb-20 text-center animate-fade-in">
           <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 backdrop-blur px-4 py-1.5 text-xs font-medium text-muted-foreground mb-6 shadow-sm">
-            <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
-            Die mitarbeiterfreundlichste Bossware
+            <ShieldCheck className="h-3.5 w-3.5 text-primary" />
+            DSGVO-konform nach deutschem Datenschutzstandard
           </div>
           <h1 className="text-5xl md:text-7xl font-semibold tracking-tight mb-6 leading-[1.05]">
             Mehr Fokus. Weniger Stress.<br />
@@ -152,6 +150,9 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* 1) ROI Calculator – Schritt 1 */}
+      <RoiCalculator />
+
       {/* KPI strip */}
       <section className="border-y border-border/40 bg-gradient-to-b from-secondary/30 to-transparent">
         <div className="container py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -164,14 +165,9 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* 1) ROI Calculator – früh platzieren */}
-      <RoiCalculator />
-
-      {/* 2) Gesellschaftliche & gesundheitliche Dimension */}
-      <SocietyHealth />
-
-      {/* 3) Unterbrechungszyklus */}
+      {/* Unterbrechungszyklus – stützt den Rechner */}
       <InterruptionCycle />
+
 
       {/* 4) Warum anders */}
       <section className="container py-20 md:py-24 border-t border-border/40" id="why">
@@ -224,14 +220,14 @@ export default function Landing() {
       {/* 5) So funktioniert TeamFocus */}
       <HowItWorks />
 
+      {/* 5b) Gesellschaftliche & gesundheitliche Dimension */}
+      <SocietyHealth />
+
       {/* 6) Setup */}
       <section className="container py-20 md:py-24 border-t border-border/40" id="setup">
         <div className="max-w-2xl mx-auto text-center mb-14">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">In 5 Minuten startklar</p>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Unglaublich einfach. Sofort einsatzbereit.</h2>
-          <p className="mt-4 text-muted-foreground text-lg">
-            Keine IT, keine Schulungen, keine Verträge. Workspace anlegen, Link teilen, fertig.
-          </p>
+          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Sofort einsatzbereit.</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
           {setupSteps.map((s, i) => (
@@ -248,42 +244,38 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* 7) Benefits */}
+      {/* 7) Benefits – kompakt */}
       <section className="container py-20 md:py-24 border-t border-border/40">
-        <div className="max-w-2xl mx-auto text-center mb-14">
+        <div className="max-w-2xl mx-auto text-center mb-12">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Vorteile auf einen Blick</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Was Sie wirklich gewinnen.</h2>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
           {benefits.map((b, i) => (
-            <div key={b.title} className="glow-card p-6 animate-fade-in" style={{ animationDelay: `${i * 50}ms` }}>
-              <div className="h-11 w-11 rounded-xl gradient-primary grid place-items-center mb-4 shadow-[var(--shadow-sm)]">
+            <div key={b.title} className="glow-card p-5 text-center animate-fade-in" style={{ animationDelay: `${i * 50}ms` }}>
+              <div className="h-11 w-11 rounded-xl gradient-primary grid place-items-center mb-3 shadow-sm mx-auto">
                 <b.icon className="h-5 w-5 text-primary-foreground" />
               </div>
-              <h3 className="font-semibold mb-1.5 text-lg">{b.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{b.desc}</p>
+              <h3 className="font-semibold text-sm md:text-base">{b.title}</h3>
+              <p className="text-xs text-muted-foreground mt-1 leading-snug">{b.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 8) Datenschutz */}
+      {/* 8) Datenschutz – kompakte Icon-Tiles */}
       <section className="container py-20 md:py-24 border-t border-border/40" id="privacy">
-        <div className="max-w-2xl mx-auto text-center mb-14">
+        <div className="max-w-2xl mx-auto text-center mb-12">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Datenschutz & Vertrauen</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Produktivität statt Überwachung.</h2>
-          <p className="mt-4 text-muted-foreground text-lg">
-            Sechs Prinzipien, mit denen TeamFocus auch durch jede Betriebsratsprüfung kommt.
-          </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 max-w-5xl mx-auto">
           {privacyPoints.map((p) => (
-            <div key={p.title} className="glow-card p-6">
-              <div className="h-11 w-11 rounded-xl bg-secondary grid place-items-center mb-4">
+            <div key={p.label} className="surface-card p-4 text-center">
+              <div className="h-10 w-10 rounded-xl bg-secondary grid place-items-center mb-2 mx-auto">
                 <p.icon className="h-5 w-5 text-primary" />
               </div>
-              <h3 className="font-semibold mb-1.5 text-lg">{p.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+              <p className="text-xs font-medium leading-tight">{p.label}</p>
             </div>
           ))}
         </div>
@@ -295,7 +287,7 @@ export default function Landing() {
       {/* 10) Pricing */}
       <section className="container py-20 md:py-24 border-t border-border/40" id="pricing">
         <div className="max-w-2xl mx-auto text-center mb-12">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Einfache Preise</p>
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Schritt 3 · Preis & Test</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Ein Plan. Alles dabei.</h2>
         </div>
         <div className="max-w-xl mx-auto glow-card p-10 relative overflow-hidden">

@@ -36,10 +36,10 @@ export default function HowItWorks() {
   return (
     <section className="container py-20 md:py-24 border-t border-border/40" id="how">
       <div className="max-w-2xl mx-auto text-center mb-14">
-        <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">So funktioniert TeamFocus</p>
-        <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">So funktioniert TeamFocus – ohne Zwang.</h2>
+        <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Schritt 2 · So funktioniert's</p>
+        <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Ein Team-Spiel um Fokus – ohne Zwang.</h2>
         <p className="mt-4 text-muted-foreground text-lg">
-          Kein Kontrollinstrument. Ein Team-Spiel um Fokus – mit einer echten Belohnung am Ende jedes Zyklus.
+          Freiwillig, anonymisiert, mit echter Belohnung am Ende jedes Zyklus.
         </p>
       </div>
 
@@ -47,8 +47,8 @@ export default function HowItWorks() {
       <div className="max-w-3xl mx-auto mb-14 surface-card p-7 md:p-10">
         <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold mb-5 text-center">Team-Duell: weniger Ablenkung gewinnt</p>
         <div className="space-y-5">
-          <TeamBar name="Team A" minutes={68} percent={32} winner />
-          <TeamBar name="Team B" minutes={142} percent={68} />
+          <TeamBar name="Team Alpha" minutes={68} percent={32} winner />
+          <TeamBar name="Team Beta" minutes={142} percent={68} />
         </div>
         <p className="text-xs text-muted-foreground text-center mt-6">
           Kürzerer Balken = weniger Ablenkungsminuten. Team A führt.

@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="md:col-span-2">
           <Logo withWordmark />
           <p className="mt-4 text-muted-foreground max-w-sm leading-relaxed">
-            Die mitarbeiterfreundlichste Bossware. Motivation statt Kontrolle – für mehr Fokus, weniger Stress und höheren Umsatz.
+            Motivation statt Kontrolle – für mehr Fokus, weniger Stress und höheren Umsatz.
           </p>
         </div>
         <div>
