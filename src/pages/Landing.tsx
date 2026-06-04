@@ -58,20 +58,18 @@ const setupSteps = [
 
 const benefits = [
   { icon: Brain, title: "Weniger Stress", desc: "Klare Fokus-Phasen statt ständiger Erreichbarkeit." },
-  { icon: Heart, title: "Mitarbeiter-freundlich", desc: "Belohnungssystem schafft echte Motivation – kein Druck." },
   { icon: Zap, title: "Mehr Fokus", desc: "Rund 22 % mehr produktive Zeit pro Tag." },
-  { icon: TrendingUp, title: "Stetige Verbesserung", desc: "Monat für Monat messbar weniger Ablenkung." },
-  { icon: Smile, title: "Höhere Zufriedenheit", desc: "Mitarbeitende gehen entspannter nach Hause." },
-  { icon: Trophy, title: "Team-Wettbewerbe", desc: "Faire Challenges, gewinnbare Belohnungen." },
+  { icon: Heart, title: "Mitarbeiter-freundlich", desc: "Belohnung statt Druck – echte Motivation." },
+  { icon: TrendingUp, title: "Messbare Wirkung", desc: "Monat für Monat weniger Ablenkung." },
 ];
 
 const privacyPoints = [
-  { icon: BarChart3, title: "Anonyme Aggregate", desc: "Führungskräfte sehen nur Team-Trends – nie individuelle Werte." },
-  { icon: ShieldCheck, title: "k-Anonymität (k = 5)", desc: "Team-Ergebnisse werden erst sichtbar, wenn das Team groß genug ist, um Rückschlüsse auf Einzelpersonen auszuschließen." },
-  { icon: Clock, title: "Nur Arbeitszeit", desc: "Erfassung ausschließlich innerhalb der definierten Arbeitszeit." },
-  { icon: Shield, title: "Privacy-by-Design", desc: "Keine Screenshots, keine Keylogger, keine Inhalte." },
-  { icon: UserCheck, title: "Freiwilligkeit & Einwilligung", desc: "Teilnahme ist freiwillig, Datenerhebung nur mit ausdrücklicher Einwilligung der Mitarbeitenden – DSGVO-konform." },
-  { icon: Sparkles, title: "Zukunftssicher", desc: "Datenschutz von Grund auf eingebaut – tragfähig auch für wachsende, hybride Teams und künftige Anforderungen." },
+  { icon: BarChart3, label: "Nur Team-Aggregate" },
+  { icon: ShieldCheck, label: "k-Anonymität (k=5)" },
+  { icon: Clock, label: "Nur Arbeitszeit" },
+  { icon: Shield, label: "Keine Inhalte" },
+  { icon: UserCheck, label: "Freiwillig & DSGVO" },
+  { icon: Sparkles, label: "Privacy-by-Design" },
 ];
 
 const pricingPerks = [
