@@ -47,8 +47,8 @@ export default function HowItWorks() {
       <div className="max-w-3xl mx-auto mb-14 surface-card p-7 md:p-10">
         <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold mb-5 text-center">Team-Duell: weniger Ablenkung gewinnt</p>
         <div className="space-y-5">
-          <TeamBar name="Team A" minutes={68} percent={32} winner />
-          <TeamBar name="Team B" minutes={142} percent={68} />
+          <TeamBar name="Team Alpha" minutes={68} percent={32} winner />
+          <TeamBar name="Team Beta" minutes={142} percent={68} />
         </div>
         <p className="text-xs text-muted-foreground text-center mt-6">
           Kürzerer Balken = weniger Ablenkungsminuten. Team A führt.
