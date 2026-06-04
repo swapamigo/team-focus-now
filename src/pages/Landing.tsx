@@ -16,12 +16,14 @@ import SocialProof from "@/components/landing/SocialProof";
 import Faq from "@/components/landing/Faq";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
 import mockup from "@/assets/landing-mockup.jpg";
+import focusedImg from "@/assets/employee-focused.jpg";
+import stressedImg from "@/assets/employee-stressed.jpg";
 
 // Konsistente Leitzahlen – siehe internes Dashboard (193 → 125 min/Tag ≈ 35 %)
 const kpis = [
   { value: "−35%", label: "Smartphone-Zeit" },
-  { value: "+22%", label: "produktive Stunden" },
-  { value: "8.7 / 10", label: "Mitarbeiter-Score" },
+  { value: "+43%", label: "produktive Stunden" },
+  { value: "DSGVO", label: "konform" },
   { value: "5 Min", label: "Setup-Zeit" },
 ];
 
