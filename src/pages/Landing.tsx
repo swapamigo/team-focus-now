@@ -220,14 +220,14 @@ export default function Landing() {
       {/* 5) So funktioniert TeamFocus */}
       <HowItWorks />
 
+      {/* 5b) Gesellschaftliche & gesundheitliche Dimension */}
+      <SocietyHealth />
+
       {/* 6) Setup */}
       <section className="container py-20 md:py-24 border-t border-border/40" id="setup">
         <div className="max-w-2xl mx-auto text-center mb-14">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">In 5 Minuten startklar</p>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Unglaublich einfach. Sofort einsatzbereit.</h2>
-          <p className="mt-4 text-muted-foreground text-lg">
-            Keine IT, keine Schulungen, keine Verträge. Workspace anlegen, Link teilen, fertig.
-          </p>
+          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Sofort einsatzbereit.</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
           {setupSteps.map((s, i) => (
@@ -244,42 +244,38 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* 7) Benefits */}
+      {/* 7) Benefits – kompakt */}
       <section className="container py-20 md:py-24 border-t border-border/40">
-        <div className="max-w-2xl mx-auto text-center mb-14">
+        <div className="max-w-2xl mx-auto text-center mb-12">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Vorteile auf einen Blick</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Was Sie wirklich gewinnen.</h2>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
           {benefits.map((b, i) => (
-            <div key={b.title} className="glow-card p-6 animate-fade-in" style={{ animationDelay: `${i * 50}ms` }}>
-              <div className="h-11 w-11 rounded-xl gradient-primary grid place-items-center mb-4 shadow-[var(--shadow-sm)]">
+            <div key={b.title} className="glow-card p-5 text-center animate-fade-in" style={{ animationDelay: `${i * 50}ms` }}>
+              <div className="h-11 w-11 rounded-xl gradient-primary grid place-items-center mb-3 shadow-sm mx-auto">
                 <b.icon className="h-5 w-5 text-primary-foreground" />
               </div>
-              <h3 className="font-semibold mb-1.5 text-lg">{b.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{b.desc}</p>
+              <h3 className="font-semibold text-sm md:text-base">{b.title}</h3>
+              <p className="text-xs text-muted-foreground mt-1 leading-snug">{b.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 8) Datenschutz */}
+      {/* 8) Datenschutz – kompakte Icon-Tiles */}
       <section className="container py-20 md:py-24 border-t border-border/40" id="privacy">
-        <div className="max-w-2xl mx-auto text-center mb-14">
+        <div className="max-w-2xl mx-auto text-center mb-12">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Datenschutz & Vertrauen</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Produktivität statt Überwachung.</h2>
-          <p className="mt-4 text-muted-foreground text-lg">
-            Sechs Prinzipien, mit denen TeamFocus auch durch jede Betriebsratsprüfung kommt.
-          </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 max-w-5xl mx-auto">
           {privacyPoints.map((p) => (
-            <div key={p.title} className="glow-card p-6">
-              <div className="h-11 w-11 rounded-xl bg-secondary grid place-items-center mb-4">
+            <div key={p.label} className="surface-card p-4 text-center">
+              <div className="h-10 w-10 rounded-xl bg-secondary grid place-items-center mb-2 mx-auto">
                 <p.icon className="h-5 w-5 text-primary" />
               </div>
-              <h3 className="font-semibold mb-1.5 text-lg">{p.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+              <p className="text-xs font-medium leading-tight">{p.label}</p>
             </div>
           ))}
         </div>
@@ -291,7 +287,7 @@ export default function Landing() {
       {/* 10) Pricing */}
       <section className="container py-20 md:py-24 border-t border-border/40" id="pricing">
         <div className="max-w-2xl mx-auto text-center mb-12">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Einfache Preise</p>
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Schritt 3 · Preis & Test</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Ein Plan. Alles dabei.</h2>
         </div>
         <div className="max-w-xl mx-auto glow-card p-10 relative overflow-hidden">
