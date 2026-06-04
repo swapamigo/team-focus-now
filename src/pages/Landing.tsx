@@ -150,6 +150,9 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* 1) ROI Calculator – Schritt 1 */}
+      <RoiCalculator />
+
       {/* KPI strip */}
       <section className="border-y border-border/40 bg-gradient-to-b from-secondary/30 to-transparent">
         <div className="container py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -162,14 +165,9 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* 1) ROI Calculator – früh platzieren */}
-      <RoiCalculator />
-
-      {/* 2) Gesellschaftliche & gesundheitliche Dimension */}
-      <SocietyHealth />
-
-      {/* 3) Unterbrechungszyklus */}
+      {/* Unterbrechungszyklus – stützt den Rechner */}
       <InterruptionCycle />
+
 
       {/* 4) Warum anders */}
       <section className="container py-20 md:py-24 border-t border-border/40" id="why">
