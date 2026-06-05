@@ -25,6 +25,11 @@ import EmployeeRules from "./pages/employee/Rules";
 import ProtectedRoute from "./components/app/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 import JoinByCode from "./pages/JoinByCode";
+import DemoEmployee from "./pages/demo/DemoEmployee";
+import DemoManager from "./pages/demo/DemoManager";
+import CheckoutPage from "./pages/checkout/CheckoutPage";
+import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
+import ManagerLeads from "./pages/manager/Leads";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +44,14 @@ const App = () => (
           <Route path="/login" element={<AuthPage mode="login" />} />
           <Route path="/register" element={<AuthPage mode="register" />} />
           <Route path="/join/:code" element={<JoinByCode />} />
+
+          {/* Public demo (no auth) */}
+          <Route path="/demo/employee" element={<DemoEmployee />} />
+          <Route path="/demo/manager" element={<DemoManager />} />
+
+          {/* Checkout (public, fake) */}
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/checkout/success" element={<CheckoutSuccess />} />
 
           <Route path="/onboarding/role" element={<ProtectedRoute requireOnboarded={false}><RoleSelect /></ProtectedRoute>} />
           <Route path="/onboarding/manager" element={<ProtectedRoute requireOnboarded={false}><ManagerOnboarding /></ProtectedRoute>} />
@@ -58,6 +71,7 @@ const App = () => (
             <Route path="members" element={<ManagerMembers />} />
             <Route path="invites" element={<ManagerInvites />} />
             <Route path="challenges" element={<ManagerChallenges />} />
+            <Route path="leads" element={<ManagerLeads />} />
             <Route path="rules" element={<ManagerRules />} />
             <Route path="settings" element={<ManagerSettings />} />
           </Route>
