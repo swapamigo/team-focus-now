@@ -1,96 +1,73 @@
 ## Ziel
-Premium-Refresh der Landing Page, klarerer Mitarbeiter-Schutz, schlankere App-Navigation, Onboarding-Tour, und ein ROI-Calculator auf der Landing Page. Google-Login bleibt unverändert (funktioniert bereits).
+Landing-Page emotionaler, bildlicher und mobil-optimiert. Echter Demo-Mode ohne Login. Realistischer (aber fake) Bezahlflow. Lead-Capture an mehreren Stellen + Admin-Übersicht für eingehende Emails.
 
-## 1. Landing Page Überarbeitung (`src/pages/Landing.tsx`)
+## 1 — Header (sticky, mobil-tauglich)
+- Neue Navigation: **ROI · So funktioniert's · Datenschutz · Preise · FAQ**
+- CTA rechts: „Demo starten" (öffnet DemoLeadDialog), Sekundär „Anmelden"
+- Mobile: Hamburger-Drawer
+- Anchor-IDs an allen Sektionen ergänzen
 
-**Neue Positionierung:** "Die mitarbeiterfreundlichste Bossware. Motivation statt Kontrolle."
+## 2 — Hero / Reihenfolge
+- Hero-Bild (Software auf Handy+Laptop) **entfernen**
+- Direkt nach Hero: **SocialProofStrip** (kompakt) – „Vertraut von" + 6 fiktive Firmen-Logos/Namen + Button „Bewertungen ansehen" → öffnet Dialog mit den Testimonials
+- Danach: **ROI-Rechner** (bereits vorhanden)
+- Sektion „Was Sie wirklich gewinnen" **löschen**
 
-Sektionen (in dieser Reihenfolge):
-1. **Hero** – Headline: „Mehr Fokus. Weniger Stress. Höherer Umsatz." Sub: motivationsbasiert statt überwachend. Zwei CTAs (Demo testen / Workspace erstellen).
-2. **„Anders als jede Bossware"** – 3-Spalten-Vergleich: Klassische Bossware (Screenshots, Keylogger, Stress) vs. Team Focus (Belohnungen, Privatsphäre, Motivation).
-3. **So einfach geht's** – 3 Steps: Workspace anlegen (1 Min) → Mitarbeiter per Link einladen → fertig. Betont „keine IT nötig, in 5 Minuten live".
-4. **Features** – Belohnungssystem, Team-Challenges, anonyme Aggregat-Statistiken, Fokus-Zeiten, Whitelist.
-5. **ROI-Calculator** (neue Komponente, siehe Punkt 2).
-6. **Privatsphäre-Block** – „Keine Screenshots, keine Tastatureingaben, nur während Arbeitszeit, aggregierte Daten."
-7. **Pricing** – 7 €/Mitarbeiter/Monat.
-8. **Footer** mit Impressum/Datenschutz-Platzhaltern.
+## 3 — Belohnungen
+- Neue Sektion **„Empfohlene Belohnungen"** mit:
+  - 1 h später am Montag / 1 h früher am Freitag (als Best-Practice hervorgehoben)
+  - Essensgutschein
+  - Besserer Firmenwagen (rotierend)
+  - Team-Lunch, Fokus-Champion-Badge
+- FAQ ergänzen mit dieser Info + Zyklus-Hinweis
 
-## 2. ROI-Calculator (neue Komponente `src/components/landing/RoiCalculator.tsx`)
+## 4 — Preise (realistisch wirkender Flow)
+- Preis auf **4,99 €/Mitarbeiter/Monat**
+- Jahresabo: **3,99 €/Mitarbeiter/Monat**
+- Neuer **/checkout** Flow:
+  1. Plan wählen (monatlich / jährlich)
+  2. Slider Mitarbeiteranzahl (1–500) → Live-Summe
+  3. Bezahlmethoden-Auswahl (Karte, SEPA, PayPal, Rechnung) — nur visuell
+  4. Button „Jetzt kaufen"
+- Nach Klick → **/checkout/success** Seite mit Wahrheit („noch in Entwicklung, im nächsten Monat live") + E-Mail-Capture (in `demo_leads`, source=`waitlist`)
 
-Inputs:
-- Anzahl Mitarbeiter (Slider/Input, default 25)
-- Stundensatz pro Mitarbeiter (€, default 35)
+## 5 — Demo-Mode (ohne Login)
+- DemoLeadDialog: Email eingeben → in `demo_leads` speichern → Auswahl **Mitarbeiter-Sicht / Manager-Sicht**
+- Neue Route `/demo/employee` und `/demo/manager` – nutzen Mock-Daten via React Context (kein Auth nötig)
+- Auto-Simulation: beim Mount sofort 365-Tage-Mock im Frontend generieren (kein Backend-Call)
+- Button „Demo-Jahr neu generieren" bleibt
+- Persistenter Banner oben: „Demo-Modus aktiv — **Zum Kauf**" → /checkout
+- Mock-Daten zeigen klaren Verbesserungstrend
 
-Berechnungen:
-- Verschwendete Stunden/Jahr = `mitarbeiter × 720`
-- Verlust/Jahr = `verschwendeteStunden × stundensatz`
-- Ersparnis bei -30% Bildschirmzeit = `verlust × 0.30`
-- Hinweise (kursiv): „tatsächlicher Verlust höher durch Fehler/geringeren Fokus"; „Ersparnis in der Praxis höher".
+## 6 — Admin Email-Übersicht
+- Neue Route `/manager/leads` (nur sichtbar für eigene super-admin oder einfach geschützt via existierender Manager-Rolle, beschränkt auf Owner-Email)
+- Listet alle `demo_leads` (email, source, created_at)
+- Verlinkt im Manager-Sidebar als „Demo-Leads"
 
-Visualisierung: zwei große Zahlenkarten (Verlust rot/muted, Ersparnis grün/primary), animierter Count-up.
+## 7 — Umfrage (im Checkout-Success)
+- Auf Erfolgs-/Wahrheits-Seite kleine Umfrage:
+  - Slider 1–10: „War Ihnen das Smartphone-Problem so bewusst?"
+  - Text: Branche/Bereich der Mitarbeiter
+  - Slider 1–1000: Mitarbeiteranzahl
+  - Textarea: Verbesserungsvorschläge
+- Speicherung in neuer Tabelle `feedback_responses`
 
-## 3. Onboarding-Tour nach Login (neue Komponente `src/components/app/OnboardingTour.tsx`)
+## 8 — Mobile & Visual Polish
+- Hero, Sektionen, Cards: bessere Mobile-Spacings, größere Icons, mehr Bildhaftigkeit
+- Bestehende Bilder (`employee-focused`, `employee-stressed`) prominenter einsetzen
+- Sektion HowItWorks: ein neues generiertes Bild (Team-Duell)
+- Cycle-Hinweis: „Wöchentlich bis monatlich – frei wählbar"
 
-Modal-Overlay mit 4 Slides nach erstem App-Aufruf (Flag in `localStorage` pro user_id):
-- Slide 1: „Willkommen bei Team Focus"
-- Slide 2: „Dein Dashboard – sieh deinen Fokus-Fortschritt"
-- Slide 3: „Privatsphäre – nur du siehst deine Daten"
-- Slide 4: „Belohnungen & Challenges – motiviert besser arbeiten"
+## 9 — DB-Migrationen
+- `demo_leads`: bereits vorhanden, ggf. `source` erweitern
+- Neu: `feedback_responses` (email nullable, awareness_score int, sector text, employee_count int, suggestion text)
+- Beide mit RLS: insert für anon (Lead-Capture), select nur für service_role + spezifische Owner-Email
 
-Wird in `AppShell` und `ManagerShell` eingebunden.
+## 10 — Konsistenz
+- Alle CTAs einheitlich auf neuen DemoDialog gerichtet
+- Preise (4,99 / 3,99) überall identisch
+- Zyklus-Text „Wöchentlich bis monatlich" überall
 
-## 4. Mitarbeiter-Privatsphäre verstärken
-
-- `src/pages/employee/Dashboard.tsx`: Banner oben „🔒 Privatsphäre garantiert – nur du siehst diese Daten. Dein Manager erhält ausschließlich anonyme Team-Statistiken."
-- `src/pages/employee/Stats.tsx`: gleicher Hinweis kompakt.
-- `src/pages/employee/Settings.tsx`: ausführlicher Privatsphäre-Abschnitt.
-
-## 5. Manager: keine E-Mails anzeigen
-
-- `src/pages/manager/Members.tsx`: E-Mail-Spalte entfernen, nur Display-Name + Team.
-- `src/pages/manager/Invites.tsx`: optionale E-Mail-Eingabe entfernen (nur Code-basierte Einladung).
-
-## 6. Notifications entfernen
-
-- Route `/app/notifications` entfernen aus `App.tsx`.
-- `MobileNav.tsx`: Notification-Tab raus.
-- `src/pages/employee/Notifications.tsx`: Datei wird obsolet (kann bleiben, nicht mehr verlinkt – sauber: löschen).
-- Glocken-Icons aus Headern entfernen.
-
-## 7. Arbeitszeit-Hinweis
-
-- Sichtbarer Hinweis im Employee Dashboard und in Settings: „Messung erfolgt ausschließlich während deiner hinterlegten Arbeitszeit."
-- Backend-Logik (Simulator) bereits konform; nur UI-Text.
-
-## 8. Design Polish
-
-- Keine Dark-Mode-Toggle (entfernen falls vorhanden).
-- Karten: weichere Schatten, mehr Whitespace, konsistente `rounded-2xl`.
-- Mobile-Bottom-Nav: Active-Pill, größere Touch-Targets.
-
-## 9. Dateien-Übersicht
-
-**Neu:**
-- `src/components/landing/RoiCalculator.tsx`
-- `src/components/app/OnboardingTour.tsx`
-- `src/components/landing/Footer.tsx`
-
-**Geändert:**
-- `src/pages/Landing.tsx` (Hero + Vergleich + Calculator + Footer)
-- `src/App.tsx` (Notifications-Route raus)
-- `src/components/app/MobileNav.tsx` (Notifications-Tab raus)
-- `src/components/app/AppShell.tsx` (+ OnboardingTour)
-- `src/components/app/ManagerShell.tsx` (+ OnboardingTour, evtl. Glocke raus)
-- `src/pages/employee/Dashboard.tsx` (Privatsphäre-Banner)
-- `src/pages/employee/Stats.tsx` (Privatsphäre-Hinweis)
-- `src/pages/employee/Settings.tsx` (Privatsphäre-Abschnitt)
-- `src/pages/manager/Members.tsx` (E-Mail raus)
-- `src/pages/manager/Invites.tsx` (E-Mail-Feld raus)
-
-**Gelöscht:**
-- `src/pages/employee/Notifications.tsx`
-
-## Nicht im Scope
-- Google Auth (funktioniert bereits)
-- Datenbank-Schema-Änderungen
-- Edge Functions / Simulator-Logik (Arbeitszeit-Filterung bereits in Daten korrekt)
+## Technische Notizen
+- DemoContext (React Context) liefert Mock-Daten an bestehende Dashboard-Komponenten — bestehende Pages werden NICHT dupliziert, sondern via Wrapper unter `/demo/*` mit Mock-Datenquelle gerendert
+- Falls Dashboard-Pages direkt `supabase` aufrufen, kapseln wir das mit einem `useDataSource()` Hook der zwischen real/mock unterscheidet — Minimal-invasiv: nur Top-Level Dashboard-Komponenten anpassen, nicht alle Subviews

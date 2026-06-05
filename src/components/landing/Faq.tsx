@@ -3,23 +3,27 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const items = [
   {
     q: "Was genau wird gemessen?",
-    a: "Die private Bildschirm- bzw. Ablenkungszeit während der Arbeitszeit. Keine Inhalte, keine Screenshots, keine Tastatureingaben – nur Zeitdaten. Das Team mit der wenigsten Ablenkungszeit gewinnt.",
+    a: "Nur die private Bildschirm- bzw. Ablenkungszeit während der Arbeitszeit. Keine Inhalte, keine Screenshots, keine Tastatureingaben – ausschließlich Zeitdaten. Das Team mit der wenigsten Ablenkungszeit gewinnt.",
   },
   {
     q: "Werden einzelne Mitarbeitende überwacht?",
-    a: "Nein. Führungskräfte sehen nur Team-Aggregate. Wir nutzen k-Anonymität (k = 5): Team-Ergebnisse werden erst angezeigt, wenn ein Team groß genug ist, um Rückschlüsse auf Einzelpersonen auszuschließen.",
+    a: "Nein. Führungskräfte sehen nur Team-Aggregate. Wir nutzen k-Anonymität (k = 5): Team-Ergebnisse erscheinen erst, wenn ein Team groß genug ist, um Rückschlüsse auf Einzelpersonen auszuschließen.",
   },
   {
     q: "Ist das DSGVO-konform?",
     a: "Ja. Privacy-by-Design, ausdrückliche Einwilligung der Mitarbeitenden, EU-Hosting und Datenminimierung sind von Anfang an eingebaut.",
   },
   {
-    q: "Was kostet es nach den 30 Tagen?",
-    a: "7 € pro Mitarbeitendem pro Monat. Monatlich kündbar, keine Setup-Gebühr.",
+    q: "Was kostet es?",
+    a: "4,99 € pro Mitarbeitendem pro Monat. Mit Jahresabo nur 3,99 € pro Mitarbeitendem pro Monat. Monatlich kündbar, keine Setup-Gebühr, 30 Tage gratis testen.",
   },
   {
     q: "Was bekommt das Gewinner-Team?",
-    a: "Die Belohnung legt die Führungskraft frei fest. TeamFocus schlägt zeitliche (z. B. späterer Arbeitsbeginn), monetäre (z. B. Gutscheine, Team-Lunch) oder symbolische (z. B. Fokus-Champion-Badge) Belohnungen vor.",
+    a: "Die Belohnung legt die Führungskraft frei fest. Bewährte Beispiele: 1 Stunde früher Feierabend am Freitag (Top-Empfehlung – Fokus ist dort sowieso am geringsten), 1 Stunde später Start am Montag, Essensgutschein, bevorzugter Firmenwagen, Team-Lunch oder ein Fokus-Champion-Badge.",
+  },
+  {
+    q: "Wie oft wechselt der Belohnungszyklus?",
+    a: "Frei wählbar – wöchentlich bis monatlich. Sie steuern Rhythmus und Belohnung pro Challenge.",
   },
   {
     q: "Wie schnell ist es eingerichtet?",
