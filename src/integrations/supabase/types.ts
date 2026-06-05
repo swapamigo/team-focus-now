@@ -300,6 +300,39 @@ export type Database = {
         }
         Relationships: []
       }
+      feedback_responses: {
+        Row: {
+          awareness_score: number | null
+          created_at: string
+          email: string | null
+          employee_count: number | null
+          id: string
+          sector: string | null
+          source: string | null
+          suggestion: string | null
+        }
+        Insert: {
+          awareness_score?: number | null
+          created_at?: string
+          email?: string | null
+          employee_count?: number | null
+          id?: string
+          sector?: string | null
+          source?: string | null
+          suggestion?: string | null
+        }
+        Update: {
+          awareness_score?: number | null
+          created_at?: string
+          email?: string | null
+          employee_count?: number | null
+          id?: string
+          sector?: string | null
+          source?: string | null
+          suggestion?: string | null
+        }
+        Relationships: []
+      }
       free_phone_times: {
         Row: {
           company_id: string
