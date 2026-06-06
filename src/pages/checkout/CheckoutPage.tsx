@@ -1,10 +1,13 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Check, CreditCard, Building2, Wallet, FileText, ArrowLeft, ShieldCheck } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 
 const fmtEUR = (n: number) =>
   new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 2 }).format(n);
@@ -18,18 +21,39 @@ const methods = [
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
+  const { session, loading } = useAuth();
   const [params] = useSearchParams();
   const initialPlan = (params.get("plan") as "monthly" | "yearly") ?? "yearly";
   const [plan, setPlan] = useState<"monthly" | "yearly">(initialPlan);
   const [employees, setEmployees] = useState(15);
   const [method, setMethod] = useState("card");
+  const [saving, setSaving] = useState(false);
+
+  // Wenn nicht eingeloggt → zur Anmeldung mit Rücksprung hierher.
+  useEffect(() => {
+    if (!loading && !session) {
+      navigate(`/register?next=${encodeURIComponent("/checkout?plan=" + plan)}`, { replace: true });
+    }
+  }, [loading, session, navigate, plan]);
 
   const { perMA, monthlyTotal, yearlyTotal } = useMemo(() => {
-    const perMA = plan === "yearly" ? 3.99 : 4.99;
+    const perMA = plan === "yearly" ? 2.99 : 3.99;
     const monthlyTotal = perMA * employees;
     const yearlyTotal = monthlyTotal * 12;
     return { perMA, monthlyTotal, yearlyTotal };
   }, [plan, employees]);
+
+  const submit = async () => {
+    const email = session?.user.email ?? null;
+    if (!email) return navigate("/register?next=/checkout");
+    setSaving(true);
+    const { error } = await supabase.from("demo_leads").insert({
+      email, source: "checkout_order", employee_count: employees, plan,
+    });
+    setSaving(false);
+    if (error) return toast.error("Speichern fehlgeschlagen. Bitte erneut versuchen.");
+    navigate(`/checkout/success?plan=${plan}&employees=${employees}`);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -61,10 +85,10 @@ export default function CheckoutPage() {
                       className={"text-left p-5 rounded-xl border-2 transition-all " + (active ? "border-primary bg-primary/5" : "border-border hover:border-primary/40")}>
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-sm font-semibold">{p === "monthly" ? "Monatlich" : "Jährlich"}</span>
-                        {p === "yearly" && <span className="text-[10px] font-bold uppercase tracking-wider text-primary px-2 py-0.5 rounded-full bg-primary/15">−20 %</span>}
+                        {p === "yearly" && <span className="text-[10px] font-bold uppercase tracking-wider text-primary px-2 py-0.5 rounded-full bg-primary/15">−25 %</span>}
                       </div>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-3xl font-semibold">{p === "monthly" ? "4,99 €" : "3,99 €"}</span>
+                        <span className="text-3xl font-semibold">{p === "monthly" ? "3,99 €" : "2,99 €"}</span>
                         <span className="text-xs text-muted-foreground">/ MA / Monat</span>
                       </div>
                       <p className="text-xs text-muted-foreground mt-2">{p === "monthly" ? "Jederzeit kündbar" : "Jährliche Abrechnung · bester Preis"}</p>
@@ -131,9 +155,8 @@ export default function CheckoutPage() {
                 ))}
               </ul>
 
-              <Button className="w-full h-12 mt-6 shadow-glow"
-                onClick={() => navigate(`/checkout/success?plan=${plan}&employees=${employees}`)}>
-                Jetzt kostenpflichtig bestellen
+              <Button className="w-full h-12 mt-6 shadow-glow" disabled={saving} onClick={submit}>
+                {saving ? "Wird gesendet…" : "Jetzt kostenpflichtig bestellen"}
               </Button>
               <p className="text-[11px] text-muted-foreground text-center mt-2">
                 Mit Klick stimmen Sie unseren AGB und der Datenschutzerklärung zu.
