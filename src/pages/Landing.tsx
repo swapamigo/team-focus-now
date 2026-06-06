@@ -73,8 +73,12 @@ export default function Landing() {
   const [demoOpen, setDemoOpen] = useState(false);
 
   if (!loading && session) {
-    const target = profile && !profile.onboarded ? "/onboarding/role" : role === "manager" ? "/manager" : "/app";
-    return <Navigate to={target} replace />;
+    const hasProto = (() => { try { return localStorage.getItem("prototype_access") === "1"; } catch { return false; } })();
+    if (hasProto) {
+      const target = profile && !profile.onboarded ? "/onboarding/role" : role === "manager" ? "/manager" : "/app";
+      return <Navigate to={target} replace />;
+    }
+    return <Navigate to="/checkout" replace />;
   }
 
   return (
@@ -100,13 +104,13 @@ export default function Landing() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-4">
             <Button asChild size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto">
-              <Link to="/register">Kostenlos starten <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
+              <Link to="/register?next=/checkout">Kostenlos starten <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
             </Button>
             <Button size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
               Demo ansehen
             </Button>
           </div>
-          <p className="mt-6 text-xs text-muted-foreground">{trustLine} · 30 Tage gratis · ab 3,99 € / MA / Monat</p>
+          <p className="mt-6 text-xs text-muted-foreground">{trustLine} · 30 Tage gratis · ab 2,99 € / MA / Monat</p>
         </div>
       </section>
 
@@ -191,7 +195,7 @@ export default function Landing() {
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">In 5 Minuten startklar</p>
           <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-3">Sofort einsatzbereit.</h2>
           <Button asChild size="lg" className="h-12 px-8 shadow-glow group mt-3">
-            <Link to="/register">Jetzt ausprobieren <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
+            <Link to="/register?next=/checkout">Jetzt ausprobieren <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
           </Button>
           <p className="mt-3 text-xs text-muted-foreground">{trustLine}</p>
         </div>
@@ -251,7 +255,7 @@ export default function Landing() {
               Starten Sie 30 Tage gratis. Keine Kreditkarte, kein Risiko – nur fokussiertere Teams.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Button asChild size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto"><Link to="/register">Kostenlos starten</Link></Button>
+              <Button asChild size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto"><Link to="/register?next=/checkout">Kostenlos starten</Link></Button>
               <Button size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
                 Demo ansehen
               </Button>
