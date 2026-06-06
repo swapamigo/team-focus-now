@@ -15,6 +15,8 @@ import TeamsPage from "./pages/employee/Teams";
 import SettingsPage from "./pages/employee/Settings";
 import ManagerShell from "./components/app/ManagerShell";
 import ManagerDashboard from "./pages/manager/Dashboard";
+import ManagerTeamsCombined from "./pages/manager/TeamsCombined";
+import ManagerSettingsCombined from "./pages/manager/SettingsCombined";
 import ManagerTeams from "./pages/manager/Teams";
 import ManagerMembers from "./pages/manager/Members";
 import ManagerInvites from "./pages/manager/Invites";
@@ -67,13 +69,13 @@ const App = () => (
 
           <Route path="/manager" element={<ProtectedRoute requireRole="manager"><ManagerShell /></ProtectedRoute>}>
             <Route index element={<ManagerDashboard />} />
-            <Route path="teams" element={<ManagerTeams />} />
+            <Route path="teams" element={<ManagerTeamsCombined />} />
             <Route path="members" element={<ManagerMembers />} />
             <Route path="invites" element={<ManagerInvites />} />
             <Route path="challenges" element={<ManagerChallenges />} />
             <Route path="leads" element={<ManagerLeads />} />
             <Route path="rules" element={<ManagerRules />} />
-            <Route path="settings" element={<ManagerSettings />} />
+            <Route path="settings" element={<ManagerSettingsCombined />} />
           </Route>
 
           <Route path="/index" element={<Navigate to="/" replace />} />
