@@ -22,16 +22,18 @@ export default function AuthPage({ mode }: Props) {
   const loc = useLocation();
   const { session, profile, role, loading: authLoading } = useAuth();
   const params = new URLSearchParams(loc.search);
-  const redirectParam = params.get("redirect");
+  const nextParam = params.get("next") || params.get("redirect");
   const inviteCode = params.get("invite");
+  const hasPrototypeAccess = (() => {
+    try { return localStorage.getItem("prototype_access") === "1"; } catch { return false; }
+  })();
+  // Standardziel: Fake-Checkout. Nur mit Prototyp-Flag in den echten App-Bereich.
+  const defaultPostAuth = hasPrototypeAccess
+    ? (profile && !profile.onboarded ? "/onboarding/role" : role === "manager" ? "/manager" : "/app")
+    : "/checkout";
 
   if (!authLoading && session) {
-    const target = redirectParam
-      ? redirectParam
-      : profile && !profile.onboarded
-        ? "/onboarding/role"
-        : role === "manager" ? "/manager" : "/app";
-    return <Navigate to={target} replace />;
+    return <Navigate to={nextParam ?? defaultPostAuth} replace />;
   }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,12 +59,12 @@ export default function AuthPage({ mode }: Props) {
         });
         if (error) throw error;
         toast.success("Konto erstellt!");
-        nav(inviteCode ? `/onboarding/employee?invite=${inviteCode}` : "/onboarding/role");
+        nav(nextParam ?? (inviteCode ? `/onboarding/employee?invite=${inviteCode}` : defaultPostAuth));
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         toast.success("Willkommen zurück!");
-        nav("/app");
+        nav(nextParam ?? defaultPostAuth);
       }
     } catch (err: any) {
       toast.error(err.message ?? "Ein Fehler ist aufgetreten");
@@ -73,9 +75,8 @@ export default function AuthPage({ mode }: Props) {
 
   const handleGoogle = async () => {
     setLoading(true);
-    const redirectUri = redirectParam
-      ? `${window.location.origin}${redirectParam}`
-      : window.location.origin;
+    const target = nextParam ?? defaultPostAuth;
+    const redirectUri = `${window.location.origin}${target.startsWith("/") ? target : "/" + target}`;
     const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: redirectUri });
     if (result.error) {
       toast.error("Google-Anmeldung fehlgeschlagen");
@@ -83,7 +84,7 @@ export default function AuthPage({ mode }: Props) {
       return;
     }
     if (result.redirected) return;
-    nav(redirectParam ?? "/app");
+    nav(target);
   };
 
   return (
