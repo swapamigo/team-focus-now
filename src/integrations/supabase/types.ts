@@ -283,19 +283,25 @@ export type Database = {
         Row: {
           created_at: string
           email: string
+          employee_count: number | null
           id: string
+          plan: string | null
           source: string | null
         }
         Insert: {
           created_at?: string
           email: string
+          employee_count?: number | null
           id?: string
+          plan?: string | null
           source?: string | null
         }
         Update: {
           created_at?: string
           email?: string
+          employee_count?: number | null
           id?: string
+          plan?: string | null
           source?: string | null
         }
         Relationships: []
@@ -303,6 +309,8 @@ export type Database = {
       feedback_responses: {
         Row: {
           awareness_score: number | null
+          business_area: string | null
+          company_name: string | null
           created_at: string
           email: string | null
           employee_count: number | null
@@ -313,6 +321,8 @@ export type Database = {
         }
         Insert: {
           awareness_score?: number | null
+          business_area?: string | null
+          company_name?: string | null
           created_at?: string
           email?: string | null
           employee_count?: number | null
@@ -323,6 +333,8 @@ export type Database = {
         }
         Update: {
           awareness_score?: number | null
+          business_area?: string | null
+          company_name?: string | null
           created_at?: string
           email?: string | null
           employee_count?: number | null
