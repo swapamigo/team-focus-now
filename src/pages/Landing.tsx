@@ -78,7 +78,7 @@ export default function Landing() {
       const target = profile && !profile.onboarded ? "/onboarding/role" : role === "manager" ? "/manager" : "/app";
       return <Navigate to={target} replace />;
     }
-    return <Navigate to="/checkout" replace />;
+    // Eingeloggte Besucher dürfen die Landingpage normal anschauen.
   }
 
   return (
