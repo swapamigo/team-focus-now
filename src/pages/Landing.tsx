@@ -120,6 +120,9 @@ export default function Landing() {
       {/* ROI Calculator */}
       <RoiCalculator />
 
+      {/* So funktioniert's — direkt nach dem Rechner */}
+      <HowItWorks />
+
       {/* KPI strip */}
       <section className="border-y border-border/40 bg-gradient-to-b from-secondary/30 to-transparent">
         <div className="container py-8 md:py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
