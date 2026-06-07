@@ -188,7 +188,6 @@ export default function Landing() {
         </div>
       </section>
 
-      <HowItWorks />
       <SocietyHealth />
       <RewardsSection />
 
