@@ -37,7 +37,7 @@ export default function CheckoutPage() {
   }, [loading, session, navigate, plan]);
 
   const { perMA, monthlyTotal, yearlyTotal } = useMemo(() => {
-    const perMA = plan === "yearly" ? 2.99 : 3.99;
+    const perMA = plan === "yearly" ? 1.99 : 2.99;
     const monthlyTotal = perMA * employees;
     const yearlyTotal = monthlyTotal * 12;
     return { perMA, monthlyTotal, yearlyTotal };
