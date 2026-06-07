@@ -78,7 +78,7 @@ export default function Landing() {
       const target = profile && !profile.onboarded ? "/onboarding/role" : role === "manager" ? "/manager" : "/app";
       return <Navigate to={target} replace />;
     }
-    return <Navigate to="/checkout" replace />;
+    // Eingeloggte Besucher dürfen die Landingpage normal anschauen.
   }
 
   return (
@@ -110,7 +110,7 @@ export default function Landing() {
               Demo ansehen
             </Button>
           </div>
-          <p className="mt-6 text-xs text-muted-foreground">{trustLine} · 30 Tage gratis · ab 2,99 € / MA / Monat</p>
+          <p className="mt-6 text-xs text-muted-foreground">{trustLine} · 30 Tage gratis · ab 1,99 € / MA / Monat</p>
         </div>
       </section>
 
@@ -119,6 +119,9 @@ export default function Landing() {
 
       {/* ROI Calculator */}
       <RoiCalculator />
+
+      {/* So funktioniert's — direkt nach dem Rechner */}
+      <HowItWorks />
 
       {/* KPI strip */}
       <section className="border-y border-border/40 bg-gradient-to-b from-secondary/30 to-transparent">
@@ -185,7 +188,6 @@ export default function Landing() {
         </div>
       </section>
 
-      <HowItWorks />
       <SocietyHealth />
       <RewardsSection />
 

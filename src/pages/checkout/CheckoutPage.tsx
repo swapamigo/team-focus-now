@@ -37,7 +37,7 @@ export default function CheckoutPage() {
   }, [loading, session, navigate, plan]);
 
   const { perMA, monthlyTotal, yearlyTotal } = useMemo(() => {
-    const perMA = plan === "yearly" ? 2.99 : 3.99;
+    const perMA = plan === "yearly" ? 1.99 : 2.99;
     const monthlyTotal = perMA * employees;
     const yearlyTotal = monthlyTotal * 12;
     return { perMA, monthlyTotal, yearlyTotal };
@@ -85,10 +85,10 @@ export default function CheckoutPage() {
                       className={"text-left p-5 rounded-xl border-2 transition-all " + (active ? "border-primary bg-primary/5" : "border-border hover:border-primary/40")}>
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-sm font-semibold">{p === "monthly" ? "Monatlich" : "Jährlich"}</span>
-                        {p === "yearly" && <span className="text-[10px] font-bold uppercase tracking-wider text-primary px-2 py-0.5 rounded-full bg-primary/15">−25 %</span>}
+                        {p === "yearly" && <span className="text-[10px] font-bold uppercase tracking-wider text-primary px-2 py-0.5 rounded-full bg-primary/15">−33 %</span>}
                       </div>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-3xl font-semibold">{p === "monthly" ? "3,99 €" : "2,99 €"}</span>
+                        <span className="text-3xl font-semibold">{p === "monthly" ? "2,99 €" : "1,99 €"}</span>
                         <span className="text-xs text-muted-foreground">/ MA / Monat</span>
                       </div>
                       <p className="text-xs text-muted-foreground mt-2">{p === "monthly" ? "Jederzeit kündbar" : "Jährliche Abrechnung · bester Preis"}</p>
