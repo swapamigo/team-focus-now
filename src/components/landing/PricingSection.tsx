@@ -24,7 +24,7 @@ export default function PricingSection() {
         <div className="glow-card p-8 relative">
           <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold mb-2">Monatlich</p>
           <div className="flex items-baseline gap-1.5 mb-1">
-            <span className="text-5xl font-semibold tracking-tight">3,99&nbsp;€</span>
+            <span className="text-5xl font-semibold tracking-tight">2,99&nbsp;€</span>
             <span className="text-sm text-muted-foreground">/ MA / Monat</span>
           </div>
           <p className="text-xs text-muted-foreground mb-6">Volle Flexibilität, jederzeit kündbar.</p>
@@ -35,11 +35,11 @@ export default function PricingSection() {
 
         <div className="glow-card p-8 relative border-primary/40 ring-1 ring-primary/30 bg-primary/[0.03] overflow-hidden">
           <span className="absolute top-4 right-4 text-[10px] uppercase tracking-wider font-bold text-primary px-2.5 py-1 rounded-full bg-primary/15">
-            −25 % spart
+            −33 % spart
           </span>
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">Jährlich</p>
           <div className="flex items-baseline gap-1.5 mb-1">
-            <span className="text-5xl font-semibold tracking-tight text-gradient">2,99&nbsp;€</span>
+            <span className="text-5xl font-semibold tracking-tight text-gradient">1,99&nbsp;€</span>
             <span className="text-sm text-muted-foreground">/ MA / Monat</span>
           </div>
           <p className="text-xs text-muted-foreground mb-6">Jährlich abgerechnet. Bester Preis.</p>
