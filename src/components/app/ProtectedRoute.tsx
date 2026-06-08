@@ -30,7 +30,7 @@ export default function ProtectedRoute({ children, requireOnboarded = true, requ
     );
   }
   if (!session) return <Navigate to="/login" replace />;
-  if (!hasPrototypeAccess()) return <Navigate to="/checkout" replace />;
+  if (!hasPrototypeAccess()) return <Navigate to="/waitlist" replace />;
   if (requireOnboarded && profile && !profile.onboarded) return <Navigate to="/onboarding/role" replace />;
   if (requireRole && role && role !== requireRole) {
     return <Navigate to={role === "manager" ? "/manager" : "/app"} replace />;

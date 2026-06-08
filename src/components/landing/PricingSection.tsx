@@ -29,7 +29,7 @@ export default function PricingSection() {
           </div>
           <p className="text-xs text-muted-foreground mb-6">Volle Flexibilität, jederzeit kündbar.</p>
           <Button asChild variant="outline" className="w-full h-11">
-            <Link to="/register?next=/checkout?plan=monthly">Auswählen</Link>
+            <Link to="/waitlist">Auswählen</Link>
           </Button>
         </div>
 
@@ -44,7 +44,7 @@ export default function PricingSection() {
           </div>
           <p className="text-xs text-muted-foreground mb-6">Jährlich abgerechnet. Bester Preis.</p>
           <Button asChild className="w-full h-11 shadow-glow">
-            <Link to="/register?next=/checkout?plan=yearly">Auswählen</Link>
+            <Link to="/waitlist">Auswählen</Link>
           </Button>
         </div>
       </div>
