@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Sparkles, ShoppingCart, X } from "lucide-react";
+import { Sparkles, Mail, X } from "lucide-react";
 
 export default function DemoBanner() {
   const loc = useLocation();
@@ -14,7 +14,7 @@ export default function DemoBanner() {
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <Button asChild size="sm" variant="secondary" className="h-8">
-            <Link to="/checkout?plan=yearly"><ShoppingCart className="h-3.5 w-3.5 mr-1" /> Zum Kauf</Link>
+            <Link to="/waitlist"><Mail className="h-3.5 w-3.5 mr-1" /> Vormerken</Link>
           </Button>
           <Button asChild size="sm" variant="ghost" className="h-8 text-primary-foreground hover:bg-white/10">
             <Link to="/"><X className="h-3.5 w-3.5" /></Link>

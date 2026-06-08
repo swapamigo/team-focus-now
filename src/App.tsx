@@ -27,8 +27,7 @@ import NotFound from "./pages/NotFound";
 import JoinByCode from "./pages/JoinByCode";
 import DemoEmployee from "./pages/demo/DemoEmployee";
 import DemoManager from "./pages/demo/DemoManager";
-import CheckoutPage from "./pages/checkout/CheckoutPage";
-import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
+import Waitlist from "./pages/Waitlist";
 import ManagerLeads from "./pages/manager/Leads";
 
 const queryClient = new QueryClient();
@@ -49,9 +48,10 @@ const App = () => (
           <Route path="/demo/employee" element={<DemoEmployee />} />
           <Route path="/demo/manager" element={<DemoManager />} />
 
-          {/* Checkout (public, fake) */}
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/checkout/success" element={<CheckoutSuccess />} />
+          {/* Waitlist (public) */}
+          <Route path="/waitlist" element={<Waitlist />} />
+          <Route path="/checkout" element={<Navigate to="/waitlist" replace />} />
+          <Route path="/checkout/success" element={<Navigate to="/waitlist" replace />} />
 
           <Route path="/onboarding/role" element={<ProtectedRoute requireOnboarded={false}><RoleSelect /></ProtectedRoute>} />
           <Route path="/onboarding/manager" element={<ProtectedRoute requireOnboarded={false}><ManagerOnboarding /></ProtectedRoute>} />

@@ -27,10 +27,10 @@ export default function AuthPage({ mode }: Props) {
   const hasPrototypeAccess = (() => {
     try { return localStorage.getItem("prototype_access") === "1"; } catch { return false; }
   })();
-  // Standardziel: Fake-Checkout. Nur mit Prototyp-Flag in den echten App-Bereich.
+  // Standardziel: Warteliste. Nur mit Prototyp-Flag in den echten App-Bereich.
   const defaultPostAuth = hasPrototypeAccess
     ? (profile && !profile.onboarded ? "/onboarding/role" : role === "manager" ? "/manager" : "/app")
-    : "/checkout";
+    : "/waitlist";
 
   if (!authLoading && session) {
     return <Navigate to={nextParam ?? defaultPostAuth} replace />;
