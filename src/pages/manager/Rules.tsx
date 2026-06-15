@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Plus, Trash2, AppWindow, Globe, Smartphone, ShieldCheck } from "lucide-react";
+import { Plus, Trash2, AppWindow, Globe, Smartphone, ShieldCheck, Ban } from "lucide-react";
 
 interface Row { id: string; }
 interface AppRow extends Row { app_name: string; }
