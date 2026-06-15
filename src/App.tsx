@@ -30,6 +30,8 @@ import DemoEmployee from "./pages/demo/DemoEmployee";
 import DemoManager from "./pages/demo/DemoManager";
 import Waitlist from "./pages/Waitlist";
 import ManagerLeads from "./pages/manager/Leads";
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminLeads from "./pages/admin/AdminLeads";
 
 const queryClient = new QueryClient();
 
@@ -73,9 +75,15 @@ const App = () => (
             <Route path="members" element={<ManagerMembers />} />
             <Route path="invites" element={<ManagerInvites />} />
             <Route path="challenges" element={<ManagerChallenges />} />
-            <Route path="leads" element={<ManagerLeads />} />
+            <Route path="leads" element={<Navigate to="/admin/leads" replace />} />
             <Route path="rules" element={<ManagerRules />} />
             <Route path="settings" element={<ManagerSettingsCombined />} />
+          </Route>
+
+          {/* Admin-only area (separate shell, no employee/manager nav) */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Navigate to="/admin/leads" replace />} />
+            <Route path="leads" element={<AdminLeads />} />
           </Route>
 
           <Route path="/index" element={<Navigate to="/" replace />} />

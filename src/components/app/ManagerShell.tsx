@@ -1,11 +1,10 @@
 import { Outlet, NavLink, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, Trophy, Settings as Cog, Inbox } from "lucide-react";
+import { LayoutDashboard, Users, Trophy, Settings as Cog } from "lucide-react";
 import Logo from "@/components/Logo";
 import OnboardingTour from "@/components/app/OnboardingTour";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/hooks/useAuth";
 
-const baseItems = [
+const items = [
   { to: "/manager", icon: LayoutDashboard, label: "Übersicht", end: true },
   { to: "/manager/teams", icon: Users, label: "Teams" },
   { to: "/manager/challenges", icon: Trophy, label: "Challenges" },
@@ -14,10 +13,6 @@ const baseItems = [
 
 export default function ManagerShell() {
   const loc = useLocation();
-  const { isAdmin } = useAuth();
-  const items = isAdmin
-    ? [...baseItems, { to: "/manager/leads", icon: Inbox, label: "Leads" }]
-    : baseItems;
   return (
     <div className="min-h-screen bg-background flex flex-col md:flex-row">
       <aside className="hidden md:flex md:flex-col w-64 border-r border-border/60 bg-card/40 p-6 gap-6">

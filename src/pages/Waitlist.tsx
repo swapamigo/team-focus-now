@@ -41,6 +41,8 @@ export default function Waitlist() {
       return;
     }
     setSaving(true);
+    const { getVisitorGeo } = await import("@/lib/geo");
+    const geo = await getVisitorGeo();
     const { error } = await supabase.from("feedback_responses").insert({
       email,
       awareness_score: awareness,
@@ -50,9 +52,11 @@ export default function Waitlist() {
       employee_count: employeeCount,
       suggestion: suggestion || null,
       source: "waitlist",
+      country: geo.country,
+      country_code: geo.country_code,
     });
     // Zusätzlich als Lead speichern, falls Spalte vorhanden.
-    await supabase.from("demo_leads").insert({ email, source: "waitlist" });
+    await supabase.from("demo_leads").insert({ email, source: "waitlist", country: geo.country, country_code: geo.country_code });
     setSaving(false);
     if (error) return toast.error("Speichern fehlgeschlagen.");
     setSent(true);
