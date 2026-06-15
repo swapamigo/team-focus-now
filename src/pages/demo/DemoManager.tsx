@@ -1,28 +1,31 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DemoBanner from "@/components/demo/DemoBanner";
 import { demoTeams, demoStats, genYear } from "@/components/demo/demoData";
+import { toast } from "sonner";
 import {
   Users, Trophy, Activity, TrendingDown, Sparkles, CalendarRange, UserCog,
   Plus, Settings as Cog, Bell, Shield, Trash2, Mail, CheckCircle2, Smartphone, Globe,
 } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-// Realistische Mock-Mitarbeitende
-const demoMembers = [
-  { name: "Anna Berger", team: "Team Alpha", min: 78, role: "Mitarbeiterin" },
-  { name: "Lukas Schmidt", team: "Team Alpha", min: 92, role: "Mitarbeiter" },
-  { name: "Sophie Wagner", team: "Team Beta", min: 104, role: "Mitarbeiterin" },
-  { name: "Jonas Klein", team: "Team Beta", min: 99, role: "Mitarbeiter" },
-  { name: "Mia Hoffmann", team: "Team Gamma", min: 112, role: "Mitarbeiterin" },
-  { name: "Felix Braun", team: "Team Gamma", min: 121, role: "Mitarbeiter" },
-  { name: "Lara Krüger", team: "Team Delta", min: 138, role: "Mitarbeiterin" },
-  { name: "Tim Werner", team: "Team Delta", min: 129, role: "Mitarbeiter" },
+const initialMembers = [
+  { name: "Anna Berger", team: "Team Alpha", role: "Mitarbeiterin" },
+  { name: "Lukas Schmidt", team: "Team Alpha", role: "Mitarbeiter" },
+  { name: "Sophie Wagner", team: "Team Beta", role: "Mitarbeiterin" },
+  { name: "Jonas Klein", team: "Team Beta", role: "Mitarbeiter" },
+  { name: "Mia Hoffmann", team: "Team Gamma", role: "Mitarbeiterin" },
+  { name: "Felix Braun", team: "Team Gamma", role: "Mitarbeiter" },
+  { name: "Lara Krüger", team: "Team Delta", role: "Mitarbeiterin" },
+  { name: "Tim Werner", team: "Team Delta", role: "Mitarbeiter" },
 ];
 
-const demoChallenges = [
+const initialChallenges = [
   { name: "Fokus-Woche", status: "Aktiv", reward: "1 Std. früher Feierabend Freitag", progress: 68, days: "5 Tage übrig" },
   { name: "Handy-Diät", status: "Geplant", reward: "Bezahltes Team-Mittagessen", progress: 0, days: "Start in 12 Tagen" },
   { name: "Quartals-Marathon", status: "Beendet", reward: "Essensgutschein 50 €", progress: 100, days: "Gewinner: Team Alpha" },
@@ -30,7 +33,7 @@ const demoChallenges = [
 
 const demoWhitelist = {
   apps: ["Microsoft Teams", "Slack", "Outlook", "Notion", "Figma"],
-  websites: ["github.com", "linear.app", "company-wiki.de"],
+  blockedWebsites: ["instagram.com", "tiktok.com", "youtube.com", "x.com", "reddit.com"],
 };
 
 export default function DemoManager() {
@@ -41,6 +44,46 @@ export default function DemoManager() {
   const diffMin = first - last;
   const hoursPerMonth = Math.round(((diffMin * 22) / 60) * 10) / 10;
   const pct = Math.round((diffMin / first) * 100);
+
+  // Interactive demo state
+  const [members, setMembers] = useState(initialMembers);
+  const [teamsList, setTeamsList] = useState(demoTeams.map((t) => ({ id: t.id, name: t.name, color: t.color, members: t.members, avgMin: t.avgMin, isOwn: t.isOwn })));
+  const [challenges, setChallenges] = useState(initialChallenges);
+
+  // dialog states
+  const [openChallenge, setOpenChallenge] = useState(false);
+  const [chName, setChName] = useState("");
+  const [chReward, setChReward] = useState("");
+  const [chDays, setChDays] = useState("7");
+
+  const [openTeam, setOpenTeam] = useState(false);
+  const [teamName, setTeamName] = useState("");
+  const [teamColor, setTeamColor] = useState("#6366f1");
+
+  const [openInvite, setOpenInvite] = useState(false);
+  const [inviteName, setInviteName] = useState("");
+  const [inviteTeam, setInviteTeam] = useState("Team Alpha");
+
+  const createChallenge = () => {
+    if (!chName.trim()) return toast.error("Name fehlt");
+    setChallenges([{ name: chName, status: "Geplant", reward: chReward || "Team-Belohnung", progress: 0, days: `Start in ${chDays} Tagen` }, ...challenges]);
+    setOpenChallenge(false); setChName(""); setChReward(""); setChDays("7");
+    toast.success("Challenge erstellt");
+  };
+
+  const createTeam = () => {
+    if (!teamName.trim()) return toast.error("Name fehlt");
+    setTeamsList([...teamsList, { id: `t-${Date.now()}`, name: teamName, color: teamColor, members: 0, avgMin: 0, isOwn: false }]);
+    setOpenTeam(false); setTeamName(""); setTeamColor("#6366f1");
+    toast.success("Team angelegt");
+  };
+
+  const invite = () => {
+    if (!inviteName.trim()) return toast.error("Name fehlt");
+    setMembers([{ name: inviteName, team: inviteTeam, role: "Mitarbeiter:in" }, ...members]);
+    setOpenInvite(false); setInviteName("");
+    toast.success("Einladung verschickt");
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -71,9 +114,9 @@ export default function DemoManager() {
           <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <Stat icon={Users} label="Mitarbeitende" value={demoStats.memberCount.toString()} />
-              <Stat icon={Trophy} label="Teams" value="4" />
-              <Stat icon={Activity} label="Aktive Challenge" value="Läuft" small="Fokus-Woche" />
-              <Stat icon={TrendingDown} label="Ø Ablenkung heute" value={`${Math.round(demoTeams.reduce((s, t) => s + t.avgMin, 0) / demoTeams.length)} min`} />
+              <Stat icon={Trophy} label="Teams" value={String(teamsList.length)} />
+              <Stat icon={Activity} label="Aktive Challenge" value="Läuft" small={challenges.find(c => c.status === "Aktiv")?.name ?? "—"} />
+              <Stat icon={TrendingDown} label="Ø Ablenkung heute" value={`${Math.round(teamsList.reduce((s, t) => s + t.avgMin, 0) / Math.max(1, teamsList.length))} min`} />
             </div>
 
             <section className="surface-card p-5 md:p-6">
@@ -110,18 +153,30 @@ export default function DemoManager() {
             <section className="surface-card p-5 md:p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-semibold">Team-Ranking heute</h2>
-                <Button size="sm" variant="outline"><Plus className="h-4 w-4 mr-1" />Team</Button>
+                <Dialog open={openTeam} onOpenChange={setOpenTeam}>
+                  <DialogTrigger asChild>
+                    <Button size="sm" variant="outline"><Plus className="h-4 w-4 mr-1" />Team</Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader><DialogTitle>Neues Team</DialogTitle></DialogHeader>
+                    <div className="space-y-3">
+                      <div><Label>Name</Label><Input value={teamName} onChange={(e) => setTeamName(e.target.value)} placeholder="z. B. Vertrieb" /></div>
+                      <div><Label>Farbe</Label><Input type="color" value={teamColor} onChange={(e) => setTeamColor(e.target.value)} className="h-10 w-20 p-1" /></div>
+                    </div>
+                    <DialogFooter><Button onClick={createTeam}>Anlegen</Button></DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </div>
               <ul className="space-y-2">
-                {[...demoTeams].sort((a, b) => a.avgMin - b.avgMin).map((t, i) => (
+                {[...teamsList].sort((a, b) => a.avgMin - b.avgMin).map((t, i) => (
                   <li key={t.id} className="flex items-center gap-3 p-3 rounded-xl bg-secondary/60">
                     <span className="w-6 text-sm font-semibold text-muted-foreground">#{i + 1}</span>
-                    <span className="h-8 w-8 rounded-lg grid place-items-center text-xs font-semibold text-white" style={{ background: t.color }}>{t.name.slice(5, 7).toUpperCase()}</span>
+                    <span className="h-8 w-8 rounded-lg grid place-items-center text-xs font-semibold text-white" style={{ background: t.color }}>{t.name.slice(0, 2).toUpperCase()}</span>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium truncate">{t.name}</p>
                       <p className="text-xs text-muted-foreground">{t.members} Mitglieder</p>
                     </div>
-                    <span className="text-sm font-semibold tabular-nums">{t.avgMin} min</span>
+                    <span className="text-sm font-semibold tabular-nums">Ø {t.avgMin} min</span>
                   </li>
                 ))}
               </ul>
@@ -130,10 +185,30 @@ export default function DemoManager() {
             <section className="surface-card p-5 md:p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-semibold">Mitarbeitende</h2>
-                <Button size="sm" variant="outline"><Mail className="h-4 w-4 mr-1" />Einladen</Button>
+                <Dialog open={openInvite} onOpenChange={setOpenInvite}>
+                  <DialogTrigger asChild>
+                    <Button size="sm" variant="outline"><Mail className="h-4 w-4 mr-1" />Einladen</Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader><DialogTitle>Person einladen</DialogTitle></DialogHeader>
+                    <div className="space-y-3">
+                      <div><Label>Name</Label><Input value={inviteName} onChange={(e) => setInviteName(e.target.value)} placeholder="Vor- und Nachname" /></div>
+                      <div>
+                        <Label>Team</Label>
+                        <select value={inviteTeam} onChange={(e) => setInviteTeam(e.target.value)} className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm">
+                          {teamsList.map((t) => <option key={t.id} value={t.name}>{t.name}</option>)}
+                        </select>
+                      </div>
+                    </div>
+                    <DialogFooter><Button onClick={invite}>Einladen</Button></DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </div>
+              <p className="text-xs text-muted-foreground mb-3 flex items-center gap-1.5">
+                <Shield className="h-3 w-3 text-primary" /> Individuelle Bildschirmzeiten sind <strong>nie</strong> sichtbar – nur Team-Aggregate.
+              </p>
               <ul className="divide-y divide-border/60">
-                {demoMembers.map((m) => (
+                {members.map((m) => (
                   <li key={m.name} className="flex items-center gap-3 py-3">
                     <div className="h-9 w-9 rounded-full bg-primary/15 text-primary grid place-items-center text-xs font-semibold">
                       {m.name.split(" ").map((p) => p[0]).join("")}
@@ -142,7 +217,6 @@ export default function DemoManager() {
                       <p className="text-sm font-medium truncate">{m.name}</p>
                       <p className="text-xs text-muted-foreground">{m.team} · {m.role}</p>
                     </div>
-                    <span className="text-xs font-semibold tabular-nums text-muted-foreground">Ø {m.min} min</span>
                   </li>
                 ))}
               </ul>
@@ -152,9 +226,22 @@ export default function DemoManager() {
           {/* CHALLENGES */}
           <TabsContent value="challenges" className="space-y-4">
             <div className="flex justify-end">
-              <Button size="sm"><Plus className="h-4 w-4 mr-1" />Neue Challenge</Button>
+              <Dialog open={openChallenge} onOpenChange={setOpenChallenge}>
+                <DialogTrigger asChild>
+                  <Button size="sm"><Plus className="h-4 w-4 mr-1" />Neue Challenge</Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader><DialogTitle>Neue Challenge</DialogTitle></DialogHeader>
+                  <div className="space-y-3">
+                    <div><Label>Name</Label><Input value={chName} onChange={(e) => setChName(e.target.value)} placeholder="z. B. Fokus-Sprint" /></div>
+                    <div><Label>Belohnung</Label><Input value={chReward} onChange={(e) => setChReward(e.target.value)} placeholder="z. B. Team-Frühstück" /></div>
+                    <div><Label>Start in (Tagen)</Label><Input type="number" min="0" value={chDays} onChange={(e) => setChDays(e.target.value)} /></div>
+                  </div>
+                  <DialogFooter><Button onClick={createChallenge}>Erstellen</Button></DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
-            {demoChallenges.map((c) => (
+            {challenges.map((c) => (
               <div key={c.name} className="surface-card p-5">
                 <div className="flex items-start justify-between gap-3 mb-2 flex-wrap">
                   <div>
@@ -195,10 +282,10 @@ export default function DemoManager() {
             </section>
 
             <section className="surface-card p-5 md:p-6">
-              <h2 className="font-semibold flex items-center gap-2 mb-4"><Globe className="h-4 w-4 text-primary" />Erlaubte Websites</h2>
+              <h2 className="font-semibold flex items-center gap-2 mb-4"><Globe className="h-4 w-4 text-destructive" />Blockierte Websites</h2>
               <div className="flex flex-wrap gap-2">
-                {demoWhitelist.websites.map((w) => (
-                  <span key={w} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary text-xs font-medium">
+                {demoWhitelist.blockedWebsites.map((w) => (
+                  <span key={w} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-destructive/10 text-destructive text-xs font-medium">
                     {w}
                   </span>
                 ))}
