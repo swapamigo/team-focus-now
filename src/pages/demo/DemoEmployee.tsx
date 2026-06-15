@@ -7,6 +7,7 @@ import { demoTeams, genWeek } from "@/components/demo/demoData";
 import {
   Trophy, Smartphone, TrendingDown, Lock, Sparkles, Users, Home,
   BarChart3, Settings as Cog, Bell, CheckCircle2, Globe, Shield, Clock,
+  Timer, ScanLine, MoonStar,
 } from "lucide-react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, Tooltip, Cell, Area, AreaChart } from "recharts";
 
@@ -44,6 +45,7 @@ export default function DemoEmployee() {
             <TabsTrigger value="home"><Home className="h-4 w-4 mr-1.5" />Heute</TabsTrigger>
             <TabsTrigger value="stats"><BarChart3 className="h-4 w-4 mr-1.5" />Statistik</TabsTrigger>
             <TabsTrigger value="teams"><Trophy className="h-4 w-4 mr-1.5" />Teams</TabsTrigger>
+            <TabsTrigger value="features"><Sparkles className="h-4 w-4 mr-1.5" />Features</TabsTrigger>
             <TabsTrigger value="settings"><Cog className="h-4 w-4 mr-1.5" />Einstellungen</TabsTrigger>
           </TabsList>
 
@@ -162,6 +164,21 @@ export default function DemoEmployee() {
             </div>
           </TabsContent>
 
+          {/* FEATURES */}
+          <TabsContent value="features" className="space-y-3">
+            <div className="surface-card p-5">
+              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">Anti-Sucht Werkzeuge</p>
+              <h2 className="text-xl font-semibold tracking-tight">Werde weniger abhängig vom Handy.</h2>
+              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                Optionale Features – aktiviere nur, was zu dir passt. Alles freiwillig.
+              </p>
+            </div>
+            <FeatureCard icon={Timer} title="30-Sek Öffnungs-Timer" desc="Bevor sich Instagram, TikTok & Co. öffnen, läuft ein kurzer Timer. So gewinnst du Zeit zur bewussten Entscheidung." on tag="Beliebt" />
+            <FeatureCard icon={ScanLine} title="Physische NFC-Sperre (Brick)" desc="Social-Apps öffnen sich nur, wenn du deinen Brick (NFC-Chip) aktiv mit dem Handy berührst." on tag="Brick kompatibel" />
+            <FeatureCard icon={MoonStar} title="Graustufen während der Arbeit" desc="Dein Handy wird automatisch grau – bunte Reize verlieren ihre Anziehungskraft." />
+            <FeatureCard icon={Clock} title="Scroll-Stopper nach 2 Minuten" desc="Sanfte Erinnerung, sobald du länger als 2 Minuten in einer Social-App bist." />
+          </TabsContent>
+
           {/* EINSTELLUNGEN */}
           <TabsContent value="settings" className="space-y-4">
             <section className="surface-card p-5">
@@ -230,6 +247,26 @@ function ToggleRow({ label, on }: { label: string; on?: boolean }) {
       <span className={"relative inline-flex h-5 w-9 rounded-full transition-colors " + (on ? "bg-primary" : "bg-secondary")}>
         <span className={"absolute top-0.5 h-4 w-4 rounded-full bg-white transition-all " + (on ? "left-[18px]" : "left-0.5")} />
       </span>
+    </div>
+  );
+}
+
+function FeatureCard({ icon: Icon, title, desc, on, tag }: { icon: any; title: string; desc: string; on?: boolean; tag?: string }) {
+  return (
+    <div className={`surface-card p-4 ${on ? "border-primary/40 bg-primary/[0.03]" : ""}`}>
+      <div className="flex items-start gap-3">
+        <div className={`h-10 w-10 shrink-0 rounded-xl grid place-items-center ${on ? "gradient-primary text-primary-foreground" : "bg-secondary text-primary"}`}>
+          <Icon className="h-5 w-5" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h3 className="font-semibold text-sm">{title}</h3>
+            {tag && <span className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-semibold">{tag}</span>}
+          </div>
+          <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{desc}</p>
+        </div>
+        <ToggleRow label="" on={on} />
+      </div>
     </div>
   );
 }
