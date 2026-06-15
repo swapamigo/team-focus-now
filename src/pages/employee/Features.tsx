@@ -44,12 +44,6 @@ const features: Feature[] = [
     title: "Auto-Fokus bei Arbeits-WLAN",
     desc: "Sobald du dich im Büro-WLAN befindest, aktivieren sich deine Fokus-Regeln automatisch.",
   },
-  {
-    key: "dopamine_log",
-    icon: Sparkles,
-    title: "Dopamin-Tagebuch",
-    desc: "Trage einmal pro Tag ein, wie du dich fühlst. Erkenne den Zusammenhang zwischen Bildschirmzeit und Stimmung.",
-  },
 ];
 
 export default function FeaturesPage() {
