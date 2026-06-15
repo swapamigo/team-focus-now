@@ -200,10 +200,10 @@ export default function DemoEmployee() {
             </section>
 
             <section className="surface-card p-5">
-              <h2 className="font-semibold flex items-center gap-2 mb-4"><Globe className="h-4 w-4 text-primary" />Erlaubte Websites</h2>
+              <h2 className="font-semibold flex items-center gap-2 mb-4"><Globe className="h-4 w-4 text-destructive" />Blockierte Websites</h2>
               <div className="flex flex-wrap gap-2">
-                {allowedSites.map((w) => (
-                  <span key={w} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary text-xs font-medium">{w}</span>
+                {blockedSites.map((w) => (
+                  <span key={w} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-destructive/10 text-destructive text-xs font-medium">{w}</span>
                 ))}
               </div>
             </section>
