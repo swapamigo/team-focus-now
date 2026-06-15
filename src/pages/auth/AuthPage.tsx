@@ -21,6 +21,11 @@ export default function AuthPage({ mode }: Props) {
   const nav = useNavigate();
   const loc = useLocation();
   const { session, profile, role, loading: authLoading } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const params = new URLSearchParams(loc.search);
   const nextParam = params.get("next") || params.get("redirect");
   const inviteCode = params.get("invite");
@@ -35,10 +40,6 @@ export default function AuthPage({ mode }: Props) {
   if (!authLoading && session) {
     return <Navigate to={nextParam ?? defaultPostAuth} replace />;
   }
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
