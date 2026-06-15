@@ -16,7 +16,7 @@ const monthSeries = Array.from({ length: 30 }).map((_, i) => ({
 }));
 
 const allowedApps = ["Microsoft Teams", "Slack", "Outlook", "Notion"];
-const allowedSites = ["github.com", "linear.app", "company-wiki.de"];
+const blockedSites = ["instagram.com", "tiktok.com", "youtube.com", "x.com"];
 
 export default function DemoEmployee() {
   const [seed, setSeed] = useState(0);
