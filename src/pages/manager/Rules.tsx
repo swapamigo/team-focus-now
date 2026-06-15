@@ -84,20 +84,20 @@ export default function ManagerRules() {
       </section>
 
       <section className="surface-card p-5 mb-5">
-        <div className="flex items-center gap-2 mb-1"><Globe className="h-4 w-4 text-primary" /><h2 className="font-semibold">Erlaubte Websites</h2></div>
-        <p className="text-xs text-muted-foreground mb-3">Aufrufe dieser Domains werden nicht als private Nutzung gewertet.</p>
+        <div className="flex items-center gap-2 mb-1"><Ban className="h-4 w-4 text-destructive" /><h2 className="font-semibold">Blockierte Websites</h2></div>
+        <p className="text-xs text-muted-foreground mb-3">Diese Domains werden während der Arbeitszeit blockiert und zählen als Ablenkung.</p>
         <div className="flex gap-2 mb-3">
-          <Input value={newDomain} onChange={(e) => setNewDomain(e.target.value)} placeholder="z. B. github.com" className="h-10" />
+          <Input value={newDomain} onChange={(e) => setNewDomain(e.target.value)} placeholder="z. B. instagram.com" className="h-10" />
           <Button onClick={addWebsite} className="h-10"><Plus className="h-4 w-4" /></Button>
         </div>
         <ul className="flex flex-wrap gap-2">
           {websites.map((w) => (
-            <li key={w.id} className="inline-flex items-center gap-2 bg-secondary rounded-lg px-3 py-1.5 text-sm font-mono">
+            <li key={w.id} className="inline-flex items-center gap-2 bg-destructive/10 text-destructive rounded-lg px-3 py-1.5 text-sm font-mono">
               {w.domain}
-              <button onClick={() => removeWebsite(w.id)} className="text-muted-foreground hover:text-destructive"><Trash2 className="h-3.5 w-3.5" /></button>
+              <button onClick={() => removeWebsite(w.id)} className="text-destructive/70 hover:text-destructive"><Trash2 className="h-3.5 w-3.5" /></button>
             </li>
           ))}
-          {websites.length === 0 && <p className="text-sm text-muted-foreground">Noch keine Domains freigegeben.</p>}
+          {websites.length === 0 && <p className="text-sm text-muted-foreground">Noch keine Domains blockiert.</p>}
         </ul>
       </section>
 
