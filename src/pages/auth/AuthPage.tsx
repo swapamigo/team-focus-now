@@ -20,7 +20,7 @@ interface Props { mode: "login" | "register" }
 export default function AuthPage({ mode }: Props) {
   const nav = useNavigate();
   const loc = useLocation();
-  const { session, profile, role, loading: authLoading } = useAuth();
+  const { session, profile, role, isAdmin, loading: authLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -32,10 +32,13 @@ export default function AuthPage({ mode }: Props) {
   const hasPrototypeAccess = (() => {
     try { return localStorage.getItem("prototype_access") === "1"; } catch { return false; }
   })();
-  // Standardziel: Warteliste. Nur mit Prototyp-Flag in den echten App-Bereich.
-  const defaultPostAuth = hasPrototypeAccess
-    ? (profile && !profile.onboarded ? "/onboarding/role" : role === "manager" ? "/manager" : "/app")
-    : "/waitlist";
+  // Admins gehen direkt in den Admin-Bereich.
+  // Sonst: Standardziel = Warteliste. Nur mit Prototyp-Flag in den echten App-Bereich.
+  const defaultPostAuth = isAdmin
+    ? "/admin/leads"
+    : hasPrototypeAccess
+      ? (profile && !profile.onboarded ? "/onboarding/role" : role === "manager" ? "/manager" : "/app")
+      : "/waitlist";
 
   if (!authLoading && session) {
     return <Navigate to={nextParam ?? defaultPostAuth} replace />;
