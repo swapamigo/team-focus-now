@@ -23,7 +23,7 @@ export default function EmployeeRules() {
       ] = await Promise.all([
         supabase.from("user_allowed_apps").select("app_name").eq("user_id", user.id).order("app_name"),
         supabase.from("whitelisted_apps").select("app_name").eq("company_id", companyId).order("app_name"),
-        supabase.from("whitelisted_websites").select("domain").eq("company_id", companyId).order("domain"),
+        supabase.from("blocked_websites").select("domain").eq("company_id", companyId).order("domain"),
         supabase.from("user_work_schedules").select("weekday, start_time, end_time").eq("user_id", user.id),
         supabase.from("user_breaks").select("id, label, start_time, end_time").eq("user_id", user.id).order("start_time"),
         supabase.from("free_phone_times").select("id, label, start_time, end_time").eq("company_id", companyId).order("start_time"),
