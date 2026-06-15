@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { AppWindow, Globe, Clock, Coffee, Smartphone, ShieldCheck } from "lucide-react";
+import { AppWindow, Globe, Clock, Coffee, Smartphone, ShieldCheck, Ban } from "lucide-react";
 
 const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
