@@ -14,6 +14,38 @@ export type Database = {
   }
   public: {
     Tables: {
+      blocked_websites: {
+        Row: {
+          company_id: string
+          created_at: string
+          domain: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          domain: string
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          domain?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blocked_websites_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       breaks: {
         Row: {
           company_id: string
@@ -972,7 +1004,7 @@ export type Database = {
       join_with_invite: { Args: { _code: string }; Returns: string }
     }
     Enums: {
-      app_role: "manager" | "employee"
+      app_role: "manager" | "employee" | "admin"
       challenge_duration:
         | "1_week"
         | "2_weeks"
@@ -1120,7 +1152,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["manager", "employee"],
+      app_role: ["manager", "employee", "admin"],
       challenge_duration: ["1_week", "2_weeks", "3_weeks", "1_month", "custom"],
       challenge_status: ["draft", "active", "finished", "cancelled"],
       device_type: [

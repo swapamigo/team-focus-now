@@ -1,10 +1,11 @@
 import { Outlet, NavLink, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, Trophy, Settings as Cog } from "lucide-react";
+import { LayoutDashboard, Users, Trophy, Settings as Cog, Inbox } from "lucide-react";
 import Logo from "@/components/Logo";
 import OnboardingTour from "@/components/app/OnboardingTour";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
 
-const items = [
+const baseItems = [
   { to: "/manager", icon: LayoutDashboard, label: "Übersicht", end: true },
   { to: "/manager/teams", icon: Users, label: "Teams" },
   { to: "/manager/challenges", icon: Trophy, label: "Challenges" },
@@ -13,9 +14,12 @@ const items = [
 
 export default function ManagerShell() {
   const loc = useLocation();
+  const { isAdmin } = useAuth();
+  const items = isAdmin
+    ? [...baseItems, { to: "/manager/leads", icon: Inbox, label: "Leads" }]
+    : baseItems;
   return (
     <div className="min-h-screen bg-background flex flex-col md:flex-row">
-      {/* Sidebar (md+) */}
       <aside className="hidden md:flex md:flex-col w-64 border-r border-border/60 bg-card/40 p-6 gap-6">
         <Logo withWordmark />
         <nav className="flex flex-col gap-1">
@@ -38,7 +42,6 @@ export default function ManagerShell() {
         </nav>
       </aside>
 
-      {/* Mobile header */}
       <header className="md:hidden glass border-b border-border/40 px-4 py-3 sticky top-0 z-40 flex items-center justify-between">
         <Logo withWordmark />
       </header>
@@ -47,7 +50,6 @@ export default function ManagerShell() {
         <Outlet />
       </main>
 
-      {/* Mobile bottom nav */}
       <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 glass border-t border-border/40 safe-bottom">
         <ul className="flex justify-around px-2 pt-2 pb-3">
           {items.map((it) => {

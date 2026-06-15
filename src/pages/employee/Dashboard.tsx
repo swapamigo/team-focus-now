@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMinutes, isoDate, lastNDates, formatWeekdayShort } from "@/lib/format";
-import { Trophy, Flame, Smartphone, AlertTriangle, TrendingUp, TrendingDown, Sparkles, Lock } from "lucide-react";
-import { Bar, BarChart, ResponsiveContainer, XAxis, Tooltip, Cell } from "recharts";
+import { Trophy, Flame, Smartphone, TrendingUp, TrendingDown, Lock, CalendarRange } from "lucide-react";
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell, Area, AreaChart } from "recharts";
 import { cn } from "@/lib/utils";
 
 interface TeamRanking {
@@ -15,6 +15,8 @@ interface TeamRanking {
   is_own: boolean;
 }
 
+const MONTHS_DE = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+
 export default function EmployeeDashboard() {
   const { user, companyId, teamId, profile } = useAuth();
   const [todayMin, setTodayMin] = useState(0);
@@ -23,20 +25,23 @@ export default function EmployeeDashboard() {
   const [week, setWeek] = useState<{ date: string; mins: number; label: string }[]>([]);
   const [teams, setTeams] = useState<TeamRanking[]>([]);
   const [highFocusActive, setHighFocusActive] = useState<{ label: string; multiplier: number } | null>(null);
+  const [twoWeek, setTwoWeek] = useState<{ label: string; mins: number }[]>([]);
+  const [heatmap, setHeatmap] = useState<number[][]>([]);
+  const [yearData, setYearData] = useState<{ label: string; avgMinutes: number }[]>([]);
 
   useEffect(() => {
     if (!user || !companyId) return;
     (async () => {
       const dates = lastNDates(7);
+      const dates14 = lastNDates(14);
       const today = isoDate(new Date());
       const yesterday = isoDate(new Date(Date.now() - 86400000));
 
-      // Eigene 7-Tages-Statistik
       const { data: own } = await supabase
         .from("daily_user_summaries")
         .select("date, screen_minutes, penalty_minutes")
         .eq("user_id", user.id)
-        .gte("date", isoDate(dates[0]))
+        .gte("date", isoDate(dates14[0]))
         .order("date");
 
       const ownMap = new Map((own ?? []).map((r: any) => [r.date, r]));
@@ -45,13 +50,16 @@ export default function EmployeeDashboard() {
         const r: any = ownMap.get(key);
         return { date: key, mins: Number(r?.screen_minutes ?? 0), label: formatWeekdayShort(d) };
       }));
+      setTwoWeek(dates14.map((d) => {
+        const r: any = ownMap.get(isoDate(d));
+        return { label: formatWeekdayShort(d), mins: Number(r?.screen_minutes ?? 0) };
+      }));
       const t: any = ownMap.get(today);
       const y: any = ownMap.get(yesterday);
       setTodayMin(Number(t?.screen_minutes ?? 0));
       setTodayPenalty(Number(t?.penalty_minutes ?? 0));
       setYesterdayMin(Number(y?.screen_minutes ?? 0));
 
-      // Team-Ranking (heute)
       const { data: teamSummaries } = await supabase
         .from("daily_team_summaries")
         .select("team_id, avg_screen_minutes, teams!inner(name, emoji, color)")
@@ -68,7 +76,6 @@ export default function EmployeeDashboard() {
         is_own: r.team_id === teamId,
       })));
 
-      // High-Focus aktiv?
       const { data: hf } = await supabase
         .from("high_focus_periods")
         .select("label, multiplier, start_time, end_time, weekdays, active")
@@ -81,23 +88,72 @@ export default function EmployeeDashboard() {
         (p.weekdays ?? []).includes(wd) && p.start_time <= hhmm && p.end_time >= hhmm
       );
       setHighFocusActive(active ? { label: active.label, multiplier: Number(active.multiplier) } : null);
+
+      // Heatmap 7d × 12 Slots
+      const { data: ev } = await supabase
+        .from("usage_events")
+        .select("occurred_at, duration_seconds")
+        .eq("user_id", user.id)
+        .gte("occurred_at", dates[0].toISOString());
+      const grid: number[][] = Array.from({ length: 7 }, () => Array(12).fill(0));
+      (ev ?? []).forEach((e: any) => {
+        const d = new Date(e.occurred_at);
+        const dayIdx = Math.floor((d.getTime() - dates[0].getTime()) / 86400000);
+        if (dayIdx < 0 || dayIdx > 6) return;
+        const slot = Math.floor(d.getHours() / 2);
+        grid[dayIdx][slot] += Number(e.duration_seconds) / 60;
+      });
+      setHeatmap(grid);
+
+      // Jahresverlauf
+      const yearAgo = new Date(); yearAgo.setDate(yearAgo.getDate() - 365);
+      const { data: yearRows } = await supabase
+        .from("daily_user_summaries")
+        .select("date, screen_minutes")
+        .eq("user_id", user.id)
+        .gte("date", yearAgo.toISOString().slice(0, 10))
+        .order("date", { ascending: true })
+        .limit(10000);
+      const buckets = new Map<string, { sum: number; n: number; date: Date }>();
+      (yearRows ?? []).forEach((r: any) => {
+        const d = new Date(r.date);
+        const key = `${d.getFullYear()}-${d.getMonth()}`;
+        const cur = buckets.get(key) ?? { sum: 0, n: 0, date: new Date(d.getFullYear(), d.getMonth(), 1) };
+        cur.sum += Number(r.screen_minutes ?? 0);
+        cur.n += 1;
+        buckets.set(key, cur);
+      });
+      setYearData(
+        Array.from(buckets.values())
+          .sort((a, b) => a.date.getTime() - b.date.getTime())
+          .map((b) => ({
+            label: `${MONTHS_DE[b.date.getMonth()]} ${String(b.date.getFullYear()).slice(2)}`,
+            avgMinutes: Math.round(b.sum / Math.max(1, b.n)),
+          }))
+      );
     })();
   }, [user, companyId, teamId]);
 
   const ownRank = teams.findIndex((t) => t.is_own) + 1;
-  const ownTeam = teams.find((t) => t.is_own);
   const diffYesterday = todayMin - yesterdayMin;
-  const maxWeek = Math.max(...week.map((w) => w.mins), 60);
+  const heatMax = Math.max(1, ...heatmap.flat());
+
+  const yearInsight = useMemo(() => {
+    if (yearData.length < 2) return null;
+    const first = yearData[0]; const last = yearData[yearData.length - 1];
+    const diffMin = first.avgMinutes - last.avgMinutes;
+    const hoursPerMonth = Math.round(((diffMin * 22) / 60) * 10) / 10;
+    const pct = first.avgMinutes > 0 ? Math.round((diffMin / first.avgMinutes) * 100) : 0;
+    return { diffMin: Math.round(diffMin), hoursPerMonth, pct };
+  }, [yearData]);
 
   return (
     <div className="min-h-screen bg-background pb-24">
-      {/* Header */}
       <header className="px-5 pt-8 pb-4 animate-fade-in">
         <p className="text-sm text-muted-foreground">Hallo {profile?.display_name?.split(" ")[0] ?? "👋"}</p>
         <h1 className="text-3xl font-semibold tracking-tight mt-0.5">Heute</h1>
       </header>
 
-      {/* High Focus Banner */}
       {highFocusActive && (
         <div className="mx-5 mb-4 rounded-2xl gradient-focus p-5 text-focus-foreground shadow-md animate-scale-in">
           <div className="flex items-center gap-3">
@@ -112,7 +168,6 @@ export default function EmployeeDashboard() {
         </div>
       )}
 
-      {/* Hauptmetrik */}
       <section className="px-5 mb-4">
         <div className="surface-card p-6 relative overflow-hidden animate-fade-in">
           <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full gradient-primary opacity-10 blur-2xl" />
@@ -137,7 +192,6 @@ export default function EmployeeDashboard() {
         </div>
       </section>
 
-      {/* Quick stats */}
       <section className="px-5 mb-6 grid grid-cols-2 gap-3">
         <div className="surface-card p-4">
           <div className="flex items-center gap-2 mb-1.5"><Smartphone className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Strafzeit</span></div>
@@ -149,7 +203,6 @@ export default function EmployeeDashboard() {
         </div>
       </section>
 
-      {/* Wochenchart */}
       <section className="px-5 mb-6">
         <div className="surface-card p-5 animate-fade-in">
           <div className="flex items-center justify-between mb-4">
@@ -177,7 +230,6 @@ export default function EmployeeDashboard() {
         </div>
       </section>
 
-      {/* Team-Ranking */}
       <section className="px-5 mb-6">
         <h2 className="font-semibold mb-3 px-1">Team-Ranking heute</h2>
         <div className="surface-card divide-y divide-border/60 animate-fade-in">
@@ -201,7 +253,87 @@ export default function EmployeeDashboard() {
         </div>
       </section>
 
-      {/* Privatsphäre-Hinweis */}
+      {/* 14-Tage Verlauf */}
+      <section className="px-5 mb-6">
+        <div className="surface-card p-5">
+          <h2 className="font-semibold mb-4">Verlauf · 14 Tage</h2>
+          <div className="h-40">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={twoWeek}>
+                <defs>
+                  <linearGradient id="empG14" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.4} />
+                    <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
+                <YAxis hide />
+                <Tooltip contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [formatMinutes(Number(v)), "Bildschirmzeit"]} />
+                <Area type="monotone" dataKey="mins" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#empG14)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </section>
+
+      {/* Heatmap */}
+      <section className="px-5 mb-6">
+        <div className="surface-card p-5">
+          <h2 className="font-semibold mb-1">Fokus-Heatmap</h2>
+          <p className="text-xs text-muted-foreground mb-4">Letzte 7 Tage · je dunkler, desto mehr Nutzung</p>
+          <div className="space-y-1.5">
+            {heatmap.map((row, di) => (
+              <div key={di} className="flex items-center gap-1.5">
+                <div className="w-8 text-[10px] text-muted-foreground">{formatWeekdayShort(new Date(Date.now() - (6 - di) * 86400000))}</div>
+                <div className="flex-1 grid grid-cols-12 gap-1">
+                  {row.map((v, hi) => (
+                    <div key={hi} className="h-5 rounded-md transition-all"
+                      style={{ background: `hsl(var(--primary) / ${Math.min(0.85, v / heatMax * 0.85 + 0.05)})` }}
+                      title={`${hi * 2}:00 – ${formatMinutes(v)}`} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-between text-[10px] text-muted-foreground mt-2 pl-9">
+            <span>00:00</span><span>12:00</span><span>22:00</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Jahres-Übersicht */}
+      {yearData.length >= 2 && (
+        <section className="px-5 mb-6">
+          <div className="surface-card p-5">
+            <h2 className="font-semibold flex items-center gap-2"><CalendarRange className="h-4 w-4 text-primary" /> Jahresüberblick</h2>
+            <p className="text-xs text-muted-foreground mt-0.5 mb-4">Ø Bildschirmzeit pro Monat</p>
+            {yearInsight && yearInsight.diffMin > 0 && (
+              <div className="mb-4 rounded-2xl bg-gradient-to-br from-primary/10 to-success/10 border border-primary/20 p-4">
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Dein Fortschritt</p>
+                <p className="text-2xl font-semibold tracking-tight">−{yearInsight.hoursPerMonth} Std / Monat</p>
+                <p className="text-xs text-muted-foreground mt-1.5">{yearInsight.diffMin} Min/Tag weniger ({yearInsight.pct}%).</p>
+              </div>
+            )}
+            <div className="h-48">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={yearData}>
+                  <defs>
+                    <linearGradient id="empGY" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.4} />
+                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
+                  <YAxis hide />
+                  <Tooltip contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [`${v} min`, "Ø Bildschirmzeit"]} />
+                  <Area type="monotone" dataKey="avgMinutes" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#empGY)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="px-5">
         <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 flex items-start gap-3">
           <Lock className="h-4 w-4 text-primary shrink-0 mt-0.5" />

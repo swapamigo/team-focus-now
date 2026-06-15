@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { AppWindow, Globe, Clock, Coffee, Smartphone, ShieldCheck } from "lucide-react";
+import { AppWindow, Globe, Clock, Coffee, Smartphone, ShieldCheck, Ban } from "lucide-react";
 
 const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
@@ -23,7 +23,7 @@ export default function EmployeeRules() {
       ] = await Promise.all([
         supabase.from("user_allowed_apps").select("app_name").eq("user_id", user.id).order("app_name"),
         supabase.from("whitelisted_apps").select("app_name").eq("company_id", companyId).order("app_name"),
-        supabase.from("whitelisted_websites").select("domain").eq("company_id", companyId).order("domain"),
+        supabase.from("blocked_websites").select("domain").eq("company_id", companyId).order("domain"),
         supabase.from("user_work_schedules").select("weekday, start_time, end_time").eq("user_id", user.id),
         supabase.from("user_breaks").select("id, label, start_time, end_time").eq("user_id", user.id).order("start_time"),
         supabase.from("free_phone_times").select("id, label, start_time, end_time").eq("company_id", companyId).order("start_time"),
@@ -65,13 +65,13 @@ export default function EmployeeRules() {
 
       <section className="px-5 mb-5">
         <div className="surface-card p-5">
-          <div className="flex items-center gap-2 mb-3"><Globe className="h-4 w-4 text-primary" /><h2 className="font-semibold">Erlaubte Websites</h2></div>
+          <div className="flex items-center gap-2 mb-3"><Ban className="h-4 w-4 text-destructive" /><h2 className="font-semibold">Blockierte Websites</h2></div>
           {websites.length === 0 ? (
-            <p className="text-sm text-muted-foreground">Keine Domains freigegeben.</p>
+            <p className="text-sm text-muted-foreground">Keine Domains blockiert.</p>
           ) : (
             <ul className="flex flex-wrap gap-2">
               {websites.map((w) => (
-                <li key={w} className="bg-secondary rounded-lg px-3 py-1.5 text-sm font-mono">{w}</li>
+                <li key={w} className="bg-destructive/10 text-destructive rounded-lg px-3 py-1.5 text-sm font-mono">{w}</li>
               ))}
             </ul>
           )}
