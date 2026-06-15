@@ -972,7 +972,7 @@ export type Database = {
       join_with_invite: { Args: { _code: string }; Returns: string }
     }
     Enums: {
-      app_role: "manager" | "employee"
+      app_role: "manager" | "employee" | "admin"
       challenge_duration:
         | "1_week"
         | "2_weeks"
@@ -1120,7 +1120,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["manager", "employee"],
+      app_role: ["manager", "employee", "admin"],
       challenge_duration: ["1_week", "2_weeks", "3_weeks", "1_month", "custom"],
       challenge_status: ["draft", "active", "finished", "cancelled"],
       device_type: [
