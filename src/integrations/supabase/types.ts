@@ -14,6 +14,38 @@ export type Database = {
   }
   public: {
     Tables: {
+      blocked_websites: {
+        Row: {
+          company_id: string
+          created_at: string
+          domain: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          domain: string
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          domain?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blocked_websites_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       breaks: {
         Row: {
           company_id: string
