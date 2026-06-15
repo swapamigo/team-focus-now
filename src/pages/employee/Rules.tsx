@@ -65,13 +65,13 @@ export default function EmployeeRules() {
 
       <section className="px-5 mb-5">
         <div className="surface-card p-5">
-          <div className="flex items-center gap-2 mb-3"><Globe className="h-4 w-4 text-primary" /><h2 className="font-semibold">Erlaubte Websites</h2></div>
+          <div className="flex items-center gap-2 mb-3"><Ban className="h-4 w-4 text-destructive" /><h2 className="font-semibold">Blockierte Websites</h2></div>
           {websites.length === 0 ? (
-            <p className="text-sm text-muted-foreground">Keine Domains freigegeben.</p>
+            <p className="text-sm text-muted-foreground">Keine Domains blockiert.</p>
           ) : (
             <ul className="flex flex-wrap gap-2">
               {websites.map((w) => (
-                <li key={w} className="bg-secondary rounded-lg px-3 py-1.5 text-sm font-mono">{w}</li>
+                <li key={w} className="bg-destructive/10 text-destructive rounded-lg px-3 py-1.5 text-sm font-mono">{w}</li>
               ))}
             </ul>
           )}
