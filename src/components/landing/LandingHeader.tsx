@@ -8,6 +8,7 @@ import Logo from "@/components/Logo";
 const navItems = [
   { href: "#calculator", label: "ROI" },
   { href: "#how", label: "So funktioniert's" },
+  { href: "#habits", label: "Features" },
   { href: "#privacy", label: "Datenschutz" },
   { href: "#pricing", label: "Preise" },
   { href: "#faq", label: "FAQ" },

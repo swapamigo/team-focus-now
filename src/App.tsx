@@ -13,6 +13,7 @@ import EmployeeDashboard from "./pages/employee/Dashboard";
 import StatsPage from "./pages/employee/Stats";
 import TeamsPage from "./pages/employee/Teams";
 import SettingsPage from "./pages/employee/Settings";
+import FeaturesPage from "./pages/employee/Features";
 import ManagerShell from "./components/app/ManagerShell";
 import ManagerDashboard from "./pages/manager/Dashboard";
 import ManagerTeamsCombined from "./pages/manager/TeamsCombined";
@@ -62,6 +63,7 @@ const App = () => (
             <Route path="stats" element={<StatsPage />} />
             <Route path="teams" element={<TeamsPage />} />
             <Route path="rules" element={<EmployeeRules />} />
+            <Route path="features" element={<FeaturesPage />} />
             <Route path="settings" element={<SettingsPage />} />
           </Route>
 

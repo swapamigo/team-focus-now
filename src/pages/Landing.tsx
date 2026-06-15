@@ -15,6 +15,7 @@ import Faq from "@/components/landing/Faq";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
 import SocialProofStrip from "@/components/landing/SocialProofStrip";
 import RewardsSection from "@/components/landing/RewardsSection";
+import HabitFeatures from "@/components/landing/HabitFeatures";
 import PricingSection from "@/components/landing/PricingSection";
 import LandingHeader from "@/components/landing/LandingHeader";
 import focusedImg from "@/assets/employee-focused.jpg";
@@ -189,6 +190,7 @@ export default function Landing() {
       </section>
 
       <SocietyHealth />
+      <HabitFeatures />
       <RewardsSection />
 
       {/* Setup */}
