@@ -30,9 +30,11 @@ export default function DemoLeadDialog({ open, onOpenChange }: Props) {
     const parsed = schema.safeParse({ email });
     if (!parsed.success) return setError(parsed.error.errors[0].message);
     setSaving(true);
+    const { getVisitorGeo } = await import("@/lib/geo");
+    const geo = await getVisitorGeo();
     const { error: dbError } = await supabase
       .from("demo_leads")
-      .insert({ email: parsed.data.email, source: "landing_demo_button" });
+      .insert({ email: parsed.data.email, source: "landing_demo_button", country: geo.country, country_code: geo.country_code });
     setSaving(false);
     if (dbError) return toast.error("Speichern fehlgeschlagen. Bitte erneut versuchen.");
     setStep("choose");
