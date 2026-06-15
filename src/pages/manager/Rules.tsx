@@ -28,7 +28,7 @@ export default function ManagerRules() {
     if (!companyId) return;
     const [{ data: a }, { data: w }, { data: pt }] = await Promise.all([
       supabase.from("whitelisted_apps").select("id, app_name").eq("company_id", companyId).order("app_name"),
-      supabase.from("whitelisted_websites").select("id, domain").eq("company_id", companyId).order("domain"),
+      supabase.from("blocked_websites").select("id, domain").eq("company_id", companyId).order("domain"),
       supabase.from("free_phone_times").select("id, label, start_time, end_time").eq("company_id", companyId).order("start_time"),
     ]);
     setApps(a ?? []); setWebsites(w ?? []); setPhoneTimes(pt ?? []);
@@ -46,11 +46,11 @@ export default function ManagerRules() {
   const addWebsite = async () => {
     if (!newDomain.trim() || !companyId) return;
     const clean = newDomain.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/$/, "");
-    const { error } = await supabase.from("whitelisted_websites").insert({ company_id: companyId, domain: clean });
+    const { error } = await supabase.from("blocked_websites").insert({ company_id: companyId, domain: clean });
     if (error) return toast.error(error.message);
-    setNewDomain(""); toast.success("Website freigegeben"); load();
+    setNewDomain(""); toast.success("Website blockiert"); load();
   };
-  const removeWebsite = async (id: string) => { await supabase.from("whitelisted_websites").delete().eq("id", id); load(); };
+  const removeWebsite = async (id: string) => { await supabase.from("blocked_websites").delete().eq("id", id); load(); };
 
   const addPhoneTime = async () => {
     if (!companyId) return;
