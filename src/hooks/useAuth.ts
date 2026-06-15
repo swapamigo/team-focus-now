@@ -15,6 +15,7 @@ export interface UserContext {
   user: User | null;
   profile: Profile | null;
   role: "manager" | "employee" | null;
+  isAdmin: boolean;
   companyId: string | null;
   teamId: string | null;
   loading: boolean;
@@ -25,13 +26,14 @@ export function useAuth(): UserContext {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [role, setRole] = useState<"manager" | "employee" | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [companyId, setCompanyId] = useState<string | null>(null);
   const [teamId, setTeamId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   const loadContext = async (uid: string | undefined) => {
     if (!uid) {
-      setProfile(null); setRole(null); setCompanyId(null); setTeamId(null);
+      setProfile(null); setRole(null); setIsAdmin(false); setCompanyId(null); setTeamId(null);
       return;
     }
     const [{ data: prof }, { data: roles }, { data: members }, { data: tm }] = await Promise.all([
@@ -41,19 +43,20 @@ export function useAuth(): UserContext {
       supabase.from("team_members").select("team_id").eq("user_id", uid).limit(1),
     ]);
     setProfile(prof as Profile | null);
-    setRole((roles?.[0]?.role as "manager" | "employee") ?? null);
-    setCompanyId(members?.[0]?.company_id ?? roles?.[0]?.company_id ?? null);
+    const allRoles = (roles ?? []).map((r: any) => r.role as string);
+    const primary = allRoles.find((r) => r === "manager" || r === "employee") ?? null;
+    setRole(primary as "manager" | "employee" | null);
+    setIsAdmin(allRoles.includes("admin"));
+    const nonAdminRole = (roles ?? []).find((r: any) => r.role !== "admin");
+    setCompanyId(members?.[0]?.company_id ?? nonAdminRole?.company_id ?? null);
     setTeamId(tm?.[0]?.team_id ?? null);
   };
 
   useEffect(() => {
-    // 1. Listener FIRST
     const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession);
-      // defer DB calls to avoid deadlock
       setTimeout(() => loadContext(newSession?.user?.id).finally(() => setLoading(false)), 0);
     });
-    // 2. THEN getSession
     supabase.auth.getSession().then(({ data: { session: s } }) => {
       setSession(s);
       loadContext(s?.user?.id).finally(() => setLoading(false));
@@ -70,6 +73,7 @@ export function useAuth(): UserContext {
     user: session?.user ?? null,
     profile,
     role,
+    isAdmin,
     companyId,
     teamId,
     loading,
