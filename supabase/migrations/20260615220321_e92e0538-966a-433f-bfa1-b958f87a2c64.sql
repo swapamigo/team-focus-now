@@ -1,0 +1,2 @@
+ALTER TABLE public.demo_leads ADD COLUMN IF NOT EXISTS country TEXT, ADD COLUMN IF NOT EXISTS country_code TEXT;
+ALTER TABLE public.feedback_responses ADD COLUMN IF NOT EXISTS country TEXT, ADD COLUMN IF NOT EXISTS country_code TEXT;

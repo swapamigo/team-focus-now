@@ -313,6 +313,8 @@ export type Database = {
       }
       demo_leads: {
         Row: {
+          country: string | null
+          country_code: string | null
           created_at: string
           email: string
           employee_count: number | null
@@ -321,6 +323,8 @@ export type Database = {
           source: string | null
         }
         Insert: {
+          country?: string | null
+          country_code?: string | null
           created_at?: string
           email: string
           employee_count?: number | null
@@ -329,6 +333,8 @@ export type Database = {
           source?: string | null
         }
         Update: {
+          country?: string | null
+          country_code?: string | null
           created_at?: string
           email?: string
           employee_count?: number | null
@@ -343,6 +349,8 @@ export type Database = {
           awareness_score: number | null
           business_area: string | null
           company_name: string | null
+          country: string | null
+          country_code: string | null
           created_at: string
           email: string | null
           employee_count: number | null
@@ -355,6 +363,8 @@ export type Database = {
           awareness_score?: number | null
           business_area?: string | null
           company_name?: string | null
+          country?: string | null
+          country_code?: string | null
           created_at?: string
           email?: string | null
           employee_count?: number | null
@@ -367,6 +377,8 @@ export type Database = {
           awareness_score?: number | null
           business_area?: string | null
           company_name?: string | null
+          country?: string | null
+          country_code?: string | null
           created_at?: string
           email?: string | null
           employee_count?: number | null
