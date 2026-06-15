@@ -2,36 +2,40 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 const items = [
   {
+    q: "Wie steht der Betriebsrat zu TeamFocus?",
+    a: "Sehr positiv – weil TeamFocus genau die Punkte erfüllt, die der Betriebsrat prüft: freiwillige Teilnahme, keine Einzeldaten (nur Team-Durchschnitte mit k-Anonymität k=5), keine Inhalte/Screenshots/Keystrokes, EU-Hosting, klare Zweckbindung. Wir stellen Mustervorlagen für Betriebsvereinbarung, DSFA und Einwilligungstexte bereit.",
+  },
+  {
+    q: "Wie hilft das den Mitarbeitenden konkret?",
+    a: "Weniger Smartphone-Stress, bessere Konzentration, echte Pausen statt ständiger Mikro-Ablenkung. Studien (z. B. Sohn et al., 2019) zeigen einen direkten Zusammenhang zwischen problematischer Smartphone-Nutzung und höherem Stresslevel sowie Schlafproblemen. TeamFocus reduziert genau diese Belastung – freiwillig und spielerisch.",
+  },
+  {
     q: "Was genau wird gemessen?",
     a: "Nur die private Bildschirm- bzw. Ablenkungszeit während der Arbeitszeit. Keine Inhalte, keine Screenshots, keine Tastatureingaben – ausschließlich Zeitdaten. Das Team mit der wenigsten Ablenkungszeit gewinnt.",
   },
   {
     q: "Werden einzelne Mitarbeitende überwacht?",
-    a: "Nein. Führungskräfte sehen nur Team-Aggregate. Wir nutzen k-Anonymität (k = 5): Team-Ergebnisse erscheinen erst, wenn ein Team groß genug ist, um Rückschlüsse auf Einzelpersonen auszuschließen.",
+    a: "Nein. Niemand – auch nicht die Geschäftsführung – sieht individuelle Bildschirmzeiten. Nur die Person selbst sieht ihre eigenen Daten. Führungskräfte sehen ausschließlich Team-Aggregate, und auch das erst ab Teamgröße 5 (k-Anonymität).",
+  },
+  {
+    q: "Ist die Teilnahme freiwillig?",
+    a: "Ja, vollständig. Jede:r Mitarbeitende entscheidet selbst über Teilnahme und über jede einzelne Anti-Sucht-Funktion (Timer, Graustufen, NFC-Sperre). Keine Nachteile bei Nicht-Teilnahme – das ist Voraussetzung für die Akzeptanz im Betrieb.",
   },
   {
     q: "Ist das DSGVO-konform?",
-    a: "Ja. Privacy-by-Design, ausdrückliche Einwilligung der Mitarbeitenden, EU-Hosting und Datenminimierung sind von Anfang an eingebaut.",
+    a: "Ja. Privacy-by-Design, ausdrückliche Einwilligung der Mitarbeitenden, EU-Hosting, Datenminimierung und klare Zweckbindung sind von Anfang an eingebaut. Eine DSFA-Vorlage liegt bei.",
   },
   {
     q: "Was kostet es?",
-    a: "4,99 € pro Mitarbeitendem pro Monat. Mit Jahresabo nur 3,99 € pro Mitarbeitendem pro Monat. Monatlich kündbar, keine Setup-Gebühr, 30 Tage gratis testen.",
+    a: "2,99 € pro Mitarbeitendem pro Monat. Mit Jahresabo nur 1,99 € pro Mitarbeitendem pro Monat. Monatlich kündbar, keine Setup-Gebühr, 30 Tage gratis testen.",
   },
   {
     q: "Was bekommt das Gewinner-Team?",
-    a: "Die Belohnung legt die Führungskraft frei fest. Bewährte Beispiele: 1 Stunde früher Feierabend am Freitag (Top-Empfehlung – Fokus ist dort sowieso am geringsten), 1 Stunde später Start am Montag, Essensgutschein, bevorzugter Firmenwagen, Team-Lunch oder ein Fokus-Champion-Badge.",
-  },
-  {
-    q: "Wie oft wechselt der Belohnungszyklus?",
-    a: "Frei wählbar – wöchentlich bis monatlich. Sie steuern Rhythmus und Belohnung pro Challenge.",
+    a: "Die Belohnung legt die Führungskraft frei fest. Bewährte Beispiele: 1 Stunde früher Feierabend am Freitag, 1 Stunde später Start am Montag, Essensgutschein, Team-Lunch oder ein Fokus-Champion-Badge. Wichtig: Es wird nie ein Einzelner bestraft, nur ein Team belohnt.",
   },
   {
     q: "Wie schnell ist es eingerichtet?",
-    a: "In rund 5 Minuten – ohne IT-Abteilung. Workspace anlegen, Einladungslink teilen, loslegen.",
-  },
-  {
-    q: "Funktioniert das auch für hybride/remote Teams?",
-    a: "Ja. TeamFocus ist standortunabhängig und funktioniert genauso für Büro-, Hybrid- und Remote-Teams.",
+    a: "In rund 5 Minuten – ohne IT-Abteilung. Workspace anlegen, Einladungslink teilen, loslegen. Für die Einführung mit Betriebsrat planen Sie typischerweise 2–4 Wochen ein.",
   },
 ];
 

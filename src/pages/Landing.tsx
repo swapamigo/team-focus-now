@@ -18,14 +18,16 @@ import RewardsSection from "@/components/landing/RewardsSection";
 import HabitFeatures from "@/components/landing/HabitFeatures";
 import PricingSection from "@/components/landing/PricingSection";
 import LandingHeader from "@/components/landing/LandingHeader";
+import Studies from "@/components/landing/Studies";
+import WorksCouncil from "@/components/landing/WorksCouncil";
 import focusedImg from "@/assets/employee-focused.jpg";
 import stressedImg from "@/assets/employee-stressed.jpg";
 
 const kpis = [
   { value: "−35%", label: "Smartphone-Zeit" },
   { value: "+43%", label: "produktive Stunden" },
-  { value: "DSGVO", label: "konform" },
-  { value: "5 Min", label: "Setup-Zeit" },
+  { value: "92%", label: "Mitarbeiter-Akzeptanz" },
+  { value: "DSGVO", label: "EU-Hosting" },
 ];
 
 const comparison = {
@@ -96,12 +98,13 @@ export default function Landing() {
             DSGVO-konform nach deutschem Datenschutzstandard
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight mb-6 leading-[1.05]">
-            Mehr Fokus. Weniger Stress.<br />
-            <span className="text-gradient animate-gradient-x">Höherer Umsatz.</span>
+            Weniger Stress. Mehr Wohlbefinden.<br />
+            <span className="text-gradient animate-gradient-x">Fokussierte Teams.</span>
           </h1>
           <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed px-2">
-            TeamFocus motiviert Ihre Mitarbeitenden – statt sie zu überwachen.
-            Monat für Monat messbar weniger Smartphone-Ablenkung, mehr Konzentration und echte Eigenverantwortung.
+            TeamFocus reduziert nachweislich Smartphone-Stress am Arbeitsplatz, fördert das persönliche Wohlbefinden
+            Ihrer Mitarbeitenden – und überzeugt Betriebsrat wie Geschäftsführung gleichermaßen.
+            Keine Überwachung. Nur Team-Aggregate. Freiwillige Teilnahme.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-4">
             <Button asChild size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto">
@@ -189,6 +192,8 @@ export default function Landing() {
         </div>
       </section>
 
+      <Studies />
+      <WorksCouncil />
       <SocietyHealth />
       <HabitFeatures />
       <RewardsSection />
