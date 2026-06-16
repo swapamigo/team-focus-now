@@ -25,12 +25,6 @@ import stressedImg from "@/assets/employee-stressed.jpg";
 import heroBg from "@/assets/hero-bg.png.asset.json";
 import overviewImg from "@/assets/teamfocus-overview.png.asset.json";
 
-const kpis = [
-  { value: "−35%", label: "Smartphone-Zeit" },
-  { value: "+43%", label: "produktive Stunden" },
-  { value: "92%", label: "Mitarbeiter-Akzeptanz" },
-  { value: "DSGVO", label: "EU-Hosting" },
-];
 
 const comparison = {
   others: {
@@ -164,17 +158,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* KPI strip */}
-      <section className="border-y border-border/40 bg-gradient-to-b from-secondary/30 to-transparent">
-        <div className="container py-8 md:py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {kpis.map((k) => (
-            <div key={k.label} className="text-center">
-              <div className="text-2xl md:text-4xl font-semibold tracking-tight text-gradient">{k.value}</div>
-              <div className="mt-1 text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground">{k.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       <InterruptionCycle />
 
