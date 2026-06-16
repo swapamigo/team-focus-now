@@ -1,3 +1,6 @@
+import desktopImg from "@/assets/interruption-cycle-desktop.png.asset.json";
+import mobileImg from "@/assets/interruption-cycle-mobile.png.asset.json";
+
 const SRC_RECOVERY = "https://neurosciencenews.com/smartphone-notifications-cognition-22048/";
 
 export default function InterruptionCycle() {
@@ -12,13 +15,27 @@ export default function InterruptionCycle() {
           Nach jeder Unterbrechung dauert es im Schnitt rund{" "}
           <strong className="text-foreground">23 Minuten</strong>, bis wieder volle Konzentration erreicht ist – genau hier setzt TeamFocus an.
         </p>
-        <p className="text-[11px] text-muted-foreground italic mt-5">
-          Forschung von Gloria Mark zur Wiederaufnahme nach Unterbrechungen.{" "}
-          <a href={SRC_RECOVERY} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 not-italic hover:text-foreground">
-            Mehr Infos zur Wiederanlaufphase
-          </a>
-        </p>
       </div>
+      <div className="mt-10 max-w-5xl mx-auto">
+        <img
+          src={desktopImg.url}
+          alt="Ablauf einer Unterbrechung: 1 Sekunde am Handy führt zu 23 Minuten verlorener Fokuszeit"
+          className="hidden md:block w-full h-auto rounded-xl"
+          loading="lazy"
+        />
+        <img
+          src={mobileImg.url}
+          alt="Ablauf einer Unterbrechung (mobile Ansicht): 1 Sekunde am Handy führt zu 23 Minuten verlorener Fokuszeit"
+          className="md:hidden w-full h-auto rounded-xl mx-auto max-w-sm"
+          loading="lazy"
+        />
+      </div>
+      <p className="text-[11px] text-muted-foreground italic mt-5 text-center max-w-3xl mx-auto">
+        Forschung von Gloria Mark zur Wiederaufnahme nach Unterbrechungen.{" "}
+        <a href={SRC_RECOVERY} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 not-italic hover:text-foreground">
+          Mehr Infos zur Wiederanlaufphase
+        </a>
+      </p>
     </section>
   );
 }
