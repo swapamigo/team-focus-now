@@ -138,7 +138,7 @@ export default function RoiCalculator() {
               </p>
               <p className="text-xs text-muted-foreground mt-3 flex items-start gap-1.5">
                 <Sparkles className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />
-                In der Praxis meist höher: mehr Konzentration → weniger Fehler -> Stärker als die Konkurenz
+                In der Praxis meist höher: mehr Konzentration → weniger Fehler {"->"} Stärker als die Konkurenz
               </p>
             </div>
           </div>
