@@ -43,9 +43,19 @@ export default function WorksCouncil() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+        <div className="max-w-5xl mx-auto mb-10 md:mb-14 surface-card p-3 md:p-5">
+          <img
+            src={anonymisierungImg.url}
+            alt="Anonymisierung mit k-Anonymität (k=5): Einzelne Geräte werden zu Team-Durchschnitten zusammengefasst"
+            className="w-full h-auto rounded-xl"
+            loading="lazy"
+          />
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-4 max-w-5xl mx-auto">
           {pillars.map((p, i) => (
             <div key={p.title} className="glow-card p-6 animate-fade-in" style={{ animationDelay: `${i * 50}ms` }}>
+
               <div className="h-11 w-11 rounded-xl gradient-primary grid place-items-center mb-4 shadow-sm">
                 <p.icon className="h-5 w-5 text-primary-foreground" />
               </div>
