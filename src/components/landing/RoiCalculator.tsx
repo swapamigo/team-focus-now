@@ -43,8 +43,15 @@ export default function RoiCalculator() {
         <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Schritt 1 · Lohnt sich das?</p>
         <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Was kostet Ablenkung Ihr Unternehmen?</h2>
         <p className="mt-4 text-muted-foreground text-lg">
-          Je nach Studie verliert ein:e Mitarbeitende:r <strong className="text-foreground">154 bis 720 Arbeitsstunden pro Jahr</strong> durch Ablenkung.
-          Stellen Sie den Wert für Ihr Unternehmen ein.
+          Studien belegen das ein:e Mitarbeitende:r 154 bis 720 Arbeitsstunden pro Jahr durch Ablenkung verliert.{" "}
+          <a 
+            href="https://steeringpoint.ie/worklife/how-does-smartphone-use-impact-the-workplace#:~:text=Smartphones%20are%20the%20ultimate%20office%20distraction%20%E2%80%93%E2%80%93%20which%20is%20why%20they%20are%20a%20problem%20for%20employers.%20The%20average%20employee%20loses%20720%20work%20hours%20due%20to%20distraction%20every%20year%20%5B15%5D.%20Those%20lost%20hours%20are%20felt%20in%20profits.%20As%20such%2C%20it%E2%80%99s%20no%20surprise%20that%20businesses%20have%20tried%20to%20fix%20the%20problem"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            Studie einsehen
+          </a>
         </p>
       </div>
 
