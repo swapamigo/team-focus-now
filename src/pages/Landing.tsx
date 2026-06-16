@@ -131,13 +131,13 @@ export default function Landing() {
       {/* Produktbeschreibung */}
       <section className="container py-12 md:py-16 border-b border-border/40">
         <div className="max-w-3xl mx-auto text-center">
+          <p className="text-base md:text-lg text-foreground/90 leading-relaxed font-medium mb-4">
+            TeamFocus motiviert Ihre Mitarbeitenden – statt sie zu überwachen.
+          </p>
           <p className="text-base md:text-lg text-foreground/90 leading-relaxed">
             TeamFocus verwandelt die ständige Handy-Ablenkung in einen freiwilligen Team-Wettbewerb.
             Mitarbeitende reduzieren ihre Ablenkung selbst – nicht weil sie kontrolliert werden,
             sondern weil ihr Team gewinnen will.
-          </p>
-          <p className="mt-4 text-sm md:text-base text-muted-foreground">
-            Anonym, DSGVO-konform, in fünf Minuten startklar.
           </p>
         </div>
       </section>
