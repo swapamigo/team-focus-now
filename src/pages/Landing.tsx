@@ -162,8 +162,8 @@ export default function Landing() {
             { img: step5Img, alt: "Schritt 5: Gewinnerteam wird belohnt – Team Lunch, Gutschein, Event, früher Feierabend." },
             { img: step6Img, alt: "Schritt 6: Handysucht ist ein soziales Problem – mehr Fokus, weniger Ablenkung, mehr Umsatz." },
           ].map((s, i) => (
-            <div key={i} className="surface-card overflow-hidden p-2 md:p-3">
-              <img src={s.img.url} alt={s.alt} loading="lazy" className="w-full h-auto rounded-xl" />
+            <div key={i} className="surface-card p-2 md:p-3">
+              <img src={s.img.url} alt={s.alt} loading="lazy" className="w-full h-auto rounded-xl block" />
             </div>
           ))}
         </div>
