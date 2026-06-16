@@ -108,9 +108,9 @@ export default function Landing() {
             Mehr Fokus. Weniger Stress.<br />
             <span className="text-gradient animate-gradient-x">Höherer Umsatz.</span>
           </h1>
-          <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed px-2">
-            Reduzieren Sie Smartphone-Ablenkung im Team – ohne Einzelüberwachung.
-            <br />
+          <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed px-2 whitespace-pre-line">
+            Reduzieren Sie Smartphone-Ablenkung im Team –
+            mitarbeiterfreundlich ohne Einzelüberwachung.
             Smartphone-Sucht ist ein gesellschaftliches Problem!
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-4">
