@@ -121,7 +121,7 @@ export default function Landing() {
               Demo ansehen
             </Button>
           </div>
-          <p className="mt-6 text-xs text-muted-foreground">{trustLine} · 30 Tage gratis · ab 1,99 € / MA / Monat</p>
+          
         </div>
       </section>
 
