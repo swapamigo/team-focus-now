@@ -53,15 +53,31 @@ export function useAuth(): UserContext {
   };
 
   useEffect(() => {
+    let mounted = true;
+    let pending: ReturnType<typeof setTimeout> | null = null;
+
     const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
+      if (!mounted) return;
       setSession(newSession);
-      setTimeout(() => loadContext(newSession?.user?.id).finally(() => setLoading(false)), 0);
+      if (pending) clearTimeout(pending);
+      pending = setTimeout(() => {
+        loadContext(newSession?.user?.id).finally(() => {
+          if (mounted) setLoading(false);
+        });
+      }, 0);
     });
     supabase.auth.getSession().then(({ data: { session: s } }) => {
+      if (!mounted) return;
       setSession(s);
-      loadContext(s?.user?.id).finally(() => setLoading(false));
+      loadContext(s?.user?.id).finally(() => {
+        if (mounted) setLoading(false);
+      });
     });
-    return () => sub.subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      if (pending) clearTimeout(pending);
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   const refresh = async () => {
