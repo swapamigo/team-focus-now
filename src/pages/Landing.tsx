@@ -23,6 +23,7 @@ import WorksCouncil from "@/components/landing/WorksCouncil";
 import focusedImg from "@/assets/employee-focused.jpg";
 import stressedImg from "@/assets/employee-stressed.jpg";
 import heroBg from "@/assets/hero-bg.png.asset.json";
+import overviewImg from "@/assets/teamfocus-overview.png.asset.json";
 
 const kpis = [
   { value: "−35%", label: "Smartphone-Zeit" },
@@ -145,7 +146,29 @@ export default function Landing() {
       {/* ROI Calculator */}
       <RoiCalculator />
 
-      {/* So funktioniert's — direkt nach dem Rechner */}
+      {/* Visuelle Übersicht — So funktioniert TeamFocus */}
+      <section className="container py-16 md:py-24 border-t border-border/40">
+        <div className="max-w-3xl mx-auto text-center mb-10">
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">So funktioniert TeamFocus</p>
+          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
+            In 6 Schritten zu mehr Fokus im Team.
+          </h2>
+          <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+            Von der sichtbaren Ablenkungszeit über den freiwilligen Team-Wettbewerb bis zur Belohnung –
+            so verwandelt TeamFocus Handy-Sucht in echte Produktivität, ohne Einzelüberwachung.
+          </p>
+        </div>
+        <div className="max-w-6xl mx-auto surface-card overflow-hidden p-2 md:p-4">
+          <img
+            src={overviewImg.url}
+            alt="Übersicht: So funktioniert TeamFocus in 6 Schritten – Ablenkungszeit messen, Teams treten an, High-Focus-Zeit, nur Teamdaten, Belohnung, Wirkung."
+            loading="lazy"
+            className="w-full h-auto rounded-xl"
+          />
+        </div>
+      </section>
+
+      {/* So funktioniert's — Detail-Schritte */}
       <HowItWorks />
 
       {/* KPI strip */}
