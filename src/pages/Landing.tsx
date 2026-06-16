@@ -8,7 +8,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import RoiCalculator from "@/components/landing/RoiCalculator";
 import Footer from "@/components/landing/Footer";
-import HowItWorks from "@/components/landing/HowItWorks";
+
 import InterruptionCycle from "@/components/landing/InterruptionCycle";
 import SocietyHealth from "@/components/landing/SocietyHealth";
 import Faq from "@/components/landing/Faq";
