@@ -9,8 +9,10 @@ import { TrendingDown, TrendingUp, Info, Sparkles, ArrowRight } from "lucide-rea
 const REDUCTION = 0.35;
 const WORKING_DAYS = 250;
 
-const fmtEUR = (n: number) =>
-  new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
+const fmtEUR = (n: number, prefix: string = "") => {
+  const formatted = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
+  return `${prefix}${formatted}`;
+};
 
 const fmtPerDay = (hoursPerYear: number) => {
   const totalMin = Math.round((hoursPerYear / WORKING_DAYS) * 60);
