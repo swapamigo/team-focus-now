@@ -110,14 +110,14 @@ export default function RoiCalculator() {
             <div className="relative">
               <div className="flex items-center gap-2 mb-2">
                 <TrendingDown className="h-4 w-4 text-destructive" />
-                <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">Aktueller Verlust / Jahr</p>
+                <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">AKTUELLER VERLUST DURCH HANDY ABLENKUNG/ JAHR</p>
               </div>
               <p className="text-4xl md:text-5xl font-semibold tracking-tight text-destructive">{fmtEUR(lossPerYear)}</p>
               <p className="text-sm text-muted-foreground mt-2">
                 ≙ <strong className="text-foreground">{wastedHours.toLocaleString("de-DE")} Stunden</strong> verlorener Arbeitszeit.
               </p>
               <p className="text-[11px] text-muted-foreground mt-3 leading-relaxed">
-                Smartphone-Sucht am Arbeitsplatz kostet nicht nur Zeit: Studien zeigen mehr Fehler, sinkende Qualität, höhere Unfallrisiken, schlechtere Zusammenarbeit und steigenden Stress – die tatsächlichen Folgekosten liegen meist deutlich über dem reinen Stundenverlust.{" "}
+                Smartphone-Sucht am Arbeitsplatz kostet nicht nur Zeit: Studien zeigen mehr Fehler, sinkende Qualität, höhere Unfallrisiken, schlechtere Zusammenarbeit und steigenden Stress in der Arbeit und im Privatleben – die tatsächlichen Folgekosten liegen meist deutlich über dem reinen Stundenverlust.{" "}
                 <a href={SRC_LOSS} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground">
                   Studie ansehen
                 </a>
@@ -130,7 +130,7 @@ export default function RoiCalculator() {
             <div className="relative">
               <div className="flex items-center gap-2 mb-2">
                 <TrendingUp className="h-4 w-4 text-success" />
-                <p className="text-xs uppercase tracking-widest text-primary font-semibold">Ihre Ersparnis mit TeamFocus</p>
+                <p className="text-xs uppercase tracking-widest text-primary font-semibold">IHRE UMSATZSTEIGERUNG MIT TEAMFOCUS / JAHR</p>
               </div>
               <p className="text-4xl md:text-5xl font-semibold tracking-tight text-gradient">{fmtEUR(savingsPerYear)}</p>
               <p className="text-sm text-muted-foreground mt-2">
@@ -138,7 +138,7 @@ export default function RoiCalculator() {
               </p>
               <p className="text-xs text-muted-foreground mt-3 flex items-start gap-1.5">
                 <Sparkles className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />
-                In der Praxis meist höher: mehr Konzentration → weniger Fehler.
+                In der Praxis meist höher: mehr Konzentration → weniger Fehler -> Stärker als die Konkurenz
               </p>
             </div>
           </div>
