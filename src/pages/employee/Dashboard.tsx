@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { formatMinutes, isoDate, lastNDates, formatWeekdayShort } from "@/lib/format";
+import { formatMinutes, isoDate, lastNDates, formatWeekdayShort, MONTHS_DE } from "@/lib/format";
 import { Trophy, Flame, Smartphone, TrendingUp, TrendingDown, Lock, CalendarRange } from "lucide-react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell, Area, AreaChart } from "recharts";
 import { cn } from "@/lib/utils";
@@ -15,7 +15,7 @@ interface TeamRanking {
   is_own: boolean;
 }
 
-const MONTHS_DE = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+
 
 export default function EmployeeDashboard() {
   const { user, companyId, teamId, profile } = useAuth();
@@ -114,20 +114,22 @@ export default function EmployeeDashboard() {
         .gte("date", yearAgo.toISOString().slice(0, 10))
         .order("date", { ascending: true })
         .limit(10000);
-      const buckets = new Map<string, { sum: number; n: number; date: Date }>();
+      const buckets = new Map<string, { sum: number; n: number; year: number; month: number }>();
       (yearRows ?? []).forEach((r: any) => {
-        const d = new Date(r.date);
-        const key = `${d.getFullYear()}-${d.getMonth()}`;
-        const cur = buckets.get(key) ?? { sum: 0, n: 0, date: new Date(d.getFullYear(), d.getMonth(), 1) };
+        // r.date is "YYYY-MM-DD" — parse string directly to avoid timezone shifts
+        const year = Number(r.date.slice(0, 4));
+        const month = Number(r.date.slice(5, 7)) - 1;
+        const key = `${year}-${month}`;
+        const cur = buckets.get(key) ?? { sum: 0, n: 0, year, month };
         cur.sum += Number(r.screen_minutes ?? 0);
         cur.n += 1;
         buckets.set(key, cur);
       });
       setYearData(
         Array.from(buckets.values())
-          .sort((a, b) => a.date.getTime() - b.date.getTime())
+          .sort((a, b) => a.year - b.year || a.month - b.month)
           .map((b) => ({
-            label: `${MONTHS_DE[b.date.getMonth()]} ${String(b.date.getFullYear()).slice(2)}`,
+            label: `${MONTHS_DE[b.month]} ${String(b.year).slice(2)}`,
             avgMinutes: Math.round(b.sum / Math.max(1, b.n)),
           }))
       );
