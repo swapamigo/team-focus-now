@@ -1,5 +1,5 @@
 import desktopImg from "@/assets/interruption-cycle-desktop.png.asset.json";
-import mobileImg from "@/assets/interruption-cycle-mobile.png.asset.json";
+import mobileImg from "@/assets/interruption-cycle-mobile-v2.png.asset.json";
 
 const SRC_RECOVERY = "https://neurosciencenews.com/smartphone-notifications-cognition-22048/";
 
