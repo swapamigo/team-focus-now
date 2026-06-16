@@ -114,7 +114,7 @@ export default function RoiCalculator() {
                 <TrendingDown className="h-4 w-4 text-destructive" />
                 <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">AKTUELLER VERLUST DURCH HANDY ABLENKUNG/ JAHR</p>
               </div>
-              <p className="text-4xl md:text-5xl font-semibold tracking-tight text-destructive">{fmtEUR(lossPerYear)}</p>
+              <p className="text-4xl md:text-5xl font-semibold tracking-tight text-destructive">{fmtEUR(lossPerYear, "-")}</p>
               <p className="text-sm text-muted-foreground mt-2">
                 ≙ <strong className="text-foreground">{wastedHours.toLocaleString("de-DE")} Stunden</strong> verlorener Arbeitszeit.
               </p>
@@ -134,9 +134,9 @@ export default function RoiCalculator() {
                 <TrendingUp className="h-4 w-4 text-success" />
                 <p className="text-xs uppercase tracking-widest text-primary font-semibold">IHRE UMSATZSTEIGERUNG MIT TEAMFOCUS / JAHR</p>
               </div>
-              <p className="text-4xl md:text-5xl font-semibold tracking-tight text-gradient">{fmtEUR(savingsPerYear)}</p>
+              <p className="text-4xl md:text-5xl font-semibold tracking-tight text-gradient">{fmtEUR(savingsPerYear, "+")}</p>
               <p className="text-sm text-muted-foreground mt-2">
-                ≈ <strong className="text-foreground">{fmtEUR(savingsPerMonth)} / Monat</strong> – bei rund 35 % weniger Bildschirmzeit.
+                ≈ <strong className="text-foreground">{fmtEUR(savingsPerMonth, "+")} / Monat</strong> – bei rund 35 % weniger Bildschirmzeit.
               </p>
               <p className="text-xs text-muted-foreground mt-3 flex items-start gap-1.5">
                 <Sparkles className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />
