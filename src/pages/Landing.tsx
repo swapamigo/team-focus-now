@@ -22,6 +22,7 @@ import Studies from "@/components/landing/Studies";
 import WorksCouncil from "@/components/landing/WorksCouncil";
 import focusedImg from "@/assets/employee-focused.jpg";
 import stressedImg from "@/assets/employee-stressed.jpg";
+import heroTeam from "@/assets/hero-team.png.asset.json";
 
 const kpis = [
   { value: "−35%", label: "Smartphone-Zeit" },
@@ -90,21 +91,27 @@ export default function Landing() {
 
       {/* Hero — ohne Mockup-Bild */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none" />
-        <div className="absolute inset-0 gradient-hero pointer-events-none" />
+        <div
+          className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-60"
+          style={{ backgroundImage: `url(${heroTeam.url})` }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/80 to-background pointer-events-none" />
+        <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
+        <div className="absolute inset-0 gradient-hero opacity-70 pointer-events-none" />
         <div className="container relative pt-16 pb-12 md:pt-24 md:pb-16 text-center animate-fade-in">
           <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 backdrop-blur px-4 py-1.5 text-xs font-medium text-muted-foreground mb-6 shadow-sm">
             <ShieldCheck className="h-3.5 w-3.5 text-primary" />
             DSGVO-konform nach deutschem Datenschutzstandard
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight mb-6 leading-[1.05]">
-            Weniger Stress. Mehr Wohlbefinden.<br />
-            <span className="text-gradient animate-gradient-x">Fokussierte Teams.</span>
+            Mehr Fokus. Weniger Stress.<br />
+            <span className="text-gradient animate-gradient-x">Höherer Umsatz.</span>
           </h1>
           <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed px-2">
-            TeamFocus reduziert nachweislich Smartphone-Stress am Arbeitsplatz, fördert das persönliche Wohlbefinden
-            Ihrer Mitarbeitenden – und überzeugt Betriebsrat wie Geschäftsführung gleichermaßen.
-            Keine Überwachung. Nur Team-Aggregate. Freiwillige Teilnahme.
+            Reduzieren Sie Smartphone-Ablenkung im Team – ohne Einzelüberwachung.
+            <br />
+            Smartphone-Sucht ist ein gesellschaftliches Problem!
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-4">
             <Button asChild size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto">
@@ -120,6 +127,20 @@ export default function Landing() {
 
       {/* Social Proof Strip — direkt nach Hero */}
       <SocialProofStrip />
+
+      {/* Produktbeschreibung */}
+      <section className="container py-12 md:py-16 border-b border-border/40">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-base md:text-lg text-foreground/90 leading-relaxed">
+            TeamFocus verwandelt die ständige Handy-Ablenkung in einen freiwilligen Team-Wettbewerb.
+            Mitarbeitende reduzieren ihre Ablenkung selbst – nicht weil sie kontrolliert werden,
+            sondern weil ihr Team gewinnen will.
+          </p>
+          <p className="mt-4 text-sm md:text-base text-muted-foreground">
+            Anonym, DSGVO-konform, in fünf Minuten startklar.
+          </p>
+        </div>
+      </section>
 
       {/* ROI Calculator */}
       <RoiCalculator />
