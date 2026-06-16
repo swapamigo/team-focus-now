@@ -22,6 +22,7 @@ import Studies from "@/components/landing/Studies";
 import WorksCouncil from "@/components/landing/WorksCouncil";
 import focusedImg from "@/assets/employee-focused.jpg";
 import stressedImg from "@/assets/employee-stressed.jpg";
+import heroTeam from "@/assets/hero-team.png.asset.json";
 
 const kpis = [
   { value: "−35%", label: "Smartphone-Zeit" },
