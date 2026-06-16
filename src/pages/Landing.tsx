@@ -153,10 +153,6 @@ export default function Landing() {
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
             In 6 Schritten zu mehr Fokus im Team.
           </h2>
-          <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-            Von der sichtbaren Ablenkungszeit über den freiwilligen Team-Wettbewerb bis zur Belohnung –
-            so verwandelt TeamFocus Handy-Sucht in echte Produktivität, ohne Einzelüberwachung.
-          </p>
         </div>
         <div className="max-w-6xl mx-auto surface-card overflow-hidden p-2 md:p-4">
           <img
@@ -167,9 +163,6 @@ export default function Landing() {
           />
         </div>
       </section>
-
-      {/* So funktioniert's — Detail-Schritte */}
-      <HowItWorks />
 
       {/* KPI strip */}
       <section className="border-y border-border/40 bg-gradient-to-b from-secondary/30 to-transparent">
