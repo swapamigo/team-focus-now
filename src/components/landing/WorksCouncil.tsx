@@ -1,16 +1,7 @@
-import { ShieldCheck, Users, HeartHandshake, FileCheck2, EyeOff, Vote } from "lucide-react";
+import { ShieldCheck, Users, HeartHandshake, FileCheck2 } from "lucide-react";
+import anonymisierungImg from "@/assets/anonymisierung-k5.png.asset.json";
 
 const pillars = [
-  {
-    icon: EyeOff,
-    title: "Keine Einzeldaten – garantiert",
-    desc: "Manager und Kolleg:innen sehen ausschließlich Team-Durchschnitte. Individuelle Bildschirmzeit ist technisch nur für die Person selbst sichtbar. k-Anonymität (k = 5) verhindert Rückschlüsse.",
-  },
-  {
-    icon: Vote,
-    title: "Freiwillige Teilnahme",
-    desc: "Jede:r Mitarbeitende entscheidet selbst, ob und welche Anti-Sucht-Tools (Timer, Graustufen, NFC-Sperre) aktiviert werden. Keine Sanktionen bei Nicht-Teilnahme.",
-  },
   {
     icon: HeartHandshake,
     title: "Belohnung statt Druck",
