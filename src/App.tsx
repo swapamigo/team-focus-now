@@ -10,7 +10,6 @@ import ManagerOnboarding from "./pages/onboarding/ManagerOnboarding";
 import EmployeeOnboarding from "./pages/onboarding/EmployeeOnboarding";
 import AppShell from "./components/app/AppShell";
 import EmployeeDashboard from "./pages/employee/Dashboard";
-import StatsPage from "./pages/employee/Stats";
 import TeamsPage from "./pages/employee/Teams";
 import SettingsPage from "./pages/employee/Settings";
 import FeaturesPage from "./pages/employee/Features";
@@ -29,7 +28,7 @@ import JoinByCode from "./pages/JoinByCode";
 import DemoEmployee from "./pages/demo/DemoEmployee";
 import DemoManager from "./pages/demo/DemoManager";
 import Waitlist from "./pages/Waitlist";
-import ManagerLeads from "./pages/manager/Leads";
+
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLeads from "./pages/admin/AdminLeads";
 
@@ -62,7 +61,7 @@ const App = () => (
 
           <Route path="/app" element={<ProtectedRoute requireRole="employee"><AppShell /></ProtectedRoute>}>
             <Route index element={<EmployeeDashboard />} />
-            <Route path="stats" element={<StatsPage />} />
+            <Route path="stats" element={<Navigate to="/app" replace />} />
             <Route path="teams" element={<TeamsPage />} />
             <Route path="rules" element={<EmployeeRules />} />
             <Route path="features" element={<FeaturesPage />} />

@@ -1,5 +1,7 @@
 // Formatierungs-Utilities (Deutsch)
 
+export const MONTHS_DE = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"] as const;
+
 export function formatMinutes(mins: number): string {
   const m = Math.max(0, Math.round(mins));
   if (m < 60) return `${m} Min`;

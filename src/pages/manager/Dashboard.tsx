@@ -5,6 +5,7 @@ import { Users, Trophy, Activity, TrendingDown, Sparkles, Zap, Clock, CalendarRa
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { MONTHS_DE } from "@/lib/format";
 
 interface TeamRow {
   id: string;
@@ -26,7 +27,6 @@ interface MonthPoint {
   avgMinutes: number;
 }
 
-const MONTHS_DE = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
 
 export default function ManagerDashboard() {
   const { companyId, profile } = useAuth();
@@ -81,20 +81,21 @@ export default function ManagerDashboard() {
         .sort((a, b) => a.avgMin - b.avgMin)
     );
 
-    // Aggregiere Jahresdaten in Monate
-    const buckets = new Map<string, { sum: number; n: number; date: Date }>();
+    // Aggregiere Jahresdaten in Monate (Datums-String direkt parsen, keine TZ-Verschiebung)
+    const buckets = new Map<string, { sum: number; n: number; year: number; month: number }>();
     (yearRows ?? []).forEach((r: any) => {
-      const d = new Date(r.date);
-      const key = `${d.getFullYear()}-${d.getMonth()}`;
-      const cur = buckets.get(key) ?? { sum: 0, n: 0, date: new Date(d.getFullYear(), d.getMonth(), 1) };
+      const year = Number(r.date.slice(0, 4));
+      const month = Number(r.date.slice(5, 7)) - 1;
+      const key = `${year}-${month}`;
+      const cur = buckets.get(key) ?? { sum: 0, n: 0, year, month };
       cur.sum += Number(r.avg_screen_minutes ?? 0);
       cur.n += 1;
       buckets.set(key, cur);
     });
     const points: MonthPoint[] = Array.from(buckets.values())
-      .sort((a, b) => a.date.getTime() - b.date.getTime())
+      .sort((a, b) => a.year - b.year || a.month - b.month)
       .map((b) => ({
-        label: `${MONTHS_DE[b.date.getMonth()]} ${String(b.date.getFullYear()).slice(2)}`,
+        label: `${MONTHS_DE[b.month]} ${String(b.year).slice(2)}`,
         avgMinutes: Math.round(b.sum / Math.max(1, b.n)),
       }));
     setYearData(points);
