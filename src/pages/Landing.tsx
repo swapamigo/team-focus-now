@@ -22,7 +22,7 @@ import Studies from "@/components/landing/Studies";
 import WorksCouncil from "@/components/landing/WorksCouncil";
 import focusedImg from "@/assets/employee-focused.jpg";
 import stressedImg from "@/assets/employee-stressed.jpg";
-import heroTeam from "@/assets/hero-team.png.asset.json";
+import heroBg from "@/assets/hero-bg.png.asset.json";
 
 const kpis = [
   { value: "−35%", label: "Smartphone-Zeit" },
@@ -93,7 +93,7 @@ export default function Landing() {
       <section className="relative overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-60"
-          style={{ backgroundImage: `url(${heroTeam.url})` }}
+          style={{ backgroundImage: `url(${heroBg.url})` }}
           aria-hidden
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/80 to-background pointer-events-none" />
