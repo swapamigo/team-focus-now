@@ -35,11 +35,6 @@ export default function InterruptionCycle() {
           loading="lazy"
         />
       </div>
-      <p className="mt-6 text-center max-w-3xl mx-auto">
-        <a href={SRC_RECOVERY} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary font-semibold px-4 py-2 text-sm hover:bg-primary/20 transition-colors">
-          Studie!
-        </a>
-      </p>
     </section>
   );
 }
