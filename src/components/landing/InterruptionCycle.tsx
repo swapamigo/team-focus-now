@@ -15,6 +15,11 @@ export default function InterruptionCycle() {
           Nach jeder Unterbrechung dauert es im Schnitt rund{" "}
           <strong className="text-foreground">23 Minuten</strong>, bis wieder volle Konzentration erreicht ist – genau hier setzt TeamFocus an.
         </p>
+        <p className="mt-4">
+          <a href={SRC_RECOVERY} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary font-semibold px-4 py-2 text-sm hover:bg-primary/20 transition-colors">
+            Bewiesen in dieser Studie.
+          </a>
+        </p>
       </div>
       <div className="mt-10 max-w-5xl mx-auto">
         <img
