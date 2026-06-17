@@ -11,7 +11,8 @@ import Footer from "@/components/landing/Footer";
 
 import InterruptionCycle from "@/components/landing/InterruptionCycle";
 import SocietyHealth from "@/components/landing/SocietyHealth";
-import Faq from "@/components/landing/Faq";
+import Faq, { faqItems } from "@/components/landing/Faq";
+import Seo from "@/components/Seo";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
 import SocialProofStrip from "@/components/landing/SocialProofStrip";
 import RewardsSection from "@/components/landing/RewardsSection";
@@ -79,6 +80,20 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Team Focus – Gamifizierte Produktivität für moderne Teams"
+        description="Team Focus reduziert Smartphone-Ablenkung im Team durch faire, anonyme Challenges. Datenschutz-first und DSGVO-konform."
+        path="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqItems.map((it) => ({
+            "@type": "Question",
+            name: it.q,
+            acceptedAnswer: { "@type": "Answer", text: it.a },
+          })),
+        }}
+      />
       <LandingHeader onDemo={() => setDemoOpen(true)} />
 
       {/* Hero — ohne Mockup-Bild */}
