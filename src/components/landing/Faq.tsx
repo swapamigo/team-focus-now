@@ -49,7 +49,7 @@ export default function Faq() {
 
       <div className="max-w-3xl mx-auto surface-card p-3 md:p-5">
         <Accordion type="single" collapsible>
-          {items.map((it, i) => (
+          {faqItems.map((it, i) => (
             <AccordionItem key={i} value={`q-${i}`} className="border-border/60">
               <AccordionTrigger className="text-left text-base font-medium px-3">{it.q}</AccordionTrigger>
               <AccordionContent className="text-sm text-muted-foreground leading-relaxed px-3">
