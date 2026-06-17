@@ -1,0 +1,17 @@
+# Team Focus
+
+> Gamifizierte Produktivität für moderne Teams. Team Focus reduziert Smartphone-Ablenkung im Arbeitsalltag durch faire, anonyme Team-Challenges – datenschutz-first und DSGVO-konform.
+
+Team Focus misst nur private Bildschirmzeit während der Arbeitszeit (keine Inhalte, keine Screenshots, keine Tastatureingaben). Führungskräfte sehen ausschließlich Team-Aggregate ab Teamgröße 5 (k-Anonymität). Teilnahme ist freiwillig, Hosting in der EU, mit Mustervorlagen für Betriebsrat und DSFA.
+
+## Pages
+
+- [Startseite](/): Produktübersicht, Funktionsweise, Preise, FAQ.
+- [Mitarbeiter-Demo](/demo/employee): Interaktive Demo der Mitarbeiter-App.
+- [Manager-Demo](/demo/manager): Interaktive Demo des Manager-Dashboards.
+- [Warteliste](/waitlist): Frühzugang sichern.
+
+## Optional
+
+- [Anmelden](/login): Login für bestehende Accounts.
+- [Registrieren](/register): Neuen Account anlegen.

@@ -1,6 +1,6 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-const items = [
+export const faqItems = [
   {
     q: "Wie steht der Betriebsrat zu TeamFocus?",
     a: "Sehr positiv – weil TeamFocus genau die Punkte erfüllt, die der Betriebsrat prüft: freiwillige Teilnahme, keine Einzeldaten (nur Team-Durchschnitte mit k-Anonymität k=5), keine Inhalte/Screenshots/Keystrokes, EU-Hosting, klare Zweckbindung. Wir stellen Mustervorlagen für Betriebsvereinbarung, DSFA und Einwilligungstexte bereit.",
@@ -49,7 +49,7 @@ export default function Faq() {
 
       <div className="max-w-3xl mx-auto surface-card p-3 md:p-5">
         <Accordion type="single" collapsible>
-          {items.map((it, i) => (
+          {faqItems.map((it, i) => (
             <AccordionItem key={i} value={`q-${i}`} className="border-border/60">
               <AccordionTrigger className="text-left text-base font-medium px-3">{it.q}</AccordionTrigger>
               <AccordionContent className="text-sm text-muted-foreground leading-relaxed px-3">

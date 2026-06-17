@@ -39,7 +39,7 @@ export default function LandingHeader({ onDemo }: { onDemo: () => void }) {
         <div className="sm:hidden">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon"><Menu className="h-5 w-5" /></Button>
+              <Button variant="ghost" size="icon" aria-label="Menü öffnen"><Menu className="h-5 w-5" /></Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-72">
               <div className="flex flex-col gap-1 mt-6">

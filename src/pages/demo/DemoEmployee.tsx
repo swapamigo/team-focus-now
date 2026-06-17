@@ -10,6 +10,7 @@ import {
   Timer, ScanLine, MoonStar,
 } from "lucide-react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, Tooltip, Cell, Area, AreaChart } from "recharts";
+import Seo from "@/components/Seo";
 
 const monthSeries = Array.from({ length: 30 }).map((_, i) => ({
   d: i + 1, mins: Math.round(110 + Math.sin(i * 0.45) * 20 - i * 0.6),
@@ -25,12 +26,17 @@ export default function DemoEmployee() {
 
   return (
     <div className="min-h-screen bg-background pb-12">
+      <Seo
+        title="Mitarbeiter-Demo – Team Focus App ausprobieren"
+        description="Interaktive Demo der Team Focus Mitarbeiter-App: Team-Ranking, Wochenfokus und Anti-Sucht-Funktionen ohne Anmeldung erleben."
+        path="/demo/employee"
+      />
       <DemoBanner />
       <div className="px-4 sm:px-5 max-w-3xl mx-auto">
         <header className="pt-6 pb-3 flex items-start justify-between gap-3 flex-wrap">
           <div>
             <p className="text-sm text-muted-foreground flex items-center gap-1.5"><Users className="h-4 w-4" /> Mitarbeiter-Demo</p>
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">Hallo Alex</h1>
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">Mitarbeiter Dashboard Demo</h1>
           </div>
           <div className="flex gap-2">
             <Button asChild variant="outline" size="sm"><Link to="/demo/manager">Manager-Sicht</Link></Button>

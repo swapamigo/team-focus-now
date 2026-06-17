@@ -11,6 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 import { Construction, Mail, Check, Send, ArrowLeft } from "lucide-react";
 import Logo from "@/components/Logo";
+import Seo from "@/components/Seo";
 
 const schema = z.object({
   email: z.string().trim().email("Bitte gültige E-Mail eingeben").max(255),
@@ -65,6 +66,11 @@ export default function Waitlist() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Warteliste – Team Focus Frühzugang sichern"
+        description="Sichere dir Frühzugang zu Team Focus. Trag dich auf die Warteliste ein und erhalte als Erstes Updates zum Launch."
+        path="/waitlist"
+      />
       <header className="border-b border-border/40">
         <div className="container py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center"><Logo withWordmark /></Link>

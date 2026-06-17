@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { Logo } from "@/components/Logo";
+import Seo from "@/components/Seo";
 
 export default function JoinByCode() {
   const { code } = useParams<{ code: string }>();
@@ -45,6 +46,12 @@ export default function JoinByCode() {
 
   return (
     <div className="min-h-screen grid place-items-center bg-background px-6">
+      <Seo
+        title="Team beitreten – Team Focus"
+        description="Tritt deinem Team auf Team Focus per Einladungscode bei."
+        path={`/join/${code ?? ""}`}
+        noindex
+      />
       <div className="text-center">
         <div className="flex justify-center mb-6"><Logo /></div>
         {status === "error" ? (

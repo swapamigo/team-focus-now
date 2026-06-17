@@ -13,6 +13,7 @@ import {
   Plus, Settings as Cog, Bell, Shield, Trash2, Mail, CheckCircle2, Smartphone, Globe,
 } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import Seo from "@/components/Seo";
 
 const initialMembers = [
   { name: "Anna Berger", team: "Team Alpha", role: "Mitarbeiterin" },
@@ -87,12 +88,17 @@ export default function DemoManager() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Manager-Demo – Team Focus Dashboard ausprobieren"
+        description="Interaktive Demo des Team Focus Manager-Dashboards: Team-Aggregate, Challenges und Workspace-Einstellungen ohne Anmeldung erleben."
+        path="/demo/manager"
+      />
       <DemoBanner />
       <div className="container py-6 md:py-8 max-w-5xl">
         <header className="mb-6 flex items-start justify-between gap-3 flex-wrap">
           <div>
             <p className="text-sm text-muted-foreground flex items-center gap-1.5"><UserCog className="h-4 w-4" /> Manager-Demo</p>
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">Workspace „Beispiel GmbH"</h1>
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">Manager Dashboard Demo</h1>
           </div>
           <div className="flex gap-2">
             <Button asChild variant="outline" size="sm"><Link to="/demo/employee">Mitarbeiter-Sicht</Link></Button>

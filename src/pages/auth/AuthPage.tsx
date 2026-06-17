@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import Logo from "@/components/Logo";
+import Seo from "@/components/Seo";
 import { z } from "zod";
 
 const schema = z.object({
@@ -93,6 +94,14 @@ export default function AuthPage({ mode }: Props) {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <Seo
+        title={mode === "login" ? "Anmelden – Team Focus" : "Konto erstellen – Team Focus"}
+        description={mode === "login"
+          ? "Melde dich bei Team Focus an und verwalte deine Team-Challenges."
+          : "Erstelle ein Team Focus Konto und starte gamifizierte Fokus-Challenges für dein Team."}
+        path={mode === "login" ? "/login" : "/register"}
+        noindex
+      />
       <header className="container py-6">
         <Link to="/" className="inline-flex items-center">
           <Logo withWordmark />
