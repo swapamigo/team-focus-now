@@ -6,11 +6,11 @@ import { Menu, ShieldCheck } from "lucide-react";
 import Logo from "@/components/Logo";
 
 const navItems = [
-  { href: "#calculator", label: "ROI" },
   { href: "#how", label: "So funktioniert's" },
   { href: "#habits", label: "Features" },
-  { href: "#privacy", label: "Datenschutz" },
+  { href: "#calculator", label: "ROI" },
   { href: "#pricing", label: "Preise" },
+  { href: "#betriebsrat", label: "Betriebsrat" },
   { href: "#faq", label: "FAQ" },
 ];
 
@@ -24,7 +24,7 @@ export default function LandingHeader({ onDemo }: { onDemo: () => void }) {
         <nav className="hidden lg:flex items-center gap-7 text-sm text-muted-foreground">
           {navItems.map((n) => (
             <a key={n.href} href={n.href} className="hover:text-foreground transition-colors">
-              {n.label === "Datenschutz" ? (
+              {n.label === "Betriebsrat" ? (
                 <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5 text-primary" />{n.label}</span>
               ) : n.label}
             </a>
