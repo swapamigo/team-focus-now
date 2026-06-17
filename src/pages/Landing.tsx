@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
-  Shield, Trophy, Users, Sparkles, Lock, BarChart3, TrendingUp, Brain, Heart, Zap,
-  ArrowRight, Check, X, Clock, Rocket, Eye, KeyRound, UserCheck, ShieldCheck,
+  Shield, Trophy, Users, Sparkles, Lock, TrendingUp, Brain, Heart, Zap,
+  ArrowRight, Check, X, Clock, Rocket, Eye, KeyRound, ShieldCheck,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import RoiCalculator from "@/components/landing/RoiCalculator";
@@ -61,14 +61,6 @@ const benefits = [
   { icon: TrendingUp, title: "Messbare Wirkung", desc: "Monat für Monat weniger Ablenkung." },
 ];
 
-const privacyPoints = [
-  { icon: BarChart3, label: "Nur Team-Aggregate" },
-  { icon: ShieldCheck, label: "k-Anonymität (k=5)" },
-  { icon: Clock, label: "Nur Arbeitszeit" },
-  { icon: Shield, label: "Keine Inhalte" },
-  { icon: UserCheck, label: "Freiwillig & DSGVO" },
-  { icon: Sparkles, label: "Privacy-by-Design" },
-];
 
 const trustLine = "Keine Kreditkarte · Setup in 5 Minuten · monatlich kündbar";
 
@@ -241,24 +233,6 @@ export default function Landing() {
         </div>
       </section>
 
-
-      {/* Datenschutz */}
-      <section className="container py-16 md:py-24 border-t border-border/40" id="privacy">
-        <div className="max-w-2xl mx-auto text-center mb-10">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Datenschutz & Vertrauen</p>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Produktivität statt Überwachung.</h2>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 max-w-5xl mx-auto">
-          {privacyPoints.map((p) => (
-            <div key={p.label} className="surface-card p-4 text-center">
-              <div className="h-10 w-10 rounded-xl bg-secondary grid place-items-center mb-2 mx-auto">
-                <p.icon className="h-5 w-5 text-primary" />
-              </div>
-              <p className="text-xs font-medium leading-tight">{p.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
 
       <PricingSection />
       <Faq />
