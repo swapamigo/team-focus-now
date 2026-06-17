@@ -241,24 +241,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="container py-16 md:py-24 border-t border-border/40">
-        <div className="max-w-2xl mx-auto text-center mb-10">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Vorteile auf einen Blick</p>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Mehr Fokus, weniger Stress.</h2>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-5xl mx-auto">
-          {benefits.map((b, i) => (
-            <div key={b.title} className="glow-card p-4 md:p-5 text-center animate-fade-in" style={{ animationDelay: `${i * 50}ms` }}>
-              <div className="h-10 w-10 md:h-11 md:w-11 rounded-xl gradient-primary grid place-items-center mb-3 shadow-sm mx-auto">
-                <b.icon className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <h3 className="font-semibold text-sm md:text-base">{b.title}</h3>
-              <p className="text-xs text-muted-foreground mt-1 leading-snug">{b.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* Datenschutz */}
       <section className="container py-16 md:py-24 border-t border-border/40" id="privacy">
