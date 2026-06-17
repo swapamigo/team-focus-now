@@ -39,7 +39,6 @@ export default function RewardsSection() {
                 (r.highlight ? "border-primary/40 ring-1 ring-primary/30 bg-primary/[0.03]" : "")
               }
             >
-react
               <div className={"h-14 w-14 rounded-2xl grid place-items-center mb-3 " + (r.highlight ? "gradient-primary text-primary-foreground shadow-glow" : "bg-secondary text-primary")}>
                 <r.icon className="h-7 w-7" />
               </div>
