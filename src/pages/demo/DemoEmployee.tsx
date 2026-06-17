@@ -30,7 +30,7 @@ export default function DemoEmployee() {
         <header className="pt-6 pb-3 flex items-start justify-between gap-3 flex-wrap">
           <div>
             <p className="text-sm text-muted-foreground flex items-center gap-1.5"><Users className="h-4 w-4" /> Mitarbeiter-Demo</p>
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">Hallo Alex</h1>
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">Mitarbeiter Dashboard Demo</h1>
           </div>
           <div className="flex gap-2">
             <Button asChild variant="outline" size="sm"><Link to="/demo/manager">Manager-Sicht</Link></Button>

@@ -92,7 +92,7 @@ export default function DemoManager() {
         <header className="mb-6 flex items-start justify-between gap-3 flex-wrap">
           <div>
             <p className="text-sm text-muted-foreground flex items-center gap-1.5"><UserCog className="h-4 w-4" /> Manager-Demo</p>
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">Workspace „Beispiel GmbH"</h1>
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">Manager Dashboard Demo</h1>
           </div>
           <div className="flex gap-2">
             <Button asChild variant="outline" size="sm"><Link to="/demo/employee">Mitarbeiter-Sicht</Link></Button>
