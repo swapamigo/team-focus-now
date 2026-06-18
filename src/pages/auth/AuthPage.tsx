@@ -30,14 +30,12 @@ export default function AuthPage({ mode }: Props) {
   const params = new URLSearchParams(loc.search);
   const nextParam = params.get("next") || params.get("redirect");
   const inviteCode = params.get("invite");
-  const hasPrototypeAccess = (() => {
-    try { return localStorage.getItem("prototype_access") === "1"; } catch { return false; }
-  })();
+  const hasBetaAccess = profile?.beta_access === true;
   // Admins gehen direkt in den Admin-Bereich.
-  // Sonst: Standardziel = Warteliste. Nur mit Prototyp-Flag in den echten App-Bereich.
+  // Sonst: Standardziel = Warteliste. Nur mit serverseitigem Beta-Zugang in den echten App-Bereich.
   const defaultPostAuth = isAdmin
     ? "/admin/leads"
-    : hasPrototypeAccess
+    : hasBetaAccess
       ? (profile && !profile.onboarded ? "/onboarding/role" : role === "manager" ? "/manager" : "/app")
       : "/waitlist";
 
