@@ -65,9 +65,9 @@ export default function RoiCalculator() {
               <Label className="text-sm font-medium">Mitarbeitende</Label>
               <span className="text-2xl font-semibold tabular-nums">{employees}</span>
             </div>
-            <Slider value={[employees]} min={1} max={500} step={1} onValueChange={(v) => setEmployees(v[0])} />
-            <Input type="number" min={1} max={5000} value={employees}
-              onChange={(e) => setEmployees(Math.max(1, Math.min(5000, Number(e.target.value) || 1)))} className="h-10" />
+            <Slider value={[employees]} min={1} max={2000} step={1} onValueChange={(v) => setEmployees(v[0])} />
+            <Input type="number" min={1} max={10000} value={employees}
+              onChange={(e) => setEmployees(Math.max(1, Math.min(10000, Number(e.target.value) || 1)))} className="h-10" />
           </div>
 
           <div className="space-y-3">
