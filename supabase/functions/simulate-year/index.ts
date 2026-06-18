@@ -35,6 +35,11 @@ Deno.serve(async (req) => {
     const company_id = cm?.[0]?.company_id;
     if (!company_id) return json({ error: 'no_company' }, 400);
 
+    // Manager role check
+    const { data: roles } = await admin.from('user_roles').select('id')
+      .eq('user_id', user.id).eq('company_id', company_id).eq('role', 'manager').limit(1);
+    if (!roles?.length) return json({ error: 'forbidden' }, 403);
+
     // Teams sicherstellen: Alpha/Beta/Gamma/Delta – bestehende Tier-/Altnamen umbenennen
     const GREEK = ['Team Alpha', 'Team Beta', 'Team Gamma', 'Team Delta'];
     const COLORS = ['#6366f1', '#8b5cf6', '#10b981', '#f59e0b'];
