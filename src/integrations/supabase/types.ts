@@ -551,6 +551,7 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          beta_access: boolean
           consent_accepted_at: string | null
           created_at: string
           display_name: string | null
@@ -561,6 +562,7 @@ export type Database = {
         }
         Insert: {
           avatar_url?: string | null
+          beta_access?: boolean
           consent_accepted_at?: string | null
           created_at?: string
           display_name?: string | null
@@ -571,6 +573,7 @@ export type Database = {
         }
         Update: {
           avatar_url?: string | null
+          beta_access?: boolean
           consent_accepted_at?: string | null
           created_at?: string
           display_name?: string | null
