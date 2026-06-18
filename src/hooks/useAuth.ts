@@ -8,6 +8,7 @@ export interface Profile {
   avatar_url: string | null;
   consent_accepted_at: string | null;
   onboarded: boolean;
+  beta_access: boolean;
 }
 
 export interface UserContext {
