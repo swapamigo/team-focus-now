@@ -29,6 +29,11 @@ Deno.serve(async (req) => {
     const team_id = tm?.[0]?.team_id;
     if (!company_id) return new Response(JSON.stringify({ error: 'no company' }), { status: 400, headers: corsHeaders });
 
+    // Manager role check — simulate-tick overwrites team-wide aggregates
+    const { data: roles } = await admin.from('user_roles').select('id')
+      .eq('user_id', user.id).eq('company_id', company_id).eq('role', 'manager').limit(1);
+    if (!roles?.length) return new Response(JSON.stringify({ error: 'forbidden' }), { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+
     const today = new Date().toISOString().slice(0, 10);
     const screen = rand(60, 200);
     const penalty = rand(8, 40);
