@@ -96,6 +96,7 @@ export default function Landing() {
       />
       <LandingHeader onDemo={() => setDemoOpen(true)} />
 
+      <main>
       {/* Hero — ohne Mockup-Bild */}
       <section className="relative overflow-hidden">
         <div
@@ -275,6 +276,7 @@ export default function Landing() {
           </div>
         </div>
       </section>
+      </main>
 
       <Footer />
       <DemoLeadDialog open={demoOpen} onOpenChange={setDemoOpen} />
