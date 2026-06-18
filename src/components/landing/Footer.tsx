@@ -1,14 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Logo from "@/components/Logo";
 
 export default function Footer() {
-  const nav = useNavigate();
-
-  // Versteckter Entwicklerzugriff: setzt das Flag und navigiert in den echten Produktbereich.
-  const enterPrototype = () => {
-    try { localStorage.setItem("prototype_access", "1"); } catch {}
-    nav("/login");
-  };
 
   return (
     <footer className="border-t border-border/40 bg-secondary/20">
