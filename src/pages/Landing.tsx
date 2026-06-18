@@ -276,6 +276,7 @@ export default function Landing() {
           </div>
         </div>
       </section>
+      </main>
 
       <Footer />
       <DemoLeadDialog open={demoOpen} onOpenChange={setDemoOpen} />
