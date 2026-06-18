@@ -40,12 +40,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-            >
-              Prototyp
-            </button>
-          </div>
-        </div>
-      </div>
     </footer>
   );
 }
