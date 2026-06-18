@@ -66,16 +66,16 @@ const benefits = [
 const trustLine = "Keine Kreditkarte · Setup in 5 Minuten · monatlich kündbar";
 
 export default function Landing() {
-  const { session, profile, role, loading } = useAuth();
+  const { session, profile, role, isAdmin, loading } = useAuth();
   const [demoOpen, setDemoOpen] = useState(false);
 
   if (!loading && session) {
-    const hasProto = (() => { try { return localStorage.getItem("prototype_access") === "1"; } catch { return false; } })();
-    if (hasProto) {
+    const hasAccess = isAdmin || profile?.beta_access === true;
+    if (hasAccess) {
       const target = profile && !profile.onboarded ? "/onboarding/role" : role === "manager" ? "/manager" : "/app";
       return <Navigate to={target} replace />;
     }
-    // Eingeloggte Besucher dürfen die Landingpage normal anschauen.
+    // Eingeloggte Besucher ohne Beta-Zugang dürfen die Landingpage normal anschauen.
   }
 
   return (

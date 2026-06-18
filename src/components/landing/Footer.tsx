@@ -1,14 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Logo from "@/components/Logo";
 
 export default function Footer() {
-  const nav = useNavigate();
-
-  // Versteckter Entwicklerzugriff: setzt das Flag und navigiert in den echten Produktbereich.
-  const enterPrototype = () => {
-    try { localStorage.setItem("prototype_access", "1"); } catch {}
-    nav("/login");
-  };
 
   return (
     <footer className="border-t border-border/40 bg-secondary/20">
@@ -43,13 +36,7 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} Team Focus · Hosting in der EU</span>
           <div className="flex items-center gap-4">
             <span>Privacy-by-Design · DSGVO-konform</span>
-            <button
-              onClick={enterPrototype}
-              className="opacity-40 hover:opacity-100 hover:text-foreground transition-opacity underline underline-offset-2"
-              title="Interner Entwicklerzugang"
-            >
-              Prototyp
-            </button>
+            <Link to="/trust" className="hover:text-foreground transition-colors underline underline-offset-2">Trust &amp; Security</Link>
           </div>
         </div>
       </div>

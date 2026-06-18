@@ -10,14 +10,10 @@ interface Props {
 }
 
 // Während der Pre-Launch-Phase ist der echte Produktbereich gesperrt.
-// Nur über den versteckten Footer-Link „Prototyp" erhält der Entwickler Zugang.
-const hasPrototypeAccess = () => {
-  try { return typeof window !== "undefined" && localStorage.getItem("prototype_access") === "1"; }
-  catch { return false; }
-};
+// Zugang nur für Profile mit `beta_access = true` (serverseitig gesetzt) oder Admins.
 
 export default function ProtectedRoute({ children, requireOnboarded = true, requireRole }: Props) {
-  const { session, profile, role, loading } = useAuth();
+  const { session, profile, role, isAdmin, loading } = useAuth();
 
   if (loading) {
     return (
@@ -30,7 +26,8 @@ export default function ProtectedRoute({ children, requireOnboarded = true, requ
     );
   }
   if (!session) return <Navigate to="/login" replace />;
-  if (!hasPrototypeAccess()) return <Navigate to="/waitlist" replace />;
+  const hasAccess = isAdmin || profile?.beta_access === true;
+  if (!hasAccess) return <Navigate to="/waitlist" replace />;
   if (requireOnboarded && profile && !profile.onboarded) return <Navigate to="/onboarding/role" replace />;
   if (requireRole && role && role !== requireRole) {
     return <Navigate to={role === "manager" ? "/manager" : "/app"} replace />;

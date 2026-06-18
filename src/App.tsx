@@ -28,6 +28,7 @@ import JoinByCode from "./pages/JoinByCode";
 import DemoEmployee from "./pages/demo/DemoEmployee";
 import DemoManager from "./pages/demo/DemoManager";
 import Waitlist from "./pages/Waitlist";
+import Trust from "./pages/Trust";
 
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLeads from "./pages/admin/AdminLeads";
@@ -52,6 +53,7 @@ const App = () => (
 
           {/* Waitlist (public) */}
           <Route path="/waitlist" element={<Waitlist />} />
+          <Route path="/trust" element={<Trust />} />
           <Route path="/checkout" element={<Navigate to="/waitlist" replace />} />
           <Route path="/checkout/success" element={<Navigate to="/waitlist" replace />} />
 

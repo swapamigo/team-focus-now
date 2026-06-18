@@ -143,7 +143,7 @@ Deno.serve(async (req) => {
     return json({ ok: true, days: 30, teams: teams.length, ghosts: 'ensured' });
   } catch (err: any) {
     console.error(err);
-    return json({ error: err.message }, 500);
+    return json({ error: 'internal_server_error' }, 500);
   }
 });
 
