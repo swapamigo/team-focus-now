@@ -10,6 +10,7 @@ const navItems = [
   { href: "#habits", label: "Features" },
   { href: "#calculator", label: "ROI" },
   { href: "#pricing", label: "Preise" },
+  { href: "/akzeptanz", label: "Mitarbeiter-Akzeptanz", route: true as const },
   { href: "#betriebsrat", label: "Betriebsrat" },
   { href: "#faq", label: "FAQ" },
 ];
