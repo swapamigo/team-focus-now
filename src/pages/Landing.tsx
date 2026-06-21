@@ -251,9 +251,14 @@ export default function Landing() {
         <div className="max-w-3xl mx-auto surface-card p-7 md:p-10 text-center">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">In 5 Minuten startklar</p>
           <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-3">Sofort einsatzbereit.</h2>
-          <Button asChild size="lg" className="h-12 px-8 shadow-glow group mt-3">
-            <Link to="/waitlist">Jetzt ausprobieren <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-3">
+            <Button asChild size="lg" className="h-12 px-8 shadow-glow group">
+              <Link to="/waitlist">Jetzt ausprobieren <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60">
+              <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Mitarbeiter-Akzeptanz</Link>
+            </Button>
+          </div>
           <p className="mt-3 text-xs text-muted-foreground">{trustLine}</p>
         </div>
       </section>
