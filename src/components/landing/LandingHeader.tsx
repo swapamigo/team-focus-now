@@ -23,13 +23,16 @@ export default function LandingHeader({ onDemo }: { onDemo: () => void }) {
         <Link to="/" className="flex items-center shrink-0"><Logo withWordmark /></Link>
 
         <nav className="hidden lg:flex items-center gap-7 text-sm text-muted-foreground">
-          {navItems.map((n) => (
-            <a key={n.href} href={n.href} className="hover:text-foreground transition-colors">
-              {n.label === "Betriebsrat" ? (
-                <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5 text-primary" />{n.label}</span>
-              ) : n.label}
-            </a>
-          ))}
+          {navItems.map((n) => {
+            const inner = n.label === "Betriebsrat"
+              ? <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5 text-primary" />{n.label}</span>
+              : n.label;
+            return "route" in n ? (
+              <Link key={n.href} to={n.href} className="hover:text-foreground transition-colors">{inner}</Link>
+            ) : (
+              <a key={n.href} href={n.href} className="hover:text-foreground transition-colors">{inner}</a>
+            );
+          })}
         </nav>
 
         <div className="hidden sm:flex items-center gap-2">
