@@ -55,6 +55,7 @@ const App = () => (
           {/* Waitlist (public) */}
           <Route path="/waitlist" element={<Waitlist />} />
           <Route path="/trust" element={<Trust />} />
+          <Route path="/akzeptanz" element={<Akzeptanz />} />
           <Route path="/checkout" element={<Navigate to="/waitlist" replace />} />
           <Route path="/checkout/success" element={<Navigate to="/waitlist" replace />} />
 
