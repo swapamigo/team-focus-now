@@ -23,7 +23,7 @@ const principles = [
   {
     icon: Users,
     title: "Gemeinsam statt allein",
-    desc: "„Das ganze Unternehmen macht mit" – der Team-Wettbewerb erzeugt sozialen Rückenwind.",
+    desc: "„Das ganze Unternehmen macht mit“ – der Team-Wettbewerb erzeugt sozialen Rückenwind.",
     color: "from-sky-500/20 to-blue-500/10",
     ring: "ring-sky-500/30",
   },
@@ -37,7 +37,7 @@ const principles = [
   {
     icon: ShieldCheck,
     title: "Sorgen sofort ausräumen",
-    desc: "Anonymität und „nichts wird verboten" früh nennen – das nimmt den häufigsten Einwand vorweg.",
+    desc: "Anonymität und „nichts wird verboten“ früh nennen – das nimmt den häufigsten Einwand vorweg.",
     color: "from-emerald-500/20 to-green-500/10",
     ring: "ring-emerald-500/30",
   },
