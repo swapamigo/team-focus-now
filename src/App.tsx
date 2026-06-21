@@ -29,6 +29,7 @@ import DemoEmployee from "./pages/demo/DemoEmployee";
 import DemoManager from "./pages/demo/DemoManager";
 import Waitlist from "./pages/Waitlist";
 import Trust from "./pages/Trust";
+import Akzeptanz from "./pages/Akzeptanz";
 
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLeads from "./pages/admin/AdminLeads";
