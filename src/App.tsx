@@ -29,6 +29,7 @@ import DemoEmployee from "./pages/demo/DemoEmployee";
 import DemoManager from "./pages/demo/DemoManager";
 import Waitlist from "./pages/Waitlist";
 import Trust from "./pages/Trust";
+import Akzeptanz from "./pages/Akzeptanz";
 
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLeads from "./pages/admin/AdminLeads";
@@ -54,6 +55,7 @@ const App = () => (
           {/* Waitlist (public) */}
           <Route path="/waitlist" element={<Waitlist />} />
           <Route path="/trust" element={<Trust />} />
+          <Route path="/akzeptanz" element={<Akzeptanz />} />
           <Route path="/checkout" element={<Navigate to="/waitlist" replace />} />
           <Route path="/checkout/success" element={<Navigate to="/waitlist" replace />} />
 
