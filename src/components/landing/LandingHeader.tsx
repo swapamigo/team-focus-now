@@ -48,10 +48,17 @@ export default function LandingHeader({ onDemo }: { onDemo: () => void }) {
             <SheetContent side="right" className="w-72">
               <div className="flex flex-col gap-1 mt-6">
                 {navItems.map((n) => (
-                  <a key={n.href} href={n.href} onClick={() => setOpen(false)}
-                    className="px-3 py-3 rounded-lg hover:bg-secondary text-sm font-medium">
-                    {n.label}
-                  </a>
+                  "route" in n ? (
+                    <Link key={n.href} to={n.href} onClick={() => setOpen(false)}
+                      className="px-3 py-3 rounded-lg hover:bg-secondary text-sm font-medium">
+                      {n.label}
+                    </Link>
+                  ) : (
+                    <a key={n.href} href={n.href} onClick={() => setOpen(false)}
+                      className="px-3 py-3 rounded-lg hover:bg-secondary text-sm font-medium">
+                      {n.label}
+                    </a>
+                  )
                 ))}
                 <div className="border-t border-border my-3" />
                 <Button asChild variant="outline" onClick={() => setOpen(false)}>
