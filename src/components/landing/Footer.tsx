@@ -19,6 +19,7 @@ export default function Footer() {
             <li><a href="#calculator" className="hover:text-foreground transition-colors">ROI-Rechner</a></li>
             <li><a href="#pricing" className="hover:text-foreground transition-colors">Preise</a></li>
             <li><Link to="/demo/manager" className="hover:text-foreground transition-colors">Demo ansehen</Link></li>
+            <li><Link to="/akzeptanz" className="hover:text-foreground transition-colors">Mitarbeiter-Akzeptanz</Link></li>
           </ul>
         </div>
         <div>
