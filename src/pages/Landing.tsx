@@ -129,6 +129,15 @@ export default function Landing() {
               Demo ansehen
             </Button>
           </div>
+          <div className="mt-4 flex justify-center px-4">
+            <Button asChild variant="ghost" size="sm" className="text-sm text-muted-foreground hover:text-foreground group">
+              <Link to="/akzeptanz">
+                <Users className="mr-1.5 h-4 w-4 text-primary" />
+                Mitarbeiter-Akzeptanz: So führst du TeamFocus ein
+                <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+          </div>
           
         </div>
       </section>
