@@ -23,6 +23,11 @@ export interface UserContext {
   refresh: () => Promise<void>;
 }
 
+const ADMIN_EMAILS = ["swapamigo@gmail.com", "joel.schoeppe@gmail.com"];
+
+const isAllowedAdminEmail = (email?: string | null) =>
+  !!email && ADMIN_EMAILS.includes(email.trim().toLowerCase());
+
 export function useAuth(): UserContext {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -32,11 +37,12 @@ export function useAuth(): UserContext {
   const [teamId, setTeamId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const loadContext = async (uid: string | undefined) => {
-    if (!uid) {
+  const loadContext = async (authUser: User | null | undefined) => {
+    if (!authUser?.id) {
       setProfile(null); setRole(null); setIsAdmin(false); setCompanyId(null); setTeamId(null);
       return;
     }
+    const uid = authUser.id;
     const [{ data: prof }, { data: roles }, { data: members }, { data: tm }] = await Promise.all([
       supabase.from("profiles").select("*").eq("id", uid).maybeSingle(),
       supabase.from("user_roles").select("role, company_id").eq("user_id", uid),
@@ -47,7 +53,7 @@ export function useAuth(): UserContext {
     const allRoles = (roles ?? []).map((r: any) => r.role as string);
     const primary = allRoles.find((r) => r === "manager" || r === "employee") ?? null;
     setRole(primary as "manager" | "employee" | null);
-    setIsAdmin(allRoles.includes("admin"));
+    setIsAdmin(allRoles.includes("admin") || isAllowedAdminEmail(authUser.email));
     const nonAdminRole = (roles ?? []).find((r: any) => r.role !== "admin");
     setCompanyId(members?.[0]?.company_id ?? nonAdminRole?.company_id ?? null);
     setTeamId(tm?.[0]?.team_id ?? null);
@@ -62,7 +68,7 @@ export function useAuth(): UserContext {
       setSession(newSession);
       if (pending) clearTimeout(pending);
       pending = setTimeout(() => {
-        loadContext(newSession?.user?.id).finally(() => {
+        loadContext(newSession?.user).finally(() => {
           if (mounted) setLoading(false);
         });
       }, 0);
@@ -70,7 +76,7 @@ export function useAuth(): UserContext {
     supabase.auth.getSession().then(({ data: { session: s } }) => {
       if (!mounted) return;
       setSession(s);
-      loadContext(s?.user?.id).finally(() => {
+      loadContext(s?.user).finally(() => {
         if (mounted) setLoading(false);
       });
     });
@@ -82,7 +88,7 @@ export function useAuth(): UserContext {
   }, []);
 
   const refresh = async () => {
-    await loadContext(session?.user?.id);
+    await loadContext(session?.user);
   };
 
   return {
