@@ -174,7 +174,7 @@ export default function Landing() {
       <RoiCalculator />
 
       {/* Visuelle Übersicht — So funktioniert TeamFocus */}
-      <section className="container py-16 md:py-24 border-t border-border/40">
+      <section className="container py-16 md:py-24 border-t border-border/40" id="how">
         <div className="max-w-3xl mx-auto text-center mb-10">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">So funktioniert TeamFocus</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
@@ -264,7 +264,7 @@ export default function Landing() {
           <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-3">Sofort einsatzbereit.</h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-3">
             <Button asChild size="lg" className="h-12 px-8 shadow-glow group">
-              <Link to="/waitlist">Jetzt ausprobieren <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
+              <Link to="/waitlist">Kaufen <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60">
               <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Mitarbeiter-Akzeptanz</Link>
@@ -295,7 +295,7 @@ export default function Landing() {
               Starten Sie 30 Tage gratis. Keine Kreditkarte, kein Risiko – nur fokussiertere Teams.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Button asChild size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto"><Link to="/waitlist">Kostenlos starten</Link></Button>
+              <Button asChild size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto"><Link to="/waitlist">Kaufen</Link></Button>
               <Button size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
                 Demo ansehen
               </Button>

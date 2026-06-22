@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, ShieldCheck } from "lucide-react";
+import { Menu, Phone, ShieldCheck } from "lucide-react";
 import Logo from "@/components/Logo";
 
 const navItems = [
@@ -13,8 +13,9 @@ const navItems = [
   { href: "/akzeptanz", label: "Mitarbeiter-Akzeptanz", route: true as const },
   { href: "/vorteile", label: "Vorteile für Mitarbeiter", route: true as const },
   { href: "#betriebsrat", label: "Betriebsrat" },
-  { href: "#faq", label: "FAQ" },
 ];
+
+const callLink = "mailto:info@teamfokus.app?subject=Interesse%20an%20einem%20TeamFocus%20Call";
 
 export default function LandingHeader({ onDemo }: { onDemo: () => void }) {
   const [open, setOpen] = useState(false);
@@ -37,7 +38,10 @@ export default function LandingHeader({ onDemo }: { onDemo: () => void }) {
         </nav>
 
         <div className="hidden sm:flex items-center gap-2">
-          <Button variant="ghost" size="sm" asChild><Link to="/login">Anmelden</Link></Button>
+          <Button variant="ghost" size="sm" asChild><Link to="/waitlist">Kaufen</Link></Button>
+          <Button variant="outline" size="sm" asChild>
+            <a href={callLink}><Phone className="h-3.5 w-3.5 mr-1.5" />Interesse an einem Call?</a>
+          </Button>
           <Button size="sm" className="shadow-sm" onClick={onDemo}>Demo starten</Button>
         </div>
 
@@ -63,7 +67,10 @@ export default function LandingHeader({ onDemo }: { onDemo: () => void }) {
                 ))}
                 <div className="border-t border-border my-3" />
                 <Button asChild variant="outline" onClick={() => setOpen(false)}>
-                  <Link to="/login">Anmelden</Link>
+                  <Link to="/waitlist">Kaufen</Link>
+                </Button>
+                <Button asChild variant="outline" onClick={() => setOpen(false)}>
+                  <a href={callLink}>Interesse an einem Call?</a>
                 </Button>
                 <Button onClick={() => { setOpen(false); onDemo(); }}>Demo starten</Button>
               </div>

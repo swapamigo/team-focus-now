@@ -9,7 +9,7 @@ import { Slider } from "@/components/ui/slider";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
-import { Construction, Mail, Check, Send, ArrowLeft } from "lucide-react";
+import { Construction, Mail, Check, Send, ArrowLeft, Phone } from "lucide-react";
 import Logo from "@/components/Logo";
 import Seo from "@/components/Seo";
 
@@ -22,6 +22,8 @@ const schema = z.object({
   employeeCount: z.number().min(1).max(10000).optional(),
   suggestion: z.string().trim().max(2000).optional(),
 });
+
+const callLink = "mailto:info@teamfokus.app?subject=Interesse%20an%20einem%20TeamFocus%20Call";
 
 export default function Waitlist() {
   const { session } = useAuth();
@@ -95,6 +97,17 @@ export default function Waitlist() {
               Entwicklungsstadium und gehen <strong className="text-foreground">im nächsten Monat</strong> live.
               Hinterlassen Sie Ihre E-Mail und wir benachrichtigen Sie, sobald Sie loslegen können.
             </p>
+            <div className="mt-6 rounded-2xl border border-primary/25 bg-primary/10 p-4 text-left">
+              <p className="text-sm font-semibold text-foreground mb-1">
+                Interesse daran, einer unserer Test-User zu werden?
+              </p>
+              <p className="text-sm text-muted-foreground mb-4">
+                Mit persönlichem Austausch und Fokus auf dein Unternehmen.
+              </p>
+              <Button asChild variant="outline" className="w-full sm:w-auto bg-card/70">
+                <a href={callLink}><Phone className="h-4 w-4 mr-2" />Interesse an einem Call?</a>
+              </Button>
+            </div>
           </div>
         </div>
 
