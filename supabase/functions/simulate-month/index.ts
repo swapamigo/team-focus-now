@@ -36,6 +36,16 @@ Deno.serve(async (req) => {
     const company_id = cm?.[0]?.company_id;
     if (!company_id) return json({ error: 'no_company' }, 400);
 
+    // Only managers of this company may run the simulation (it writes service-role data for ALL teams)
+    const { data: roles } = await admin
+      .from('user_roles')
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('company_id', company_id)
+      .eq('role', 'manager')
+      .limit(1);
+    if (!roles?.length) return json({ error: 'forbidden' }, 403);
+
     const { data: teamsRaw } = await admin.from('teams').select('id, name').eq('company_id', company_id);
     const teams = teamsRaw ?? [];
     if (teams.length === 0) return json({ error: 'no_teams' }, 400);
