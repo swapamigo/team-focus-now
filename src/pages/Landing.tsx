@@ -47,7 +47,7 @@ const comparison = {
     title: "TeamFocus", badge: "Motivation",
     items: [
       { icon: Shield, text: "Keine Screenshots, keine Inhalte – nur Zeitdaten" },
-      { icon: Lock, text: "Erfassung nur während der Arbeitszeit" },
+      { icon: Clock, text: "Erfassung ausschließlich während der Arbeitszeit – danach nie" },
       { icon: Trophy, text: "Belohnungen statt Bestrafung" },
       { icon: Heart, text: "Mitarbeitende lieben es – nachweislich" },
       { icon: TrendingUp, text: "Monatliche Verbesserung statt Stillstand" },
@@ -108,40 +108,44 @@ export default function Landing() {
         <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
         <div className="absolute inset-0 gradient-hero opacity-70 pointer-events-none" />
         <div className="container relative pt-16 pb-12 md:pt-24 md:pb-16 text-center animate-fade-in">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 backdrop-blur px-4 py-1.5 text-xs font-medium text-muted-foreground mb-6 shadow-sm">
-            <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-            DSGVO-konform nach deutschem Datenschutzstandard
+          <div className="inline-flex items-center gap-2 rounded-full border-2 border-primary/40 bg-primary/10 backdrop-blur px-5 py-2 text-sm font-semibold text-primary mb-6 shadow-glow">
+            <ShieldCheck className="h-4 w-4" />
+            100 % DSGVO-konform · Hosting in Deutschland
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight mb-6 leading-[1.05]">
             Mehr Fokus. Weniger Stress.<br />
             <span className="text-gradient animate-gradient-x">Höherer Umsatz.</span>
           </h1>
-          <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed px-2 whitespace-pre-line">
+          <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-4 leading-relaxed px-2 whitespace-pre-line">
             Reduzieren Sie Smartphone-Ablenkung im Team –
             mitarbeiterfreundlich ohne Einzelüberwachung.
             Smartphone-Sucht ist ein gesellschaftliches Problem!
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-4">
-            <Button asChild size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto">
-              <Link to="/waitlist">Kostenlos starten <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
-            </Button>
-            <Button size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
+          <p className="mx-auto max-w-2xl mb-8 px-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 text-success px-3 py-1 text-sm font-medium">
+              <Clock className="h-3.5 w-3.5" />
+              Gemessen wird ausschließlich während der Arbeitszeit – danach nie.
+            </span>
+          </p>
+          <div className="flex justify-center px-4">
+            <Button size="lg" className="h-14 px-10 text-base shadow-glow w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
+              <Sparkles className="mr-2 h-5 w-5" />
               Demo ansehen
             </Button>
           </div>
-          <div className="mt-4 flex flex-col sm:flex-row justify-center gap-2 px-4">
-            <Button asChild variant="ghost" size="sm" className="text-sm text-muted-foreground hover:text-foreground group">
+          <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3 px-4">
+            <Button asChild size="lg" className="h-13 px-7 shadow-glow group w-full sm:w-auto gradient-primary text-primary-foreground border-0 hover:scale-[1.02] transition-transform">
               <Link to="/akzeptanz">
-                <Users className="mr-1.5 h-4 w-4 text-primary" />
-                Mitarbeiter-Akzeptanz: So führst du TeamFocus ein
-                <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                <Users className="mr-2 h-5 w-5" />
+                Mitarbeiter-Akzeptanz
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
-            <Button asChild variant="ghost" size="sm" className="text-sm text-muted-foreground hover:text-foreground group">
+            <Button asChild size="lg" variant="outline" className="h-13 px-7 border-2 border-primary/50 bg-primary/5 hover:bg-primary/10 group w-full sm:w-auto hover:scale-[1.02] transition-transform">
               <Link to="/vorteile">
-                <Heart className="mr-1.5 h-4 w-4 text-primary" />
-                Vorteile für Mitarbeiter: Was springt für dich raus?
-                <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                <Heart className="mr-2 h-5 w-5 text-primary" />
+                Vorteile für Mitarbeiter
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
           </div>

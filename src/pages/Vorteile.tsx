@@ -2,13 +2,17 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight, Shield, Phone, Lock, Brain, Sparkles, Trophy, EyeOff, Sun, Hourglass,
-  BellOff, MapPin, Palette, CheckCircle2, XCircle, Users, MessageCircle, Heart,
+  BellOff, MapPin, Palette, CheckCircle2, XCircle, Users, MessageCircle, Heart, Clock,
 } from "lucide-react";
 import LandingHeader from "@/components/landing/LandingHeader";
 import Footer from "@/components/landing/Footer";
 import Seo from "@/components/Seo";
 import { useState } from "react";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
+import focusedImg from "@/assets/employee-focused.jpg";
+import phonesImg from "@/assets/team-throwing-phones.png.asset.json";
+import societyImg from "@/assets/smartphone-gesellschaftliches-problem.png.asset.json";
+import k5Img from "@/assets/anonymisierung-k5.png.asset.json";
 
 const benefits = [
   {
@@ -130,6 +134,20 @@ export default function Vorteile() {
               <span className="inline-flex items-center gap-1.5"><Lock className="h-3.5 w-3.5 text-primary" />Nichts wird verboten</span>
               <span className="inline-flex items-center gap-1.5"><Phone className="h-3.5 w-3.5 text-primary" />Anrufe zählen nie</span>
             </div>
+            <p className="mt-4">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 text-success px-3 py-1 text-sm font-medium">
+                <Clock className="h-3.5 w-3.5" />
+                Nur während der Arbeitszeit – danach wird nichts mehr gemessen.
+              </span>
+            </p>
+            <div className="mt-10 max-w-3xl mx-auto">
+              <img
+                src={focusedImg}
+                alt="Entspannte fokussierte Mitarbeitende bei der Arbeit"
+                className="w-full h-auto rounded-2xl shadow-glow"
+                loading="lazy"
+              />
+            </div>
           </div>
         </section>
 
@@ -146,18 +164,36 @@ export default function Vorteile() {
               Genau deshalb versteht dein Unternehmen es als seine Aufgabe, dich dabei zu unterstützen, statt dich zu kontrollieren.
             </p>
           </div>
-          <div className="max-w-4xl mx-auto grid sm:grid-cols-3 gap-4">
-            <div className="surface-card p-6 text-center">
-              <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">23 min</div>
-              <p className="text-sm text-muted-foreground">dauert es im Schnitt, bis du nach einer Unterbrechung wieder voll konzentriert bist.</p>
-            </div>
-            <div className="surface-card p-6 text-center">
-              <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">Dutzende</div>
-              <p className="text-sm text-muted-foreground">Male am Tag greifen wir zum Handy – oft, ohne es bewusst zu merken.</p>
-            </div>
-            <div className="surface-card p-6 text-center">
-              <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">Für dich</div>
-              <p className="text-sm text-muted-foreground">TeamFocus ist die Hilfe deines Unternehmens: Hilfe statt Kontrolle.</p>
+          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center mb-12">
+            <img
+              src={societyImg.url}
+              alt="Infografik: Smartphone-Sucht als gesellschaftliches Problem"
+              className="w-full h-auto rounded-2xl surface-card p-3"
+              loading="lazy"
+            />
+            <div className="grid gap-4">
+              <div className="surface-card p-6">
+                <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">23 min</div>
+                <p className="text-sm text-muted-foreground">
+                  dauert es im Schnitt, bis du nach einer Unterbrechung wieder voll konzentriert bist.{" "}
+                  <a
+                    href="https://neurosciencenews.com/smartphone-notifications-cognition-22048/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 hover:text-foreground"
+                  >
+                    G. Mark, UC Irvine
+                  </a>
+                </p>
+              </div>
+              <div className="surface-card p-6">
+                <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">Dutzende</div>
+                <p className="text-sm text-muted-foreground">Male am Tag greifen wir zum Handy – oft, ohne es bewusst zu merken.</p>
+              </div>
+              <div className="surface-card p-6">
+                <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">Für dich</div>
+                <p className="text-sm text-muted-foreground">TeamFocus ist die Hilfe deines Unternehmens: Hilfe statt Kontrolle.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -198,6 +234,16 @@ export default function Vorteile() {
               Deine Werte werden mit denen deiner Teamkolleg*innen vermischt, bevor irgendjemand sie sieht – ab mindestens fünf Personen.
               Dich einzeln herauszulesen, ist technisch nicht möglich.
             </p>
+          </div>
+          <div className="max-w-3xl mx-auto mb-10">
+
+
+            <img
+              src={k5Img.url}
+              alt="Anonymisierung mit k = 5 – Werte werden mit anderen Teammitgliedern vermischt"
+              className="w-full h-auto rounded-2xl surface-card p-3"
+              loading="lazy"
+            />
           </div>
           <div className="grid md:grid-cols-3 gap-5 max-w-6xl mx-auto">
             <div className="surface-card p-7">
@@ -344,8 +390,12 @@ export default function Vorteile() {
 
         {/* Final CTA */}
         <section className="container py-16 md:py-24">
-          <div className="surface-card-elevated p-8 md:p-16 text-center relative overflow-hidden rounded-3xl">
-            <div className="absolute inset-0 gradient-hero opacity-70 pointer-events-none" />
+          <div
+            className="surface-card-elevated p-8 md:p-16 text-center relative overflow-hidden rounded-3xl"
+            style={{ backgroundImage: `url(${phonesImg.url})`, backgroundSize: "cover", backgroundPosition: "center" }}
+          >
+            <div className="absolute inset-0 bg-background/85" />
+            <div className="absolute inset-0 gradient-hero opacity-50 pointer-events-none" />
             <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
             <div className="relative">
               <div className="inline-flex h-14 w-14 rounded-2xl gradient-primary items-center justify-center shadow-glow mb-5">
