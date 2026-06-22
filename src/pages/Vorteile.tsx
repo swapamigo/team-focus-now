@@ -390,8 +390,12 @@ export default function Vorteile() {
 
         {/* Final CTA */}
         <section className="container py-16 md:py-24">
-          <div className="surface-card-elevated p-8 md:p-16 text-center relative overflow-hidden rounded-3xl">
-            <div className="absolute inset-0 gradient-hero opacity-70 pointer-events-none" />
+          <div
+            className="surface-card-elevated p-8 md:p-16 text-center relative overflow-hidden rounded-3xl"
+            style={{ backgroundImage: `url(${phonesImg.url})`, backgroundSize: "cover", backgroundPosition: "center" }}
+          >
+            <div className="absolute inset-0 bg-background/85" />
+            <div className="absolute inset-0 gradient-hero opacity-50 pointer-events-none" />
             <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
             <div className="relative">
               <div className="inline-flex h-14 w-14 rounded-2xl gradient-primary items-center justify-center shadow-glow mb-5">
