@@ -234,6 +234,13 @@ export default function Vorteile() {
               Deine Werte werden mit denen deiner Teamkolleg*innen vermischt, bevor irgendjemand sie sieht – ab mindestens fünf Personen.
               Dich einzeln herauszulesen, ist technisch nicht möglich.
             </p>
+          <div className="max-w-3xl mx-auto mb-10">
+            <img
+              src={k5Img.url}
+              alt="Anonymisierung mit k = 5 – Werte werden mit anderen Teammitgliedern vermischt"
+              className="w-full h-auto rounded-2xl surface-card p-3"
+              loading="lazy"
+            />
           </div>
           <div className="grid md:grid-cols-3 gap-5 max-w-6xl mx-auto">
             <div className="surface-card p-7">
