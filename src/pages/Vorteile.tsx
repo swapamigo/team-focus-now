@@ -233,8 +233,9 @@ export default function Vorteile() {
             <p className="text-muted-foreground text-base md:text-lg">
               Deine Werte werden mit denen deiner Teamkolleg*innen vermischt, bevor irgendjemand sie sieht – ab mindestens fünf Personen.
               Dich einzeln herauszulesen, ist technisch nicht möglich.
-            </p>
+          </div>
           <div className="max-w-3xl mx-auto mb-10">
+
             <img
               src={k5Img.url}
               alt="Anonymisierung mit k = 5 – Werte werden mit anderen Teammitgliedern vermischt"
