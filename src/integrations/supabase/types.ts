@@ -995,27 +995,6 @@ export type Database = {
         Returns: string
       }
       delete_my_account: { Args: never; Returns: undefined }
-      get_user_company: { Args: { _user_id: string }; Returns: string }
-      get_user_team: { Args: { _user_id: string }; Returns: string }
-      has_company_role: {
-        Args: {
-          _company_id: string
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
-      is_company_member: {
-        Args: { _company_id: string; _user_id: string }
-        Returns: boolean
-      }
       join_with_invite: { Args: { _code: string }; Returns: string }
     }
     Enums: {
