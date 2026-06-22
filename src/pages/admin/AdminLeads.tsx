@@ -49,14 +49,18 @@ export default function AdminLeads() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [feedback, setFeedback] = useState<Feedback[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [q, setQ] = useState("");
 
   useEffect(() => {
     (async () => {
-      const [{ data: l }, { data: f }] = await Promise.all([
+      const [{ data: l, error: leadsError }, { data: f, error: feedbackError }] = await Promise.all([
         supabase.from("demo_leads").select("*").order("created_at", { ascending: false }),
         supabase.from("feedback_responses").select("*").order("created_at", { ascending: false }),
       ]);
+      if (leadsError || feedbackError) {
+        setLoadError("Leads konnten nicht geladen werden. Bitte erneut als freigegebener Admin anmelden.");
+      }
       setLeads((l ?? []) as any);
       setFeedback((f ?? []) as any);
       setLoading(false);
@@ -157,8 +161,12 @@ export default function AdminLeads() {
 
       {loading ? (
         <p className="text-sm text-muted-foreground p-6">Lädt…</p>
+      ) : loadError ? (
+        <div className="surface-card p-6 text-sm text-destructive">{loadError}</div>
       ) : filtered.length === 0 ? (
-        <p className="text-sm text-muted-foreground p-6">Keine Einträge.</p>
+        <div className="surface-card p-6 text-sm text-muted-foreground">
+          Noch keine gespeicherten Einträge. Ab jetzt werden Demo- und Wartelisten-E-Mails hier angezeigt.
+        </div>
       ) : (
         <div className="space-y-3">
           {filtered.map((c) => (
