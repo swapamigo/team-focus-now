@@ -47,7 +47,7 @@ const comparison = {
     title: "TeamFocus", badge: "Motivation",
     items: [
       { icon: Shield, text: "Keine Screenshots, keine Inhalte – nur Zeitdaten" },
-      { icon: Lock, text: "Erfassung nur während der Arbeitszeit" },
+      { icon: Clock, text: "Erfassung ausschließlich während der Arbeitszeit – danach nie" },
       { icon: Trophy, text: "Belohnungen statt Bestrafung" },
       { icon: Heart, text: "Mitarbeitende lieben es – nachweislich" },
       { icon: TrendingUp, text: "Monatliche Verbesserung statt Stillstand" },

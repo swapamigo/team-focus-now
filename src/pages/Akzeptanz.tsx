@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight, Gift, Users, UserCheck, ShieldCheck, MousePointerClick,
-  Mail, MessageSquareQuote, Sparkles, Copy, Check, Clock, Heart, Lock,
+  Sparkles, Copy, Check, Clock, Heart, Lock,
   Trophy, ChevronRight, Quote, Brain,
 } from "lucide-react";
 import { useState } from "react";
