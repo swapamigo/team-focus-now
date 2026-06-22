@@ -139,9 +139,13 @@ export default function Akzeptanz() {
               So lädst du dein Team<br />
               <span className="text-gradient animate-gradient-x">zu TeamFocus ein.</span>
             </h1>
-            <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed px-2">
+            <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed px-2">
               Wie du TeamFocus ankündigst, entscheidet über die Akzeptanz. Hier findest du die wirksamsten Überzeugungs-Prinzipien und eine sofort einsetzbare E-Mail-Vorlage.
             </p>
+            <p className="mx-auto max-w-2xl text-base sm:text-lg text-foreground/90 font-medium mb-8 leading-relaxed px-2 border-l-2 border-primary/60 pl-4 italic text-left sm:text-center sm:border-l-0 sm:pl-0">
+              „Wir wollen dir dein Handy nicht wegnehmen – aber wir müssen gemeinsam etwas tun. So wie bisher kann es nicht weitergehen, denn es wird immer schlimmer."
+            </p>
+
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-4">
               <Button size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto" onClick={copyEmail}>
                 {copied ? <><Check className="mr-1 h-4 w-4" /> Kopiert</> : <><Copy className="mr-1 h-4 w-4" /> E-Mail kopieren</>}
