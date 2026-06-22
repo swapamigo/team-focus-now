@@ -11,8 +11,6 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
-const ADMIN_EMAILS = ["swapamigo@gmail.com", "joel.schoeppe@gmail.com"];
-const isAllowedAdminEmail = (email: string) => ADMIN_EMAILS.includes(email.trim().toLowerCase());
 
 export default function AdminLayout() {
   const { isAdmin, loading, session, refresh } = useAuth();
