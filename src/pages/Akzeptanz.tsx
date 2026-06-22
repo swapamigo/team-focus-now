@@ -410,6 +410,9 @@ export default function Akzeptanz() {
                 <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto">
                   <Link to="/waitlist">TeamFocus starten <ChevronRight className="ml-1 h-4 w-4" /></Link>
                 </Button>
+                <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
+                  <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
+                </Button>
               </div>
             </div>
           </div>

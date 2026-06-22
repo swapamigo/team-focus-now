@@ -129,11 +129,18 @@ export default function Landing() {
               Demo ansehen
             </Button>
           </div>
-          <div className="mt-4 flex justify-center px-4">
+          <div className="mt-4 flex flex-col sm:flex-row justify-center gap-2 px-4">
             <Button asChild variant="ghost" size="sm" className="text-sm text-muted-foreground hover:text-foreground group">
               <Link to="/akzeptanz">
                 <Users className="mr-1.5 h-4 w-4 text-primary" />
                 Mitarbeiter-Akzeptanz: So führst du TeamFocus ein
+                <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm" className="text-sm text-muted-foreground hover:text-foreground group">
+              <Link to="/vorteile">
+                <Heart className="mr-1.5 h-4 w-4 text-primary" />
+                Vorteile für Mitarbeiter: Was springt für dich raus?
                 <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -258,6 +265,9 @@ export default function Landing() {
             <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60">
               <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Mitarbeiter-Akzeptanz</Link>
             </Button>
+            <Button asChild size="lg" variant="ghost" className="h-12 px-6">
+              <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
+            </Button>
           </div>
           <p className="mt-3 text-xs text-muted-foreground">{trustLine}</p>
         </div>
@@ -287,6 +297,9 @@ export default function Landing() {
               </Button>
               <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
                 <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Mitarbeiter-Akzeptanz</Link>
+              </Button>
+              <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
+                <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
               </Button>
             </div>
             <p className="mt-5 text-xs text-muted-foreground">{trustLine}</p>
