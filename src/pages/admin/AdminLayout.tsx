@@ -11,8 +11,6 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
-const ADMIN_EMAILS = ["swapamigo@gmail.com", "joel.schoeppe@gmail.com"];
-const isAllowedAdminEmail = (email: string) => ADMIN_EMAILS.includes(email.trim().toLowerCase());
 
 export default function AdminLayout() {
   const { isAdmin, loading, session, refresh } = useAuth();
@@ -23,10 +21,6 @@ export default function AdminLayout() {
 
   const loginWithPassword = async (event: FormEvent) => {
     event.preventDefault();
-    if (!isAllowedAdminEmail(email)) {
-      toast.error("Zugang nur für die freigegebenen Admin-E-Mails.");
-      return;
-    }
     setAuthLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
     setAuthLoading(false);
@@ -35,14 +29,10 @@ export default function AdminLayout() {
       return;
     }
     await refresh();
-    toast.success("Admin bestätigt.");
+    toast.success("Anmeldung erfolgreich.");
   };
 
   const createAdminAccount = async () => {
-    if (!isAllowedAdminEmail(email)) {
-      toast.error("Zugang nur für die freigegebenen Admin-E-Mails.");
-      return;
-    }
     if (password.length < 6) {
       toast.error("Das Passwort braucht mindestens 6 Zeichen.");
       return;
