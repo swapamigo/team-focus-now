@@ -55,7 +55,7 @@ const benefits = [
   },
 ];
 
-import { Heart } from "lucide-react";
+
 
 const helpers = [
   { icon: Hourglass, title: "Kurzer Timer vor dem Öffnen", desc: "Bevor sich Instagram & Co. öffnen, läuft ein kurzer Countdown (z. B. 30 Sek.). Oft reicht das, um zu merken: Das wollte ich gar nicht." },
