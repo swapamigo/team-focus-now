@@ -95,12 +95,14 @@ export default function SettingsPage() {
         </div>
       </section>
 
-      <section className="px-5 mb-5">
-        <Button onClick={simulate} variant="outline" className="w-full h-12 rounded-2xl">
-          <Sparkles className="h-4 w-4 mr-2" />
-          Demo-Monat simulieren
-        </Button>
-      </section>
+      {role === "manager" && (
+        <section className="px-5 mb-5">
+          <Button onClick={simulate} variant="outline" className="w-full h-12 rounded-2xl">
+            <Sparkles className="h-4 w-4 mr-2" />
+            Demo-Monat simulieren
+          </Button>
+        </section>
+      )}
 
       <section className="px-5 space-y-2">
         <Button onClick={logout} variant="ghost" className="w-full h-12 rounded-2xl">
