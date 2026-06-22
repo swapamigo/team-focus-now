@@ -49,7 +49,7 @@ export function useAuth(): UserContext {
     const allRoles = (roles ?? []).map((r: any) => r.role as string);
     const primary = allRoles.find((r) => r === "manager" || r === "employee") ?? null;
     setRole(primary as "manager" | "employee" | null);
-    setIsAdmin(allRoles.includes("admin") || isAllowedAdminEmail(authUser.email));
+    setIsAdmin(allRoles.includes("admin"));
     const nonAdminRole = (roles ?? []).find((r: any) => r.role !== "admin");
     setCompanyId(members?.[0]?.company_id ?? nonAdminRole?.company_id ?? null);
     setTeamId(tm?.[0]?.team_id ?? null);
