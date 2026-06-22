@@ -2,9 +2,9 @@ import { Clock, Utensils, Car, Coffee, Gift, Sunrise } from "lucide-react";
 import bgAsset from "@/assets/team-throwing-phones.png.asset.json";
 
 const rewards = [
-  { icon: Clock, title: "Freitag 1h früher Schluss", highlight: true },
+  { icon: Utensils, title: "Essensgutschein", highlight: true },
+  { icon: Clock, title: "Freitag 1h früher Schluss" },
   { icon: Sunrise, title: "Montag 1h später Start" },
-  { icon: Utensils, title: "Essensgutschein" },
   { icon: Coffee, title: "Bezahlter Team-Lunch" },
   { icon: Car, title: "Bevorzugter Firmenwagen" },
 ];

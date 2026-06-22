@@ -48,20 +48,6 @@ const principles = [
     color: "from-pink-500/20 to-rose-500/10",
     ring: "ring-pink-500/30",
   },
-  {
-    icon: Mail,
-    title: "Betreff: kurz, persönlich, Nutzen",
-    desc: "Unter ca. 50 Zeichen, mit Vorname und konkretem Vorteil statt Pflichtgefühl.",
-    color: "from-cyan-500/20 to-teal-500/10",
-    ring: "ring-cyan-500/30",
-  },
-  {
-    icon: MessageSquareQuote,
-    title: "Das P.S. nutzen",
-    desc: "Es wird überdurchschnittlich gelesen – wiederhole dort Kernnutzen und Aufruf.",
-    color: "from-indigo-500/20 to-blue-500/10",
-    ring: "ring-indigo-500/30",
-  },
 ];
 
 const subjects = [
@@ -192,7 +178,17 @@ export default function Akzeptanz() {
                 <p className="text-lg font-medium mb-2">bis zur vollen Konzentration</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Nach jeder Unterbrechung dauert es im Schnitt rund 23 Minuten bis zur vollen Konzentration zurück.
-                  <span className="block mt-2 italic">— G. Mark, University of California, Irvine</span>
+                  <span className="block mt-2 italic">
+                    —{" "}
+                    <a
+                      href="https://neurosciencenews.com/smartphone-notifications-cognition-22048/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="not-italic underline underline-offset-2 hover:text-foreground"
+                    >
+                      G. Mark, University of California, Irvine
+                    </a>
+                  </span>
                 </p>
               </div>
             </div>
