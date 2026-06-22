@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
-  ArrowRight, Shield, Phone, Smile, Moon, HeartHandshake, Lock,
-  Brain, Sparkles, Trophy, Eye, EyeOff, Coffee, Sun, Hourglass,
-  BellOff, MapPin, Palette, CheckCircle2, XCircle, Users, MessageCircle,
+  ArrowRight, Shield, Phone, Lock, Brain, Sparkles, Trophy, EyeOff, Sun, Hourglass,
+  BellOff, MapPin, Palette, CheckCircle2, XCircle, Users, MessageCircle, Heart,
 } from "lucide-react";
 import LandingHeader from "@/components/landing/LandingHeader";
 import Footer from "@/components/landing/Footer";
