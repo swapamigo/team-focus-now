@@ -136,7 +136,10 @@ export default function AdminLayout() {
           <Shield className="h-8 w-8 text-destructive mx-auto mb-3" />
           <h1 className="text-lg font-semibold mb-2">Kein Zugriff</h1>
           <p className="text-sm text-muted-foreground mb-4">Dieser Bereich ist nur für Swapamigo@gmail.com und joel.schoeppe@gmail.com.</p>
-          <Button onClick={() => nav("/")} variant="outline" size="sm">Zur Startseite</Button>
+          <div className="flex flex-col sm:flex-row gap-2 justify-center">
+            <Button onClick={() => nav("/")} variant="outline" size="sm">Zur Startseite</Button>
+            <Button onClick={async () => { await supabase.auth.signOut(); nav("/admin/leads"); }} size="sm">Anderes Admin-Konto nutzen</Button>
+          </div>
         </div>
       </div>
     );
