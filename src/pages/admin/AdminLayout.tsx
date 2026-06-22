@@ -38,6 +38,34 @@ export default function AdminLayout() {
     toast.success("Admin bestätigt.");
   };
 
+  const createAdminAccount = async () => {
+    if (!isAllowedAdminEmail(email)) {
+      toast.error("Zugang nur für die freigegebenen Admin-E-Mails.");
+      return;
+    }
+    if (password.length < 6) {
+      toast.error("Das Passwort braucht mindestens 6 Zeichen.");
+      return;
+    }
+    setAuthLoading(true);
+    const { data, error } = await supabase.auth.signUp({
+      email: email.trim(),
+      password,
+      options: { emailRedirectTo: `${window.location.origin}/admin/leads` },
+    });
+    setAuthLoading(false);
+    if (error) {
+      toast.error(error.message ?? "Konto konnte nicht erstellt werden.");
+      return;
+    }
+    if (data.session) {
+      await refresh();
+      toast.success("Admin-Konto erstellt.");
+    } else {
+      toast.success("Konto erstellt. Bitte Bestätigungs-E-Mail öffnen und danach erneut anmelden.");
+    }
+  };
+
   const loginWithGoogle = async () => {
     setAuthLoading(true);
     const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: `${window.location.origin}/admin/leads` });
@@ -88,6 +116,9 @@ export default function AdminLayout() {
             </div>
             <Button type="submit" disabled={authLoading} className="w-full h-12 rounded-2xl shadow-glow">
               {authLoading ? "Prüfe…" : "Admin-Zugang öffnen"}
+            </Button>
+            <Button type="button" onClick={createAdminAccount} disabled={authLoading} variant="ghost" className="w-full h-11 rounded-2xl">
+              Noch kein Passwort? Admin-Konto erstellen
             </Button>
           </form>
           <p className="text-xs text-muted-foreground text-center mt-5">
