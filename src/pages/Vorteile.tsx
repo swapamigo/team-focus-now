@@ -2,13 +2,17 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight, Shield, Phone, Lock, Brain, Sparkles, Trophy, EyeOff, Sun, Hourglass,
-  BellOff, MapPin, Palette, CheckCircle2, XCircle, Users, MessageCircle, Heart,
+  BellOff, MapPin, Palette, CheckCircle2, XCircle, Users, MessageCircle, Heart, Clock,
 } from "lucide-react";
 import LandingHeader from "@/components/landing/LandingHeader";
 import Footer from "@/components/landing/Footer";
 import Seo from "@/components/Seo";
 import { useState } from "react";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
+import focusedImg from "@/assets/employee-focused.jpg";
+import phonesImg from "@/assets/team-throwing-phones.png.asset.json";
+import societyImg from "@/assets/smartphone-gesellschaftliches-problem.png.asset.json";
+import k5Img from "@/assets/anonymisierung-k5.png.asset.json";
 
 const benefits = [
   {
