@@ -23,10 +23,6 @@ export interface UserContext {
   refresh: () => Promise<void>;
 }
 
-const ADMIN_EMAILS = ["swapamigo@gmail.com", "joel.schoeppe@gmail.com"];
-
-const isAllowedAdminEmail = (email?: string | null) =>
-  !!email && ADMIN_EMAILS.includes(email.trim().toLowerCase());
 
 export function useAuth(): UserContext {
   const [session, setSession] = useState<Session | null>(null);
