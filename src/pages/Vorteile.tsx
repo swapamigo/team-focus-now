@@ -164,18 +164,36 @@ export default function Vorteile() {
               Genau deshalb versteht dein Unternehmen es als seine Aufgabe, dich dabei zu unterstützen, statt dich zu kontrollieren.
             </p>
           </div>
-          <div className="max-w-4xl mx-auto grid sm:grid-cols-3 gap-4">
-            <div className="surface-card p-6 text-center">
-              <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">23 min</div>
-              <p className="text-sm text-muted-foreground">dauert es im Schnitt, bis du nach einer Unterbrechung wieder voll konzentriert bist.</p>
-            </div>
-            <div className="surface-card p-6 text-center">
-              <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">Dutzende</div>
-              <p className="text-sm text-muted-foreground">Male am Tag greifen wir zum Handy – oft, ohne es bewusst zu merken.</p>
-            </div>
-            <div className="surface-card p-6 text-center">
-              <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">Für dich</div>
-              <p className="text-sm text-muted-foreground">TeamFocus ist die Hilfe deines Unternehmens: Hilfe statt Kontrolle.</p>
+          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center mb-12">
+            <img
+              src={societyImg.url}
+              alt="Infografik: Smartphone-Sucht als gesellschaftliches Problem"
+              className="w-full h-auto rounded-2xl surface-card p-3"
+              loading="lazy"
+            />
+            <div className="grid gap-4">
+              <div className="surface-card p-6">
+                <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">23 min</div>
+                <p className="text-sm text-muted-foreground">
+                  dauert es im Schnitt, bis du nach einer Unterbrechung wieder voll konzentriert bist.{" "}
+                  <a
+                    href="https://neurosciencenews.com/smartphone-notifications-cognition-22048/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 hover:text-foreground"
+                  >
+                    G. Mark, UC Irvine
+                  </a>
+                </p>
+              </div>
+              <div className="surface-card p-6">
+                <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">Dutzende</div>
+                <p className="text-sm text-muted-foreground">Male am Tag greifen wir zum Handy – oft, ohne es bewusst zu merken.</p>
+              </div>
+              <div className="surface-card p-6">
+                <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">Für dich</div>
+                <p className="text-sm text-muted-foreground">TeamFocus ist die Hilfe deines Unternehmens: Hilfe statt Kontrolle.</p>
+              </div>
             </div>
           </div>
         </section>
