@@ -134,6 +134,20 @@ export default function Vorteile() {
               <span className="inline-flex items-center gap-1.5"><Lock className="h-3.5 w-3.5 text-primary" />Nichts wird verboten</span>
               <span className="inline-flex items-center gap-1.5"><Phone className="h-3.5 w-3.5 text-primary" />Anrufe zählen nie</span>
             </div>
+            <p className="mt-4">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 text-success px-3 py-1 text-sm font-medium">
+                <Clock className="h-3.5 w-3.5" />
+                Nur während der Arbeitszeit – danach wird nichts mehr gemessen.
+              </span>
+            </p>
+            <div className="mt-10 max-w-3xl mx-auto">
+              <img
+                src={focusedImg}
+                alt="Entspannte fokussierte Mitarbeitende bei der Arbeit"
+                className="w-full h-auto rounded-2xl shadow-glow"
+                loading="lazy"
+              />
+            </div>
           </div>
         </section>
 
