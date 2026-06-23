@@ -146,6 +146,7 @@ export type Database = {
           created_at: string
           id: string
           industry: string | null
+          min_team_k: number
           name: string
           owner_id: string
           slug: string
@@ -155,6 +156,7 @@ export type Database = {
           created_at?: string
           id?: string
           industry?: string | null
+          min_team_k?: number
           name: string
           owner_id: string
           slug: string
@@ -164,6 +166,7 @@ export type Database = {
           created_at?: string
           id?: string
           industry?: string | null
+          min_team_k?: number
           name?: string
           owner_id?: string
           slug?: string
@@ -996,6 +999,15 @@ export type Database = {
       }
       delete_my_account: { Args: never; Returns: undefined }
       join_with_invite: { Args: { _code: string }; Returns: string }
+      privacy_self_test: {
+        Args: never
+        Returns: {
+          min_team_k_default: number
+          raw_events_older_than_24h: number
+          team_aggregates_below_k: number
+        }[]
+      }
+      run_aggregate_and_purge: { Args: never; Returns: Json }
     }
     Enums: {
       app_role: "manager" | "employee" | "admin"
