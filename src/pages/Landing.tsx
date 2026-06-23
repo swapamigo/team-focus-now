@@ -5,7 +5,7 @@ import {
   Shield, Trophy, Users, Sparkles, Lock, TrendingUp, Brain, Heart, Zap,
   ArrowRight, Check, X, Clock, Rocket, Eye, KeyRound, ShieldCheck,
 } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
+
 import RoiCalculator from "@/components/landing/RoiCalculator";
 import Footer from "@/components/landing/Footer";
 
