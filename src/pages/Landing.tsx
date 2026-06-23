@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Shield, Trophy, Users, Sparkles, Lock, TrendingUp, Brain, Heart, Zap,
