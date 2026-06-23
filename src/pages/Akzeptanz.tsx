@@ -10,6 +10,7 @@ import LandingHeader from "@/components/landing/LandingHeader";
 import Footer from "@/components/landing/Footer";
 import Seo from "@/components/Seo";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
+import LegalBasis from "@/components/landing/LegalBasis";
 import { toast } from "@/hooks/use-toast";
 
 const principles = [
@@ -156,6 +157,10 @@ export default function Akzeptanz() {
             </div>
           </div>
         </section>
+
+        {/* Rechtliche Grundlagen – DACH */}
+        <LegalBasis />
+
 
         {/* Hintergrund / Key Stat */}
         <section className="container py-16 md:py-24 border-b border-border/40">

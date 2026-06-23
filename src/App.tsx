@@ -13,6 +13,7 @@ import EmployeeDashboard from "./pages/employee/Dashboard";
 import TeamsPage from "./pages/employee/Teams";
 import SettingsPage from "./pages/employee/Settings";
 import FeaturesPage from "./pages/employee/Features";
+import PrivacyInfo from "./pages/employee/PrivacyInfo";
 import ManagerShell from "./components/app/ManagerShell";
 import ManagerDashboard from "./pages/manager/Dashboard";
 import ManagerTeamsCombined from "./pages/manager/TeamsCombined";
@@ -72,6 +73,7 @@ const App = () => (
             <Route path="rules" element={<EmployeeRules />} />
             <Route path="features" element={<FeaturesPage />} />
             <Route path="settings" element={<SettingsPage />} />
+            <Route path="privacy" element={<PrivacyInfo />} />
           </Route>
 
           <Route path="/manager" element={<ProtectedRoute requireRole="manager"><ManagerShell /></ProtectedRoute>}>

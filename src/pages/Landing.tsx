@@ -21,6 +21,7 @@ import PricingSection from "@/components/landing/PricingSection";
 import LandingHeader from "@/components/landing/LandingHeader";
 import Studies from "@/components/landing/Studies";
 import WorksCouncil from "@/components/landing/WorksCouncil";
+import PrivacySection from "@/components/landing/PrivacySection";
 import focusedImg from "@/assets/employee-focused.jpg";
 import stressedImg from "@/assets/employee-stressed.jpg";
 import heroBg from "@/assets/hero-bg.png.asset.json";
@@ -253,6 +254,7 @@ export default function Landing() {
 
       <Studies />
       <WorksCouncil />
+      <PrivacySection />
       <SocietyHealth />
       <HabitFeatures />
       <RewardsSection />
