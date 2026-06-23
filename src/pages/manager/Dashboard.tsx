@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Users, Trophy, Activity, TrendingDown, Sparkles, Zap, Clock, CalendarRange } from "lucide-react";
+import PrivacySelfTest from "@/components/app/PrivacySelfTest";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -305,6 +306,10 @@ export default function ManagerDashboard() {
             ))}
           </ul>
         )}
+      </section>
+
+      <section className="mt-6">
+        <PrivacySelfTest />
       </section>
 
       <Button onClick={simulateYear} disabled={simulating} variant="outline" className="w-full mt-6 sm:hidden">
