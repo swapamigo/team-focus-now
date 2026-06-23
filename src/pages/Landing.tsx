@@ -67,17 +67,10 @@ const benefits = [
 const trustLine = "Keine Kreditkarte · Setup in 5 Minuten · monatlich kündbar";
 
 export default function Landing() {
-  const { session, profile, role, isAdmin, loading } = useAuth();
   const [demoOpen, setDemoOpen] = useState(false);
+  // Landingpage ist immer öffentlich sichtbar – auch für eingeloggte Nutzer.
+  // Der Sprung in die App erfolgt nur über den expliziten Header-Button.
 
-  if (!loading && session) {
-    const hasAccess = isAdmin || profile?.beta_access === true;
-    if (hasAccess) {
-      const target = profile && !profile.onboarded ? "/onboarding/role" : role === "manager" ? "/manager" : "/app";
-      return <Navigate to={target} replace />;
-    }
-    // Eingeloggte Besucher ohne Beta-Zugang dürfen die Landingpage normal anschauen.
-  }
 
   return (
     <div className="min-h-screen bg-background">
