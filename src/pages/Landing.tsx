@@ -69,7 +69,7 @@ const trustLine = "Keine Kreditkarte · Setup in 5 Minuten · monatlich kündbar
 
 export default function Landing() {
   const [demoOpen, setDemoOpen] = useState(false);
-  // Landingpage ist immer öffentlich sichtbar – auch für eingeloggte Nutzer.
+  const [bookCallOpen, setBookCallOpen] = useState(false);
   // Der Sprung in die App erfolgt nur über den expliziten Header-Button.
 
 
