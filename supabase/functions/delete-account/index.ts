@@ -67,7 +67,7 @@ Deno.serve(async (req) => {
     const { error: delErr } = await admin.auth.admin.deleteUser(uid);
     if (delErr) {
       console.error('auth deleteUser failed', delErr);
-      return json({ error: delErr.message }, 500);
+      return json({ error: 'internal_server_error' }, 500);
     }
 
     return json({ ok: true });
