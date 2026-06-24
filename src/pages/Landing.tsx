@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Shield, Trophy, Users, Sparkles, Lock, TrendingUp, Brain, Heart, Zap,
-  ArrowRight, Check, X, Clock, Rocket, Eye, KeyRound, ShieldCheck,
+  ArrowRight, Check, X, Clock, Rocket, Eye, KeyRound, ShieldCheck, CalendarClock,
 } from "lucide-react";
 
 import RoiCalculator from "@/components/landing/RoiCalculator";
@@ -14,6 +14,7 @@ import SocietyHealth from "@/components/landing/SocietyHealth";
 import Faq, { faqItems } from "@/components/landing/Faq";
 import Seo from "@/components/Seo";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
+import BookCallDialog from "@/components/landing/BookCallDialog";
 import SocialProofStrip from "@/components/landing/SocialProofStrip";
 import RewardsSection from "@/components/landing/RewardsSection";
 import HabitFeatures from "@/components/landing/HabitFeatures";
@@ -68,7 +69,7 @@ const trustLine = "Keine Kreditkarte · Setup in 5 Minuten · monatlich kündbar
 
 export default function Landing() {
   const [demoOpen, setDemoOpen] = useState(false);
-  // Landingpage ist immer öffentlich sichtbar – auch für eingeloggte Nutzer.
+  const [bookCallOpen, setBookCallOpen] = useState(false);
   // Der Sprung in die App erfolgt nur über den expliziten Header-Button.
 
 
@@ -258,8 +259,8 @@ export default function Landing() {
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">In 5 Minuten startklar</p>
           <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-3">Sofort einsatzbereit.</h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-3">
-            <Button asChild size="lg" className="h-12 px-8 shadow-glow group">
-              <Link to="/waitlist">Kaufen <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
+            <Button size="lg" className="h-12 px-8 shadow-glow group" onClick={() => setBookCallOpen(true)}>
+              <CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60">
               <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Mitarbeiter-Akzeptanz</Link>
@@ -273,7 +274,7 @@ export default function Landing() {
       </section>
 
 
-      <PricingSection />
+      <PricingSection onBookCall={() => setBookCallOpen(true)} />
       <Faq />
 
       {/* Final CTA */}
@@ -290,7 +291,7 @@ export default function Landing() {
               Starten Sie 30 Tage gratis. Keine Kreditkarte, kein Risiko – nur fokussiertere Teams.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Button asChild size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto"><Link to="/waitlist">Kaufen</Link></Button>
+              <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={() => setBookCallOpen(true)}><CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren</Button>
               <Button size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
                 Demo ansehen
               </Button>
@@ -309,6 +310,7 @@ export default function Landing() {
 
       <Footer />
       <DemoLeadDialog open={demoOpen} onOpenChange={setDemoOpen} />
+      <BookCallDialog open={bookCallOpen} onOpenChange={setBookCallOpen} />
     </div>
   );
 }

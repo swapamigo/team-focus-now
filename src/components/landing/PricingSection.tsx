@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { Check } from "lucide-react";
+import { Check, CalendarClock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const perks = [
@@ -11,7 +10,11 @@ const perks = [
   "Setup in 5 Minuten – ohne IT",
 ];
 
-export default function PricingSection() {
+interface Props {
+  onBookCall?: () => void;
+}
+
+export default function PricingSection({ onBookCall }: Props) {
   return (
     <section className="container py-20 md:py-24 border-t border-border/40" id="pricing">
       <div className="max-w-2xl mx-auto text-center mb-12">
@@ -28,8 +31,8 @@ export default function PricingSection() {
             <span className="text-sm text-muted-foreground">/ MA / Monat</span>
           </div>
           <p className="text-xs text-muted-foreground mb-6">Volle Flexibilität, jederzeit kündbar.</p>
-          <Button asChild variant="outline" className="w-full h-11">
-            <Link to="/waitlist">Auswählen</Link>
+          <Button variant="outline" className="w-full h-11" onClick={onBookCall}>
+            <CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren
           </Button>
         </div>
 
@@ -43,8 +46,8 @@ export default function PricingSection() {
             <span className="text-sm text-muted-foreground">/ MA / Monat</span>
           </div>
           <p className="text-xs text-muted-foreground mb-6">Jährlich abgerechnet. Bester Preis.</p>
-          <Button asChild className="w-full h-11 shadow-glow">
-            <Link to="/waitlist">Auswählen</Link>
+          <Button className="w-full h-11 shadow-glow" onClick={onBookCall}>
+            <CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren
           </Button>
         </div>
       </div>
