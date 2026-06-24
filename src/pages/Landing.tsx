@@ -310,6 +310,7 @@ export default function Landing() {
 
       <Footer />
       <DemoLeadDialog open={demoOpen} onOpenChange={setDemoOpen} />
+      <BookCallDialog open={bookCallOpen} onOpenChange={setBookCallOpen} />
     </div>
   );
 }
