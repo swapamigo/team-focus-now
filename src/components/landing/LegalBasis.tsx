@@ -125,33 +125,57 @@ export default function LegalBasis() {
                   <ChevronDown className={cn("h-5 w-5 text-muted-foreground transition-transform shrink-0", isOpen && "rotate-180")} />
                 </button>
                 {isOpen && (
-                  <ul className="px-5 md:px-6 pb-5 md:pb-6 space-y-2.5 border-t border-border/40 pt-4">
-                    {cat.items.map((it, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm">
-                        <span className={cn("mt-2 h-1.5 w-1.5 rounded-full shrink-0", s.dot)} />
-                        <span className="leading-relaxed">
-                          <span className="text-foreground">{it.title}</span>
-                          {it.ref && <span className="block text-[11px] uppercase tracking-wider text-muted-foreground mt-0.5">{it.ref}</span>}
+                  <div className="px-5 md:px-6 pb-5 md:pb-6 border-t border-border/40 pt-4 space-y-4">
+                    {cat.id === "grey" && (
+                      <a
+                        href={starterKitAsset.url}
+                        download
+                        aria-label="Komplettes Compliance-Starter-Kit als ZIP herunterladen"
+                        className="group flex items-center gap-3 rounded-xl border border-primary/40 bg-primary/10 hover:bg-primary/15 px-4 py-3 transition-colors"
+                      >
+                        <span className="h-10 w-10 rounded-lg bg-primary/20 grid place-items-center shrink-0">
+                          <Download className="h-5 w-5 text-primary" />
                         </span>
-                      </li>
-                    ))}
-                  </ul>
+                        <span className="flex-1 min-w-0">
+                          <span className="block text-sm md:text-base font-semibold text-foreground">
+                            Komplettes Compliance-Starter-Kit herunterladen
+                          </span>
+                          <span className="block text-xs text-muted-foreground mt-0.5">
+                            Vorbereitete Vorlagen – vom Unternehmen zu prüfen und anzupassen.
+                          </span>
+                        </span>
+                        <span className="text-[11px] uppercase tracking-wider text-primary font-semibold shrink-0">ZIP</span>
+                      </a>
+                    )}
+                    <ul className="space-y-2.5">
+                      {cat.items.map((it, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm">
+                          <span className={cn("mt-2 h-1.5 w-1.5 rounded-full shrink-0", s.dot)} />
+                          <span className="leading-relaxed flex-1">
+                            <span className="text-foreground">{it.title}</span>
+                            {it.ref && <span className="block text-[11px] uppercase tracking-wider text-muted-foreground mt-0.5">{it.ref}</span>}
+                            {it.template && (
+                              <a
+                                href={it.template.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`${it.template.label} als PDF öffnen oder herunterladen`}
+                                title="Vorlage (PDF, aus Word generiert)"
+                                className="inline-flex items-center gap-1.5 mt-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                              >
+                                <FileText className="h-3.5 w-3.5" />
+                                <span className="underline-offset-2 hover:underline">{it.template.label} ↓</span>
+                              </a>
+                            )}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </div>
             );
           })}
-        </div>
-
-        <div className="mt-6 text-center">
-          <a
-            href={legalPdf.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
-          >
-            <FileCheck className="h-4 w-4" />
-            Rechtliche Compliance im DACH-Raum (PDF)
-          </a>
         </div>
       </div>
     </section>
