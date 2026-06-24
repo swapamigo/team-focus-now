@@ -291,7 +291,7 @@ export default function Landing() {
               Starten Sie 30 Tage gratis. Keine Kreditkarte, kein Risiko – nur fokussiertere Teams.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Button asChild size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto"><Link to="/waitlist">Kaufen</Link></Button>
+              <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={() => setBookCallOpen(true)}><CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren</Button>
               <Button size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
                 Demo ansehen
               </Button>
