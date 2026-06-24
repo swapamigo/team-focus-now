@@ -1,15 +1,20 @@
 import { useState } from "react";
-import { ChevronDown, Check, AlertCircle, Building2, FileCheck } from "lucide-react";
+import { ChevronDown, Check, AlertCircle, Building2, FileText, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
-import legalPdf from "@/assets/legal-compliance.pdf.asset.json";
+import avvAsset from "@/assets/compliance/avv.pdf.asset.json";
+import infoblattAsset from "@/assets/compliance/infoblatt.pdf.asset.json";
+import vvtAsset from "@/assets/compliance/vvt.pdf.asset.json";
+import dsfaAsset from "@/assets/compliance/dsfa.pdf.asset.json";
+import starterKitAsset from "@/assets/compliance/starter-kit.zip.asset.json";
 
+type Item = { title: string; ref?: string; template?: { url: string; label: string } };
 type Category = {
   id: string;
   label: string;
   tone: "green" | "amber" | "grey";
   icon: typeof Check;
   intro: string;
-  items: { title: string; ref?: string }[];
+  items: Item[];
 };
 
 const categories: Category[] = [
@@ -37,10 +42,9 @@ const categories: Category[] = [
     icon: AlertCircle,
     intro: "Von TeamFocus mit Vorlagen unterstützt.",
     items: [
-      { title: "Rechtsgrundlage der Verarbeitung – Betriebsvereinbarung als tragende Grundlage", ref: "Art. 6, Art. 88 DSGVO" },
-      { title: "Mitbestimmung Österreich", ref: "§ 96 Abs. 1 Z 3 ArbVG / § 10 AVRAG" },
-      { title: "Mitbestimmung Deutschland", ref: "§ 87 Abs. 1 Nr. 6 BetrVG / § 26 BDSG" },
-      { title: "Echte Freiwilligkeit absichern (Opt-in, kein Nachteil, kein Gruppendruck)" },
+      { title: "Echte Freiwilligkeit in der Teilnahme absichern (Opt-in, kein Nachteil, kein Gruppendruck)" },
+      { title: "Rechtsgrundlage der Verarbeitung (Akzeptanz des Betriebsrates) – Betriebsvereinbarung als tragende Grundlage", ref: "Art. 6, Art. 88 DSGVO" },
+      { title: "Mitbestimmung (AT & DE)", ref: "§ 96 Abs. 1 Z 3 ArbVG / § 10 AVRAG · § 87 Abs. 1 Nr. 6 BetrVG / § 26 BDSG" },
     ],
   },
   {
@@ -50,10 +54,10 @@ const categories: Category[] = [
     icon: Building2,
     intro: "Verantwortlicher i.S.d. DSGVO.",
     items: [
-      { title: "Verzeichnis der Verarbeitungstätigkeiten", ref: "Art. 30 DSGVO" },
-      { title: "Datenschutz-Folgenabschätzung – in Österreich Entlastung bei Betriebsvereinbarung", ref: "Art. 35 DSGVO" },
-      { title: "Auftragsverarbeitungsvertrag", ref: "Art. 28 DSGVO" },
-      { title: "Informationspflichten gegenüber Beschäftigten", ref: "Art. 13 DSGVO" },
+      { title: "Verzeichnis der Verarbeitungstätigkeiten", ref: "Art. 30 DSGVO", template: { url: vvtAsset.url, label: "VVT-Baustein" } },
+      { title: "Datenschutz-Folgenabschätzung – in Österreich Entlastung bei Betriebsvereinbarung", ref: "Art. 35 DSGVO", template: { url: dsfaAsset.url, label: "DSFA-Vorlage" } },
+      { title: "Auftragsverarbeitungsvertrag", ref: "Art. 28 DSGVO", template: { url: avvAsset.url, label: "AVV" } },
+      { title: "Informationspflichten gegenüber Beschäftigten", ref: "Art. 13 DSGVO", template: { url: infoblattAsset.url, label: "Mitarbeiter-Infoblatt" } },
     ],
   },
 ];
