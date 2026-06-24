@@ -1,15 +1,20 @@
 import { useState } from "react";
-import { ChevronDown, Check, AlertCircle, Building2, FileCheck } from "lucide-react";
+import { ChevronDown, Check, AlertCircle, Building2, FileText, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
-import legalPdf from "@/assets/legal-compliance.pdf.asset.json";
+import avvAsset from "@/assets/compliance/avv.pdf.asset.json";
+import infoblattAsset from "@/assets/compliance/infoblatt.pdf.asset.json";
+import vvtAsset from "@/assets/compliance/vvt.pdf.asset.json";
+import dsfaAsset from "@/assets/compliance/dsfa.pdf.asset.json";
+import starterKitAsset from "@/assets/compliance/starter-kit.zip.asset.json";
 
+type Item = { title: string; ref?: string; template?: { url: string; label: string } };
 type Category = {
   id: string;
   label: string;
   tone: "green" | "amber" | "grey";
   icon: typeof Check;
   intro: string;
-  items: { title: string; ref?: string }[];
+  items: Item[];
 };
 
 const categories: Category[] = [
@@ -37,10 +42,9 @@ const categories: Category[] = [
     icon: AlertCircle,
     intro: "Von TeamFocus mit Vorlagen unterstützt.",
     items: [
-      { title: "Rechtsgrundlage der Verarbeitung – Betriebsvereinbarung als tragende Grundlage", ref: "Art. 6, Art. 88 DSGVO" },
-      { title: "Mitbestimmung Österreich", ref: "§ 96 Abs. 1 Z 3 ArbVG / § 10 AVRAG" },
-      { title: "Mitbestimmung Deutschland", ref: "§ 87 Abs. 1 Nr. 6 BetrVG / § 26 BDSG" },
-      { title: "Echte Freiwilligkeit absichern (Opt-in, kein Nachteil, kein Gruppendruck)" },
+      { title: "Echte Freiwilligkeit in der Teilnahme absichern (Opt-in, kein Nachteil, kein Gruppendruck)" },
+      { title: "Rechtsgrundlage der Verarbeitung (Akzeptanz des Betriebsrates) – Betriebsvereinbarung als tragende Grundlage", ref: "Art. 6, Art. 88 DSGVO" },
+      { title: "Mitbestimmung (AT & DE)", ref: "§ 96 Abs. 1 Z 3 ArbVG / § 10 AVRAG · § 87 Abs. 1 Nr. 6 BetrVG / § 26 BDSG" },
     ],
   },
   {
@@ -50,10 +54,10 @@ const categories: Category[] = [
     icon: Building2,
     intro: "Verantwortlicher i.S.d. DSGVO.",
     items: [
-      { title: "Verzeichnis der Verarbeitungstätigkeiten", ref: "Art. 30 DSGVO" },
-      { title: "Datenschutz-Folgenabschätzung – in Österreich Entlastung bei Betriebsvereinbarung", ref: "Art. 35 DSGVO" },
-      { title: "Auftragsverarbeitungsvertrag", ref: "Art. 28 DSGVO" },
-      { title: "Informationspflichten gegenüber Beschäftigten", ref: "Art. 13 DSGVO" },
+      { title: "Verzeichnis der Verarbeitungstätigkeiten", ref: "Art. 30 DSGVO", template: { url: vvtAsset.url, label: "VVT-Baustein" } },
+      { title: "Datenschutz-Folgenabschätzung – in Österreich Entlastung bei Betriebsvereinbarung", ref: "Art. 35 DSGVO", template: { url: dsfaAsset.url, label: "DSFA-Vorlage" } },
+      { title: "Auftragsverarbeitungsvertrag", ref: "Art. 28 DSGVO", template: { url: avvAsset.url, label: "AVV" } },
+      { title: "Informationspflichten gegenüber Beschäftigten", ref: "Art. 13 DSGVO", template: { url: infoblattAsset.url, label: "Mitarbeiter-Infoblatt" } },
     ],
   },
 ];
@@ -121,33 +125,57 @@ export default function LegalBasis() {
                   <ChevronDown className={cn("h-5 w-5 text-muted-foreground transition-transform shrink-0", isOpen && "rotate-180")} />
                 </button>
                 {isOpen && (
-                  <ul className="px-5 md:px-6 pb-5 md:pb-6 space-y-2.5 border-t border-border/40 pt-4">
-                    {cat.items.map((it, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm">
-                        <span className={cn("mt-2 h-1.5 w-1.5 rounded-full shrink-0", s.dot)} />
-                        <span className="leading-relaxed">
-                          <span className="text-foreground">{it.title}</span>
-                          {it.ref && <span className="block text-[11px] uppercase tracking-wider text-muted-foreground mt-0.5">{it.ref}</span>}
+                  <div className="px-5 md:px-6 pb-5 md:pb-6 border-t border-border/40 pt-4 space-y-4">
+                    {cat.id === "grey" && (
+                      <a
+                        href={starterKitAsset.url}
+                        download
+                        aria-label="Komplettes Compliance-Starter-Kit als ZIP herunterladen"
+                        className="group flex items-center gap-3 rounded-xl border border-primary/40 bg-primary/10 hover:bg-primary/15 px-4 py-3 transition-colors"
+                      >
+                        <span className="h-10 w-10 rounded-lg bg-primary/20 grid place-items-center shrink-0">
+                          <Download className="h-5 w-5 text-primary" />
                         </span>
-                      </li>
-                    ))}
-                  </ul>
+                        <span className="flex-1 min-w-0">
+                          <span className="block text-sm md:text-base font-semibold text-foreground">
+                            Komplettes Compliance-Starter-Kit herunterladen
+                          </span>
+                          <span className="block text-xs text-muted-foreground mt-0.5">
+                            Vorbereitete Vorlagen – vom Unternehmen zu prüfen und anzupassen.
+                          </span>
+                        </span>
+                        <span className="text-[11px] uppercase tracking-wider text-primary font-semibold shrink-0">ZIP</span>
+                      </a>
+                    )}
+                    <ul className="space-y-2.5">
+                      {cat.items.map((it, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm">
+                          <span className={cn("mt-2 h-1.5 w-1.5 rounded-full shrink-0", s.dot)} />
+                          <span className="leading-relaxed flex-1">
+                            <span className="text-foreground">{it.title}</span>
+                            {it.ref && <span className="block text-[11px] uppercase tracking-wider text-muted-foreground mt-0.5">{it.ref}</span>}
+                            {it.template && (
+                              <a
+                                href={it.template.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`${it.template.label} als PDF öffnen oder herunterladen`}
+                                title="Vorlage (PDF, aus Word generiert)"
+                                className="inline-flex items-center gap-1.5 mt-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                              >
+                                <FileText className="h-3.5 w-3.5" />
+                                <span className="underline-offset-2 hover:underline">{it.template.label} ↓</span>
+                              </a>
+                            )}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </div>
             );
           })}
-        </div>
-
-        <div className="mt-6 text-center">
-          <a
-            href={legalPdf.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
-          >
-            <FileCheck className="h-4 w-4" />
-            Rechtliche Compliance im DACH-Raum (PDF)
-          </a>
         </div>
       </div>
     </section>
