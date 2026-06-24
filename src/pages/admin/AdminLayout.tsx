@@ -112,7 +112,7 @@ export default function AdminLayout() {
             </Button>
           </form>
           <p className="text-xs text-muted-foreground text-center mt-5">
-            Erlaubt: Swapamigo@gmail.com und joel.schoeppe@gmail.com
+            Nur freigegebene Admin-Konten haben Zugang.
           </p>
         </div>
       </div>
