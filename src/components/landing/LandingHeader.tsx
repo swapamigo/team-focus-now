@@ -15,8 +15,9 @@ const navItems = [
   { href: "#betriebsrat", label: "Betriebsrat" },
 ];
 
-export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => void; onBookCall: () => void }) {
+export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => void; onBookCall?: () => void }) {
   const [open, setOpen] = useState(false);
+  const handleBookCall = onBookCall ?? (() => window.open("https://cal.com/joelschoppe/teamfocus", "_blank", "noopener,noreferrer"));
   return (
     <header className="sticky top-0 z-50 glass border-b border-border/40">
       <div className="container flex h-16 items-center justify-between gap-3">
