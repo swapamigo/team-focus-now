@@ -89,7 +89,7 @@ export default function Landing() {
           })),
         }}
       />
-      <LandingHeader onDemo={() => setDemoOpen(true)} />
+      <LandingHeader onDemo={() => setDemoOpen(true)} onBookCall={() => setBookCallOpen(true)} />
 
       <main>
       {/* Hero — ohne Mockup-Bild */}
@@ -122,25 +122,30 @@ export default function Landing() {
               Gemessen wird ausschließlich während der Arbeitszeit – danach nie.
             </span>
           </p>
-          <div className="flex justify-center px-4">
-            <Button size="lg" className="h-14 px-10 text-base shadow-glow w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
+          <div className="flex flex-col sm:flex-row justify-center gap-3 px-4">
+            <Button size="lg" className="h-14 px-8 text-base shadow-glow w-full sm:w-auto" onClick={() => setBookCallOpen(true)}>
+              <CalendarClock className="mr-2 h-5 w-5" />
+              Jetzt Call vereinbaren
+              <ArrowRight className="ml-1 h-4 w-4" />
+            </Button>
+            <Button size="lg" variant="outline" className="h-14 px-8 text-base w-full sm:w-auto backdrop-blur bg-card/60" onClick={() => setDemoOpen(true)}>
               <Sparkles className="mr-2 h-5 w-5" />
               Demo ansehen
             </Button>
           </div>
-          <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3 px-4">
-            <Button asChild size="lg" className="h-13 px-7 shadow-glow group w-full sm:w-auto gradient-primary text-primary-foreground border-0 hover:scale-[1.02] transition-transform">
+          <div className="mt-4 hidden sm:flex flex-row justify-center gap-3 px-4">
+            <Button asChild size="sm" variant="ghost" className="group">
               <Link to="/akzeptanz">
-                <Users className="mr-2 h-5 w-5" />
+                <Users className="mr-1.5 h-4 w-4" />
                 Mitarbeiter-Akzeptanz
-                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="h-13 px-7 border-2 border-primary/50 bg-primary/5 hover:bg-primary/10 group w-full sm:w-auto hover:scale-[1.02] transition-transform">
+            <Button asChild size="sm" variant="ghost" className="group">
               <Link to="/vorteile">
-                <Heart className="mr-2 h-5 w-5 text-primary" />
+                <Heart className="mr-1.5 h-4 w-4 text-primary" />
                 Vorteile für Mitarbeiter
-                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
           </div>
@@ -258,14 +263,14 @@ export default function Landing() {
         <div className="max-w-3xl mx-auto surface-card p-7 md:p-10 text-center">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">In 5 Minuten startklar</p>
           <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-3">Sofort einsatzbereit.</h2>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-3">
-            <Button size="lg" className="h-12 px-8 shadow-glow group" onClick={() => setBookCallOpen(true)}>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mt-3">
+            <Button size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto" onClick={() => setBookCallOpen(true)}>
               <CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60">
+            <Button asChild size="lg" variant="outline" className="hidden sm:inline-flex h-12 px-8 backdrop-blur bg-card/60">
               <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Mitarbeiter-Akzeptanz</Link>
             </Button>
-            <Button asChild size="lg" variant="ghost" className="h-12 px-6">
+            <Button asChild size="lg" variant="ghost" className="hidden sm:inline-flex h-12 px-6">
               <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
             </Button>
           </div>
@@ -290,15 +295,15 @@ export default function Landing() {
             <p className="max-w-xl mx-auto text-muted-foreground mb-8 text-base md:text-lg leading-relaxed">
               Starten Sie 30 Tage gratis. Keine Kreditkarte, kein Risiko – nur fokussiertere Teams.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
               <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={() => setBookCallOpen(true)}><CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren</Button>
               <Button size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
                 Demo ansehen
               </Button>
-              <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
+              <Button asChild size="lg" variant="ghost" className="hidden sm:inline-flex h-12 px-6">
                 <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Mitarbeiter-Akzeptanz</Link>
               </Button>
-              <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
+              <Button asChild size="lg" variant="ghost" className="hidden sm:inline-flex h-12 px-6">
                 <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
               </Button>
             </div>
