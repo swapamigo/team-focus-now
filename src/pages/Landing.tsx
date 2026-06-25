@@ -89,7 +89,7 @@ export default function Landing() {
           })),
         }}
       />
-      <LandingHeader onDemo={() => setDemoOpen(true)} />
+      <LandingHeader onDemo={() => setDemoOpen(true)} onBookCall={() => setBookCallOpen(true)} />
 
       <main>
       {/* Hero — ohne Mockup-Bild */}

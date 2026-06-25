@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, ShieldCheck } from "lucide-react";
+import { Menu, ShieldCheck, CalendarClock } from "lucide-react";
 import Logo from "@/components/Logo";
 
 const navItems = [
@@ -15,7 +15,7 @@ const navItems = [
   { href: "#betriebsrat", label: "Betriebsrat" },
 ];
 
-export default function LandingHeader({ onDemo }: { onDemo: () => void }) {
+export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => void; onBookCall: () => void }) {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 glass border-b border-border/40">
@@ -36,8 +36,10 @@ export default function LandingHeader({ onDemo }: { onDemo: () => void }) {
         </nav>
 
         <div className="hidden sm:flex items-center gap-2">
-          <Button variant="ghost" size="sm" asChild><Link to="/waitlist">Kaufen</Link></Button>
-          <Button size="sm" className="shadow-sm" onClick={onDemo}>Demo starten</Button>
+          <Button variant="ghost" size="sm" onClick={onDemo}>Demo starten</Button>
+          <Button size="sm" className="shadow-sm" onClick={onBookCall}>
+            <CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren
+          </Button>
         </div>
 
         <div className="sm:hidden">
@@ -61,10 +63,10 @@ export default function LandingHeader({ onDemo }: { onDemo: () => void }) {
                   )
                 ))}
                 <div className="border-t border-border my-3" />
-                <Button asChild variant="outline" onClick={() => setOpen(false)}>
-                  <Link to="/waitlist">Kaufen</Link>
+                <Button variant="outline" onClick={() => { setOpen(false); onDemo(); }}>Demo starten</Button>
+                <Button onClick={() => { setOpen(false); onBookCall(); }}>
+                  <CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren
                 </Button>
-                <Button onClick={() => { setOpen(false); onDemo(); }}>Demo starten</Button>
               </div>
             </SheetContent>
           </Sheet>
