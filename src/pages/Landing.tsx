@@ -133,15 +133,15 @@ export default function Landing() {
               Demo ansehen
             </Button>
           </div>
-          <div className="mt-4 hidden sm:flex flex-row justify-center gap-3 px-4">
-            <Button asChild size="sm" variant="ghost" className="group">
+          <div className="mt-5 flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-2 sm:gap-3 px-4">
+            <Button asChild variant="secondary" className="group h-12 sm:h-10 w-full sm:w-auto justify-center border border-border/60 bg-card/70 backdrop-blur">
               <Link to="/akzeptanz">
                 <Users className="mr-1.5 h-4 w-4" />
                 Mitarbeiter-Akzeptanz
                 <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
-            <Button asChild size="sm" variant="ghost" className="group">
+            <Button asChild variant="secondary" className="group h-12 sm:h-10 w-full sm:w-auto justify-center border border-border/60 bg-card/70 backdrop-blur">
               <Link to="/vorteile">
                 <Heart className="mr-1.5 h-4 w-4 text-primary" />
                 Vorteile für Mitarbeiter
@@ -149,6 +149,7 @@ export default function Landing() {
               </Link>
             </Button>
           </div>
+
           
         </div>
       </section>
