@@ -268,12 +268,13 @@ export default function Landing() {
             <Button size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto" onClick={() => setBookCallOpen(true)}>
               <CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button asChild size="lg" variant="outline" className="hidden sm:inline-flex h-12 px-8 backdrop-blur bg-card/60">
+            <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto">
               <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Mitarbeiter-Akzeptanz</Link>
             </Button>
-            <Button asChild size="lg" variant="ghost" className="hidden sm:inline-flex h-12 px-6">
+            <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
               <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
             </Button>
+
           </div>
           <p className="mt-3 text-xs text-muted-foreground">{trustLine}</p>
         </div>
