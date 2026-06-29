@@ -293,13 +293,18 @@ export default function RoiCalculator() {
         </div>
       </div>
 
-      <div className="mt-10 flex flex-col items-center gap-2">
-        <Button asChild size="lg" className="h-12 px-8 shadow-glow group">
-          <Link to="/register">
-            Kostenlos starten <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </Button>
-        <p className="text-xs text-muted-foreground">Keine Kreditkarte · Setup in 5 Minuten · monatlich kündbar</p>
+      <div className="mt-10 flex flex-col items-center gap-3">
+        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+          <Button onClick={exportPdf} size="lg" variant="outline" className="h-12 px-6 w-full sm:w-auto">
+            <Download className="h-4 w-4" /> Als PDF exportieren
+          </Button>
+          <Button onClick={emailPdf} size="lg" variant="outline" className="h-12 px-6 w-full sm:w-auto">
+            Per E-Mail senden
+          </Button>
+        </div>
+        <p className="text-xs text-muted-foreground text-center max-w-md">
+          Einseitige Zusammenfassung mit Branding – ideal zum Weiterleiten an Geschäftsführung & Betriebsrat.
+        </p>
       </div>
     </section>
   );
