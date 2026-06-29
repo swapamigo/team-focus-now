@@ -33,12 +33,157 @@ export default function RoiCalculator() {
   const [hourlyCost, setHourlyCost] = useState(35);
   const [hoursPerYear, setHoursPerYear] = useState(720);
 
-  const { wastedHours, lossPerYear, savingsPerYear, savingsPerMonth } = useMemo(() => {
+  const { wastedHours, lossPerYear, savingsPerYear, savingsPerMonth, teamfocusCostPerYear, netSavings } = useMemo(() => {
     const wasted = employees * hoursPerYear;
     const loss = wasted * hourlyCost;
     const savings = loss * REDUCTION;
-    return { wastedHours: wasted, lossPerYear: loss, savingsPerYear: savings, savingsPerMonth: savings / 12 };
+    const tfCost = employees * 2.99 * 12;
+    return { wastedHours: wasted, lossPerYear: loss, savingsPerYear: savings, savingsPerMonth: savings / 12, teamfocusCostPerYear: tfCost, netSavings: savings - tfCost };
   }, [employees, hourlyCost, hoursPerYear]);
+
+  const exportPdf = () => {
+    const doc = new jsPDF({ unit: "pt", format: "a4" });
+    const pageW = doc.internal.pageSize.getWidth();
+    let y = 56;
+
+    // Header
+    doc.setFillColor(15, 23, 42);
+    doc.rect(0, 0, pageW, 90, "F");
+    doc.setTextColor(255, 255, 255);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.text("TeamFocus", 40, 50);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text("Fokus-Booster fürs ganze Team", 40, 70);
+    doc.setFontSize(9);
+    doc.text("https://teamfokus.app", pageW - 40, 70, { align: "right" });
+
+    y = 130;
+    doc.setTextColor(15, 23, 42);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("Ihre ROI-Auswertung", 40, y);
+    y += 8;
+    doc.setDrawColor(59, 130, 246);
+    doc.setLineWidth(2);
+    doc.line(40, y, 110, y);
+
+    // Inputs
+    y += 30;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.text("Ihre Eingaben", 40, y);
+    y += 18;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+    doc.text(`Mitarbeitende: ${employees}`, 40, y); y += 16;
+    doc.text(`Kosten pro Mitarbeitendem / Stunde: ${fmtEUR(hourlyCost)}`, 40, y); y += 16;
+    doc.text(`Verschwendete Arbeitszeit / Mitarbeitendem / Jahr: ${hoursPerYear} h`, 40, y); y += 24;
+
+    // Results boxes
+    doc.setFillColor(254, 226, 226);
+    doc.roundedRect(40, y, pageW - 80, 70, 8, 8, "F");
+    doc.setTextColor(153, 27, 27);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.text("AKTUELLER VERLUST IHRES UNTERNEHMENS / JAHR", 56, y + 22);
+    doc.setFontSize(22);
+    doc.text(fmtEUR(lossPerYear, "-"), 56, y + 52);
+    y += 86;
+
+    doc.setFillColor(219, 234, 254);
+    doc.roundedRect(40, y, pageW - 80, 70, 8, 8, "F");
+    doc.setTextColor(30, 64, 175);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.text("UMSATZSTEIGERUNG MIT TEAMFOCUS / JAHR (bei 35 % weniger Bildschirmzeit)", 56, y + 22);
+    doc.setFontSize(22);
+    doc.text(fmtEUR(savingsPerYear, "+"), 56, y + 52);
+    y += 86;
+
+    // Cost
+    doc.setTextColor(15, 23, 42);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text(`Preis TeamFocus: 2,99 € pro Mitarbeitendem / Monat`, 40, y); y += 16;
+    doc.setFont("helvetica", "normal");
+    doc.text(`Investition / Jahr: ${fmtEUR(teamfocusCostPerYear)}  -  Netto-Gewinn: ${fmtEUR(netSavings, "+")}`, 40, y);
+    y += 26;
+
+    // Pitch
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.text("Warum sich TeamFocus für Sie lohnt", 40, y); y += 18;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    const bullets = [
+      "Datenschutz ist bereits erledigt: 100 % DSGVO-konform, k-Anonymitaet (k>=5),",
+      "    Aggregation taeglich, Rohdaten werden nach 24 h automatisch geloescht.",
+      "Compliance-Starter-Kit (AVV, VVT, DSFA, Betriebsvereinbarung) inklusive.",
+      "Mitarbeitende sehen es als Spiel: Firmenessen, besserer Firmenwagen,",
+      "    Team-Belohnungen - kein Verbot, keine Ueberwachung.",
+      "Weniger Stress, mehr Klarheit im Beruf und im Privatleben.",
+      "Gemeinsam gegen das gesellschaftliche Problem Handysucht.",
+      "Mehr Fokus -> weniger Fehler -> messbar mehr Umsatz.",
+      "Nur waehrend der Arbeitszeit - Freizeit bleibt komplett privat.",
+    ];
+    bullets.forEach((b) => {
+      const isSub = b.startsWith("    ");
+      doc.text((isSub ? "  " : "- ") + b.trim(), 40, y);
+      y += 14;
+    });
+
+    y += 12;
+    doc.setDrawColor(226, 232, 240);
+    doc.setLineWidth(1);
+    doc.line(40, y, pageW - 40, y);
+    y += 20;
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(59, 130, 246);
+    doc.text("Mehr erfahren & Team einfuehren:", 40, y); y += 16;
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(15, 23, 42);
+    doc.setFontSize(10);
+    doc.text("Website:", 40, y);
+    doc.setTextColor(59, 130, 246);
+    doc.textWithLink("https://teamfokus.app", 95, y, { url: "https://teamfokus.app" });
+    y += 14;
+    doc.setTextColor(15, 23, 42);
+    doc.text("Mitarbeiter-Akzeptanz:", 40, y);
+    doc.setTextColor(59, 130, 246);
+    doc.textWithLink("https://teamfokus.app/akzeptanz", 165, y, { url: "https://teamfokus.app/akzeptanz" });
+    y += 14;
+    doc.setTextColor(15, 23, 42);
+    doc.text("Vorteile für Mitarbeitende:", 40, y);
+    doc.setTextColor(59, 130, 246);
+    doc.textWithLink("https://teamfokus.app/vorteile", 180, y, { url: "https://teamfokus.app/vorteile" });
+
+    doc.setTextColor(100, 116, 139);
+    doc.setFontSize(8);
+    doc.text("TeamFocus - Erstellt am " + new Date().toLocaleDateString("de-DE"), 40, doc.internal.pageSize.getHeight() - 24);
+
+    doc.save(`TeamFocus-ROI-${employees}-MA.pdf`);
+  };
+
+  const emailPdf = () => {
+    const subject = encodeURIComponent("TeamFocus ROI-Auswertung");
+    const body = encodeURIComponent(
+      `Hallo,\n\nanbei meine ROI-Auswertung mit TeamFocus:\n\n` +
+      `- Mitarbeitende: ${employees}\n` +
+      `- Aktueller Verlust / Jahr: ${fmtEUR(lossPerYear)}\n` +
+      `- Mögliche Einsparung / Jahr (35 %): ${fmtEUR(savingsPerYear)}\n` +
+      `- Investition TeamFocus / Jahr: ${fmtEUR(teamfocusCostPerYear)} (2,99 €/MA/Monat)\n` +
+      `- Netto-Gewinn / Jahr: ${fmtEUR(netSavings)}\n\n` +
+      `Mehr Infos: https://teamfokus.app\n` +
+      `Mitarbeiter-Akzeptanz: https://teamfokus.app/akzeptanz\n\n` +
+      `(PDF-Export bitte separat anhängen – wurde aus dem Rechner heruntergeladen.)`
+    );
+    exportPdf();
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  };
 
   return (
     <section className="container py-20 md:py-24 border-t border-border/40" id="calculator">
