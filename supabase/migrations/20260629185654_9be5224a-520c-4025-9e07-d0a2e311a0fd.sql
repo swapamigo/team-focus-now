@@ -1,0 +1,1 @@
+ALTER TABLE public.demo_leads ADD COLUMN IF NOT EXISTS company_name text, ADD COLUMN IF NOT EXISTS contact_name text;
