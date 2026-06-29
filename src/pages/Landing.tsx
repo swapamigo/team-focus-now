@@ -154,8 +154,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Social Proof Strip — direkt nach Hero */}
-      <SocialProofStrip />
 
       {/* Produktbeschreibung */}
       <section className="container py-12 md:py-16 border-b border-border/40">
