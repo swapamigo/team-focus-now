@@ -15,7 +15,7 @@ import Faq, { faqItems } from "@/components/landing/Faq";
 import Seo from "@/components/Seo";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
 import BookCallDialog from "@/components/landing/BookCallDialog";
-import SocialProofStrip from "@/components/landing/SocialProofStrip";
+
 import RewardsSection from "@/components/landing/RewardsSection";
 import HabitFeatures from "@/components/landing/HabitFeatures";
 import PricingSection from "@/components/landing/PricingSection";
@@ -154,8 +154,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Social Proof Strip — direkt nach Hero */}
-      <SocialProofStrip />
 
       {/* Produktbeschreibung */}
       <section className="container py-12 md:py-16 border-b border-border/40">
