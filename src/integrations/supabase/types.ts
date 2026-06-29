@@ -316,6 +316,8 @@ export type Database = {
       }
       demo_leads: {
         Row: {
+          company_name: string | null
+          contact_name: string | null
           country: string | null
           country_code: string | null
           created_at: string
@@ -326,6 +328,8 @@ export type Database = {
           source: string | null
         }
         Insert: {
+          company_name?: string | null
+          contact_name?: string | null
           country?: string | null
           country_code?: string | null
           created_at?: string
@@ -336,6 +340,8 @@ export type Database = {
           source?: string | null
         }
         Update: {
+          company_name?: string | null
+          contact_name?: string | null
           country?: string | null
           country_code?: string | null
           created_at?: string
