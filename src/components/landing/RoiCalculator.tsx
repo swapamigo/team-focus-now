@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { TrendingDown, TrendingUp, Info, Sparkles, ArrowRight } from "lucide-react";
+import { TrendingDown, TrendingUp, Info, Sparkles, ArrowRight, Download } from "lucide-react";
+import jsPDF from "jspdf";
 
 const REDUCTION = 0.35;
 const WORKING_DAYS = 250;
