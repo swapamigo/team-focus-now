@@ -258,7 +258,7 @@ export default function RoiCalculator() {
             <div className="relative">
               <div className="flex items-center gap-2 mb-2">
                 <TrendingDown className="h-4 w-4 text-destructive" />
-                <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">AKTUELLER VERLUST DURCH HANDY ABLENKUNG/ JAHR</p>
+                <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">AKTUELLER VERLUST IHRES UNTERNEHMENS DURCH HANDY ABLENKUNG / JAHR</p>
               </div>
               <p className="text-4xl md:text-5xl font-semibold tracking-tight text-destructive">{fmtEUR(lossPerYear, "-")}</p>
               <p className="text-sm text-muted-foreground mt-2">
