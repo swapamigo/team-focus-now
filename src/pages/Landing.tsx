@@ -15,7 +15,7 @@ import Faq, { faqItems } from "@/components/landing/Faq";
 import Seo from "@/components/Seo";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
 import BookCallDialog from "@/components/landing/BookCallDialog";
-import SocialProofStrip from "@/components/landing/SocialProofStrip";
+
 import RewardsSection from "@/components/landing/RewardsSection";
 import HabitFeatures from "@/components/landing/HabitFeatures";
 import PricingSection from "@/components/landing/PricingSection";
