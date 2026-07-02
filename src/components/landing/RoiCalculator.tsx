@@ -293,7 +293,25 @@ export default function RoiCalculator() {
         </div>
       </div>
 
-      <div className="mt-10 flex flex-col items-center gap-3">
+      <div className="mt-10 flex flex-col items-center gap-6">
+        <div className="max-w-3xl w-full text-center">
+          <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
+            Das Problem <span className="text-destructive">muss</span> gelöst werden.
+          </h3>
+          <p className="mt-2 text-muted-foreground">Die Frage ist nur: wie?</p>
+        </div>
+        <div className="max-w-3xl w-full grid md:grid-cols-2 gap-4">
+          <div className="surface-card p-5 border-destructive/30">
+            <p className="text-xs uppercase tracking-widest text-destructive font-semibold mb-2">Option A</p>
+            <p className="text-base font-semibold mb-1">Handy-Verbot</p>
+            <p className="text-sm text-muted-foreground">Handy muss abgegeben werden – es wird wieder fokussiert gearbeitet wie vor 20 Jahren.</p>
+          </div>
+          <div className="surface-card p-5 border-primary/40 ring-1 ring-primary/20">
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">Option B</p>
+            <p className="text-base font-semibold mb-1">TeamFocus</p>
+            <p className="text-sm text-muted-foreground">Mitarbeiterfreundlich und belohnungsbasiert motivierend – ohne Verbote, ohne Überwachung.</p>
+          </div>
+        </div>
         <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
           <Button onClick={exportPdf} size="lg" variant="outline" className="h-12 px-6 w-full sm:w-auto">
             <Download className="h-4 w-4" /> Als PDF exportieren
