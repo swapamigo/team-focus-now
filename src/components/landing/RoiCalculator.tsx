@@ -44,126 +44,286 @@ export default function RoiCalculator() {
   const exportPdf = () => {
     const doc = new jsPDF({ unit: "pt", format: "a4" });
     const pageW = doc.internal.pageSize.getWidth();
-    let y = 56;
+    const pageH = doc.internal.pageSize.getHeight();
 
-    // Header
-    doc.setFillColor(15, 23, 42);
-    doc.rect(0, 0, pageW, 90, "F");
-    doc.setTextColor(255, 255, 255);
+    const NAVY: [number, number, number] = [15, 23, 42];
+    const BLUE: [number, number, number] = [59, 130, 246];
+    const BLUE_DARK: [number, number, number] = [30, 64, 175];
+    const BLUE_SOFT: [number, number, number] = [219, 234, 254];
+    const RED: [number, number, number] = [220, 38, 38];
+    const RED_SOFT: [number, number, number] = [254, 226, 226];
+    const GREEN: [number, number, number] = [22, 163, 74];
+    const GREEN_SOFT: [number, number, number] = [220, 252, 231];
+    const SLATE: [number, number, number] = [100, 116, 139];
+    const SLATE_SOFT: [number, number, number] = [241, 245, 249];
+    const WHITE: [number, number, number] = [255, 255, 255];
+
+    const setFill = (c: [number, number, number]) => doc.setFillColor(c[0], c[1], c[2]);
+    const setText = (c: [number, number, number]) => doc.setTextColor(c[0], c[1], c[2]);
+    const setDraw = (c: [number, number, number]) => doc.setDrawColor(c[0], c[1], c[2]);
+
+    // ===== PAGE 1 =====
+    setFill(NAVY);
+    doc.rect(0, 0, pageW, 110, "F");
+    setFill(BLUE);
+    doc.roundedRect(40, 32, 46, 46, 10, 10, "F");
+    setText(WHITE);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.text("TeamFocus", 40, 50);
+    doc.text("TF", 63, 62, { align: "center" });
+    doc.setFontSize(22);
+    doc.text("TeamFocus", 100, 55);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.text("Fokus-Booster fürs ganze Team", 40, 70);
+    setText([203, 213, 225]);
+    doc.text("Fokus-Booster für produktive Teams", 100, 72);
+    setText(WHITE);
     doc.setFontSize(9);
-    doc.text("https://teamfokus.app", pageW - 40, 70, { align: "right" });
+    doc.text("teamfokus.app", pageW - 40, 55, { align: "right" });
+    doc.text(new Date().toLocaleDateString("de-DE"), pageW - 40, 72, { align: "right" });
 
-    y = 130;
-    doc.setTextColor(15, 23, 42);
+    let y = 150;
+    setText(NAVY);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(26);
+    doc.text("Ihre ROI-Auswertung", 40, y);
+    y += 10;
+    setDraw(BLUE);
+    doc.setLineWidth(3);
+    doc.line(40, y, 120, y);
+    y += 22;
+    setText(SLATE);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+    doc.text("Vertraulich — vorbereitet für die Geschäftsführung", 40, y);
+
+    y += 26;
+    setFill(SLATE_SOFT);
+    doc.roundedRect(40, y, pageW - 80, 92, 10, 10, "F");
+    setText(NAVY);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text("IHRE EINGABEN", 56, y + 22);
+    const colW = (pageW - 80 - 32) / 3;
+    const drawStat = (label: string, value: string, x: number) => {
+      setText(SLATE);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9);
+      doc.text(label, x, y + 44);
+      setText(NAVY);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(18);
+      doc.text(value, x, y + 70);
+    };
+    drawStat("Mitarbeitende", `${employees}`, 56);
+    drawStat("Kosten / Std.", fmtEUR(hourlyCost), 56 + colW);
+    drawStat("Verlorene Std. / MA / Jahr", `${hoursPerYear} h`, 56 + colW * 2);
+
+    y += 92 + 20;
+    setFill(RED_SOFT);
+    doc.roundedRect(40, y, pageW - 80, 100, 12, 12, "F");
+    setFill(RED);
+    doc.roundedRect(40, y, 6, 100, 3, 3, "F");
+    setText(RED);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.text("AKTUELLER VERLUST IHRES UNTERNEHMENS / JAHR", 60, y + 26);
+    doc.setFontSize(32);
+    doc.text(fmtEUR(lossPerYear, "-"), 60, y + 66);
+    setText([153, 27, 27]);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text(`= ${wastedHours.toLocaleString("de-DE")} verlorene Arbeitsstunden pro Jahr`, 60, y + 86);
+
+    y += 100 + 14;
+    setFill(BLUE_SOFT);
+    doc.roundedRect(40, y, pageW - 80, 100, 12, 12, "F");
+    setFill(BLUE);
+    doc.roundedRect(40, y, 6, 100, 3, 3, "F");
+    setText(BLUE_DARK);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.text("UMSATZSTEIGERUNG MIT TEAMFOCUS / JAHR", 60, y + 26);
+    doc.setFontSize(32);
+    doc.text(fmtEUR(savingsPerYear, "+"), 60, y + 66);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text(`Bei rund 35 % weniger Bildschirmzeit — ca. ${fmtEUR(savingsPerMonth, "+")} pro Monat`, 60, y + 86);
+
+    y += 100 + 14;
+    setFill(GREEN_SOFT);
+    doc.roundedRect(40, y, pageW - 80, 84, 12, 12, "F");
+    setFill(GREEN);
+    doc.roundedRect(40, y, 6, 84, 3, 3, "F");
+    setText([21, 128, 61]);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.text("NETTO-GEWINN NACH INVESTITION", 60, y + 24);
+    doc.setFontSize(24);
+    doc.text(fmtEUR(netSavings, "+"), 60, y + 54);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text(`Investition: nur ${fmtEUR(teamfocusCostPerYear)} / Jahr  (2,99 € pro MA / Monat)`, 60, y + 72);
+
+    setText(SLATE);
+    doc.setFontSize(8);
+    doc.text("Seite 1 / 2 — TeamFocus ROI-Auswertung", 40, pageH - 24);
+    doc.text("teamfokus.app", pageW - 40, pageH - 24, { align: "right" });
+
+    // ===== PAGE 2 =====
+    doc.addPage();
+    setFill(NAVY);
+    doc.rect(0, 0, pageW, 70, "F");
+    setText(WHITE);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text("TeamFocus — Warum sich die Investition lohnt", 40, 42);
+    setText([203, 213, 225]);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text("teamfokus.app", pageW - 40, 42, { align: "right" });
+
+    y = 100;
+    setText(NAVY);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
-    doc.text("Ihre ROI-Auswertung", 40, y);
-    y += 8;
-    doc.setDrawColor(59, 130, 246);
-    doc.setLineWidth(2);
-    doc.line(40, y, 110, y);
-
-    // Inputs
-    y += 30;
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.text("Ihre Eingaben", 40, y);
-    y += 18;
+    doc.text("Das Problem muss gelöst werden.", 40, y);
+    y += 22;
+    setText(SLATE);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(11);
-    doc.text(`Mitarbeitende: ${employees}`, 40, y); y += 16;
-    doc.text(`Kosten pro Mitarbeitendem / Stunde: ${fmtEUR(hourlyCost)}`, 40, y); y += 16;
-    doc.text(`Verschwendete Arbeitszeit / Mitarbeitendem / Jahr: ${hoursPerYear} h`, 40, y); y += 24;
+    doc.text("Die Frage ist nur: wie? Sie haben zwei Optionen.", 40, y);
 
-    // Results boxes
-    doc.setFillColor(254, 226, 226);
-    doc.roundedRect(40, y, pageW - 80, 70, 8, 8, "F");
-    doc.setTextColor(153, 27, 27);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.text("AKTUELLER VERLUST IHRES UNTERNEHMENS / JAHR", 56, y + 22);
-    doc.setFontSize(22);
-    doc.text(fmtEUR(lossPerYear, "-"), 56, y + 52);
-    y += 86;
+    y += 24;
+    const boxW = (pageW - 80 - 16) / 2;
+    const boxH = 210;
 
-    doc.setFillColor(219, 234, 254);
-    doc.roundedRect(40, y, pageW - 80, 70, 8, 8, "F");
-    doc.setTextColor(30, 64, 175);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.text("UMSATZSTEIGERUNG MIT TEAMFOCUS / JAHR (bei 35 % weniger Bildschirmzeit)", 56, y + 22);
-    doc.setFontSize(22);
-    doc.text(fmtEUR(savingsPerYear, "+"), 56, y + 52);
-    y += 86;
-
-    // Cost
-    doc.setTextColor(15, 23, 42);
+    setFill(RED_SOFT);
+    doc.roundedRect(40, y, boxW, boxH, 10, 10, "F");
+    setFill(RED);
+    doc.roundedRect(40, y, boxW, 34, 10, 10, "F");
+    doc.rect(40, y + 20, boxW, 14, "F");
+    setText(WHITE);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
-    doc.text(`Preis TeamFocus: 2,99 € pro Mitarbeitendem / Monat`, 40, y); y += 16;
-    doc.setFont("helvetica", "normal");
-    doc.text(`Investition / Jahr: ${fmtEUR(teamfocusCostPerYear)}  -  Netto-Gewinn: ${fmtEUR(netSavings, "+")}`, 40, y);
-    y += 26;
-
-    // Pitch
+    doc.text("OPTION A — HANDY-VERBOT", 54, y + 22);
+    setText([127, 29, 29]);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.text("Warum sich TeamFocus für Sie lohnt", 40, y); y += 18;
+    doc.setFontSize(13);
+    doc.text("Wie vor 20 Jahren", 54, y + 58);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    const bullets = [
-      "Datenschutz ist bereits erledigt: 100 % DSGVO-konform, k-Anonymitaet (k>=5),",
-      "    Aggregation taeglich, Rohdaten werden nach 24 h automatisch geloescht.",
-      "Compliance-Starter-Kit (AVV, VVT, DSFA, Betriebsvereinbarung) inklusive.",
-      "Mitarbeitende sehen es als Spiel: Firmenessen, besserer Firmenwagen,",
-      "    Team-Belohnungen - kein Verbot, keine Ueberwachung.",
-      "Weniger Stress, mehr Klarheit im Beruf und im Privatleben.",
-      "Gemeinsam gegen das gesellschaftliche Problem Handysucht.",
-      "Mehr Fokus -> weniger Fehler -> messbar mehr Umsatz.",
-      "Nur waehrend der Arbeitszeit - Freizeit bleibt komplett privat.",
+    const optAPoints = [
+      "Handy muss abgegeben werden",
+      "Kontrolle statt Vertrauen",
+      "Mitarbeiter fühlen sich überwacht",
+      "Widerstand vom Betriebsrat",
+      "Talentabwanderung droht",
+      "Keine messbaren Daten",
     ];
-    bullets.forEach((b) => {
-      const isSub = b.startsWith("    ");
-      doc.text((isSub ? "  " : "- ") + b.trim(), 40, y);
-      y += 14;
+    let ty = y + 82;
+    optAPoints.forEach((p) => {
+      setText(RED);
+      doc.setFont("helvetica", "bold");
+      doc.text("X", 54, ty);
+      setText([127, 29, 29]);
+      doc.setFont("helvetica", "normal");
+      doc.text(p, 68, ty);
+      ty += 18;
     });
 
-    y += 12;
-    doc.setDrawColor(226, 232, 240);
-    doc.setLineWidth(1);
-    doc.line(40, y, pageW - 40, y);
-    y += 20;
-
+    const bx = 40 + boxW + 16;
+    setFill(BLUE_SOFT);
+    doc.roundedRect(bx, y, boxW, boxH, 10, 10, "F");
+    setFill(BLUE);
+    doc.roundedRect(bx, y, boxW, 34, 10, 10, "F");
+    doc.rect(bx, y + 20, boxW, 14, "F");
+    setText(WHITE);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
-    doc.setTextColor(59, 130, 246);
-    doc.text("Mehr erfahren & Team einfuehren:", 40, y); y += 16;
+    doc.text("OPTION B — TEAMFOCUS", bx + 14, y + 22);
+    setText(BLUE_DARK);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.text("Belohnung statt Verbot", bx + 14, y + 58);
     doc.setFont("helvetica", "normal");
-    doc.setTextColor(15, 23, 42);
     doc.setFontSize(10);
-    doc.text("Website:", 40, y);
-    doc.setTextColor(59, 130, 246);
-    doc.textWithLink("https://teamfokus.app", 95, y, { url: "https://teamfokus.app" });
-    y += 14;
-    doc.setTextColor(15, 23, 42);
-    doc.text("Mitarbeiter-Akzeptanz:", 40, y);
-    doc.setTextColor(59, 130, 246);
-    doc.textWithLink("https://teamfokus.app/akzeptanz", 165, y, { url: "https://teamfokus.app/akzeptanz" });
-    y += 14;
-    doc.setTextColor(15, 23, 42);
-    doc.text("Vorteile für Mitarbeitende:", 40, y);
-    doc.setTextColor(59, 130, 246);
-    doc.textWithLink("https://teamfokus.app/vorteile", 180, y, { url: "https://teamfokus.app/vorteile" });
+    const optBPoints = [
+      "Freiwillig & spielerisch",
+      "Belohnungen für Fokus im Team",
+      "100 % DSGVO — k>=5 Anonymität",
+      "Betriebsrat-fertig (AVV/VVT/DSFA)",
+      "Mitarbeiter lieben es",
+      "Messbare Umsatzsteigerung",
+    ];
+    ty = y + 82;
+    optBPoints.forEach((p) => {
+      setText(BLUE);
+      doc.setFont("helvetica", "bold");
+      doc.text("+", bx + 14, ty);
+      setText(BLUE_DARK);
+      doc.setFont("helvetica", "normal");
+      doc.text(p, bx + 28, ty);
+      ty += 18;
+    });
 
-    doc.setTextColor(100, 116, 139);
+    y += boxH + 24;
+    setText(NAVY);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text("Warum sich TeamFocus für Sie lohnt", 40, y);
+    y += 6;
+    setDraw(BLUE);
+    doc.setLineWidth(2);
+    doc.line(40, y, 90, y);
+    y += 20;
+
+    const benefits = [
+      { t: "Datenschutz erledigt", d: "100 % DSGVO — k-Anonymität (k>=5), tägliche Aggregation, Rohdaten nach 24 h gelöscht." },
+      { t: "Compliance-Starter-Kit inklusive", d: "AVV, VVT, DSFA und Muster-Betriebsvereinbarung — sofort einsatzbereit." },
+      { t: "Mitarbeitende lieben es", d: "Firmenessen, Team-Belohnungen, bessere Firmenwagen — Fokus als Spiel statt Zwang." },
+      { t: "Weniger Stress, mehr Klarheit", d: "Im Beruf und im Privatleben — glücklichere Familien, entspanntere Teams." },
+      { t: "Nur während der Arbeitszeit", d: "Freizeit bleibt komplett privat — keine Überwachung, keine Kontrolle." },
+    ];
+
+    doc.setFontSize(10);
+    benefits.forEach((b) => {
+      setFill(BLUE);
+      doc.circle(46, y - 3, 3, "F");
+      setText(NAVY);
+      doc.setFont("helvetica", "bold");
+      doc.text(b.t, 58, y);
+      setText(SLATE);
+      doc.setFont("helvetica", "normal");
+      const lines = doc.splitTextToSize(b.d, pageW - 80 - 18);
+      doc.text(lines, 58, y + 14);
+      y += 14 + lines.length * 12 + 6;
+    });
+
+    // CTA
+    const cy = pageH - 120;
+    setFill(NAVY);
+    doc.roundedRect(40, cy, pageW - 80, 78, 12, 12, "F");
+    setText(WHITE);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text("Bereit, den Fokus in Ihr Team zu bringen?", 56, cy + 28);
+    setText([203, 213, 225]);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text("Website, Demo und Mitarbeiter-Akzeptanz:", 56, cy + 46);
+    setText(BLUE);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.textWithLink("teamfokus.app", 56, cy + 64, { url: "https://teamfokus.app" });
+    doc.textWithLink("teamfokus.app/akzeptanz", 160, cy + 64, { url: "https://teamfokus.app/akzeptanz" });
+    doc.textWithLink("teamfokus.app/vorteile", 320, cy + 64, { url: "https://teamfokus.app/vorteile" });
+
+    setText(SLATE);
+    doc.setFont("helvetica", "normal");
     doc.setFontSize(8);
-    doc.text("TeamFocus - Erstellt am " + new Date().toLocaleDateString("de-DE"), 40, doc.internal.pageSize.getHeight() - 24);
+    doc.text("Seite 2 / 2 — TeamFocus ROI-Auswertung", 40, pageH - 24);
+    doc.text("teamfokus.app", pageW - 40, pageH - 24, { align: "right" });
 
     doc.save(`TeamFocus-ROI-${employees}-MA.pdf`);
   };
