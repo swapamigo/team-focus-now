@@ -239,39 +239,56 @@ export default function DemoManager() {
             </section>
 
             <section className="surface-card p-5 md:p-6">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
                 <h2 className="font-semibold">Mitarbeitende</h2>
-                <Dialog open={openInvite} onOpenChange={setOpenInvite}>
-                  <DialogTrigger asChild>
-                    <Button size="sm" variant="outline"><Mail className="h-4 w-4 mr-1" />Einladen</Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader><DialogTitle>Person einladen</DialogTitle></DialogHeader>
-                    <div className="space-y-3">
-                      <div><Label>Name</Label><Input value={inviteName} onChange={(e) => setInviteName(e.target.value)} placeholder="Vor- und Nachname" /></div>
-                      <div>
-                        <Label>Team</Label>
-                        <select value={inviteTeam} onChange={(e) => setInviteTeam(e.target.value)} className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm">
-                          {teamsList.map((t) => <option key={t.id} value={t.name}>{t.name}</option>)}
-                        </select>
+                <div className="flex gap-2">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".xlsx,.xls,.csv"
+                    onChange={handleExcelImport}
+                    className="hidden"
+                  />
+                  <Button size="sm" variant="outline" onClick={() => fileInputRef.current?.click()}>
+                    <FileSpreadsheet className="h-4 w-4 mr-1" />Excel importieren
+                  </Button>
+                  <Dialog open={openInvite} onOpenChange={setOpenInvite}>
+                    <DialogTrigger asChild>
+                      <Button size="sm" variant="outline"><Mail className="h-4 w-4 mr-1" />Einladen</Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader><DialogTitle>Person einladen</DialogTitle></DialogHeader>
+                      <div className="space-y-3">
+                        <div><Label>Name</Label><Input value={inviteName} onChange={(e) => setInviteName(e.target.value)} placeholder="Vor- und Nachname" /></div>
+                        <div>
+                          <Label>Team</Label>
+                          <select value={inviteTeam} onChange={(e) => setInviteTeam(e.target.value)} className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm">
+                            {teamsList.map((t) => <option key={t.id} value={t.name}>{t.name}</option>)}
+                          </select>
+                        </div>
                       </div>
-                    </div>
-                    <DialogFooter><Button onClick={invite}>Einladen</Button></DialogFooter>
-                  </DialogContent>
-                </Dialog>
+                      <DialogFooter><Button onClick={invite}>Einladen</Button></DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </div>
+              <div className="mb-3 rounded-lg bg-primary/5 border border-primary/15 p-3 text-xs text-muted-foreground leading-relaxed">
+                <strong className="text-foreground">Excel-Import:</strong> Lade eine Tabelle mit Spalten <em>Name</em> und <em>E-Mail</em> hoch.
+                Für jede Zeile wird automatisch ein Profil erstellt und zufällig einem Team zugeordnet.
+                Mitarbeitende melden sich anschließend einfach mit ihrer Unternehmens-E-Mail an – kein Passwort-Setup nötig.
               </div>
               <p className="text-xs text-muted-foreground mb-3 flex items-center gap-1.5">
                 <Shield className="h-3 w-3 text-primary" /> Individuelle Bildschirmzeiten sind <strong>nie</strong> sichtbar – nur Team-Aggregate.
               </p>
               <ul className="divide-y divide-border/60">
-                {members.map((m) => (
-                  <li key={m.name} className="flex items-center gap-3 py-3">
-                    <div className="h-9 w-9 rounded-full bg-primary/15 text-primary grid place-items-center text-xs font-semibold">
-                      {m.name.split(" ").map((p) => p[0]).join("")}
+                {members.map((m, idx) => (
+                  <li key={`${m.email}-${idx}`} className="flex items-center gap-3 py-3">
+                    <div className="h-9 w-9 rounded-full bg-primary/15 text-primary grid place-items-center text-xs font-semibold shrink-0">
+                      {m.name.split(" ").map((p) => p[0]).join("").slice(0, 2)}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">{m.name}</p>
-                      <p className="text-xs text-muted-foreground">{m.team} · {m.role}</p>
+                      <p className="text-xs text-muted-foreground truncate">{m.email} · {m.team}</p>
                     </div>
                   </li>
                 ))}
