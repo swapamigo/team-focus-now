@@ -296,7 +296,7 @@ export default function Vorteile() {
                   <a href="#datenschutz"><ShieldCheck className="mr-1.5 h-4 w-4" />Datenschutz im Detail</a>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto">
-                  <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Mitarbeiter-Akzeptanz</Link>
+                  <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Betriebsrat-Akzeptanz</Link>
                 </Button>
               </div>
             </div>

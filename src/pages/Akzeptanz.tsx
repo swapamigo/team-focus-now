@@ -120,8 +120,8 @@ export default function Akzeptanz() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Mitarbeiter-Akzeptanz – TeamFocus richtig einführen"
-        description="Wie du TeamFocus erfolgreich ankündigst: Sieben Überzeugungs-Prinzipien und eine fertige E-Mail-Vorlage für maximale Mitarbeiter-Akzeptanz."
+        title="Betriebsrat-Akzeptanz – TeamFocus richtig einführen"
+        description="Wie du TeamFocus erfolgreich ankündigst: Sieben Überzeugungs-Prinzipien und eine fertige E-Mail-Vorlage für maximale Betriebsrat-Akzeptanz."
         path="/akzeptanz"
       />
       <LandingHeader onDemo={() => setDemoOpen(true)} />
@@ -134,7 +134,7 @@ export default function Akzeptanz() {
           <div className="container relative pt-16 pb-14 md:pt-24 md:pb-20 text-center animate-fade-in">
             <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 backdrop-blur px-4 py-1.5 text-xs font-medium text-muted-foreground mb-6 shadow-sm">
               <Sparkles className="h-3.5 w-3.5 text-primary" />
-              Manager-Leitfaden · Mitarbeiter-Akzeptanz
+              Manager-Leitfaden · Betriebsrat-Akzeptanz
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.05]">
               So lädst du dein Team<br />

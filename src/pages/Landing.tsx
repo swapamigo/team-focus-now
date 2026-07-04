@@ -137,7 +137,7 @@ export default function Landing() {
             <Button asChild variant="secondary" className="group h-12 sm:h-10 w-full sm:w-auto justify-center border border-border/60 bg-card/70 backdrop-blur">
               <Link to="/akzeptanz">
                 <Users className="mr-1.5 h-4 w-4" />
-                Mitarbeiter-Akzeptanz
+                Betriebsrat-Akzeptanz
                 <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -267,7 +267,7 @@ export default function Landing() {
               <CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto">
-              <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Mitarbeiter-Akzeptanz</Link>
+              <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Betriebsrat-Akzeptanz</Link>
             </Button>
             <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
               <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
@@ -301,7 +301,7 @@ export default function Landing() {
                 Demo ansehen
               </Button>
               <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
-                <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Mitarbeiter-Akzeptanz</Link>
+                <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Betriebsrat-Akzeptanz</Link>
               </Button>
               <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
                 <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
