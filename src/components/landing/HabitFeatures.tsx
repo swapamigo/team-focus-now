@@ -31,8 +31,7 @@ export default function HabitFeatures() {
         <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Mehr als nur ein Tracker</p>
         <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Werkzeuge gegen die Handy-Sucht.</h2>
         <p className="mt-4 text-muted-foreground text-base md:text-lg leading-relaxed">
-          TeamFocus misst nicht nur – es hilft aktiv dabei, weniger abhängig vom Smartphone zu werden.
-          Jeder Mitarbeitende aktiviert nur, was zu ihm passt.
+          Freiwillig einschaltbare Werkzeuge – jeder Mitarbeitende aktiviert nur, was zu ihm passt.
         </p>
       </div>
 
