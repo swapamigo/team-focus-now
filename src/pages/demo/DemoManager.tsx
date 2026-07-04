@@ -17,14 +17,14 @@ import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "rec
 import Seo from "@/components/Seo";
 
 const initialMembers = [
-  { name: "Anna Berger", team: "Team Alpha", role: "Mitarbeiterin" },
-  { name: "Lukas Schmidt", team: "Team Alpha", role: "Mitarbeiter" },
-  { name: "Sophie Wagner", team: "Team Beta", role: "Mitarbeiterin" },
-  { name: "Jonas Klein", team: "Team Beta", role: "Mitarbeiter" },
-  { name: "Mia Hoffmann", team: "Team Gamma", role: "Mitarbeiterin" },
-  { name: "Felix Braun", team: "Team Gamma", role: "Mitarbeiter" },
-  { name: "Lara Krüger", team: "Team Delta", role: "Mitarbeiterin" },
-  { name: "Tim Werner", team: "Team Delta", role: "Mitarbeiter" },
+  { name: "Anna Berger", email: "anna.berger@beispiel.de", team: "Team Alpha", role: "Mitarbeiterin" },
+  { name: "Lukas Schmidt", email: "lukas.schmidt@beispiel.de", team: "Team Alpha", role: "Mitarbeiter" },
+  { name: "Sophie Wagner", email: "sophie.wagner@beispiel.de", team: "Team Beta", role: "Mitarbeiterin" },
+  { name: "Jonas Klein", email: "jonas.klein@beispiel.de", team: "Team Beta", role: "Mitarbeiter" },
+  { name: "Mia Hoffmann", email: "mia.hoffmann@beispiel.de", team: "Team Gamma", role: "Mitarbeiterin" },
+  { name: "Felix Braun", email: "felix.braun@beispiel.de", team: "Team Gamma", role: "Mitarbeiter" },
+  { name: "Lara Krüger", email: "lara.krueger@beispiel.de", team: "Team Delta", role: "Mitarbeiterin" },
+  { name: "Tim Werner", email: "tim.werner@beispiel.de", team: "Team Delta", role: "Mitarbeiter" },
 ];
 
 const initialChallenges = [
@@ -82,9 +82,58 @@ export default function DemoManager() {
 
   const invite = () => {
     if (!inviteName.trim()) return toast.error("Name fehlt");
-    setMembers([{ name: inviteName, team: inviteTeam, role: "Mitarbeiter:in" }, ...members]);
+    const slug = inviteName.trim().toLowerCase().replace(/\s+/g, ".").replace(/[^a-z0-9.]/g, "");
+    setMembers([{ name: inviteName, email: `${slug}@beispiel.de`, team: inviteTeam, role: "Mitarbeiter:in" }, ...members]);
     setOpenInvite(false); setInviteName("");
     toast.success("Einladung verschickt");
+  };
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const slugify = (s: string) =>
+    s.toLowerCase().trim()
+      .replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss")
+      .replace(/\s+/g, ".").replace(/[^a-z0-9.@_-]/g, "");
+
+  const handleExcelImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const buf = await file.arrayBuffer();
+      const wb = XLSX.read(buf, { type: "array" });
+      const sheet = wb.Sheets[wb.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json<Record<string, any>>(sheet, { defval: "" });
+      if (!rows.length) return toast.error("Datei enthält keine Zeilen");
+
+      const domain = (rows.find((r) => Object.values(r).some((v) => String(v).includes("@")))
+        ? (Object.values(rows[0]).map(String).find((v) => v.includes("@")) ?? "").split("@")[1]
+        : "") || "firma.de";
+
+      const teamNames = teamsList.map((t) => t.name);
+      const added = rows.map((r, i) => {
+        const vals = Object.entries(r);
+        const nameKey = vals.find(([k]) => /name/i.test(k))?.[1] ?? vals[0]?.[1] ?? "";
+        const emailKey = vals.find(([k, v]) => /mail/i.test(k) || String(v).includes("@"))?.[1] ?? "";
+        const name = String(nameKey).trim();
+        if (!name) return null;
+        const email = String(emailKey).trim() || `${slugify(name)}@${domain}`;
+        const team = teamNames[Math.floor(Math.random() * teamNames.length)] ?? "Team Alpha";
+        return { name, email, team, role: "Mitarbeiter:in" };
+      }).filter(Boolean) as { name: string; email: string; team: string; role: string }[];
+
+      if (!added.length) return toast.error("Keine gültigen Namen gefunden");
+
+      setMembers([...added, ...members]);
+      setTeamsList(teamsList.map((t) => ({
+        ...t,
+        members: t.members + added.filter((a) => a.team === t.name).length,
+      })));
+      toast.success(`${added.length} Mitarbeitende importiert & zufällig auf ${teamNames.length} Teams verteilt`);
+    } catch (err) {
+      console.error(err);
+      toast.error("Datei konnte nicht gelesen werden");
+    } finally {
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
   };
 
   return (
