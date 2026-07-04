@@ -311,7 +311,7 @@ export default function RoiCalculator() {
     setText([203, 213, 225]);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.text("Website, Demo und Mitarbeiter-Akzeptanz:", 56, cy + 46);
+    doc.text("Website, Demo und Betriebsrat-Akzeptanz:", 56, cy + 46);
     setText(BLUE);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
@@ -338,7 +338,7 @@ export default function RoiCalculator() {
       `- Investition TeamFocus / Jahr: ${fmtEUR(teamfocusCostPerYear)} (2,99 €/MA/Monat)\n` +
       `- Netto-Gewinn / Jahr: ${fmtEUR(netSavings)}\n\n` +
       `Mehr Infos: https://teamfokus.app\n` +
-      `Mitarbeiter-Akzeptanz: https://teamfokus.app/akzeptanz\n\n` +
+      `Betriebsrat-Akzeptanz: https://teamfokus.app/akzeptanz\n\n` +
       `(PDF-Export bitte separat anhängen – wurde aus dem Rechner heruntergeladen.)`
     );
     exportPdf();

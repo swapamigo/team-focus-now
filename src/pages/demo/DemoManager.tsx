@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import * as XLSX from "xlsx";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,20 +11,20 @@ import { demoTeams, demoStats, genYear } from "@/components/demo/demoData";
 import { toast } from "sonner";
 import {
   Users, Trophy, Activity, TrendingDown, Sparkles, CalendarRange, UserCog,
-  Plus, Settings as Cog, Bell, Shield, Trash2, Mail, CheckCircle2, Smartphone, Globe,
+  Plus, Settings as Cog, Bell, Shield, Trash2, Mail, CheckCircle2, Smartphone, Globe, FileSpreadsheet,
 } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import Seo from "@/components/Seo";
 
 const initialMembers = [
-  { name: "Anna Berger", team: "Team Alpha", role: "Mitarbeiterin" },
-  { name: "Lukas Schmidt", team: "Team Alpha", role: "Mitarbeiter" },
-  { name: "Sophie Wagner", team: "Team Beta", role: "Mitarbeiterin" },
-  { name: "Jonas Klein", team: "Team Beta", role: "Mitarbeiter" },
-  { name: "Mia Hoffmann", team: "Team Gamma", role: "Mitarbeiterin" },
-  { name: "Felix Braun", team: "Team Gamma", role: "Mitarbeiter" },
-  { name: "Lara Krüger", team: "Team Delta", role: "Mitarbeiterin" },
-  { name: "Tim Werner", team: "Team Delta", role: "Mitarbeiter" },
+  { name: "Anna Berger", email: "anna.berger@beispiel.de", team: "Team Alpha", role: "Mitarbeiterin" },
+  { name: "Lukas Schmidt", email: "lukas.schmidt@beispiel.de", team: "Team Alpha", role: "Mitarbeiter" },
+  { name: "Sophie Wagner", email: "sophie.wagner@beispiel.de", team: "Team Beta", role: "Mitarbeiterin" },
+  { name: "Jonas Klein", email: "jonas.klein@beispiel.de", team: "Team Beta", role: "Mitarbeiter" },
+  { name: "Mia Hoffmann", email: "mia.hoffmann@beispiel.de", team: "Team Gamma", role: "Mitarbeiterin" },
+  { name: "Felix Braun", email: "felix.braun@beispiel.de", team: "Team Gamma", role: "Mitarbeiter" },
+  { name: "Lara Krüger", email: "lara.krueger@beispiel.de", team: "Team Delta", role: "Mitarbeiterin" },
+  { name: "Tim Werner", email: "tim.werner@beispiel.de", team: "Team Delta", role: "Mitarbeiter" },
 ];
 
 const initialChallenges = [
@@ -81,9 +82,58 @@ export default function DemoManager() {
 
   const invite = () => {
     if (!inviteName.trim()) return toast.error("Name fehlt");
-    setMembers([{ name: inviteName, team: inviteTeam, role: "Mitarbeiter:in" }, ...members]);
+    const slug = inviteName.trim().toLowerCase().replace(/\s+/g, ".").replace(/[^a-z0-9.]/g, "");
+    setMembers([{ name: inviteName, email: `${slug}@beispiel.de`, team: inviteTeam, role: "Mitarbeiter:in" }, ...members]);
     setOpenInvite(false); setInviteName("");
     toast.success("Einladung verschickt");
+  };
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const slugify = (s: string) =>
+    s.toLowerCase().trim()
+      .replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss")
+      .replace(/\s+/g, ".").replace(/[^a-z0-9.@_-]/g, "");
+
+  const handleExcelImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const buf = await file.arrayBuffer();
+      const wb = XLSX.read(buf, { type: "array" });
+      const sheet = wb.Sheets[wb.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json<Record<string, any>>(sheet, { defval: "" });
+      if (!rows.length) return toast.error("Datei enthält keine Zeilen");
+
+      const domain = (rows.find((r) => Object.values(r).some((v) => String(v).includes("@")))
+        ? (Object.values(rows[0]).map(String).find((v) => v.includes("@")) ?? "").split("@")[1]
+        : "") || "firma.de";
+
+      const teamNames = teamsList.map((t) => t.name);
+      const added = rows.map((r, i) => {
+        const vals = Object.entries(r);
+        const nameKey = vals.find(([k]) => /name/i.test(k))?.[1] ?? vals[0]?.[1] ?? "";
+        const emailKey = vals.find(([k, v]) => /mail/i.test(k) || String(v).includes("@"))?.[1] ?? "";
+        const name = String(nameKey).trim();
+        if (!name) return null;
+        const email = String(emailKey).trim() || `${slugify(name)}@${domain}`;
+        const team = teamNames[Math.floor(Math.random() * teamNames.length)] ?? "Team Alpha";
+        return { name, email, team, role: "Mitarbeiter:in" };
+      }).filter(Boolean) as { name: string; email: string; team: string; role: string }[];
+
+      if (!added.length) return toast.error("Keine gültigen Namen gefunden");
+
+      setMembers([...added, ...members]);
+      setTeamsList(teamsList.map((t) => ({
+        ...t,
+        members: t.members + added.filter((a) => a.team === t.name).length,
+      })));
+      toast.success(`${added.length} Mitarbeitende importiert & zufällig auf ${teamNames.length} Teams verteilt`);
+    } catch (err) {
+      console.error(err);
+      toast.error("Datei konnte nicht gelesen werden");
+    } finally {
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
   };
 
   return (
@@ -189,39 +239,56 @@ export default function DemoManager() {
             </section>
 
             <section className="surface-card p-5 md:p-6">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
                 <h2 className="font-semibold">Mitarbeitende</h2>
-                <Dialog open={openInvite} onOpenChange={setOpenInvite}>
-                  <DialogTrigger asChild>
-                    <Button size="sm" variant="outline"><Mail className="h-4 w-4 mr-1" />Einladen</Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader><DialogTitle>Person einladen</DialogTitle></DialogHeader>
-                    <div className="space-y-3">
-                      <div><Label>Name</Label><Input value={inviteName} onChange={(e) => setInviteName(e.target.value)} placeholder="Vor- und Nachname" /></div>
-                      <div>
-                        <Label>Team</Label>
-                        <select value={inviteTeam} onChange={(e) => setInviteTeam(e.target.value)} className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm">
-                          {teamsList.map((t) => <option key={t.id} value={t.name}>{t.name}</option>)}
-                        </select>
+                <div className="flex gap-2">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".xlsx,.xls,.csv"
+                    onChange={handleExcelImport}
+                    className="hidden"
+                  />
+                  <Button size="sm" variant="outline" onClick={() => fileInputRef.current?.click()}>
+                    <FileSpreadsheet className="h-4 w-4 mr-1" />Excel importieren
+                  </Button>
+                  <Dialog open={openInvite} onOpenChange={setOpenInvite}>
+                    <DialogTrigger asChild>
+                      <Button size="sm" variant="outline"><Mail className="h-4 w-4 mr-1" />Einladen</Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader><DialogTitle>Person einladen</DialogTitle></DialogHeader>
+                      <div className="space-y-3">
+                        <div><Label>Name</Label><Input value={inviteName} onChange={(e) => setInviteName(e.target.value)} placeholder="Vor- und Nachname" /></div>
+                        <div>
+                          <Label>Team</Label>
+                          <select value={inviteTeam} onChange={(e) => setInviteTeam(e.target.value)} className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm">
+                            {teamsList.map((t) => <option key={t.id} value={t.name}>{t.name}</option>)}
+                          </select>
+                        </div>
                       </div>
-                    </div>
-                    <DialogFooter><Button onClick={invite}>Einladen</Button></DialogFooter>
-                  </DialogContent>
-                </Dialog>
+                      <DialogFooter><Button onClick={invite}>Einladen</Button></DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </div>
+              <div className="mb-3 rounded-lg bg-primary/5 border border-primary/15 p-3 text-xs text-muted-foreground leading-relaxed">
+                <strong className="text-foreground">Excel-Import:</strong> Lade eine Tabelle mit Spalten <em>Name</em> und <em>E-Mail</em> hoch.
+                Für jede Zeile wird automatisch ein Profil erstellt und zufällig einem Team zugeordnet.
+                Mitarbeitende melden sich anschließend einfach mit ihrer Unternehmens-E-Mail an – kein Passwort-Setup nötig.
               </div>
               <p className="text-xs text-muted-foreground mb-3 flex items-center gap-1.5">
                 <Shield className="h-3 w-3 text-primary" /> Individuelle Bildschirmzeiten sind <strong>nie</strong> sichtbar – nur Team-Aggregate.
               </p>
               <ul className="divide-y divide-border/60">
-                {members.map((m) => (
-                  <li key={m.name} className="flex items-center gap-3 py-3">
-                    <div className="h-9 w-9 rounded-full bg-primary/15 text-primary grid place-items-center text-xs font-semibold">
-                      {m.name.split(" ").map((p) => p[0]).join("")}
+                {members.map((m, idx) => (
+                  <li key={`${m.email}-${idx}`} className="flex items-center gap-3 py-3">
+                    <div className="h-9 w-9 rounded-full bg-primary/15 text-primary grid place-items-center text-xs font-semibold shrink-0">
+                      {m.name.split(" ").map((p) => p[0]).join("").slice(0, 2)}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">{m.name}</p>
-                      <p className="text-xs text-muted-foreground">{m.team} · {m.role}</p>
+                      <p className="text-xs text-muted-foreground truncate">{m.email} · {m.team}</p>
                     </div>
                   </li>
                 ))}

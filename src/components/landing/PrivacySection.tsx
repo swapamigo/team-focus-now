@@ -1,5 +1,5 @@
 import { Shield, Clock, AlertTriangle, Lock, Server, Trash2, Users, FileCheck, Info } from "lucide-react";
-import legalPdf from "@/assets/legal-compliance.pdf.asset.json";
+import { Link } from "react-router-dom";
 
 const dsgvoPoints = [
   {
@@ -118,15 +118,13 @@ export default function PrivacySection() {
           <strong className="text-foreground"> Auftragsverarbeitungsvertrag</strong> sowie ein
           <strong className="text-foreground"> Mitarbeiter-Infoblatt</strong> mit – fertig zur Vorlage beim Betriebsrat.
         </p>
-        <a
-          href={legalPdf.url}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/akzeptanz"
           className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
         >
           <FileCheck className="h-4 w-4" />
-          Rechtliche Compliance im DACH-Raum (PDF)
-        </a>
+          Rechtliche Compliance im DACH-Raum &amp; Betriebsrat-Akzeptanz
+        </Link>
       </div>
     </section>
   );
