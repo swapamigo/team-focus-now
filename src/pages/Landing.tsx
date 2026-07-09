@@ -168,7 +168,7 @@ export default function Landing() {
             In 6 Schritten zu mehr Fokus im Team.
           </h2>
         </div>
-
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {[
             { img: step1Img, alt: "Schritt 1: Ablenkungszeit sichtbar machen – keine Inhalte, keine Screenshots, keine Überwachung." },
             { img: step2Img, alt: "Schritt 2: Teams treten freiwillig an – niedrigste Ablenkungszeit gewinnt." },
@@ -184,12 +184,9 @@ export default function Landing() {
         </div>
       </section>
 
-
-      <InterruptionCycle />
-
       {/* Warum anders */}
-      <section className="container py-16 md:py-24 border-t border-border/40" id="why">
-        <div className="max-w-2xl mx-auto text-center mb-10 md:mb-14">
+      <section className="container py-14 md:py-20 border-t border-border/40" id="why">
+        <div className="max-w-2xl mx-auto text-center mb-10">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Warum TeamFokus anders ist</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Motivation schlägt Kontrolle.</h2>
           <p className="mt-4 text-muted-foreground text-base md:text-lg">
@@ -239,11 +236,11 @@ export default function Landing() {
       </section>
 
       <Studies />
-      <WorksCouncil />
       <PrivacySection />
       <SocietyHealth />
       <HabitFeatures />
       <RewardsSection />
+
 
       {/* Setup */}
       <section className="container py-14 md:py-20 border-t border-border/40" id="setup">
