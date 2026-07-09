@@ -20,7 +20,7 @@ const pillars = [
   {
     icon: Users,
     title: "Mitarbeiter-Wohlbefinden im Fokus",
-    desc: "Weniger Smartphone-Stress, bessere Konzentration, mehr Pausenqualität. TeamFocus ist Teil eines gesunden Arbeitsumfelds – nicht eine weitere Kontrollinstanz.",
+    desc: "Weniger Smartphone-Stress, bessere Konzentration, mehr Pausenqualität. TeamFokus ist Teil eines gesunden Arbeitsumfelds – nicht eine weitere Kontrollinstanz.",
   },
 ];
 
@@ -38,7 +38,7 @@ export default function WorksCouncil() {
             Vom Betriebsrat freigegeben.<br />Von Mitarbeitenden geliebt.
           </h2>
           <p className="mt-4 text-muted-foreground text-base md:text-lg leading-relaxed">
-            TeamFocus wurde von Anfang an so gebaut, dass es die typischen Hürden im Mitbestimmungsverfahren elegant löst –
+            TeamFokus wurde von Anfang an so gebaut, dass es die typischen Hürden im Mitbestimmungsverfahren elegant löst –
             und Mitarbeitende es freiwillig gerne nutzen.
           </p>
         </div>

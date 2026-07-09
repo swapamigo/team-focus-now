@@ -7,7 +7,7 @@ const sections = [
   {
     icon: Shield,
     title: "Privacy-by-Design",
-    body: "TeamFocus erfasst ausschließlich aggregierte Zeitdaten – keine Screenshots, keine Tastatureingaben, keine App-Inhalte. Auswertungen erfolgen pro Team, nicht pro Person.",
+    body: "TeamFokus erfasst ausschließlich aggregierte Zeitdaten – keine Screenshots, keine Tastatureingaben, keine App-Inhalte. Auswertungen erfolgen pro Team, nicht pro Person.",
   },
   {
     icon: Lock,
@@ -27,7 +27,7 @@ const sections = [
   {
     icon: FileCheck,
     title: "DSGVO &amp; Betriebsrat",
-    body: "TeamFocus ist betriebsrats-tauglich, dokumentiert nach Art. 30 DSGVO und unterstützt Auftragsverarbeitungsverträge (AVV). Eine Vorlage stellen wir auf Anfrage zur Verfügung.",
+    body: "TeamFokus ist betriebsrats-tauglich, dokumentiert nach Art. 30 DSGVO und unterstützt Auftragsverarbeitungsverträge (AVV). Eine Vorlage stellen wir auf Anfrage zur Verfügung.",
   },
 ];
 
@@ -35,8 +35,8 @@ export default function Trust() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Trust &amp; Security – Team Focus"
-        description="Wie Team Focus Daten schützt: Privacy-by-Design, EU-Hosting, Verschlüsselung, DSGVO-Konformität und Betriebsrats-Tauglichkeit."
+        title="Trust &amp; Security – TeamFokus"
+        description="Wie TeamFokus Daten schützt: Privacy-by-Design, EU-Hosting, Verschlüsselung, DSGVO-Konformität und Betriebsrats-Tauglichkeit."
         path="/trust"
       />
       <header className="border-b border-border/40">
@@ -55,7 +55,7 @@ export default function Trust() {
           </div>
           <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">Trust &amp; Security</h1>
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-            Wie Team Focus Ihre Daten schützt – kurz und ehrlich. Diese Seite wird von uns gepflegt
+            Wie TeamFokus Ihre Daten schützt – kurz und ehrlich. Diese Seite wird von uns gepflegt
             und ist keine externe Zertifizierung.
           </p>
         </div>

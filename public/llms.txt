@@ -1,8 +1,8 @@
-# Team Focus
+# TeamFokus
 
-> Gamifizierte Produktivität für moderne Teams. Team Focus reduziert Smartphone-Ablenkung im Arbeitsalltag durch faire, anonyme Team-Challenges – datenschutz-first und DSGVO-konform.
+> Gamifizierte Produktivität für moderne Teams. TeamFokus reduziert Smartphone-Ablenkung im Arbeitsalltag durch faire, anonyme Team-Challenges – datenschutz-first und DSGVO-konform.
 
-Team Focus misst nur private Bildschirmzeit während der Arbeitszeit (keine Inhalte, keine Screenshots, keine Tastatureingaben). Führungskräfte sehen ausschließlich Team-Aggregate ab Teamgröße 5 (k-Anonymität). Teilnahme ist freiwillig, Hosting in der EU, mit Mustervorlagen für Betriebsrat und DSFA.
+TeamFokus misst nur private Bildschirmzeit während der Arbeitszeit (keine Inhalte, keine Screenshots, keine Tastatureingaben). Führungskräfte sehen ausschließlich Team-Aggregate ab Teamgröße 5 (k-Anonymität). Teilnahme ist freiwillig, Hosting in der EU, mit Mustervorlagen für Betriebsrat und DSFA.
 
 ## Pages
 

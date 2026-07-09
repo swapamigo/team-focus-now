@@ -2,12 +2,12 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 export const faqItems = [
   {
-    q: "Wie steht der Betriebsrat zu TeamFocus?",
-    a: "Sehr positiv – weil TeamFocus genau die Punkte erfüllt, die der Betriebsrat prüft: freiwillige Teilnahme, keine Einzeldaten (nur Team-Durchschnitte mit k-Anonymität k=5), keine Inhalte/Screenshots/Keystrokes, EU-Hosting, klare Zweckbindung. Wir stellen Mustervorlagen für Betriebsvereinbarung, DSFA und Einwilligungstexte bereit.",
+    q: "Wie steht der Betriebsrat zu TeamFokus?",
+    a: "Sehr positiv – weil TeamFokus genau die Punkte erfüllt, die der Betriebsrat prüft: freiwillige Teilnahme, keine Einzeldaten (nur Team-Durchschnitte mit k-Anonymität k=5), keine Inhalte/Screenshots/Keystrokes, EU-Hosting, klare Zweckbindung. Wir stellen Mustervorlagen für Betriebsvereinbarung, DSFA und Einwilligungstexte bereit.",
   },
   {
     q: "Wie hilft das den Mitarbeitenden konkret?",
-    a: "Weniger Smartphone-Stress, bessere Konzentration, echte Pausen statt ständiger Mikro-Ablenkung. Studien (z. B. Sohn et al., 2019) zeigen einen direkten Zusammenhang zwischen problematischer Smartphone-Nutzung und höherem Stresslevel sowie Schlafproblemen. TeamFocus reduziert genau diese Belastung – freiwillig und spielerisch.",
+    a: "Weniger Smartphone-Stress, bessere Konzentration, echte Pausen statt ständiger Mikro-Ablenkung. Studien (z. B. Sohn et al., 2019) zeigen einen direkten Zusammenhang zwischen problematischer Smartphone-Nutzung und höherem Stresslevel sowie Schlafproblemen. TeamFokus reduziert genau diese Belastung – freiwillig und spielerisch.",
   },
   {
     q: "Was genau wird gemessen?",

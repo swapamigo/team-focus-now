@@ -35,7 +35,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-border/40">
         <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
-          <span>© {new Date().getFullYear()} Team Focus · Hosting in der EU</span>
+          <span>© {new Date().getFullYear()} TeamFokus · Hosting in der EU</span>
           <div className="flex items-center gap-4">
             <span>Privacy-by-Design · DSGVO-konform</span>
             <Link to="/trust" className="hover:text-foreground transition-colors underline underline-offset-2">Trust &amp; Security</Link>

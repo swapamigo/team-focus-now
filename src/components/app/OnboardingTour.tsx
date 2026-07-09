@@ -11,14 +11,14 @@ interface Slide {
 }
 
 const employeeSlides: Slide[] = [
-  { icon: Sparkles, title: "Willkommen bei Team Focus", desc: "Schön, dass du dabei bist. Wir helfen dir, fokussierter zu arbeiten – ohne Druck, ohne Überwachung." },
+  { icon: Sparkles, title: "Willkommen bei TeamFokus", desc: "Schön, dass du dabei bist. Wir helfen dir, fokussierter zu arbeiten – ohne Druck, ohne Überwachung." },
   { icon: BarChart3, title: "Dein persönliches Dashboard", desc: "Sieh deinen Fortschritt auf einen Blick: Bildschirmzeit, Fokus-Phasen und dein Team-Ranking." },
   { icon: Lock, title: "Deine Privatsphäre ist geschützt", desc: "Nur DU siehst deine Daten. Dein Manager erhält ausschließlich anonyme Team-Aggregate – nie individuelle Werte." },
   { icon: Trophy, title: "Motivation statt Kontrolle", desc: "Verdiene Belohnungen, gewinne Challenges und arbeite entspannter. Erfasst wird nur während deiner Arbeitszeit." },
 ];
 
 const managerSlides: Slide[] = [
-  { icon: Sparkles, title: "Willkommen bei Team Focus", desc: "Das motivationsbasierte Produktivitäts-Tool für Ihr Team. In 5 Minuten startklar." },
+  { icon: Sparkles, title: "Willkommen bei TeamFokus", desc: "Das motivationsbasierte Produktivitäts-Tool für Ihr Team. In 5 Minuten startklar." },
   { icon: Trophy, title: "Teams & Challenges", desc: "Legen Sie Teams an, starten Sie faire Wettbewerbe und verteilen Sie Belohnungen für mehr Fokus." },
   { icon: BarChart3, title: "Anonyme Team-Statistiken", desc: "Sie sehen Trends auf Team-Ebene – nie individuelle Daten einzelner Mitarbeitender. Das schafft Vertrauen." },
   { icon: Lock, title: "Privacy-by-Design", desc: "Keine Screenshots, keine Tastatureingaben. Messung ausschließlich während der Arbeitszeit. DSGVO-konform." },

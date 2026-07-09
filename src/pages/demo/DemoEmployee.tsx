@@ -27,8 +27,8 @@ export default function DemoEmployee() {
   return (
     <div className="min-h-screen bg-background pb-12">
       <Seo
-        title="Mitarbeiter-Demo – Team Focus App ausprobieren"
-        description="Interaktive Demo der Team Focus Mitarbeiter-App: Team-Ranking, Wochenfokus und Anti-Sucht-Funktionen ohne Anmeldung erleben."
+        title="Mitarbeiter-Demo – TeamFokus App ausprobieren"
+        description="Interaktive Demo der TeamFokus Mitarbeiter-App: Team-Ranking, Wochenfokus und Anti-Sucht-Funktionen ohne Anmeldung erleben."
         path="/demo/employee"
       />
       <DemoBanner />

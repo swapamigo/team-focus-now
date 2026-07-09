@@ -49,7 +49,7 @@ export default function PrivacySection() {
           Strukturell datensparsam – nicht nur versprochen.
         </h2>
         <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-          TeamFocus ist nach dem Prinzip <strong className="text-foreground">Privacy by Design</strong> gebaut.
+          TeamFokus ist nach dem Prinzip <strong className="text-foreground">Privacy by Design</strong> gebaut.
           Was nicht gespeichert wird, kann auch nicht missbraucht werden.
         </p>
       </div>
@@ -107,7 +107,7 @@ export default function PrivacySection() {
         <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Mitbestimmung</p>
         <h3 className="text-xl md:text-2xl font-semibold mb-3">Betriebsrat & Beschäftigtendatenschutz</h3>
         <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-4">
-          TeamFocus berücksichtigt von Anfang an die Mitbestimmungsrechte:{" "}
+          TeamFokus berücksichtigt von Anfang an die Mitbestimmungsrechte:{" "}
           <strong className="text-foreground">Österreich §&nbsp;96 / §&nbsp;96a ArbVG</strong> und{" "}
           <strong className="text-foreground">Deutschland §&nbsp;87 BetrVG</strong>, ergänzt durch{" "}
           §&nbsp;26 BDSG und Art.&nbsp;88 DSGVO.

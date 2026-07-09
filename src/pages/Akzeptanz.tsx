@@ -72,7 +72,7 @@ const subjects = [
 
 const emailBody = `Hi [Vorname],
 
-das Handy zieht uns alle ständig aus der Konzentration – das ist kein persönliches Problem, sondern von den Apps genau so gewollt. Weil es uns alle betrifft, möchten wir dir etwas an die Hand geben, das wirklich dir hilft. Ab [Startdatum] starten wir mit TeamFocus.
+das Handy zieht uns alle ständig aus der Konzentration – das ist kein persönliches Problem, sondern von den Apps genau so gewollt. Weil es uns alle betrifft, möchten wir dir etwas an die Hand geben, das wirklich dir hilft. Ab [Startdatum] starten wir mit TeamFokus.
 
 Kurz, was es ist: ein anonymes Team-Spiel. Dein Team tritt gegen die anderen an, am Monatsende gewinnt das Team mit dem besten Fokus – ihr macht das gemeinsam, als ganzes Unternehmen.
 
@@ -120,8 +120,8 @@ export default function Akzeptanz() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Betriebsrat-Akzeptanz – TeamFocus richtig einführen"
-        description="Wie du TeamFocus erfolgreich ankündigst: Sieben Überzeugungs-Prinzipien und eine fertige E-Mail-Vorlage für maximale Betriebsrat-Akzeptanz."
+        title="Betriebsrat-Akzeptanz – TeamFokus richtig einführen"
+        description="Wie du TeamFokus erfolgreich ankündigst: Sieben Überzeugungs-Prinzipien und eine fertige E-Mail-Vorlage für maximale Betriebsrat-Akzeptanz."
         path="/akzeptanz"
       />
       <LandingHeader onDemo={() => setDemoOpen(true)} />
@@ -138,10 +138,10 @@ export default function Akzeptanz() {
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.05]">
               So lädst du dein Team<br />
-              <span className="text-gradient animate-gradient-x">zu TeamFocus ein.</span>
+              <span className="text-gradient animate-gradient-x">zu TeamFokus ein.</span>
             </h1>
             <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed px-2">
-              Wie du TeamFocus ankündigst, entscheidet über die Akzeptanz. Hier findest du die wirksamsten Überzeugungs-Prinzipien und eine sofort einsetzbare E-Mail-Vorlage.
+              Wie du TeamFokus ankündigst, entscheidet über die Akzeptanz. Hier findest du die wirksamsten Überzeugungs-Prinzipien und eine sofort einsetzbare E-Mail-Vorlage.
             </p>
             <p className="mx-auto max-w-2xl text-base sm:text-lg text-foreground/90 font-medium mb-8 leading-relaxed px-2 border-l-2 border-primary/60 pl-4 italic text-left sm:text-center sm:border-l-0 sm:pl-0">
               „Wir wollen dir dein Handy nicht wegnehmen – aber wir müssen gemeinsam etwas tun. So wie bisher kann es nicht weitergehen, denn es wird immer schlimmer."
@@ -174,7 +174,7 @@ export default function Akzeptanz() {
                 Smartphones ziehen uns alle ständig aus der Konzentration. Das ist kein persönliches Versagen, sondern ein gesellschaftliches Problem: Apps sind gezielt darauf ausgelegt, Aufmerksamkeit zu binden.
               </p>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-                TeamFocus setzt auf <strong className="text-foreground">Unterstützung statt Kontrolle</strong>: ein anonymes Team-Spiel, bei dem Mitarbeitende ihre Ablenkung selbst reduzieren – weil ihr Team gewinnen will.
+                TeamFokus setzt auf <strong className="text-foreground">Unterstützung statt Kontrolle</strong>: ein anonymes Team-Spiel, bei dem Mitarbeitende ihre Ablenkung selbst reduzieren – weil ihr Team gewinnen will.
               </p>
             </div>
             <div className="relative">
@@ -226,7 +226,7 @@ export default function Akzeptanz() {
               Sieben Prinzipien, mit denen du dein Team gewinnst.
             </h2>
             <p className="text-muted-foreground text-base md:text-lg">
-              Bewährte Überzeugungs-Mechaniken aus Kommunikations- und Verhaltensforschung – konkret auf TeamFocus angewendet.
+              Bewährte Überzeugungs-Mechaniken aus Kommunikations- und Verhaltensforschung – konkret auf TeamFokus angewendet.
             </p>
           </div>
 
@@ -413,7 +413,7 @@ export default function Akzeptanz() {
                   {copied ? <><Check className="mr-1 h-4 w-4" /> Kopiert</> : <><Copy className="mr-1 h-4 w-4" /> E-Mail kopieren</>}
                 </Button>
                 <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto">
-                  <Link to="/waitlist">TeamFocus starten <ChevronRight className="ml-1 h-4 w-4" /></Link>
+                  <Link to="/waitlist">TeamFokus starten <ChevronRight className="ml-1 h-4 w-4" /></Link>
                 </Button>
                 <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
                   <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>

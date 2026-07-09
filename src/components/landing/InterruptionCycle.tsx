@@ -13,7 +13,7 @@ export default function InterruptionCycle() {
         </h2>
         <p className="mt-5 text-muted-foreground text-base md:text-lg leading-relaxed">
           Nach jeder Unterbrechung dauert es im Schnitt rund{" "}
-          <strong className="text-foreground">23 Minuten</strong>, bis wieder volle Konzentration erreicht ist – genau hier setzt TeamFocus an.
+          <strong className="text-foreground">23 Minuten</strong>, bis wieder volle Konzentration erreicht ist – genau hier setzt TeamFokus an.
         </p>
         <p className="mt-4">
           <a href={SRC_RECOVERY} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary font-semibold px-4 py-2 text-sm hover:bg-primary/20 transition-colors">

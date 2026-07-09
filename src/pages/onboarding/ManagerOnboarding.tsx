@@ -74,7 +74,7 @@ export default function ManagerOnboarding() {
           <div className="flex items-start gap-3 rounded-xl bg-secondary p-4">
             <Shield className="h-5 w-5 text-primary shrink-0 mt-0.5" />
             <div className="text-xs text-muted-foreground leading-relaxed">
-              Team Focus erhebt nur aggregierte Zeitdaten. Keine Inhalte, keine Screenshots, keine Tastatureingaben.
+              TeamFokus erhebt nur aggregierte Zeitdaten. Keine Inhalte, keine Screenshots, keine Tastatureingaben.
               Mitarbeitende stimmen separat zu und können jederzeit widerrufen (DSGVO).
             </div>
           </div>

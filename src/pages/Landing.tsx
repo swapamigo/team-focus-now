@@ -46,7 +46,7 @@ const comparison = {
     ],
   },
   us: {
-    title: "TeamFocus", badge: "Motivation",
+    title: "TeamFokus", badge: "Motivation",
     items: [
       { icon: Shield, text: "Keine Screenshots, keine Inhalte – nur Zeitdaten" },
       { icon: Clock, text: "Erfassung ausschließlich während der Arbeitszeit – danach nie" },
@@ -76,8 +76,8 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Team Focus – Gamifizierte Produktivität für moderne Teams"
-        description="Team Focus reduziert Smartphone-Ablenkung im Team durch faire, anonyme Challenges. Datenschutz-first und DSGVO-konform."
+        title="TeamFokus – Gamifizierte Produktivität für moderne Teams"
+        description="TeamFokus reduziert Smartphone-Ablenkung im Team durch faire, anonyme Challenges. Datenschutz-first und DSGVO-konform."
         path="/"
         jsonLd={{
           "@context": "https://schema.org",
@@ -159,10 +159,10 @@ export default function Landing() {
       <section className="container py-12 md:py-16 border-b border-border/40">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-base md:text-lg text-foreground/90 leading-relaxed font-medium mb-4">
-            TeamFocus motiviert Ihre Mitarbeitenden – statt sie zu überwachen.
+            TeamFokus motiviert Ihre Mitarbeitenden – statt sie zu überwachen.
           </p>
           <p className="text-base md:text-lg text-foreground/90 leading-relaxed">
-            TeamFocus verwandelt die ständige Handy-Ablenkung in einen freiwilligen Team-Wettbewerb.
+            TeamFokus verwandelt die ständige Handy-Ablenkung in einen freiwilligen Team-Wettbewerb.
             Mitarbeitende reduzieren ihre Ablenkung selbst – nicht weil sie kontrolliert werden,
             sondern weil ihr Team gewinnen will.
           </p>
@@ -172,10 +172,10 @@ export default function Landing() {
       {/* ROI Calculator */}
       <RoiCalculator />
 
-      {/* Visuelle Übersicht — So funktioniert TeamFocus */}
+      {/* Visuelle Übersicht — So funktioniert TeamFokus */}
       <section className="container py-16 md:py-24 border-t border-border/40" id="how">
         <div className="max-w-3xl mx-auto text-center mb-10">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">So funktioniert TeamFocus</p>
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">So funktioniert TeamFokus</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
             In 6 Schritten zu mehr Fokus im Team.
           </h2>
@@ -202,10 +202,10 @@ export default function Landing() {
       {/* Warum anders */}
       <section className="container py-16 md:py-24 border-t border-border/40" id="why">
         <div className="max-w-2xl mx-auto text-center mb-10 md:mb-14">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Warum TeamFocus anders ist</p>
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Warum TeamFokus anders ist</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Motivation schlägt Kontrolle.</h2>
           <p className="mt-4 text-muted-foreground text-base md:text-lg">
-            Andere Bossware bestraft. TeamFocus belohnt. Entwickelt mit ADHS-Experte und Buchautor{" "}
+            Andere Bossware bestraft. TeamFokus belohnt. Entwickelt mit ADHS-Experte und Buchautor{" "}
             <a href="https://www.amazon.es/Leading-yourself-ADHD-fighting-yourself/dp/B0GX9F2LGX" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground">Chris Sorg</a>.
           </p>
         </div>

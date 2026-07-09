@@ -23,7 +23,7 @@ const schema = z.object({
   suggestion: z.string().trim().max(2000).optional(),
 });
 
-const callLink = "mailto:info@teamfokus.app?subject=Interesse%20an%20einem%20TeamFocus%20Call";
+const callLink = "mailto:info@teamfokus.app?subject=Interesse%20an%20einem%20TeamFokus%20Call";
 
 export default function Waitlist() {
   const { session } = useAuth();
@@ -69,8 +69,8 @@ export default function Waitlist() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Warteliste – Team Focus Frühzugang sichern"
-        description="Sichere dir Frühzugang zu Team Focus. Trag dich auf die Warteliste ein und erhalte als Erstes Updates zum Launch."
+        title="Warteliste – TeamFokus Frühzugang sichern"
+        description="Sichere dir Frühzugang zu TeamFokus. Trag dich auf die Warteliste ein und erhalte als Erstes Updates zum Launch."
         path="/waitlist"
       />
       <header className="border-b border-border/40">
@@ -90,7 +90,7 @@ export default function Waitlist() {
               <Construction className="h-7 w-7 text-primary-foreground" />
             </div>
             <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-3">
-              TeamFocus geht bald live
+              TeamFokus geht bald live
             </h1>
             <p className="text-muted-foreground leading-relaxed">
               Ganz ehrlich: Das Produkt existiert aktuell noch nicht – wir befinden uns im finalen
@@ -117,7 +117,7 @@ export default function Waitlist() {
               <Check className="h-6 w-6" />
             </div>
             <h2 className="text-xl font-semibold mb-2">Eingetragen!</h2>
-            <p className="text-sm text-muted-foreground mb-6">Wir melden uns, sobald TeamFocus live ist.</p>
+            <p className="text-sm text-muted-foreground mb-6">Wir melden uns, sobald TeamFokus live ist.</p>
             <Button asChild variant="outline"><Link to="/">Zurück zur Startseite</Link></Button>
           </div>
         ) : (

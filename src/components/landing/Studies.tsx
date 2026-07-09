@@ -42,7 +42,7 @@ export default function Studies() {
         <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Wissenschaftlich fundiert</p>
         <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Was die Forschung sagt.</h2>
         <p className="mt-4 text-muted-foreground text-base md:text-lg leading-relaxed">
-          TeamFocus ist kein Bauchgefühl-Tool. Jede Funktion basiert auf belastbaren Studien zu Aufmerksamkeit, Stress und Verhaltensänderung.
+          TeamFokus ist kein Bauchgefühl-Tool. Jede Funktion basiert auf belastbaren Studien zu Aufmerksamkeit, Stress und Verhaltensänderung.
         </p>
       </div>
 

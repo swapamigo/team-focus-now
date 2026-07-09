@@ -150,7 +150,7 @@ export default function AdminLayout() {
         <div className="flex items-center gap-2">
           <Logo />
           <div>
-            <p className="text-sm font-semibold leading-tight">TeamFocus</p>
+            <p className="text-sm font-semibold leading-tight">TeamFokus</p>
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Admin</p>
           </div>
         </div>

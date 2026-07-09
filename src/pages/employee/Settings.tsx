@@ -66,7 +66,7 @@ export default function SettingsPage() {
             <div>
               <p className="font-semibold text-sm">Deine Privatsphäre 🔒</p>
               <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                Team Focus schützt deine persönlichen Daten konsequent.
+                TeamFokus schützt deine persönlichen Daten konsequent.
               </p>
             </div>
           </div>

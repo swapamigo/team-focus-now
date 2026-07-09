@@ -72,7 +72,7 @@ export default function RoiCalculator() {
     doc.setFontSize(22);
     doc.text("TF", 63, 62, { align: "center" });
     doc.setFontSize(22);
-    doc.text("TeamFocus", 100, 55);
+    doc.text("TeamFokus", 100, 55);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     setText([203, 213, 225]);
@@ -167,7 +167,7 @@ export default function RoiCalculator() {
 
     setText(SLATE);
     doc.setFontSize(8);
-    doc.text("Seite 1 / 2 — TeamFocus ROI-Auswertung", 40, pageH - 24);
+    doc.text("Seite 1 / 2 — TeamFokus ROI-Auswertung", 40, pageH - 24);
     doc.text("teamfokus.app", pageW - 40, pageH - 24, { align: "right" });
 
     // ===== PAGE 2 =====
@@ -177,7 +177,7 @@ export default function RoiCalculator() {
     setText(WHITE);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text("TeamFocus — Warum sich die Investition lohnt", 40, 42);
+    doc.text("TeamFokus — Warum sich die Investition lohnt", 40, 42);
     setText([203, 213, 225]);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
@@ -271,7 +271,7 @@ export default function RoiCalculator() {
     setText(NAVY);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text("Warum sich TeamFocus für Sie lohnt", 40, y);
+    doc.text("Warum sich TeamFokus für Sie lohnt", 40, y);
     y += 6;
     setDraw(BLUE);
     doc.setLineWidth(2);
@@ -322,20 +322,20 @@ export default function RoiCalculator() {
     setText(SLATE);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8);
-    doc.text("Seite 2 / 2 — TeamFocus ROI-Auswertung", 40, pageH - 24);
+    doc.text("Seite 2 / 2 — TeamFokus ROI-Auswertung", 40, pageH - 24);
     doc.text("teamfokus.app", pageW - 40, pageH - 24, { align: "right" });
 
-    doc.save(`TeamFocus-ROI-${employees}-MA.pdf`);
+    doc.save(`TeamFokus-ROI-${employees}-MA.pdf`);
   };
 
   const emailPdf = () => {
-    const subject = encodeURIComponent("TeamFocus ROI-Auswertung");
+    const subject = encodeURIComponent("TeamFokus ROI-Auswertung");
     const body = encodeURIComponent(
-      `Hallo,\n\nanbei meine ROI-Auswertung mit TeamFocus:\n\n` +
+      `Hallo,\n\nanbei meine ROI-Auswertung mit TeamFokus:\n\n` +
       `- Mitarbeitende: ${employees}\n` +
       `- Aktueller Verlust / Jahr: ${fmtEUR(lossPerYear)}\n` +
       `- Mögliche Einsparung / Jahr (35 %): ${fmtEUR(savingsPerYear)}\n` +
-      `- Investition TeamFocus / Jahr: ${fmtEUR(teamfocusCostPerYear)} (2,99 €/MA/Monat)\n` +
+      `- Investition TeamFokus / Jahr: ${fmtEUR(teamfocusCostPerYear)} (2,99 €/MA/Monat)\n` +
       `- Netto-Gewinn / Jahr: ${fmtEUR(netSavings)}\n\n` +
       `Mehr Infos: https://teamfokus.app\n` +
       `Betriebsrat-Akzeptanz: https://teamfokus.app/akzeptanz\n\n` +
@@ -468,7 +468,7 @@ export default function RoiCalculator() {
           </div>
           <div className="surface-card p-5 border-primary/40 ring-1 ring-primary/20">
             <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">Option B</p>
-            <p className="text-base font-semibold mb-1">TeamFocus</p>
+            <p className="text-base font-semibold mb-1">TeamFokus</p>
             <p className="text-sm text-muted-foreground">Mitarbeiterfreundlich und belohnungsbasiert motivierend – ohne Verbote, ohne Überwachung.</p>
           </div>
         </div>
