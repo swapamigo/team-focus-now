@@ -61,32 +61,19 @@ export default function PrivacySection() {
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-[11px] uppercase tracking-widest font-semibold text-primary mb-5">
             <Server className="h-3.5 w-3.5" /> Am Ende des Tages auf unseren Servern
           </div>
-          <h3 className="text-2xl md:text-3xl font-semibold mb-6">Genau zwei Werte. Pro Person. Pro Tag.</h3>
+          <h3 className="text-2xl md:text-3xl font-semibold mb-6">Genau 1 Wert. Pro Person. Pro Tag.</h3>
 
-          <div className="grid sm:grid-cols-2 gap-4 mb-6">
+          <div className="max-w-md mx-auto mb-2">
             <div className="rounded-2xl border border-border/60 bg-card/60 p-6 text-center">
               <Clock className="h-7 w-7 text-primary mx-auto mb-3" />
               <p className="text-sm text-muted-foreground mb-1">Bildschirmzeit gesamt</p>
               <p className="text-3xl font-semibold tracking-tight">z.&nbsp;B. 124 Min.</p>
+              <p className="mt-2 text-sm text-success font-medium">= 24&nbsp;Min. weniger als letzte Woche</p>
             </div>
-            <div className="rounded-2xl border border-border/60 bg-card/60 p-6 text-center">
-              <AlertTriangle className="h-7 w-7 text-amber-500 mx-auto mb-3" />
-              <p className="text-sm text-muted-foreground mb-1">Ablenkungs- / Strafzeit</p>
-              <p className="text-3xl font-semibold tracking-tight">z.&nbsp;B. 18 Min.</p>
-            </div>
-          </div>
-
-          <div className="rounded-2xl bg-muted/40 border border-border/40 p-5 flex gap-3 items-start">
-            <Info className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Alle weiteren Daten (z.&nbsp;B. <em>welche App</em> geöffnet wurde, einzelne Entsperr-Ereignisse, Zeitstempel)
-              werden noch am selben Tag automatisch gelöscht und verlassen das Gerät nie in Rohform.
-              Die persönliche Tageshistorie der Bildschirmzeit bleibt nur für die Person selbst sichtbar – für Manager existieren
-              ausschließlich Teamdurchschnitte ab 5 Personen.
-            </p>
           </div>
         </div>
       </div>
+
 
       {/* DSGVO Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto mb-10">
