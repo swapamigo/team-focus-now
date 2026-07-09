@@ -15,7 +15,13 @@ interface Props {
   onBookCall?: () => void;
 }
 
-export default function PricingSection({ onBookCall }: Props) {
+interface Props {
+  onBookCall?: () => void;
+  onDemo?: () => void;
+}
+
+export default function PricingSection({ onBookCall, onDemo }: Props) {
+
   return (
     <section className="container py-20 md:py-24 border-t border-border/40" id="pricing">
       <div className="max-w-2xl mx-auto text-center mb-12">
