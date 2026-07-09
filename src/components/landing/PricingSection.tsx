@@ -1,5 +1,6 @@
-import { Check, CalendarClock } from "lucide-react";
+import { Check, CalendarClock, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
 
 const perks = [
   "Unbegrenzte Teams & Challenges",
