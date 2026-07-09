@@ -139,8 +139,8 @@ export default function DemoManager() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Manager-Demo – Team Focus Dashboard ausprobieren"
-        description="Interaktive Demo des Team Focus Manager-Dashboards: Team-Aggregate, Challenges und Workspace-Einstellungen ohne Anmeldung erleben."
+        title="Manager-Demo – TeamFokus Dashboard ausprobieren"
+        description="Interaktive Demo des TeamFokus Manager-Dashboards: Team-Aggregate, Challenges und Workspace-Einstellungen ohne Anmeldung erleben."
         path="/demo/manager"
       />
       <DemoBanner />
@@ -181,7 +181,7 @@ export default function DemoManager() {
                 <p className="text-xs text-muted-foreground mt-0.5">Bildschirmzeit Ø pro Mitarbeitendem · klar fallend</p>
               </div>
               <div className="mb-5 rounded-2xl bg-gradient-to-br from-primary/10 to-success/10 border border-primary/20 p-5">
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Seit Einführung von TeamFocus</p>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Seit Einführung von TeamFokus</p>
                 <p className="text-3xl md:text-4xl font-semibold tracking-tight">−{hoursPerMonth} Std / Monat</p>
                 <p className="text-sm text-muted-foreground mt-2">{pct}% weniger Bildschirmzeit ({first} → {last} Min/Tag).</p>
               </div>

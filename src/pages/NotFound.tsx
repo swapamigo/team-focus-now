@@ -12,8 +12,8 @@ const NotFound = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted">
       <Seo
-        title="Seite nicht gefunden – Team Focus"
-        description="Diese Seite existiert nicht. Zurück zur Team Focus Startseite."
+        title="Seite nicht gefunden – TeamFokus"
+        description="Diese Seite existiert nicht. Zurück zur TeamFokus Startseite."
         path={location.pathname}
         noindex
       />

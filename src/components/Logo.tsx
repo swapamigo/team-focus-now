@@ -6,14 +6,14 @@ export function Logo({ size = 36, className, withWordmark = false }: { size?: nu
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       <img
         src={logoSrc}
-        alt="Team Focus Logo"
+        alt="TeamFokus Logo"
         width={size}
         height={size}
         style={{ width: size, height: size }}
         className="rounded-[22%] shadow-[var(--shadow-sm)]"
       />
       {withWordmark && (
-        <span className="font-semibold tracking-tight text-lg">Team Focus</span>
+        <span className="font-semibold tracking-tight text-lg">TeamFokus</span>
       )}
     </span>
   );

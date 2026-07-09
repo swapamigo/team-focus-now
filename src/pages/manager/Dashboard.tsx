@@ -252,7 +252,7 @@ export default function ManagerDashboard() {
                 className="mb-5 rounded-2xl bg-gradient-to-br from-primary/10 to-success/10 border border-primary/20 p-5"
                 title={`Seit Einführung: Ø Bildschirmzeit von ${yearInsight.firstAvg} auf ${yearInsight.lastAvg} min/Tag (${yearInsight.firstLabel} → ${yearInsight.lastLabel}).`}
               >
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Seit Einführung von TeamFocus</p>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Seit Einführung von TeamFokus</p>
                 <p className="text-3xl md:text-4xl font-semibold tracking-tight">
                   −{yearInsight.hoursPerMonth} Std / Monat
                 </p>

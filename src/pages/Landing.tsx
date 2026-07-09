@@ -46,7 +46,7 @@ const comparison = {
     ],
   },
   us: {
-    title: "TeamFocus", badge: "Motivation",
+    title: "TeamFokus", badge: "Motivation",
     items: [
       { icon: Shield, text: "Keine Screenshots, keine Inhalte – nur Zeitdaten" },
       { icon: Clock, text: "Erfassung ausschließlich während der Arbeitszeit – danach nie" },
@@ -76,8 +76,9 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Team Focus – Gamifizierte Produktivität für moderne Teams"
-        description="Team Focus reduziert Smartphone-Ablenkung im Team durch faire, anonyme Challenges. Datenschutz-first und DSGVO-konform."
+        title="TeamFokus – Gamifizierte Produktivität für moderne Teams"
+        description="TeamFokus reduziert Smartphone-Ablenkung im Team durch faire, anonyme Challenges. Datenschutz-first und DSGVO-konform."
+
         path="/"
         jsonLd={{
           "@context": "https://schema.org",
@@ -102,7 +103,7 @@ export default function Landing() {
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/80 to-background pointer-events-none" />
         <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
         <div className="absolute inset-0 gradient-hero opacity-70 pointer-events-none" />
-        <div className="container relative pt-16 pb-12 md:pt-24 md:pb-16 text-center animate-fade-in">
+        <div className="container relative pt-16 pb-12 md:pt-20 md:pb-14 text-center animate-fade-in">
           <div className="inline-flex items-center gap-2 rounded-full border-2 border-primary/40 bg-primary/10 backdrop-blur px-5 py-2 text-sm font-semibold text-primary mb-6 shadow-glow">
             <ShieldCheck className="h-4 w-4" />
             100 % DSGVO-konform · Hosting in Deutschland
@@ -111,60 +112,42 @@ export default function Landing() {
             Mehr Fokus. Weniger Stress.<br />
             <span className="text-gradient animate-gradient-x">Höherer Umsatz.</span>
           </h1>
-          <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-4 leading-relaxed px-2 whitespace-pre-line">
-            Reduzieren Sie Smartphone-Ablenkung im Team –
-            mitarbeiterfreundlich ohne Einzelüberwachung.
-            Smartphone-Sucht ist ein gesellschaftliches Problem!
-          </p>
-          <p className="mx-auto max-w-2xl mb-8 px-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 text-success px-3 py-1 text-sm font-medium">
-              <Clock className="h-3.5 w-3.5" />
-              Gemessen wird ausschließlich während der Arbeitszeit – danach nie.
-            </span>
+          <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed px-2">
+            TeamFokus verwandelt Handy-Ablenkung in einen freiwilligen Team-Wettbewerb –
+            ohne Einzelüberwachung, ohne Kontrolle. Gemessen wird nur während der Arbeitszeit.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3 px-4">
-            <Button size="lg" className="h-14 px-8 text-base shadow-glow w-full sm:w-auto" onClick={() => setBookCallOpen(true)}>
-              <CalendarClock className="mr-2 h-5 w-5" />
-              Jetzt Call vereinbaren
-              <ArrowRight className="ml-1 h-4 w-4" />
-            </Button>
-            <Button size="lg" variant="outline" className="h-14 px-8 text-base w-full sm:w-auto backdrop-blur bg-card/60" onClick={() => setDemoOpen(true)}>
+            <Button size="lg" className="h-14 px-8 text-base shadow-glow w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
               <Sparkles className="mr-2 h-5 w-5" />
               Demo ansehen
+              <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
-          </div>
-          <div className="mt-5 flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-2 sm:gap-3 px-4">
-            <Button asChild variant="secondary" className="group h-12 sm:h-10 w-full sm:w-auto justify-center border border-border/60 bg-card/70 backdrop-blur">
-              <Link to="/akzeptanz">
-                <Users className="mr-1.5 h-4 w-4" />
-                Betriebsrat-Akzeptanz
-                <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </Button>
-            <Button asChild variant="secondary" className="group h-12 sm:h-10 w-full sm:w-auto justify-center border border-border/60 bg-card/70 backdrop-blur">
-              <Link to="/vorteile">
-                <Heart className="mr-1.5 h-4 w-4 text-primary" />
-                Vorteile für Mitarbeiter
-                <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-              </Link>
+            <Button size="lg" variant="ghost" className="h-14 px-8 text-base w-full sm:w-auto" onClick={() => setBookCallOpen(true)}>
+              <CalendarClock className="mr-2 h-5 w-5" />
+              Call vereinbaren
             </Button>
           </div>
 
-          
+          {/* Trust-Leiste direkt unter den CTAs */}
+          <div className="mt-6 max-w-3xl mx-auto px-4">
+            <div className="inline-flex items-start gap-3 rounded-2xl border border-success/30 bg-success/5 backdrop-blur px-5 py-3 text-left">
+              <Lock className="h-5 w-5 text-success shrink-0 mt-0.5" />
+              <p className="text-sm md:text-base text-foreground/90 leading-relaxed">
+                <strong>100 % privat:</strong> anonym und DSGVO-konform – keine Einzelwerte für deinen Manager,
+                keine Inhalte, keine Überwachung. Nur das Teamergebnis zählt.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
 
       {/* Produktbeschreibung */}
-      <section className="container py-12 md:py-16 border-b border-border/40">
+      <section className="container py-10 md:py-14 border-b border-border/40">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-base md:text-lg text-foreground/90 leading-relaxed font-medium mb-4">
-            TeamFocus motiviert Ihre Mitarbeitenden – statt sie zu überwachen.
-          </p>
           <p className="text-base md:text-lg text-foreground/90 leading-relaxed">
-            TeamFocus verwandelt die ständige Handy-Ablenkung in einen freiwilligen Team-Wettbewerb.
-            Mitarbeitende reduzieren ihre Ablenkung selbst – nicht weil sie kontrolliert werden,
-            sondern weil ihr Team gewinnen will.
+            TeamFokus motiviert Ihre Mitarbeitenden – statt sie zu überwachen.
+            Mitarbeitende reduzieren ihre Ablenkung selbst, weil ihr Team gewinnen will.
           </p>
         </div>
       </section>
@@ -172,11 +155,17 @@ export default function Landing() {
       {/* ROI Calculator */}
       <RoiCalculator />
 
-      {/* Visuelle Übersicht — So funktioniert TeamFocus */}
-      <section className="container py-16 md:py-24 border-t border-border/40" id="how">
-        <div className="max-w-3xl mx-auto text-center mb-10">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">So funktioniert TeamFocus</p>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
+      {/* Betriebsrat & Mitarbeitende direkt nach ROI */}
+      <WorksCouncil />
+
+      {/* Unterbrechungszyklus */}
+      <InterruptionCycle />
+
+      {/* Visuelle Übersicht — So funktioniert TeamFokus */}
+      <section className="container py-14 md:py-20 border-t border-border/40" id="how">
+        <div className="max-w-3xl mx-auto text-center mb-8">
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">So funktioniert TeamFokus</p>
+          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
             In 6 Schritten zu mehr Fokus im Team.
           </h2>
         </div>
@@ -196,16 +185,13 @@ export default function Landing() {
         </div>
       </section>
 
-
-      <InterruptionCycle />
-
       {/* Warum anders */}
-      <section className="container py-16 md:py-24 border-t border-border/40" id="why">
-        <div className="max-w-2xl mx-auto text-center mb-10 md:mb-14">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Warum TeamFocus anders ist</p>
+      <section className="container py-14 md:py-20 border-t border-border/40" id="why">
+        <div className="max-w-2xl mx-auto text-center mb-10">
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Warum TeamFokus anders ist</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Motivation schlägt Kontrolle.</h2>
           <p className="mt-4 text-muted-foreground text-base md:text-lg">
-            Andere Bossware bestraft. TeamFocus belohnt. Entwickelt mit ADHS-Experte und Buchautor{" "}
+            Andere Bossware bestraft. TeamFokus belohnt. Entwickelt mit ADHS-Experte und Buchautor{" "}
             <a href="https://www.amazon.es/Leading-yourself-ADHD-fighting-yourself/dp/B0GX9F2LGX" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground">Chris Sorg</a>.
           </p>
         </div>
@@ -251,11 +237,11 @@ export default function Landing() {
       </section>
 
       <Studies />
-      <WorksCouncil />
       <PrivacySection />
       <SocietyHealth />
       <HabitFeatures />
       <RewardsSection />
+
 
       {/* Setup */}
       <section className="container py-14 md:py-20 border-t border-border/40" id="setup">
@@ -263,18 +249,15 @@ export default function Landing() {
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">In 5 Minuten startklar</p>
           <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-3">Sofort einsatzbereit.</h2>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mt-3">
-            <Button size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto" onClick={() => setBookCallOpen(true)}>
-              <CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <Button size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
+              <Sparkles className="mr-1.5 h-4 w-4" />Demo ansehen <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto">
-              <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Betriebsrat-Akzeptanz</Link>
+            <Button size="lg" variant="ghost" className="h-12 px-8 w-full sm:w-auto" onClick={() => setBookCallOpen(true)}>
+              <CalendarClock className="mr-1.5 h-4 w-4" />Call vereinbaren
             </Button>
-            <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
-              <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
-            </Button>
-
           </div>
           <p className="mt-3 text-xs text-muted-foreground">{trustLine}</p>
+
         </div>
       </section>
 
@@ -296,18 +279,14 @@ export default function Landing() {
               Starten Sie 30 Tage gratis. Keine Kreditkarte, kein Risiko – nur fokussiertere Teams.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
-              <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={() => setBookCallOpen(true)}><CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren</Button>
-              <Button size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
-                Demo ansehen
+              <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
+                <Sparkles className="mr-1.5 h-4 w-4" />Demo ansehen
               </Button>
-              <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
-                <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Betriebsrat-Akzeptanz</Link>
+              <Button size="lg" variant="ghost" className="h-12 px-8 w-full sm:w-auto" onClick={() => setBookCallOpen(true)}>
+                <CalendarClock className="mr-1.5 h-4 w-4" />Call vereinbaren
               </Button>
-              <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
-                <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
-              </Button>
-
             </div>
+
             <p className="mt-5 text-xs text-muted-foreground">{trustLine}</p>
           </div>
         </div>

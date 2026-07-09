@@ -93,10 +93,10 @@ export default function AuthPage({ mode }: Props) {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Seo
-        title={mode === "login" ? "Anmelden – Team Focus" : "Konto erstellen – Team Focus"}
+        title={mode === "login" ? "Anmelden – TeamFokus" : "Konto erstellen – TeamFokus"}
         description={mode === "login"
-          ? "Melde dich bei Team Focus an und verwalte deine Team-Challenges."
-          : "Erstelle ein Team Focus Konto und starte gamifizierte Fokus-Challenges für dein Team."}
+          ? "Melde dich bei TeamFokus an und verwalte deine Team-Challenges."
+          : "Erstelle ein TeamFokus Konto und starte gamifizierte Fokus-Challenges für dein Team."}
         path={mode === "login" ? "/login" : "/register"}
         noindex
       />

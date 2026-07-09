@@ -71,7 +71,7 @@ export default function PrivacyInfo() {
         <div className="rounded-2xl border border-border/60 bg-card/60 p-4">
           <h2 className="font-semibold mb-2 flex items-center gap-2"><Server className="h-4 w-4 text-primary" /> Was am Ende des Tages bleibt</h2>
           <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-            Nach Mitternacht löscht TeamFocus automatisch alle Roh-Ereignisse des Tages. Dauerhaft bleiben nur
+            Nach Mitternacht löscht TeamFokus automatisch alle Roh-Ereignisse des Tages. Dauerhaft bleiben nur
             zwei aggregierte Werte – damit du deinen eigenen Verlauf sehen kannst und das Team einen Schnitt hat.
           </p>
           <div className="grid grid-cols-2 gap-2">
@@ -97,7 +97,7 @@ export default function PrivacyInfo() {
         <div className="rounded-2xl border border-border/60 bg-card/60 p-4">
           <h2 className="font-semibold mb-2">Freiwillig – ohne Nachteil</h2>
           <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-            Du kannst jederzeit aus TeamFocus aussteigen. Dein Team-Score wird nur über mitmachende Personen
+            Du kannst jederzeit aus TeamFokus aussteigen. Dein Team-Score wird nur über mitmachende Personen
             gemittelt – wer nicht teilnimmt, benachteiligt das Team nicht.
           </p>
           <Link

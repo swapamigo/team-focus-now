@@ -68,7 +68,7 @@ const privacyPillars = [
 const faqs = [
   { q: "Kann mein Chef meine Bildschirmzeit sehen?", a: "Nein. Deine Werte werden ab mindestens fünf Personen zu einem Team-Durchschnitt zusammengefasst. Sichtbar sind ausschließlich Team-Werte – nie eine einzelne Person." },
   { q: "Werden meine Nachrichten oder Inhalte gelesen?", a: "Nein. Erfasst wird nur die Nutzungsdauer. Niemals Inhalte, Nachrichten, Fotos, Tastatureingaben oder dein Standort." },
-  { q: "Muss ich mein Handy abgeben oder werden Apps gesperrt?", a: "Nein. Dein Handy bleibt vollständig deins. Es wird nichts gesperrt und nichts verboten – TeamFocus zählt nur mit." },
+  { q: "Muss ich mein Handy abgeben oder werden Apps gesperrt?", a: "Nein. Dein Handy bleibt vollständig deins. Es wird nichts gesperrt und nichts verboten – TeamFokus zählt nur mit." },
   { q: "Was passiert, wenn ich angerufen werde?", a: "Gar nichts. Eingehende Anrufe werden grundsätzlich nicht gewertet. Du bleibst für Familie, Schule oder Notfälle erreichbar." },
   { q: "Und wenn mein Team verliert – erfährt das jemand?", a: "Nein. Es gibt keine sichtbare Verliererliste. Nur das Gewinnerteam wird angezeigt." },
 ];
@@ -79,7 +79,7 @@ export default function Vorteile() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Vorteile für Mitarbeiter – TeamFocus"
+        title="Vorteile für Mitarbeiter – TeamFokus"
         description="100 % DSGVO-konform und komplett anonym (k=5). Gewinne jeden Monat ein Geschenk mit deinem Team – weniger Stress, mehr Gelassenheit, glücklichere Familie."
         path="/vorteile"
       />
@@ -133,7 +133,7 @@ export default function Vorteile() {
               Niemand sieht deine Daten. Punkt.
             </h2>
             <p className="text-muted-foreground text-base md:text-lg">
-              TeamFocus ist von Grund auf datensparsam gebaut. Vier Garantien, auf die du dich verlassen kannst.
+              TeamFokus ist von Grund auf datensparsam gebaut. Vier Garantien, auf die du dich verlassen kannst.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mb-12">

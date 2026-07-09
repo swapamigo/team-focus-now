@@ -20,7 +20,7 @@ type Category = {
 const categories: Category[] = [
   {
     id: "green",
-    label: "Bereits durch TeamFocus erfüllt",
+    label: "Bereits durch TeamFokus erfüllt",
     tone: "green",
     icon: Check,
     intro: "Technisch und strukturell in der Software verankert.",
@@ -40,7 +40,7 @@ const categories: Category[] = [
     label: "Gemeinsam mit Betriebsrat & Unternehmen zu regeln",
     tone: "amber",
     icon: AlertCircle,
-    intro: "Von TeamFocus mit Vorlagen unterstützt.",
+    intro: "Von TeamFokus mit Vorlagen unterstützt.",
     items: [
       { title: "Echte Freiwilligkeit in der Teilnahme absichern (Opt-in, kein Nachteil, kein Gruppendruck)" },
       { title: "Rechtsgrundlage der Verarbeitung (Akzeptanz des Betriebsrates) – Betriebsvereinbarung als tragende Grundlage", ref: "Art. 6, Art. 88 DSGVO" },
@@ -95,9 +95,9 @@ export default function LegalBasis() {
             DSGVO, ArbVG/AVRAG, BetrVG/BDSG – strukturell verankert.
           </h2>
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-            TeamFocus ist konsequent nach den datenschutz- und arbeitsrechtlichen Vorgaben des DACH-Raums
+            TeamFokus ist konsequent nach den datenschutz- und arbeitsrechtlichen Vorgaben des DACH-Raums
             (DSGVO, ArbVG/AVRAG, BetrVG/BDSG) konzipiert – Datenschutz ist strukturell in der Software verankert,
-            nicht nachträglich aufgesetzt. Die folgende Übersicht zeigt transparent, welche Vorgaben TeamFocus bereits
+            nicht nachträglich aufgesetzt. Die folgende Übersicht zeigt transparent, welche Vorgaben TeamFokus bereits
             technisch erfüllt und welche Punkte gemeinsam mit Betriebsrat und Unternehmen geregelt werden.
           </p>
         </div>

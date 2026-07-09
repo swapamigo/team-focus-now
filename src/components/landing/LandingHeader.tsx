@@ -37,11 +37,12 @@ export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => vo
         </nav>
 
         <div className="hidden sm:flex items-center gap-2">
-          <Button variant="ghost" size="sm" onClick={onDemo}>Demo starten</Button>
-          <Button size="sm" className="shadow-sm" onClick={onBookCall}>
-            <CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren
+          <Button variant="ghost" size="sm" onClick={handleBookCall}>
+            <CalendarClock className="mr-1.5 h-4 w-4" />Call vereinbaren
           </Button>
+          <Button size="sm" className="shadow-sm" onClick={onDemo}>Demo ansehen</Button>
         </div>
+
 
         <div className="sm:hidden">
           <Sheet open={open} onOpenChange={setOpen}>
@@ -64,10 +65,11 @@ export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => vo
                   )
                 ))}
                 <div className="border-t border-border my-3" />
-                <Button variant="outline" onClick={() => { setOpen(false); onDemo(); }}>Demo starten</Button>
-                <Button onClick={() => { setOpen(false); onBookCall(); }}>
-                  <CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren
+                <Button variant="ghost" onClick={() => { setOpen(false); handleBookCall(); }}>
+                  <CalendarClock className="mr-1.5 h-4 w-4" />Call vereinbaren
                 </Button>
+                <Button onClick={() => { setOpen(false); onDemo(); }}>Demo ansehen</Button>
+
               </div>
             </SheetContent>
           </Sheet>

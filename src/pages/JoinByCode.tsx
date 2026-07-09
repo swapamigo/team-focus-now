@@ -47,8 +47,8 @@ export default function JoinByCode() {
   return (
     <div className="min-h-screen grid place-items-center bg-background px-6">
       <Seo
-        title="Team beitreten – Team Focus"
-        description="Tritt deinem Team auf Team Focus per Einladungscode bei."
+        title="Team beitreten – TeamFokus"
+        description="Tritt deinem Team auf TeamFokus per Einladungscode bei."
         path={`/join/${code ?? ""}`}
         noindex
       />
