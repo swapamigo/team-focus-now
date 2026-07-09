@@ -1,4 +1,4 @@
-import { Shield, Clock, AlertTriangle, Lock, Server, Trash2, Users, FileCheck, Info } from "lucide-react";
+import { Shield, Clock, Lock, Server, Trash2, Users, FileCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const dsgvoPoints = [
