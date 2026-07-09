@@ -78,6 +78,7 @@ export default function Landing() {
       <Seo
         title="TeamFokus – Gamifizierte Produktivität für moderne Teams"
         description="TeamFokus reduziert Smartphone-Ablenkung im Team durch faire, anonyme Challenges. Datenschutz-first und DSGVO-konform."
+
         path="/"
         jsonLd={{
           "@context": "https://schema.org",
