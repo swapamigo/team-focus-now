@@ -278,18 +278,14 @@ export default function Landing() {
               Starten Sie 30 Tage gratis. Keine Kreditkarte, kein Risiko – nur fokussiertere Teams.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
-              <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={() => setBookCallOpen(true)}><CalendarClock className="mr-1.5 h-4 w-4" />Jetzt Call vereinbaren</Button>
-              <Button size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
-                Demo ansehen
+              <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
+                <Sparkles className="mr-1.5 h-4 w-4" />Demo ansehen
               </Button>
-              <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
-                <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Betriebsrat-Akzeptanz</Link>
+              <Button size="lg" variant="ghost" className="h-12 px-8 w-full sm:w-auto" onClick={() => setBookCallOpen(true)}>
+                <CalendarClock className="mr-1.5 h-4 w-4" />Call vereinbaren
               </Button>
-              <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
-                <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
-              </Button>
-
             </div>
+
             <p className="mt-5 text-xs text-muted-foreground">{trustLine}</p>
           </div>
         </div>
