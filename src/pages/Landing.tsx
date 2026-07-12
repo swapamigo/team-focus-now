@@ -29,9 +29,8 @@ import heroBg from "@/assets/hero-bg.png.asset.json";
 import step1Img from "@/assets/tf_step1.png.asset.json";
 import step2Img from "@/assets/tf_step2.png.asset.json";
 import step3Img from "@/assets/tf_step_teamdaten.png.asset.json";
-import step4Img from "@/assets/tf_step_teamdaten.png.asset.json";
-import step5Img from "@/assets/tf_step_belohnung.png.asset.json";
-import step6Img from "@/assets/tf_step_belohnung.png.asset.json";
+import step4Img from "@/assets/tf_step_belohnung.png.asset.json";
+
 
 
 const comparison = {
