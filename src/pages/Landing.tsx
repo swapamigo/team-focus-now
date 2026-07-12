@@ -165,17 +165,15 @@ export default function Landing() {
         <div className="max-w-3xl mx-auto text-center mb-8">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">So funktioniert TeamFokus</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
-            In 6 Schritten zu mehr Fokus im Team.
+            In 4 Schritten zu mehr Fokus im Team.
           </h2>
         </div>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
           {[
             { img: step1Img, alt: "Schritt 1: Ablenkungszeit sichtbar machen – keine Inhalte, keine Screenshots, keine Überwachung." },
             { img: step2Img, alt: "Schritt 2: Teams treten freiwillig an – niedrigste Ablenkungszeit gewinnt." },
-            { img: step3Img, alt: "Schritt 3: High-Focus-Zeiten bringen doppelte Punkte – mehr Fokus, +120 %." },
-            { img: step4Img, alt: "Schritt 4: Nur Teamdaten – keine Namen, keine Inhalte, keine Einzelkontrolle." },
-            { img: step5Img, alt: "Schritt 5: Gewinnerteam wird belohnt – Team Lunch, Gutschein, Event, früher Feierabend." },
-            { img: step6Img, alt: "Schritt 6: Handysucht ist ein soziales Problem – mehr Fokus, weniger Ablenkung, mehr Umsatz." },
+            { img: step3Img, alt: "Schritt 3: Nur anonyme Teamdaten – keine Namen, keine Inhalte, keine Einzelkontrolle." },
+            { img: step4Img, alt: "Schritt 4: Gewinnerteam wird belohnt – Team Lunch, Gutschein, Event, früher Feierabend." },
           ].map((s, i) => (
             <div key={i} className="surface-card p-5 md:p-7">
               <img src={s.img.url} alt={s.alt} loading="lazy" className="w-full h-auto rounded-xl block" />
@@ -183,6 +181,7 @@ export default function Landing() {
           ))}
         </div>
       </section>
+
 
       {/* Warum anders */}
       <section className="container py-14 md:py-20 border-t border-border/40" id="why">
