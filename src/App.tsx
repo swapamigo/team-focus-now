@@ -58,7 +58,10 @@ const App = () => (
           <Route path="/waitlist" element={<Waitlist />} />
           <Route path="/trust" element={<Trust />} />
           <Route path="/akzeptanz" element={<Akzeptanz />} />
+          <Route path="/betriebsrat" element={<Akzeptanz />} />
           <Route path="/vorteile" element={<Vorteile />} />
+          <Route path="/fuer-mitarbeitende" element={<Vorteile />} />
+          <Route path="/datenschutz-by-design" element={<Trust />} />
           <Route path="/checkout" element={<Navigate to="/waitlist" replace />} />
           <Route path="/checkout/success" element={<Navigate to="/waitlist" replace />} />
 
