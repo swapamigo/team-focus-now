@@ -7,12 +7,8 @@ import Logo from "@/components/Logo";
 
 const navItems = [
   { href: "#how", label: "So funktioniert's" },
-  { href: "#habits", label: "Features" },
-  { href: "#calculator", label: "ROI" },
   { href: "#pricing", label: "Preise" },
-  { href: "/akzeptanz", label: "Betriebsrat-Akzeptanz", route: true as const },
   { href: "/vorteile", label: "Vorteile für Mitarbeiter", route: true as const },
-  { href: "#betriebsrat", label: "Betriebsrat" },
 ];
 
 export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => void; onBookCall?: () => void }) {
