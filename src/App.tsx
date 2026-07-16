@@ -35,6 +35,7 @@ import Vorteile from "./pages/Vorteile";
 
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLeads from "./pages/admin/AdminLeads";
+import OAuthConsent from "./pages/OAuthConsent";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ const App = () => (
           <Route path="/login" element={<AuthPage mode="login" />} />
           <Route path="/register" element={<AuthPage mode="register" />} />
           <Route path="/join/:code" element={<JoinByCode />} />
+          <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
 
           {/* Public demo (no auth) */}
           <Route path="/demo/employee" element={<DemoEmployee />} />
