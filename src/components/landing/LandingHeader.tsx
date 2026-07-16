@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, ShieldCheck, CalendarClock } from "lucide-react";
+import { Menu, CalendarClock } from "lucide-react";
 import Logo from "@/components/Logo";
 
 const navItems = [
@@ -20,16 +20,13 @@ export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => vo
         <Link to="/" className="flex items-center shrink-0"><Logo withWordmark /></Link>
 
         <nav className="hidden lg:flex items-center gap-7 text-sm text-muted-foreground">
-          {navItems.map((n) => {
-            const inner = n.label === "Betriebsrat"
-              ? <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5 text-primary" />{n.label}</span>
-              : n.label;
-            return "route" in n ? (
-              <Link key={n.href} to={n.href} className="hover:text-foreground transition-colors">{inner}</Link>
+          {navItems.map((n) => (
+            "route" in n ? (
+              <Link key={n.href} to={n.href} className="hover:text-foreground transition-colors">{n.label}</Link>
             ) : (
-              <a key={n.href} href={n.href} className="hover:text-foreground transition-colors">{inner}</a>
-            );
-          })}
+              <a key={n.href} href={n.href} className="hover:text-foreground transition-colors">{n.label}</a>
+            )
+          ))}
         </nav>
 
         <div className="hidden sm:flex items-center gap-2">
