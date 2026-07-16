@@ -28,7 +28,7 @@ export default function DemoLeadDialog({ open, onOpenChange }: Props) {
   const submitEmail = async () => {
     setError(null);
     const parsed = schema.safeParse({ email });
-    if (!parsed.success) return setError(parsed.error.errors[0].message);
+    if (!parsed.success) return setError(parsed.error.issues[0].message);
     setSaving(true);
     const { getVisitorGeo } = await import("@/lib/geo");
     const geo = await getVisitorGeo();

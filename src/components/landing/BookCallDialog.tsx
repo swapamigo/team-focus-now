@@ -34,7 +34,7 @@ export default function BookCallDialog({ open, onOpenChange }: Props) {
   const submit = async () => {
     setError(null);
     const parsed = schema.safeParse({ company, name, email, employee_count: employeeCount });
-    if (!parsed.success) return setError(parsed.error.errors[0].message);
+    if (!parsed.success) return setError(parsed.error.issues[0].message);
     setSaving(true);
     try {
       const { getVisitorGeo } = await import("@/lib/geo");
