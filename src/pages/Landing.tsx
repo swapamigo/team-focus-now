@@ -260,7 +260,7 @@ export default function Landing() {
       </section>
 
 
-      <PricingSection onBookCall={() => setBookCallOpen(true)} />
+      <PricingSection onDemo={() => setDemoOpen(true)} onBookCall={() => setBookCallOpen(true)} />
       <Faq />
 
       {/* Final CTA */}
