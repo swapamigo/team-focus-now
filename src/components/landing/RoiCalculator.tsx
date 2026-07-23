@@ -346,7 +346,7 @@ export default function RoiCalculator() {
   };
 
   return (
-    <section className="container py-20 md:py-24 border-t border-border/40" id="calculator">
+    <section className="container py-20 md:py-24 border-t border-border/40 scroll-mt-24" id="roi">
       <div className="max-w-2xl mx-auto text-center mb-12">
         <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Schritt 1 · Lohnt sich das?</p>
         <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Was kostet Ablenkung Ihr Unternehmen?</h2>
