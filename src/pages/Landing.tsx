@@ -71,6 +71,23 @@ export default function Landing() {
   const [bookCallOpen, setBookCallOpen] = useState(false);
   // Der Sprung in die App erfolgt nur über den expliziten Header-Button.
 
+  useEffect(() => {
+    const scrollToHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (!hash) return;
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+    // Warte, bis alle Sektionen gerendert sind (Bilder, Dialoge etc.)
+    const timer = setTimeout(scrollToHash, 100);
+    window.addEventListener("hashchange", scrollToHash);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("hashchange", scrollToHash);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
