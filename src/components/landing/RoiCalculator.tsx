@@ -464,7 +464,7 @@ export default function RoiCalculator() {
           <div className="surface-card p-5 border-destructive/30">
             <p className="text-xs uppercase tracking-widest text-destructive font-semibold mb-2">Option A</p>
             <p className="text-base font-semibold mb-1">Handy-Verbot</p>
-            <p className="text-sm text-muted-foreground">Handy muss abgegeben werden – es wird wieder fokussiert gearbeitet wie vor 20 Jahren.</p>
+            <p className="text-sm text-muted-foreground">erzeugt Frustration, ohne die Produktivität nachweislich zu steigern (Whelan & Turel, 2024)</p>
           </div>
           <div className="surface-card p-5 border-primary/40 ring-1 ring-primary/20">
             <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">Option B</p>
