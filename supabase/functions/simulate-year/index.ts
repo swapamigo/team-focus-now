@@ -1,5 +1,5 @@
 // simulate-year: Generiert 365 Tage Demo-Daten mit klarem Verbesserungstrend.
-// Mitarbeitende sind durch TeamFocus von Monat zu Monat weniger am Handy.
+// Mitarbeitende sind durch TeamFokus von Monat zu Monat weniger am Handy.
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.0';
 
 const corsHeaders = {
