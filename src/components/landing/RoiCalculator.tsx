@@ -143,7 +143,7 @@ export default function RoiCalculator() {
     setText(BLUE_DARK);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
-    doc.text("UMSATZSTEIGERUNG MIT TEAMFOCUS / JAHR", 60, y + 26);
+    doc.text("UMSATZSTEIGERUNG MIT TEAMFOKUS / JAHR", 60, y + 26);
     doc.setFontSize(32);
     doc.text(fmtEUR(savingsPerYear, "+"), 60, y + 66);
     doc.setFont("helvetica", "normal");
@@ -241,7 +241,7 @@ export default function RoiCalculator() {
     setText(WHITE);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
-    doc.text("OPTION B — TEAMFOCUS", bx + 14, y + 22);
+    doc.text("OPTION B — TEAMFOKUS", bx + 14, y + 22);
     setText(BLUE_DARK);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
@@ -438,7 +438,7 @@ export default function RoiCalculator() {
             <div className="relative">
               <div className="flex items-center gap-2 mb-2">
                 <TrendingUp className="h-4 w-4 text-success" />
-                <p className="text-xs uppercase tracking-widest text-primary font-semibold">IHRE UMSATZSTEIGERUNG MIT TEAMFOCUS / JAHR</p>
+                <p className="text-xs uppercase tracking-widest text-primary font-semibold">IHRE UMSATZSTEIGERUNG MIT TEAMFOKUS / JAHR</p>
               </div>
               <p className="text-4xl md:text-5xl font-semibold tracking-tight text-gradient">{fmtEUR(savingsPerYear, "+")}</p>
               <p className="text-sm text-muted-foreground mt-2">
