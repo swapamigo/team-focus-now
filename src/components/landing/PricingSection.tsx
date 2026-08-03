@@ -25,7 +25,7 @@ export default function PricingSection({ onBookCall, onDemo }: Props) {
         <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Ein fairer Preis pro Mitarbeitendem.</h2>
         <p className="mt-4 text-muted-foreground">30 Tage gratis · monatlich kündbar · keine Setup-Gebühr</p>
         <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
-          🔥 30 % Rabatt – nur für kurze Zeit
+          🔥 Rabatt – nur für kurze Zeit
         </p>
       </div>
 
@@ -37,7 +37,7 @@ export default function PricingSection({ onBookCall, onDemo }: Props) {
             <span className="text-sm text-muted-foreground">/ MA / Monat</span>
           </div>
           <p className="text-sm text-muted-foreground mb-1">
-            Statt <span className="line-through">7,13&nbsp;€</span> – 30 % Rabatt
+            Statt <span className="line-through">7,00&nbsp;€</span> – ca. 29 % Rabatt
           </p>
           <p className="text-xs text-muted-foreground mb-6">Volle Flexibilität, jederzeit kündbar.</p>
           <Button variant="outline" className="w-full h-11" onClick={primary}>
