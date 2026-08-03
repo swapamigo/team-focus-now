@@ -23,7 +23,7 @@ const schema = z.object({
   suggestion: z.string().trim().max(2000).optional(),
 });
 
-const callLink = "mailto:info@teamfokus.app?subject=Interesse%20an%20einem%20TeamFokus%20Call";
+const callLink = "mailto:joel@teamfokus.app?subject=Interesse%20an%20einem%20TeamFokus%20Call";
 
 export default function Waitlist() {
   const { session } = useAuth();

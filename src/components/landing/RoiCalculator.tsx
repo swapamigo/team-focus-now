@@ -37,7 +37,7 @@ export default function RoiCalculator() {
     const wasted = employees * hoursPerYear;
     const loss = wasted * hourlyCost;
     const savings = loss * REDUCTION;
-    const tfCost = employees * 5.99 * 12;
+    const tfCost = employees * 4.99 * 12;
     return { wastedHours: wasted, lossPerYear: loss, savingsPerYear: savings, savingsPerMonth: savings / 12, teamfocusCostPerYear: tfCost, netSavings: savings - tfCost };
   }, [employees, hourlyCost, hoursPerYear]);
 
@@ -163,7 +163,7 @@ export default function RoiCalculator() {
     doc.text(fmtEUR(netSavings, "+"), 60, y + 54);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
-    doc.text(`Investition: nur ${fmtEUR(teamfocusCostPerYear)} / Jahr  (5,99 € pro MA / Monat)`, 60, y + 72);
+    doc.text(`Investition: nur ${fmtEUR(teamfocusCostPerYear)} / Jahr  (4,99 € pro MA / Monat)`, 60, y + 72);
 
     setText(SLATE);
     doc.setFontSize(8);
@@ -335,7 +335,7 @@ export default function RoiCalculator() {
       `- Mitarbeitende: ${employees}\n` +
       `- Aktueller Verlust / Jahr: ${fmtEUR(lossPerYear)}\n` +
       `- Mögliche Einsparung / Jahr (35 %): ${fmtEUR(savingsPerYear)}\n` +
-      `- Investition TeamFokus / Jahr: ${fmtEUR(teamfocusCostPerYear)} (5,99 €/MA/Monat)\n` +
+      `- Investition TeamFokus / Jahr: ${fmtEUR(teamfocusCostPerYear)} (4,99 €/MA/Monat)\n` +
       `- Netto-Gewinn / Jahr: ${fmtEUR(netSavings)}\n\n` +
       `Mehr Infos: https://teamfokus.app\n` +
       `Betriebsrat-Akzeptanz: https://teamfokus.app/akzeptanz\n\n` +
