@@ -36,6 +36,9 @@ export default function PricingSection({ onBookCall, onDemo }: Props) {
             <span className="text-5xl font-semibold tracking-tight">4,99&nbsp;€</span>
             <span className="text-sm text-muted-foreground">/ MA / Monat</span>
           </div>
+          <p className="text-sm text-muted-foreground mb-1">
+            Statt <span className="line-through">7,13&nbsp;€</span> – 30 % Rabatt
+          </p>
           <p className="text-xs text-muted-foreground mb-6">Volle Flexibilität, jederzeit kündbar.</p>
           <Button variant="outline" className="w-full h-11" onClick={primary}>
             <Sparkles className="mr-1.5 h-4 w-4" />Demo ansehen
