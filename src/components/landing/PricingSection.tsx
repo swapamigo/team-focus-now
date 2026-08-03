@@ -24,6 +24,9 @@ export default function PricingSection({ onBookCall, onDemo }: Props) {
         <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Preise</p>
         <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Ein fairer Preis pro Mitarbeitendem.</h2>
         <p className="mt-4 text-muted-foreground">30 Tage gratis · monatlich kündbar · keine Setup-Gebühr</p>
+        <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
+          🔥 30 % Rabatt – nur für kurze Zeit
+        </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
