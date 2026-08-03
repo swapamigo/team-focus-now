@@ -27,7 +27,7 @@ export const faqItems = [
   },
   {
     q: "Was kostet es?",
-    a: "5,99 € pro Mitarbeitendem pro Monat. Mit Jahresabo nur 4,99 € pro Mitarbeitendem pro Monat. Monatlich kündbar, keine Setup-Gebühr, 30 Tage gratis testen.",
+    a: "4,99 € pro Mitarbeitendem pro Monat. Mit Jahresabo nur 3,99 € pro Mitarbeitendem pro Monat. Monatlich kündbar, keine Setup-Gebühr, 30 Tage gratis testen.",
   },
   {
     q: "Was bekommt das Gewinner-Team?",
