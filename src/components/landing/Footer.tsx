@@ -24,12 +24,13 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <p className="font-semibold mb-3">Rechtliches</p>
+          <p className="font-semibold mb-3">Kontakt</p>
           <ul className="space-y-2 text-muted-foreground">
-            <li><a href="#privacy" className="hover:text-foreground transition-colors">Datenschutz</a></li>
-            <li><a href="#" className="hover:text-foreground transition-colors">Impressum</a></li>
-            <li><a href="#" className="hover:text-foreground transition-colors">AGB</a></li>
-            <li><a href="#" className="hover:text-foreground transition-colors">DSGVO</a></li>
+            <li>
+              <a href="mailto:joel@teamfokus.app" className="hover:text-foreground transition-colors">joel@teamfokus.app</a>
+            </li>
+            <li><Link to="/trust" className="hover:text-foreground transition-colors">Datenschutz &amp; Sicherheit</Link></li>
+            <li><Link to="/akzeptanz" className="hover:text-foreground transition-colors">Betriebsrat-Akzeptanz</Link></li>
           </ul>
         </div>
       </div>
