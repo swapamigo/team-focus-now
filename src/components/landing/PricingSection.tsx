@@ -47,13 +47,16 @@ export default function PricingSection({ onBookCall, onDemo }: Props) {
 
         <div className="glow-card p-8 relative border-primary/40 ring-1 ring-primary/30 bg-primary/[0.03] overflow-hidden">
           <span className="absolute top-4 right-4 text-[10px] uppercase tracking-wider font-bold text-primary px-2.5 py-1 rounded-full bg-primary/15">
-            −20 % sparen
+            −30 % Rabatt
           </span>
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">Jährlich</p>
           <div className="flex items-baseline gap-1.5 mb-1">
             <span className="text-5xl font-semibold tracking-tight text-gradient">3,99&nbsp;€</span>
             <span className="text-sm text-muted-foreground">/ MA / Monat</span>
           </div>
+          <p className="text-sm text-muted-foreground mb-1">
+            Statt <span className="line-through">5,70&nbsp;€</span> – 30 % Rabatt
+          </p>
           <p className="text-xs text-muted-foreground mb-6">Jährlich abgerechnet. Bester Preis.</p>
           <Button className="w-full h-11 shadow-glow" onClick={primary}>
             <Sparkles className="mr-1.5 h-4 w-4" />Demo ansehen
