@@ -68,6 +68,11 @@ export default function PricingSection({ onBookCall, onDemo }: Props) {
           ))}
         </ul>
       </div>
+
+      <p className="max-w-3xl mx-auto mt-6 text-center text-sm text-muted-foreground">
+        Fragen zu Preisen oder Datenschutz? Schreiben Sie direkt an{" "}
+        <a href="mailto:joel@teamfokus.app" className="text-primary hover:underline font-medium">joel@teamfokus.app</a>
+      </p>
     </section>
   );
 }
