@@ -614,6 +614,54 @@ export type Database = {
           },
         ]
       }
+      link_events: {
+        Row: {
+          country: string | null
+          country_code: string | null
+          created_at: string
+          device: string | null
+          duration_seconds: number | null
+          event_type: string
+          href: string | null
+          id: string
+          label: string | null
+          link_id: string
+          page_path: string | null
+          referrer: string | null
+          session_id: string | null
+        }
+        Insert: {
+          country?: string | null
+          country_code?: string | null
+          created_at?: string
+          device?: string | null
+          duration_seconds?: number | null
+          event_type?: string
+          href?: string | null
+          id?: string
+          label?: string | null
+          link_id: string
+          page_path?: string | null
+          referrer?: string | null
+          session_id?: string | null
+        }
+        Update: {
+          country?: string | null
+          country_code?: string | null
+          created_at?: string
+          device?: string | null
+          duration_seconds?: number | null
+          event_type?: string
+          href?: string | null
+          id?: string
+          label?: string | null
+          link_id?: string
+          page_path?: string | null
+          referrer?: string | null
+          session_id?: string | null
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           body: string
