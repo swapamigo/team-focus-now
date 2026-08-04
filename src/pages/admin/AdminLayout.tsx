@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { Inbox, LogOut, Shield } from "lucide-react";
+import { BarChart3, Inbox, LogOut, Shield } from "lucide-react";
 import Logo from "@/components/Logo";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -142,6 +142,7 @@ export default function AdminLayout() {
 
   const items = [
     { to: "/admin/leads", icon: Inbox, label: "Leads & Antworten" },
+    { to: "/admin/analytics", icon: BarChart3, label: "Link-Statistiken" },
   ];
 
   return (

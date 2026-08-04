@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { initAutoTracking } from "@/lib/track";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -35,9 +37,15 @@ import Vorteile from "./pages/Vorteile";
 
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLeads from "./pages/admin/AdminLeads";
+import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import OAuthConsent from "./pages/OAuthConsent";
 
 const queryClient = new QueryClient();
+
+function TrackingProvider() {
+  useEffect(() => initAutoTracking(), []);
+  return null;
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -45,6 +53,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <TrackingProvider />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<AuthPage mode="login" />} />
@@ -96,6 +105,7 @@ const App = () => (
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Navigate to="/admin/leads" replace />} />
             <Route path="leads" element={<AdminLeads />} />
+            <Route path="analytics" element={<AdminAnalytics />} />
           </Route>
 
           <Route path="/index" element={<Navigate to="/" replace />} />

@@ -14,7 +14,7 @@ import SocietyHealth from "@/components/landing/SocietyHealth";
 import Faq, { faqItems } from "@/components/landing/Faq";
 import Seo from "@/components/Seo";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
-import BookCallDialog from "@/components/landing/BookCallDialog";
+import { openCallBooking, trackClick } from "@/lib/track";
 
 import RewardsSection from "@/components/landing/RewardsSection";
 import HabitFeatures from "@/components/landing/HabitFeatures";
@@ -68,7 +68,6 @@ const trustLine = "Keine Kreditkarte · Setup in 5 Minuten · monatlich kündbar
 
 export default function Landing() {
   const [demoOpen, setDemoOpen] = useState(false);
-  const [bookCallOpen, setBookCallOpen] = useState(false);
   // Der Sprung in die App erfolgt nur über den expliziten Header-Button.
 
   useEffect(() => {
@@ -106,7 +105,7 @@ export default function Landing() {
           })),
         }}
       />
-      <LandingHeader onDemo={() => setDemoOpen(true)} onBookCall={() => setBookCallOpen(true)} />
+      <LandingHeader onDemo={() => { trackClick("cta:demo", "Demo ansehen"); setDemoOpen(true); }} onBookCall={() => openCallBooking("landing")} />
 
       <main>
       {/* Hero — ohne Mockup-Bild */}
@@ -125,20 +124,20 @@ export default function Landing() {
             100 % DSGVO-konform · Hosting in Deutschland
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight mb-6 leading-[1.05]">
-            Mehr Fokus. Weniger Stress.<br />
-            <span className="text-gradient animate-gradient-x">Höherer Umsatz.</span>
+            Mehr Fokus. Weniger Fehler.<br />
+            <span className="text-gradient animate-gradient-x">Mehr Umsatz.</span>
           </h1>
           <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed px-2">
             TeamFokus verwandelt Handy-Ablenkung in einen freiwilligen Team-Wettbewerb –
             ohne Einzelüberwachung, ohne Kontrolle. Gemessen wird nur während der Arbeitszeit.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3 px-4">
-            <Button size="lg" className="h-14 px-8 text-base shadow-glow w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
+            <Button size="lg" className="h-14 px-8 text-base shadow-glow w-full sm:w-auto" onClick={() => { trackClick("cta:demo", "Demo ansehen"); setDemoOpen(true); }}>
               <Sparkles className="mr-2 h-5 w-5" />
               Demo ansehen
               <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="ghost" className="h-14 px-8 text-base w-full sm:w-auto" onClick={() => setBookCallOpen(true)}>
+            <Button size="lg" variant="ghost" className="h-14 px-8 text-base w-full sm:w-auto" onClick={() => openCallBooking("landing")}>
               <CalendarClock className="mr-2 h-5 w-5" />
               Call vereinbaren
             </Button>
@@ -264,10 +263,10 @@ export default function Landing() {
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">In 5 Minuten startklar</p>
           <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-3">Sofort einsatzbereit.</h2>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mt-3">
-            <Button size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
+            <Button size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto" onClick={() => { trackClick("cta:demo", "Demo ansehen"); setDemoOpen(true); }}>
               <Sparkles className="mr-1.5 h-4 w-4" />Demo ansehen <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button size="lg" variant="ghost" className="h-12 px-8 w-full sm:w-auto" onClick={() => setBookCallOpen(true)}>
+            <Button size="lg" variant="ghost" className="h-12 px-8 w-full sm:w-auto" onClick={() => openCallBooking("landing")}>
               <CalendarClock className="mr-1.5 h-4 w-4" />Call vereinbaren
             </Button>
           </div>
@@ -277,7 +276,7 @@ export default function Landing() {
       </section>
 
 
-      <PricingSection onDemo={() => setDemoOpen(true)} onBookCall={() => setBookCallOpen(true)} />
+      <PricingSection onDemo={() => { trackClick("cta:demo", "Demo ansehen"); setDemoOpen(true); }} onBookCall={() => openCallBooking("landing")} />
       <Faq />
 
       {/* Final CTA */}
@@ -294,10 +293,10 @@ export default function Landing() {
               Starten Sie 30 Tage gratis. Keine Kreditkarte, kein Risiko – nur fokussiertere Teams.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
-              <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={() => setDemoOpen(true)}>
+              <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={() => { trackClick("cta:demo", "Demo ansehen"); setDemoOpen(true); }}>
                 <Sparkles className="mr-1.5 h-4 w-4" />Demo ansehen
               </Button>
-              <Button size="lg" variant="ghost" className="h-12 px-8 w-full sm:w-auto" onClick={() => setBookCallOpen(true)}>
+              <Button size="lg" variant="ghost" className="h-12 px-8 w-full sm:w-auto" onClick={() => openCallBooking("landing")}>
                 <CalendarClock className="mr-1.5 h-4 w-4" />Call vereinbaren
               </Button>
             </div>
@@ -310,7 +309,6 @@ export default function Landing() {
 
       <Footer />
       <DemoLeadDialog open={demoOpen} onOpenChange={setDemoOpen} />
-      <BookCallDialog open={bookCallOpen} onOpenChange={setBookCallOpen} />
     </div>
   );
 }
