@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { initAutoTracking } from "@/lib/track";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -40,12 +42,18 @@ import OAuthConsent from "./pages/OAuthConsent";
 
 const queryClient = new QueryClient();
 
+function TrackingProvider() {
+  useEffect(() => initAutoTracking(), []);
+  return null;
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <TrackingProvider />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<AuthPage mode="login" />} />

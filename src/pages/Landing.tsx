@@ -14,7 +14,7 @@ import SocietyHealth from "@/components/landing/SocietyHealth";
 import Faq, { faqItems } from "@/components/landing/Faq";
 import Seo from "@/components/Seo";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
-import { initAutoTracking, openCallBooking, trackClick } from "@/lib/track";
+import { openCallBooking, trackClick } from "@/lib/track";
 
 import RewardsSection from "@/components/landing/RewardsSection";
 import HabitFeatures from "@/components/landing/HabitFeatures";
@@ -69,8 +69,6 @@ const trustLine = "Keine Kreditkarte · Setup in 5 Minuten · monatlich kündbar
 export default function Landing() {
   const [demoOpen, setDemoOpen] = useState(false);
   // Der Sprung in die App erfolgt nur über den expliziten Header-Button.
-
-  useEffect(() => initAutoTracking(), []);
 
   useEffect(() => {
     const scrollToHash = () => {
