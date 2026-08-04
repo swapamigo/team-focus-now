@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, CalendarClock } from "lucide-react";
 import Logo from "@/components/Logo";
+import { openCallBooking } from "@/lib/track";
 
 const navItems = [
   { href: "#how", label: "So funktioniert's" },
@@ -13,7 +14,7 @@ const navItems = [
 
 export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => void; onBookCall?: () => void }) {
   const [open, setOpen] = useState(false);
-  const handleBookCall = onBookCall ?? (() => window.open("https://cal.com/joelschoppe/teamfocus", "_blank", "noopener,noreferrer"));
+  const handleBookCall = onBookCall ?? (() => openCallBooking("header"));
   return (
     <header className="sticky top-0 z-50 glass border-b border-border/40">
       <div className="container flex h-16 items-center justify-between gap-3">
