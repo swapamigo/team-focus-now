@@ -6,7 +6,7 @@ TeamFokus misst nur private Bildschirmzeit während der Arbeitszeit (keine Inhal
 
 ## Pages
 
-- [Startseite](/): Produktübersicht, Funktionsweise, Preise, FAQ.
+- [Startseite](/): Produktübersicht, Funktionsweise, ROI-Rechner, FAQ.
 - [Mitarbeiter-Demo](/demo/employee): Interaktive Demo der Mitarbeiter-App.
 - [Manager-Demo](/demo/manager): Interaktive Demo des Manager-Dashboards.
 - [Warteliste](/waitlist): Frühzugang sichern.
