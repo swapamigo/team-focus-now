@@ -33,12 +33,11 @@ export default function RoiCalculator() {
   const [hourlyCost, setHourlyCost] = useState(35);
   const [hoursPerYear, setHoursPerYear] = useState(720);
 
-  const { wastedHours, lossPerYear, savingsPerYear, savingsPerMonth, teamfocusCostPerYear, netSavings } = useMemo(() => {
+  const { wastedHours, lossPerYear, savingsPerYear, savingsPerMonth } = useMemo(() => {
     const wasted = employees * hoursPerYear;
     const loss = wasted * hourlyCost;
     const savings = loss * REDUCTION;
-    const tfCost = employees * 4.99 * 12;
-    return { wastedHours: wasted, lossPerYear: loss, savingsPerYear: savings, savingsPerMonth: savings / 12, teamfocusCostPerYear: tfCost, netSavings: savings - tfCost };
+    return { wastedHours: wasted, lossPerYear: loss, savingsPerYear: savings, savingsPerMonth: savings / 12 };
   }, [employees, hourlyCost, hoursPerYear]);
 
   const exportPdf = () => {
@@ -149,21 +148,6 @@ export default function RoiCalculator() {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.text(`Bei rund 35 % weniger Bildschirmzeit — ca. ${fmtEUR(savingsPerMonth, "+")} pro Monat`, 60, y + 86);
-
-    y += 100 + 14;
-    setFill(GREEN_SOFT);
-    doc.roundedRect(40, y, pageW - 80, 84, 12, 12, "F");
-    setFill(GREEN);
-    doc.roundedRect(40, y, 6, 84, 3, 3, "F");
-    setText([21, 128, 61]);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.text("NETTO-GEWINN NACH INVESTITION", 60, y + 24);
-    doc.setFontSize(24);
-    doc.text(fmtEUR(netSavings, "+"), 60, y + 54);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9);
-    doc.text(`Investition: nur ${fmtEUR(teamfocusCostPerYear)} / Jahr  (4,99 € pro MA / Monat)`, 60, y + 72);
 
     setText(SLATE);
     doc.setFontSize(8);
@@ -334,9 +318,8 @@ export default function RoiCalculator() {
       `Hallo,\n\nanbei meine ROI-Auswertung mit TeamFokus:\n\n` +
       `- Mitarbeitende: ${employees}\n` +
       `- Aktueller Verlust / Jahr: ${fmtEUR(lossPerYear)}\n` +
-      `- Mögliche Einsparung / Jahr (35 %): ${fmtEUR(savingsPerYear)}\n` +
-      `- Investition TeamFokus / Jahr: ${fmtEUR(teamfocusCostPerYear)} (4,99 €/MA/Monat)\n` +
-      `- Netto-Gewinn / Jahr: ${fmtEUR(netSavings)}\n\n` +
+      `- Mögliche Einsparung / Jahr (35 %): ${fmtEUR(savingsPerYear)}\n\n` +
+      `Individuelles Angebot anfragen: https://cal.com/joelschoppe/teamfocus\n` +
       `Mehr Infos: https://teamfokus.app\n` +
       `Betriebsrat-Akzeptanz: https://teamfokus.app/akzeptanz\n\n` +
       `(PDF-Export bitte separat anhängen – wurde aus dem Rechner heruntergeladen.)`
