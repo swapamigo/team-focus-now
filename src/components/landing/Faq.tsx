@@ -27,7 +27,7 @@ export const faqItems = [
   },
   {
     q: "Was kostet es?",
-    a: "Dank des aktuellen Rabatts (nur für kurze Zeit) zahlst du nur 4,99 € statt 7,00 € pro Mitarbeitendem pro Monat. Mit Jahresabo sogar nur 3,99 € statt 5,70 € pro Mitarbeitendem pro Monat. Monatlich kündbar, keine Setup-Gebühr, 30 Tage gratis testen.",
+    a: "Der Preis wird individuell abgestimmt – je nach Unternehmensgröße, Branche und gewünschtem Funktionsumfang. Vereinbare einen kurzen Call, um innerhalb weniger Minuten ein passendes Angebot zu erhalten.",
   },
   {
     q: "Was bekommt das Gewinner-Team?",
