@@ -34,6 +34,7 @@ import Waitlist from "./pages/Waitlist";
 import Trust from "./pages/Trust";
 import Akzeptanz from "./pages/Akzeptanz";
 import Vorteile from "./pages/Vorteile";
+import Impressum from "./pages/Impressum";
 
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLeads from "./pages/admin/AdminLeads";
@@ -73,6 +74,7 @@ const App = () => (
           <Route path="/vorteile" element={<Vorteile />} />
           <Route path="/fuer-mitarbeitende" element={<Vorteile />} />
           <Route path="/datenschutz-by-design" element={<Trust />} />
+          <Route path="/impressum" element={<Impressum />} />
           <Route path="/checkout" element={<Navigate to="/waitlist" replace />} />
           <Route path="/checkout/success" element={<Navigate to="/waitlist" replace />} />
 
