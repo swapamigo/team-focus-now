@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { TrendingDown, TrendingUp, Info, Sparkles, ArrowRight, Download } from "lucide-react";
+import { TrendingDown, TrendingUp, Info, Sparkles, Download } from "lucide-react";
 import jsPDF from "jspdf";
 
 const REDUCTION = 0.35;
@@ -51,8 +51,6 @@ export default function RoiCalculator() {
     const BLUE_SOFT: [number, number, number] = [219, 234, 254];
     const RED: [number, number, number] = [220, 38, 38];
     const RED_SOFT: [number, number, number] = [254, 226, 226];
-    const GREEN: [number, number, number] = [22, 163, 74];
-    const GREEN_SOFT: [number, number, number] = [220, 252, 231];
     const SLATE: [number, number, number] = [100, 116, 139];
     const SLATE_SOFT: [number, number, number] = [241, 245, 249];
     const WHITE: [number, number, number] = [255, 255, 255];
@@ -455,14 +453,24 @@ export default function RoiCalculator() {
             <p className="text-sm text-muted-foreground">Mitarbeiterfreundlich und belohnungsbasiert motivierend – ohne Verbote, ohne Überwachung.</p>
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-          <Button onClick={exportPdf} size="lg" variant="outline" className="h-12 px-6 w-full sm:w-auto">
-            <Download className="h-4 w-4" /> Als PDF exportieren
-          </Button>
-          <Button onClick={emailPdf} size="lg" variant="outline" className="h-12 px-6 w-full sm:w-auto">
-            Per E-Mail senden
-          </Button>
+
+        <div className="max-w-2xl w-full surface-card p-6 md:p-8 text-center">
+          <p className="text-sm font-medium text-foreground mb-2">Individuelles Angebot anfragen</p>
+          <p className="text-sm text-muted-foreground mb-4">
+            Der Preis richtet sich nach Unternehmensgröße und Funktionsumfang. In einem kurzen Call erstellen wir gemeinsam ein passendes Paket für Ihr Team.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button asChild size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto">
+              <a href="https://cal.com/joelschoppe/teamfocus" target="_blank" rel="noopener noreferrer">
+                Jetzt Call vereinbaren
+              </a>
+            </Button>
+            <Button onClick={exportPdf} size="lg" variant="outline" className="h-12 px-6 w-full sm:w-auto">
+              <Download className="h-4 w-4" /> Als PDF exportieren
+            </Button>
+          </div>
         </div>
+
         <p className="text-xs text-muted-foreground text-center max-w-md">
           Einseitige Zusammenfassung mit Branding – ideal zum Weiterleiten an Geschäftsführung & Betriebsrat.
         </p>
