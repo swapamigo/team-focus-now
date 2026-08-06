@@ -8,7 +8,6 @@ import { openCallBooking } from "@/lib/track";
 
 const navItems = [
   { href: "#how", label: "So funktioniert's" },
-  { href: "#pricing", label: "Preise" },
   { href: "/vorteile", label: "Vorteile für Mitarbeiter", route: true as const },
 ];
 

@@ -18,7 +18,7 @@ import { openCallBooking, trackClick } from "@/lib/track";
 
 import RewardsSection from "@/components/landing/RewardsSection";
 import HabitFeatures from "@/components/landing/HabitFeatures";
-import PricingSection from "@/components/landing/PricingSection";
+
 import LandingHeader from "@/components/landing/LandingHeader";
 import Studies from "@/components/landing/Studies";
 import WorksCouncil from "@/components/landing/WorksCouncil";
@@ -276,7 +276,7 @@ export default function Landing() {
       </section>
 
 
-      <PricingSection onDemo={() => { trackClick("cta:demo", "Demo ansehen"); setDemoOpen(true); }} onBookCall={() => openCallBooking("landing")} />
+      
       <Faq />
 
       {/* Final CTA */}

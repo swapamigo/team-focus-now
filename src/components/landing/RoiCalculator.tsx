@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { TrendingDown, TrendingUp, Info, Sparkles, ArrowRight, Download } from "lucide-react";
+import { TrendingDown, TrendingUp, Info, Sparkles, Download } from "lucide-react";
 import jsPDF from "jspdf";
 
 const REDUCTION = 0.35;
@@ -33,12 +33,11 @@ export default function RoiCalculator() {
   const [hourlyCost, setHourlyCost] = useState(35);
   const [hoursPerYear, setHoursPerYear] = useState(720);
 
-  const { wastedHours, lossPerYear, savingsPerYear, savingsPerMonth, teamfocusCostPerYear, netSavings } = useMemo(() => {
+  const { wastedHours, lossPerYear, savingsPerYear, savingsPerMonth } = useMemo(() => {
     const wasted = employees * hoursPerYear;
     const loss = wasted * hourlyCost;
     const savings = loss * REDUCTION;
-    const tfCost = employees * 4.99 * 12;
-    return { wastedHours: wasted, lossPerYear: loss, savingsPerYear: savings, savingsPerMonth: savings / 12, teamfocusCostPerYear: tfCost, netSavings: savings - tfCost };
+    return { wastedHours: wasted, lossPerYear: loss, savingsPerYear: savings, savingsPerMonth: savings / 12 };
   }, [employees, hourlyCost, hoursPerYear]);
 
   const exportPdf = () => {
@@ -52,8 +51,6 @@ export default function RoiCalculator() {
     const BLUE_SOFT: [number, number, number] = [219, 234, 254];
     const RED: [number, number, number] = [220, 38, 38];
     const RED_SOFT: [number, number, number] = [254, 226, 226];
-    const GREEN: [number, number, number] = [22, 163, 74];
-    const GREEN_SOFT: [number, number, number] = [220, 252, 231];
     const SLATE: [number, number, number] = [100, 116, 139];
     const SLATE_SOFT: [number, number, number] = [241, 245, 249];
     const WHITE: [number, number, number] = [255, 255, 255];
@@ -149,21 +146,6 @@ export default function RoiCalculator() {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.text(`Bei rund 35 % weniger Bildschirmzeit — ca. ${fmtEUR(savingsPerMonth, "+")} pro Monat`, 60, y + 86);
-
-    y += 100 + 14;
-    setFill(GREEN_SOFT);
-    doc.roundedRect(40, y, pageW - 80, 84, 12, 12, "F");
-    setFill(GREEN);
-    doc.roundedRect(40, y, 6, 84, 3, 3, "F");
-    setText([21, 128, 61]);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.text("NETTO-GEWINN NACH INVESTITION", 60, y + 24);
-    doc.setFontSize(24);
-    doc.text(fmtEUR(netSavings, "+"), 60, y + 54);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9);
-    doc.text(`Investition: nur ${fmtEUR(teamfocusCostPerYear)} / Jahr  (4,99 € pro MA / Monat)`, 60, y + 72);
 
     setText(SLATE);
     doc.setFontSize(8);
@@ -334,9 +316,8 @@ export default function RoiCalculator() {
       `Hallo,\n\nanbei meine ROI-Auswertung mit TeamFokus:\n\n` +
       `- Mitarbeitende: ${employees}\n` +
       `- Aktueller Verlust / Jahr: ${fmtEUR(lossPerYear)}\n` +
-      `- Mögliche Einsparung / Jahr (35 %): ${fmtEUR(savingsPerYear)}\n` +
-      `- Investition TeamFokus / Jahr: ${fmtEUR(teamfocusCostPerYear)} (4,99 €/MA/Monat)\n` +
-      `- Netto-Gewinn / Jahr: ${fmtEUR(netSavings)}\n\n` +
+      `- Mögliche Einsparung / Jahr (35 %): ${fmtEUR(savingsPerYear)}\n\n` +
+      `Individuelles Angebot anfragen: https://cal.com/joelschoppe/teamfocus\n` +
       `Mehr Infos: https://teamfokus.app\n` +
       `Betriebsrat-Akzeptanz: https://teamfokus.app/akzeptanz\n\n` +
       `(PDF-Export bitte separat anhängen – wurde aus dem Rechner heruntergeladen.)`
@@ -472,14 +453,24 @@ export default function RoiCalculator() {
             <p className="text-sm text-muted-foreground">Mitarbeiterfreundlich und belohnungsbasiert motivierend – ohne Verbote, ohne Überwachung.</p>
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-          <Button onClick={exportPdf} size="lg" variant="outline" className="h-12 px-6 w-full sm:w-auto">
-            <Download className="h-4 w-4" /> Als PDF exportieren
-          </Button>
-          <Button onClick={emailPdf} size="lg" variant="outline" className="h-12 px-6 w-full sm:w-auto">
-            Per E-Mail senden
-          </Button>
+
+        <div className="max-w-2xl w-full surface-card p-6 md:p-8 text-center">
+          <p className="text-sm font-medium text-foreground mb-2">Individuelles Angebot anfragen</p>
+          <p className="text-sm text-muted-foreground mb-4">
+            Der Preis richtet sich nach Unternehmensgröße und Funktionsumfang. In einem kurzen Call erstellen wir gemeinsam ein passendes Paket für Ihr Team.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button asChild size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto">
+              <a href="https://cal.com/joelschoppe/teamfocus" target="_blank" rel="noopener noreferrer">
+                Jetzt Call vereinbaren
+              </a>
+            </Button>
+            <Button onClick={exportPdf} size="lg" variant="outline" className="h-12 px-6 w-full sm:w-auto">
+              <Download className="h-4 w-4" /> Als PDF exportieren
+            </Button>
+          </div>
         </div>
+
         <p className="text-xs text-muted-foreground text-center max-w-md">
           Einseitige Zusammenfassung mit Branding – ideal zum Weiterleiten an Geschäftsführung & Betriebsrat.
         </p>
