@@ -169,12 +169,6 @@ export default function Landing() {
       {/* ROI Calculator */}
       <RoiCalculator />
 
-      {/* Betriebsrat & Mitarbeitende direkt nach ROI */}
-      <WorksCouncil />
-
-      {/* Unterbrechungszyklus */}
-      <InterruptionCycle />
-
       {/* Visuelle Übersicht — So funktioniert TeamFokus */}
       <section className="container py-14 md:py-20 border-t border-border/40" id="how">
         <div className="max-w-3xl mx-auto text-center mb-8">
@@ -196,6 +190,12 @@ export default function Landing() {
           ))}
         </div>
       </section>
+
+      {/* Betriebsrat & Mitarbeitende */}
+      <WorksCouncil />
+
+      {/* Unterbrechungszyklus */}
+      <InterruptionCycle />
 
 
       {/* Warum anders */}
