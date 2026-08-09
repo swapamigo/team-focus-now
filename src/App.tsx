@@ -35,6 +35,7 @@ import Trust from "./pages/Trust";
 import Akzeptanz from "./pages/Akzeptanz";
 import Vorteile from "./pages/Vorteile";
 import Impressum from "./pages/Impressum";
+import Unsubscribe from "./pages/Unsubscribe";
 
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLeads from "./pages/admin/AdminLeads";
@@ -110,6 +111,7 @@ const App = () => (
             <Route path="analytics" element={<AdminAnalytics />} />
           </Route>
 
+          <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/index" element={<Navigate to="/" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

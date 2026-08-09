@@ -8,6 +8,7 @@ import {
 
 import RoiCalculator from "@/components/landing/RoiCalculator";
 import Footer from "@/components/landing/Footer";
+import ContactSection from "@/components/landing/ContactSection";
 
 import InterruptionCycle from "@/components/landing/InterruptionCycle";
 import SocietyHealth from "@/components/landing/SocietyHealth";
@@ -277,6 +278,8 @@ export default function Landing() {
 
       
       <Faq />
+
+      <ContactSection />
 
       {/* Final CTA */}
       <section className="container pb-20 md:pb-24">
