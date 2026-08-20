@@ -1,4 +1,4 @@
-import { Smartphone, Monitor, Swords, Gift, ArrowRight } from "lucide-react";
+import { Smartphone, Swords, Gift, ArrowRight } from "lucide-react";
 
 const steps = [
   {
