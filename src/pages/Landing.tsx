@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Shield, Trophy, Users, Sparkles, Lock, TrendingUp, Brain, Heart, Zap,
-  ArrowRight, Check, X, Clock, Rocket, Eye, KeyRound, ShieldCheck, CalendarClock,
+  ArrowRight, Check, X, Clock, Rocket, Eye, KeyRound, ShieldCheck, CalendarClock, Smartphone,
 } from "lucide-react";
 
 import RoiCalculator from "@/components/landing/RoiCalculator";
