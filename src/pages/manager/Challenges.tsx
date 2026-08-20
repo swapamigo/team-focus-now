@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { Trophy, Plus, Sparkles, Clock, Euro, Award } from "lucide-react";
+import { Trophy, Plus, Sparkles, Euro, Award, Fuel, Ticket, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -21,13 +21,14 @@ const DURATIONS: { value: "1_week" | "2_weeks" | "3_weeks" | "1_month"; label: s
 
 const REWARD_SUGGESTIONS: { category: string; icon: any; tone: string; items: string[] }[] = [
   {
-    category: "Zeitliche Begünstigungen",
-    icon: Clock,
+    category: "Gutscheine & Erlebnisse",
+    icon: Ticket,
     tone: "bg-primary/10 text-primary",
     items: [
-      "1–2 Stunden späterer Arbeitsbeginn am Montag (nur Gewinnerteam)",
-      "1–2 Stunden früherer Feierabend (Mo–Do, nur Gewinnerteam)",
-      "Zusätzlicher (halber) freier Tag",
+      "Tankgutschein",
+      "Restaurant- oder Lieferdienst-Gutschein",
+      "Kinokarten oder Event-Tickets",
+      "Streaming- oder Musik-Abonnement",
     ],
   },
   {
@@ -35,9 +36,9 @@ const REWARD_SUGGESTIONS: { category: string; icon: any; tone: string; items: st
     icon: Euro,
     tone: "bg-success/10 text-success",
     items: [
-      "Gutscheine (Restaurant, Buchhandlung, lokaler Anbieter)",
       "Bezahlter Team-Lunch oder Kaffee-/Eis-Runde",
       "Geld- oder Sachbonus (z. B. Noise-Cancelling-Kopfhörer)",
+      "Gemeinsame Team-Aktivität",
     ],
   },
   {

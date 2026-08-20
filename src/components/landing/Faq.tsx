@@ -36,7 +36,7 @@ export const faqItems = [
   },
   {
     q: "Was bekommt das Gewinner-Team?",
-    a: "Die Belohnung legt die Führungskraft frei fest. Bewährte Beispiele: 1 Stunde früher Feierabend am Freitag, 1 Stunde später Start am Montag, Essensgutschein, Team-Lunch oder ein Fokus-Champion-Badge. Wichtig: Es wird nie ein Einzelner bestraft, nur ein Team belohnt.",
+    a: "Die Belohnung legt die Führungskraft frei fest. Bewährte Beispiele: Tankgutschein, Essensgutschein, bezahlter Team-Lunch, Event-Tickets oder ein Fokus-Champion-Badge. Wichtig: Es wird nie ein Einzelner bestraft, nur ein Team belohnt.",
   },
   {
     q: "Wie schnell ist es eingerichtet?",
