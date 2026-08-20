@@ -129,7 +129,7 @@ export default function Landing() {
             <span className="text-gradient animate-gradient-x">Mehr Umsatz.</span>
           </h1>
           <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed px-2">
-            TeamFokus verwandelt Handy-Ablenkung in einen freiwilligen Team-Wettbewerb –
+            TeamFokus verwandelt Handy- und PC-Ablenkung in einen freiwilligen Team-Wettbewerb –
             ohne Einzelüberwachung, ohne Kontrolle. Gemessen wird nur während der Arbeitszeit.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3 px-4">
