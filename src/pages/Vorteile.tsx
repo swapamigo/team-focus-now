@@ -20,7 +20,7 @@ const benefits = [
     icon: Gift,
     eyebrow: "Jeden Monat",
     title: "Ein echtes Geschenk gewinnen",
-    desc: "Am Monatsende gewinnt das fokussierteste Team gemeinsam ein Geschenk – Team-Lunch, Gutschein, früher Feierabend. Du gewinnst mit deinem Team, nie auf Kosten anderer.",
+    desc: "Am Monatsende gewinnt das fokussierteste Team gemeinsam ein Geschenk – Team-Lunch, Gutschein, Tankgutschein oder Event-Tickets. Du gewinnst mit deinem Team, nie auf Kosten anderer.",
     img: giftImg,
     accent: "from-amber-500/30 to-orange-500/10",
   },

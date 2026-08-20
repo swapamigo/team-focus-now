@@ -28,7 +28,7 @@ const initialMembers = [
 ];
 
 const initialChallenges = [
-  { name: "Fokus-Woche", status: "Aktiv", reward: "1 Std. früher Feierabend Freitag", progress: 68, days: "5 Tage übrig" },
+  { name: "Fokus-Woche", status: "Aktiv", reward: "Tankgutschein 50 €", progress: 68, days: "5 Tage übrig" },
   { name: "Handy-Diät", status: "Geplant", reward: "Bezahltes Team-Mittagessen", progress: 0, days: "Start in 12 Tagen" },
   { name: "Quartals-Marathon", status: "Beendet", reward: "Essensgutschein 50 €", progress: 100, days: "Gewinner: Team Alpha" },
 ];

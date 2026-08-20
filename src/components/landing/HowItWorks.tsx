@@ -16,7 +16,7 @@ const steps = [
   {
     icon: Gift,
     title: "Belohnen",
-    desc: "Das Sieger-Team gewinnt – z. B. Freitag 1 Stunde früher Schluss.",
+    desc: "Das Sieger-Team gewinnt – z. B. Tankgutschein, Team-Lunch oder Event-Tickets.",
     accent: "from-success/20 to-success/5",
   },
 ];

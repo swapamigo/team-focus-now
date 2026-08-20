@@ -163,7 +163,7 @@ export default function DemoEmployee() {
             <div className="surface-card p-5">
               <h3 className="font-semibold flex items-center gap-2 mb-3"><Trophy className="h-4 w-4 text-primary" />Aktive Challenge</h3>
               <p className="text-sm font-medium">Fokus-Woche</p>
-              <p className="text-xs text-muted-foreground mb-3">Belohnung: 1 Std. früher Feierabend Freitag · 5 Tage übrig</p>
+              <p className="text-xs text-muted-foreground mb-3">Belohnung: Tankgutschein 50 € · 5 Tage übrig</p>
               <div className="h-2 rounded-full bg-secondary overflow-hidden">
                 <div className="h-full gradient-primary" style={{ width: "68%" }} />
               </div>
