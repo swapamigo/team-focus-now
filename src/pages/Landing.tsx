@@ -191,7 +191,7 @@ export default function Landing() {
             { img: step1Img, alt: "Schritt 1: Ablenkungszeit sichtbar machen – keine Inhalte, keine Screenshots, keine Überwachung." },
             { img: step2Img, alt: "Schritt 2: Teams treten freiwillig an – niedrigste Ablenkungszeit gewinnt." },
             { img: step3Img, alt: "Schritt 3: Nur anonyme Teamdaten – keine Namen, keine Inhalte, keine Einzelkontrolle." },
-            { img: step4Img, alt: "Schritt 4: Gewinnerteam wird belohnt – Team Lunch, Gutschein, Event, früher Feierabend." },
+            { img: step4Img, alt: "Schritt 4: Gewinnerteam wird belohnt – Team-Lunch, Gutschein, Tankgutschein oder Event-Tickets." },
           ].map((s, i) => (
             <div key={i} className="surface-card p-5 md:p-7">
               <img src={s.img.url} alt={s.alt} loading="lazy" className="w-full h-auto rounded-xl block" />

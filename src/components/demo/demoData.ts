@@ -36,5 +36,5 @@ export const demoStats = {
   todayMin: 96,
   yesterdayMin: 118,
   todayPenalty: 14,
-  activeChallenge: "Fokus-Woche · Belohnung: 1 Std früher Feierabend Freitag",
+  activeChallenge: "Fokus-Woche · Belohnung: Tankgutschein 50 €",
 };

@@ -1,12 +1,12 @@
-import { Clock, Utensils, Car, Coffee, Gift, Sunrise } from "lucide-react";
+import { Utensils, Car, Coffee, Gift, Fuel, Ticket } from "lucide-react";
 import bgAsset from "@/assets/team-throwing-phones.png.asset.json";
 
 const rewards = [
   { icon: Utensils, title: "Essensgutschein", highlight: true },
-  { icon: Clock, title: "Freitag 1h früher Schluss" },
-  { icon: Sunrise, title: "Montag 1h später Start" },
+  { icon: Fuel, title: "Tankgutschein" },
+  { icon: Ticket, title: "Event-Tickets" },
   { icon: Coffee, title: "Bezahlter Team-Lunch" },
-  { icon: Car, title: "Bevorzugter Firmenwagen" },
+  { icon: Car, title: "Bevorzugter Parkplatz" },
 ];
 
 export default function RewardsSection() {
