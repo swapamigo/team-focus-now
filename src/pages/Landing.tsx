@@ -129,7 +129,7 @@ export default function Landing() {
             <span className="text-gradient animate-gradient-x">Mehr Umsatz.</span>
           </h1>
           <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed px-2">
-            TeamFokus verwandelt Handy-Ablenkung in einen freiwilligen Team-Wettbewerb –
+            TeamFokus verwandelt Handy- und PC-Ablenkung in einen freiwilligen Team-Wettbewerb –
             ohne Einzelüberwachung, ohne Kontrolle. Gemessen wird nur während der Arbeitszeit.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3 px-4">
@@ -156,8 +156,8 @@ export default function Landing() {
             <div className="inline-flex items-start gap-3 rounded-2xl border border-primary/30 bg-primary/5 backdrop-blur px-5 py-3 text-left">
               <Smartphone className="h-5 w-5 text-primary shrink-0 mt-0.5" />
               <p className="text-sm md:text-base text-foreground/90 leading-relaxed">
-                <strong>Funktioniert auch mit Betriebshandys:</strong> Arbeits-Apps (z. B. Teams, Outlook, Scanner,
-                Navigation) werden freigegeben und zählen nie mit. Nur die privaten Ablenkungs-Apps nehmen am Wettbewerb teil.
+                <strong>Für Handy und PC:</strong> Arbeits-Apps und -Websites (z. B. Teams, Outlook, Scanner,
+                Navigation) werden freigegeben und zählen nie mit. Nur private Ablenkungen nehmen am Wettbewerb teil.
               </p>
             </div>
           </div>
@@ -170,7 +170,7 @@ export default function Landing() {
       <section className="container py-10 md:py-14 border-b border-border/40">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-base md:text-lg text-foreground/90 leading-relaxed">
-            Jeder weiß es: Ein Handyverbot funktioniert nicht. Es erzeugt Frustration, wird umgangen und löst das eigentliche Problem nicht. TeamFokus macht das Handy-Problem deshalb auf eine völlig neue Art zur Vergangenheit – freiwillig, teambasiert und belohnend. Statt Einzelpersonen zu kontrollieren, messen wir anonym nur die Ablenkungszeit während der Arbeitszeit und verwandeln sie in einen fairen Team-Wettkampf. Das Team mit der geringsten Ablenkung gewinnt – und alle profitieren von mehr Fokus, weniger Stress und echten Belohnungen.
+            Jeder weiß es: Ein Handyverbot funktioniert nicht. Es erzeugt Frustration, wird umgangen und löst das eigentliche Problem nicht. TeamFokus macht das Ablenkungs-Problem deshalb auf eine völlig neue Art zur Vergangenheit – freiwillig, teambasiert und belohnend. Ob auf dem Smartphone oder am PC: Statt Einzelpersonen zu kontrollieren, messen wir anonym nur die Ablenkungszeit während der Arbeitszeit und verwandeln sie in einen fairen Team-Wettkampf. Das Team mit der geringsten Ablenkung gewinnt – und alle profitieren von mehr Fokus, weniger Stress und echten Belohnungen.
           </p>
         </div>
       </section>

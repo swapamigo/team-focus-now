@@ -56,7 +56,7 @@ const privacyPillars = [
   {
     icon: Lock,
     title: "Keine Inhalte, nie",
-    desc: "Keine Screenshots, keine Nachrichten, kein Standort. Nur die Dauer privater Handynutzung – sonst nichts.",
+    desc: "Keine Screenshots, keine Nachrichten, kein Standort – weder auf dem Smartphone noch am PC. Nur die Dauer privater Nutzung.",
   },
   {
     icon: Clock,
@@ -66,9 +66,9 @@ const privacyPillars = [
 ];
 
 const faqs = [
-  { q: "Kann mein Chef meine Bildschirmzeit sehen?", a: "Nein. Deine Werte werden ab mindestens fünf Personen zu einem Team-Durchschnitt zusammengefasst. Sichtbar sind ausschließlich Team-Werte – nie eine einzelne Person." },
-  { q: "Werden meine Nachrichten oder Inhalte gelesen?", a: "Nein. Erfasst wird nur die Nutzungsdauer. Niemals Inhalte, Nachrichten, Fotos, Tastatureingaben oder dein Standort." },
-  { q: "Muss ich mein Handy abgeben oder werden Apps gesperrt?", a: "Nein. Dein Handy bleibt vollständig deins. Es wird nichts gesperrt und nichts verboten – TeamFokus zählt nur mit." },
+  { q: "Kann mein Chef meine Bildschirmzeit sehen?", a: "Nein. Deine Werte werden ab mindestens fünf Personen zu einem Team-Durchschnitt zusammengefasst – unabhängig davon, ob du Handy oder PC nutzt. Sichtbar sind ausschließlich Team-Werte – nie eine einzelne Person." },
+  { q: "Werden meine Nachrichten oder Inhalte gelesen?", a: "Nein. Erfasst wird nur die Nutzungsdauer. Niemals Inhalte, Nachrichten, Fotos, Tastatureingaben oder dein Standort – weder auf dem Smartphone noch am PC." },
+  { q: "Muss ich mein Handy abgeben oder werden Apps gesperrt?", a: "Nein. Dein Handy und dein PC bleiben vollständig deine. Es wird nichts gesperrt und nichts verboten – TeamFokus zählt nur mit." },
   { q: "Was passiert, wenn ich angerufen werde?", a: "Gar nichts. Eingehende Anrufe werden grundsätzlich nicht gewertet. Du bleibst für Familie, Schule oder Notfälle erreichbar." },
   { q: "Und wenn mein Team verliert – erfährt das jemand?", a: "Nein. Es gibt keine sichtbare Verliererliste. Nur das Gewinnerteam wird angezeigt." },
 ];
@@ -100,8 +100,8 @@ export default function Vorteile() {
               <span className="text-gradient animate-gradient-x">Der Gewinn ist deiner.</span>
             </h1>
             <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed">
-              Niemand sieht je deine persönliche Bildschirmzeit. Dafür gewinnst du jeden Monat
-              mit deinem Team ein echtes Geschenk – und ganz nebenbei einen klareren Kopf.
+              Niemand sieht je deine persönliche Bildschirmzeit – weder auf dem Handy noch am PC.
+              Dafür gewinnst du jeden Monat mit deinem Team ein echtes Geschenk – und ganz nebenbei einen klareren Kopf.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 text-success px-3 py-1 text-xs font-semibold">

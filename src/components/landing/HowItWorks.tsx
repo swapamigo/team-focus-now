@@ -4,13 +4,13 @@ const steps = [
   {
     icon: Smartphone,
     title: "Messen",
-    desc: "Handy-Zeit & nicht-erlaubte Apps werden während der Arbeit erfasst.",
+    desc: "Handy- und PC-Zeit werden während der Arbeit erfasst – private Apps/Seiten zählen, Arbeits-Apps nie.",
     accent: "from-primary/20 to-primary/5",
   },
   {
     icon: Swords,
     title: "Battlen",
-    desc: "Teams treten gegeneinander an: wer hat am wenigsten Ablenkung?",
+    desc: "Teams treten gegeneinander an: wer hat am wenigsten Ablenkung auf Handy und PC?",
     accent: "from-accent/20 to-accent/5",
   },
   {

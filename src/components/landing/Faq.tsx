@@ -14,8 +14,12 @@ export const faqItems = [
     a: "Ja. Wenn Mitarbeitende ihr Handy für die Arbeit brauchen, geben Sie die benötigten Arbeits-Apps einfach frei (z. B. Teams, Outlook, Telefon, Navigation, Scanner- oder Branchen-Apps). Diese zählen nie als Ablenkung. Am Team-Wettbewerb nehmen nur die privaten Ablenkungs-Apps teil – die Freigabe-Liste legen Sie unternehmensweit fest und können sie pro Person ergänzen.",
   },
   {
+    q: "Funktioniert TeamFokus auch mit Betriebshandys oder am PC?",
+    a: "Ja – sowohl am Smartphone als auch am PC. Mitarbeitende, die ihr Handy für die Arbeit brauchen, geben die benötigten Arbeits-Apps einfach frei (z. B. Teams, Outlook, Telefon, Navigation, Scanner- oder Branchen-Apps). Diese zählen nie als Ablenkung. Für PC-Nutzung gibt es das Browser-Dashboard und die Desktop-Unterstützung: Arbeits-Websites und -Tools werden ebenfalls freigegeben, sodass nur private Ablenkungen am Wettbewerb teilnehmen. Die Freigabe-Liste legen Sie unternehmensweit fest und können sie pro Person ergänzen.",
+  },
+  {
     q: "Was genau wird gemessen?",
-    a: "Nur die private Bildschirm- bzw. Ablenkungszeit während der Arbeitszeit – und auch nur bei Apps, die nicht als Arbeits-App freigegeben sind. Keine Inhalte, keine Screenshots, keine Tastatureingaben – ausschließlich Zeitdaten. Das Team mit der wenigsten Ablenkungszeit gewinnt.",
+    a: "Nur die private Bildschirm- bzw. Ablenkungszeit während der Arbeitszeit – und auch nur bei Apps oder Websites, die nicht als Arbeits-App oder Arbeits-Seite freigegeben sind. Keine Inhalte, keine Screenshots, keine Tastatureingaben – ausschließlich Zeitdaten. Das Team mit der wenigsten Ablenkungszeit gewinnt.",
   },
 
   {
