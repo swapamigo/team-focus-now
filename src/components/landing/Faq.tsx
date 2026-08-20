@@ -10,9 +10,14 @@ export const faqItems = [
     a: "Weniger Smartphone-Stress, bessere Konzentration, echte Pausen statt ständiger Mikro-Ablenkung. Studien (z. B. Sohn et al., 2019) zeigen einen direkten Zusammenhang zwischen problematischer Smartphone-Nutzung und höherem Stresslevel sowie Schlafproblemen. TeamFokus reduziert genau diese Belastung – freiwillig und spielerisch.",
   },
   {
-    q: "Was genau wird gemessen?",
-    a: "Nur die private Bildschirm- bzw. Ablenkungszeit während der Arbeitszeit. Keine Inhalte, keine Screenshots, keine Tastatureingaben – ausschließlich Zeitdaten. Das Team mit der wenigsten Ablenkungszeit gewinnt.",
+    q: "Funktioniert TeamFokus auch mit Betriebshandys?",
+    a: "Ja. Wenn Mitarbeitende ihr Handy für die Arbeit brauchen, geben Sie die benötigten Arbeits-Apps einfach frei (z. B. Teams, Outlook, Telefon, Navigation, Scanner- oder Branchen-Apps). Diese zählen nie als Ablenkung. Am Team-Wettbewerb nehmen nur die privaten Ablenkungs-Apps teil – die Freigabe-Liste legen Sie unternehmensweit fest und können sie pro Person ergänzen.",
   },
+  {
+    q: "Was genau wird gemessen?",
+    a: "Nur die private Bildschirm- bzw. Ablenkungszeit während der Arbeitszeit – und auch nur bei Apps, die nicht als Arbeits-App freigegeben sind. Keine Inhalte, keine Screenshots, keine Tastatureingaben – ausschließlich Zeitdaten. Das Team mit der wenigsten Ablenkungszeit gewinnt.",
+  },
+
   {
     q: "Werden einzelne Mitarbeitende überwacht?",
     a: "Nein. Niemand – auch nicht die Geschäftsführung – sieht individuelle Bildschirmzeiten. Nur die Person selbst sieht ihre eigenen Daten. Führungskräfte sehen ausschließlich Team-Aggregate, und auch das erst ab Teamgröße 5 (k-Anonymität).",
