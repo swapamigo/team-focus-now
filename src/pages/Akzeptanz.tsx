@@ -79,7 +79,7 @@ Kurz, was es ist: ein anonymes Team-Spiel. Dein Team tritt gegen die anderen an,
 Was du davon hast:
 • Weniger Stress, mehr geschafft – ein Feierabend, der wirklich dir gehört.
 • 100 % anonym und datenschutzkonform: Niemand sieht deine Bildschirmzeit. Auch ich nicht.
-• Nichts wird verboten: Dein Handy bleibt deins, eingehende Anrufe zählen nie.
+• Nichts wird verboten: Dein Handy und dein PC bleiben dir, eingehende Anrufe zählen nie.
 • Gut für dich: weniger Stress, beugt Burnout vor – oft mit besserem Schlaf.
 • Wenn du magst: optionale Helfer wie ein kurzer Timer vor Instagram oder TikTok.
 • Fair: Bekannt wird immer nur das Gewinnerteam – wer hinten liegt, bleibt unsichtbar.

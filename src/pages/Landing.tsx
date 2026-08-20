@@ -156,8 +156,8 @@ export default function Landing() {
             <div className="inline-flex items-start gap-3 rounded-2xl border border-primary/30 bg-primary/5 backdrop-blur px-5 py-3 text-left">
               <Smartphone className="h-5 w-5 text-primary shrink-0 mt-0.5" />
               <p className="text-sm md:text-base text-foreground/90 leading-relaxed">
-                <strong>Funktioniert auch mit Betriebshandys:</strong> Arbeits-Apps (z. B. Teams, Outlook, Scanner,
-                Navigation) werden freigegeben und zählen nie mit. Nur die privaten Ablenkungs-Apps nehmen am Wettbewerb teil.
+                <strong>Für Handy und PC:</strong> Arbeits-Apps und -Websites (z. B. Teams, Outlook, Scanner,
+                Navigation) werden freigegeben und zählen nie mit. Nur private Ablenkungen nehmen am Wettbewerb teil.
               </p>
             </div>
           </div>
