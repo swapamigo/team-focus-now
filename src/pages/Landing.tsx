@@ -170,7 +170,7 @@ export default function Landing() {
       <section className="container py-10 md:py-14 border-b border-border/40">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-base md:text-lg text-foreground/90 leading-relaxed">
-            Jeder weiß es: Ein Handyverbot funktioniert nicht. Es erzeugt Frustration, wird umgangen und löst das eigentliche Problem nicht. TeamFokus macht das Handy-Problem deshalb auf eine völlig neue Art zur Vergangenheit – freiwillig, teambasiert und belohnend. Statt Einzelpersonen zu kontrollieren, messen wir anonym nur die Ablenkungszeit während der Arbeitszeit und verwandeln sie in einen fairen Team-Wettkampf. Das Team mit der geringsten Ablenkung gewinnt – und alle profitieren von mehr Fokus, weniger Stress und echten Belohnungen.
+            Jeder weiß es: Ein Handyverbot funktioniert nicht. Es erzeugt Frustration, wird umgangen und löst das eigentliche Problem nicht. TeamFokus macht das Ablenkungs-Problem deshalb auf eine völlig neue Art zur Vergangenheit – freiwillig, teambasiert und belohnend. Ob auf dem Smartphone oder am PC: Statt Einzelpersonen zu kontrollieren, messen wir anonym nur die Ablenkungszeit während der Arbeitszeit und verwandeln sie in einen fairen Team-Wettkampf. Das Team mit der geringsten Ablenkung gewinnt – und alle profitieren von mehr Fokus, weniger Stress und echten Belohnungen.
           </p>
         </div>
       </section>

@@ -56,7 +56,7 @@ const privacyPillars = [
   {
     icon: Lock,
     title: "Keine Inhalte, nie",
-    desc: "Keine Screenshots, keine Nachrichten, kein Standort. Nur die Dauer privater Handynutzung – sonst nichts.",
+    desc: "Keine Screenshots, keine Nachrichten, kein Standort – weder auf dem Smartphone noch am PC. Nur die Dauer privater Nutzung.",
   },
   {
     icon: Clock,
@@ -100,8 +100,8 @@ export default function Vorteile() {
               <span className="text-gradient animate-gradient-x">Der Gewinn ist deiner.</span>
             </h1>
             <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed">
-              Niemand sieht je deine persönliche Bildschirmzeit. Dafür gewinnst du jeden Monat
-              mit deinem Team ein echtes Geschenk – und ganz nebenbei einen klareren Kopf.
+              Niemand sieht je deine persönliche Bildschirmzeit – weder auf dem Handy noch am PC.
+              Dafür gewinnst du jeden Monat mit deinem Team ein echtes Geschenk – und ganz nebenbei einen klareren Kopf.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 text-success px-3 py-1 text-xs font-semibold">
