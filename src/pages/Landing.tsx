@@ -145,7 +145,7 @@ export default function Landing() {
           </div>
 
           {/* Trust-Leiste direkt unter den CTAs */}
-          <div className="mt-6 max-w-3xl mx-auto px-4">
+          <div className="mt-6 max-w-3xl mx-auto px-4 space-y-3">
             <div className="inline-flex items-start gap-3 rounded-2xl border border-success/30 bg-success/5 backdrop-blur px-5 py-3 text-left">
               <Lock className="h-5 w-5 text-success shrink-0 mt-0.5" />
               <p className="text-sm md:text-base text-foreground/90 leading-relaxed">
@@ -153,7 +153,15 @@ export default function Landing() {
                 keine Inhalte, keine Überwachung. Nur das Teamergebnis zählt.
               </p>
             </div>
+            <div className="inline-flex items-start gap-3 rounded-2xl border border-primary/30 bg-primary/5 backdrop-blur px-5 py-3 text-left">
+              <Smartphone className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+              <p className="text-sm md:text-base text-foreground/90 leading-relaxed">
+                <strong>Funktioniert auch mit Betriebshandys:</strong> Arbeits-Apps (z. B. Teams, Outlook, Scanner,
+                Navigation) werden freigegeben und zählen nie mit. Nur die privaten Ablenkungs-Apps nehmen am Wettbewerb teil.
+              </p>
+            </div>
           </div>
+
         </div>
       </section>
 
