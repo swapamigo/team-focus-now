@@ -66,9 +66,9 @@ const privacyPillars = [
 ];
 
 const faqs = [
-  { q: "Kann mein Chef meine Bildschirmzeit sehen?", a: "Nein. Deine Werte werden ab mindestens fünf Personen zu einem Team-Durchschnitt zusammengefasst. Sichtbar sind ausschließlich Team-Werte – nie eine einzelne Person." },
-  { q: "Werden meine Nachrichten oder Inhalte gelesen?", a: "Nein. Erfasst wird nur die Nutzungsdauer. Niemals Inhalte, Nachrichten, Fotos, Tastatureingaben oder dein Standort." },
-  { q: "Muss ich mein Handy abgeben oder werden Apps gesperrt?", a: "Nein. Dein Handy bleibt vollständig deins. Es wird nichts gesperrt und nichts verboten – TeamFokus zählt nur mit." },
+  { q: "Kann mein Chef meine Bildschirmzeit sehen?", a: "Nein. Deine Werte werden ab mindestens fünf Personen zu einem Team-Durchschnitt zusammengefasst – unabhängig davon, ob du Handy oder PC nutzt. Sichtbar sind ausschließlich Team-Werte – nie eine einzelne Person." },
+  { q: "Werden meine Nachrichten oder Inhalte gelesen?", a: "Nein. Erfasst wird nur die Nutzungsdauer. Niemals Inhalte, Nachrichten, Fotos, Tastatureingaben oder dein Standort – weder auf dem Smartphone noch am PC." },
+  { q: "Muss ich mein Handy abgeben oder werden Apps gesperrt?", a: "Nein. Dein Handy und dein PC bleiben vollständig deine. Es wird nichts gesperrt und nichts verboten – TeamFokus zählt nur mit." },
   { q: "Was passiert, wenn ich angerufen werde?", a: "Gar nichts. Eingehende Anrufe werden grundsätzlich nicht gewertet. Du bleibst für Familie, Schule oder Notfälle erreichbar." },
   { q: "Und wenn mein Team verliert – erfährt das jemand?", a: "Nein. Es gibt keine sichtbare Verliererliste. Nur das Gewinnerteam wird angezeigt." },
 ];
