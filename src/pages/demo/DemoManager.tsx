@@ -10,7 +10,7 @@ import DemoBanner from "@/components/demo/DemoBanner";
 import { demoTeams, demoStats, genYear } from "@/components/demo/demoData";
 import { toast } from "sonner";
 import {
-  Users, Trophy, Activity, TrendingDown, Sparkles, CalendarRange, UserCog,
+  Users, Trophy, Activity, TrendingUp, Sparkles, CalendarRange, UserCog,
   Plus, Settings as Cog, Bell, Shield, Trash2, Mail, CheckCircle2, Smartphone, Globe, FileSpreadsheet,
 } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -43,7 +43,7 @@ export default function DemoManager() {
   const yearData = useMemo(() => genYear(seed), [seed]);
   const first = yearData[0].avgMinutes;
   const last = yearData[yearData.length - 1].avgMinutes;
-  const diffMin = first - last;
+  const diffMin = last - first;
   const hoursPerMonth = Math.round(((diffMin * 22) / 60) * 10) / 10;
   const pct = Math.round((diffMin / first) * 100);
 
@@ -178,11 +178,11 @@ export default function DemoManager() {
             <section className="surface-card p-5 md:p-6">
               <div className="mb-4">
                 <h2 className="font-semibold flex items-center gap-2"><CalendarRange className="h-4 w-4 text-primary" /> Jahresüberblick</h2>
-                <p className="text-xs text-muted-foreground mt-0.5">Bildschirmzeit Ø pro Mitarbeitendem · klar fallend</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Fokuszeit Ø pro Mitarbeitendem · klar steigend</p>
               </div>
               <div className="mb-5 rounded-2xl bg-gradient-to-br from-primary/10 to-success/10 border border-primary/20 p-5">
                 <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Seit Einführung von TeamFokus</p>
-                <p className="text-3xl md:text-4xl font-semibold tracking-tight">−{hoursPerMonth} Std / Monat</p>
+                <p className="text-3xl md:text-4xl font-semibold tracking-tight">+{hoursPerMonth} Std Fokus / Monat</p>
                 <p className="text-sm text-muted-foreground mt-2">{pct}% mehr Fokuszeit ({first} → {last} Min/Tag).</p>
               </div>
               <div className="h-56">
@@ -278,7 +278,7 @@ export default function DemoManager() {
                 Mitarbeitende melden sich anschließend einfach mit ihrer Unternehmens-E-Mail an – kein Passwort-Setup nötig.
               </div>
               <p className="text-xs text-muted-foreground mb-3 flex items-center gap-1.5">
-                <Shield className="h-3 w-3 text-primary" /> Individuelle Bildschirmzeiten sind <strong>nie</strong> sichtbar – nur Team-Aggregate.
+                <Shield className="h-3 w-3 text-primary" /> Individuelle Fokuszeiten sind <strong>nie</strong> sichtbar – nur Team-Aggregate.
               </p>
               <ul className="divide-y divide-border/60">
                 {members.map((m, idx) => (
