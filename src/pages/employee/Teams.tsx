@@ -29,7 +29,7 @@ export default function TeamsPage() {
     <div className="min-h-screen bg-background pb-24">
       <header className="px-5 pt-8 pb-4">
         <h1 className="text-3xl font-semibold tracking-tight">Teams</h1>
-        <p className="text-sm text-muted-foreground mt-0.5">Wer hat heute am wenigsten abgelenkt?</p>
+        <p className="text-sm text-muted-foreground mt-0.5">Wer hat heute die meiste Fokuszeit gesammelt?</p>
       </header>
 
       {challenge && (
