@@ -38,3 +38,16 @@ export function isoDate(d: Date): string {
 export function rankSuffix(n: number): string {
   return `${n}.`;
 }
+
+/**
+ * Referenz-Arbeitstag in Minuten (8 Std). Basis für die Fokuszeit-Darstellung.
+ */
+export const WORKDAY_MINUTES = 480;
+
+/**
+ * Fokuszeit = Arbeitszeit minus private Ablenkungszeit minus abgezogene Minuten.
+ * Die Erfassung bleibt identisch – angezeigt wird die gesammelte Fokuszeit.
+ */
+export function focusMinutes(distractionMinutes: number, deductedMinutes = 0): number {
+  return Math.max(0, WORKDAY_MINUTES - Math.max(0, distractionMinutes) - Math.max(0, deductedMinutes));
+}
