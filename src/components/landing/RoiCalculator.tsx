@@ -145,7 +145,7 @@ export default function RoiCalculator() {
     doc.text(fmtEUR(savingsPerYear, "+"), 60, y + 66);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.text(`Bei rund 35 % weniger Bildschirmzeit — ca. ${fmtEUR(savingsPerMonth, "+")} pro Monat`, 60, y + 86);
+    doc.text(`Bei rund 35 % mehr gesammelter Fokuszeit — ca. ${fmtEUR(savingsPerMonth, "+")} pro Monat`, 60, y + 86);
 
     setText(SLATE);
     doc.setFontSize(8);
@@ -423,7 +423,7 @@ export default function RoiCalculator() {
               </div>
               <p className="text-4xl md:text-5xl font-semibold tracking-tight text-gradient">{fmtEUR(savingsPerYear, "+")}</p>
               <p className="text-sm text-muted-foreground mt-2">
-                ≈ <strong className="text-foreground">{fmtEUR(savingsPerMonth, "+")} / Monat</strong> – bei rund 35 % weniger Bildschirmzeit.
+                ≈ <strong className="text-foreground">{fmtEUR(savingsPerMonth, "+")} / Monat</strong> – bei rund 35 % mehr gesammelter Fokuszeit.
               </p>
               <p className="text-xs text-muted-foreground mt-3 flex items-start gap-1.5">
                 <Sparkles className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />

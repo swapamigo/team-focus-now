@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DemoBanner from "@/components/demo/DemoBanner";
 import { demoTeams, genWeek } from "@/components/demo/demoData";
 import {
-  Trophy, Smartphone, TrendingDown, Lock, Sparkles, Users, Home,
+  Trophy, Smartphone, TrendingDown, TrendingUp, Lock, Sparkles, Users, Home,
   BarChart3, Settings as Cog, Bell, CheckCircle2, Globe, Shield, Clock,
   Timer, ScanLine, MoonStar,
 } from "lucide-react";
@@ -13,7 +13,7 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, Tooltip, Cell, Area, AreaCha
 import Seo from "@/components/Seo";
 
 const monthSeries = Array.from({ length: 30 }).map((_, i) => ({
-  d: i + 1, mins: Math.round(110 + Math.sin(i * 0.45) * 20 - i * 0.6),
+  d: i + 1, mins: Math.round(300 + Math.sin(i * 0.45) * 18 + i * 1.6),
 }));
 
 const allowedApps = ["Microsoft Teams", "Slack", "Outlook", "Notion"];
@@ -59,18 +59,18 @@ export default function DemoEmployee() {
           <TabsContent value="home" className="space-y-4">
             <div className="surface-card p-6 relative overflow-hidden">
               <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full gradient-primary opacity-10 blur-2xl" />
-              <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Bildschirmzeit heute</p>
-              <p className="text-5xl font-semibold tracking-tight mt-2">1 Std 36 Min</p>
+              <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Fokuszeit heute</p>
+              <p className="text-5xl font-semibold tracking-tight mt-2">6 Std 24 Min</p>
               <div className="flex items-center gap-2 mt-3 text-sm">
-                <TrendingDown className="h-4 w-4 text-success" />
-                <span className="text-success font-medium">22 Min weniger</span>
+                <TrendingUp className="h-4 w-4 text-success" />
+                <span className="text-success font-medium">22 Min mehr</span>
                 <span className="text-muted-foreground">als gestern</span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div className="surface-card p-4">
-                <div className="flex items-center gap-2 mb-1.5"><Smartphone className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Strafzeit</span></div>
+                <div className="flex items-center gap-2 mb-1.5"><Smartphone className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Abgezogene Zeit</span></div>
                 <p className="text-2xl font-semibold">14 Min</p>
               </div>
               <div className="surface-card p-4">
@@ -78,6 +78,7 @@ export default function DemoEmployee() {
                 <p className="text-2xl font-semibold">{ownRank}. von {demoTeams.length}</p>
               </div>
             </div>
+
 
             <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 flex items-start gap-3">
               <Lock className="h-4 w-4 text-primary shrink-0 mt-0.5" />
@@ -96,13 +97,13 @@ export default function DemoEmployee() {
             <div className="surface-card p-5">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-semibold">Diese Woche</h2>
-                <span className="text-xs text-muted-foreground">Bildschirmminuten</span>
+                <span className="text-xs text-muted-foreground">Fokusminuten</span>
               </div>
               <div className="h-40">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={week}>
                     <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                    <Tooltip cursor={{ fill: "hsl(var(--muted))", radius: 12 }} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [`${v} min`, "Zeit"]} labelFormatter={() => ""} />
+                    <Tooltip cursor={{ fill: "hsl(var(--muted))", radius: 12 }} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [`${v} min`, "Fokuszeit"]} labelFormatter={() => ""} />
                     <Bar dataKey="mins" radius={[8, 8, 8, 8]}>
                       {week.map((_, i) => <Cell key={i} fill={i === week.length - 1 ? "hsl(var(--primary))" : "hsl(var(--primary) / 0.35)"} />)}
                     </Bar>
@@ -114,7 +115,7 @@ export default function DemoEmployee() {
             <div className="surface-card p-5">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-semibold">Letzte 30 Tage</h2>
-                <span className="text-xs text-success font-medium flex items-center gap-1"><TrendingDown className="h-3 w-3" /> Trend fallend</span>
+                <span className="text-xs text-success font-medium flex items-center gap-1"><TrendingUp className="h-3 w-3" /> Trend steigend</span>
               </div>
               <div className="h-40">
                 <ResponsiveContainer width="100%" height="100%">
@@ -134,7 +135,7 @@ export default function DemoEmployee() {
             </div>
 
             <div className="grid grid-cols-3 gap-3">
-              <Mini icon={Clock} label="Fokus-Zeit Ø" value="5,2 h" />
+              <Mini icon={Clock} label="Fokus-Zeit Ø" value="6,4 h" />
               <Mini icon={Smartphone} label="Unlocks Ø" value="42" />
               <Mini icon={Trophy} label="Streak" value="7 Tage" />
             </div>
@@ -144,7 +145,7 @@ export default function DemoEmployee() {
           <TabsContent value="teams" className="space-y-4">
             <h2 className="font-semibold px-1">Team-Ranking heute</h2>
             <div className="surface-card divide-y divide-border/60">
-              {[...demoTeams].sort((a, b) => a.avgMin - b.avgMin).map((t, i) => (
+              {[...demoTeams].sort((a, b) => b.avgMin - a.avgMin).map((t, i) => (
                 <div key={t.id} className={"flex items-center gap-3 p-4 " + (t.isOwn ? "bg-primary/5" : "")}>
                   <div className="w-7 text-center">
                     {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : <span className="text-sm text-muted-foreground">{i + 1}.</span>}
@@ -154,7 +155,7 @@ export default function DemoEmployee() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-medium truncate">{t.name} {t.isOwn && <span className="text-xs text-primary ml-1">(Dein Team)</span>}</p>
-                    <p className="text-xs text-muted-foreground">Ø {t.avgMin} Min · {t.members} Mitglieder</p>
+                    <p className="text-xs text-muted-foreground">Ø {t.avgMin} Min Fokus · {t.members} Mitglieder</p>
                   </div>
                 </div>
               ))}

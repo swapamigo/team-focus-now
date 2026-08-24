@@ -12,7 +12,7 @@ interface Slide {
 
 const employeeSlides: Slide[] = [
   { icon: Sparkles, title: "Willkommen bei TeamFokus", desc: "Schön, dass du dabei bist. Wir helfen dir, fokussierter zu arbeiten – ohne Druck, ohne Überwachung." },
-  { icon: BarChart3, title: "Dein persönliches Dashboard", desc: "Sieh deinen Fortschritt auf einen Blick: Bildschirmzeit, Fokus-Phasen und dein Team-Ranking." },
+  { icon: BarChart3, title: "Dein persönliches Dashboard", desc: "Sieh deinen Fortschritt auf einen Blick: gesammelte Fokuszeit, Fokus-Phasen und dein Team-Ranking." },
   { icon: Lock, title: "Deine Privatsphäre ist geschützt", desc: "Nur DU siehst deine Daten. Dein Manager erhält ausschließlich anonyme Team-Aggregate – nie individuelle Werte." },
   { icon: Trophy, title: "Motivation statt Kontrolle", desc: "Verdiene Belohnungen, gewinne Challenges und arbeite entspannter. Erfasst wird nur während deiner Arbeitszeit." },
 ];

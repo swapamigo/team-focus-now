@@ -104,7 +104,7 @@ export default function ManagerChallenges() {
       <header className="flex items-start justify-between mb-6 gap-4">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">Challenges</h1>
-          <p className="text-sm text-muted-foreground mt-1">Motivieren Sie Teams mit Wettbewerben um weniger Ablenkungszeit.</p>
+          <p className="text-sm text-muted-foreground mt-1">Motivieren Sie Teams mit Wettbewerben um die meiste gesammelte Fokuszeit.</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
@@ -131,7 +131,7 @@ export default function ManagerChallenges() {
                     {DURATIONS.map(d => <SelectItem key={d.value} value={d.value}>{d.label}</SelectItem>)}
                   </SelectContent>
                 </Select>
-                <p className="text-[11px] text-muted-foreground">Am Ende jedes Zyklus gewinnt das Team mit der geringsten Ablenkungszeit.</p>
+                <p className="text-[11px] text-muted-foreground">Am Ende jedes Zyklus gewinnt das Team mit der meisten Fokuszeit.</p>
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="r">Belohnung für das Gewinnerteam</Label>

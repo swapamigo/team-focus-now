@@ -11,20 +11,20 @@ export const faqItems = [
   },
   {
     q: "Funktioniert TeamFokus auch mit Betriebshandys?",
-    a: "Ja. Wenn Mitarbeitende ihr Handy für die Arbeit brauchen, geben Sie die benötigten Arbeits-Apps einfach frei (z. B. Teams, Outlook, Telefon, Navigation, Scanner- oder Branchen-Apps). Diese zählen nie als Ablenkung. Am Team-Wettbewerb nehmen nur die privaten Ablenkungs-Apps teil – die Freigabe-Liste legen Sie unternehmensweit fest und können sie pro Person ergänzen.",
+    a: "Ja. Wenn Mitarbeitende ihr Handy für die Arbeit brauchen, geben Sie die benötigten Arbeits-Apps einfach frei (z. B. Teams, Outlook, Telefon, Navigation, Scanner- oder Branchen-Apps). Bei ihnen läuft die Fokuszeit ungestört weiter. Nur private Apps stoppen die Fokus-Uhr – die Freigabe-Liste legen Sie unternehmensweit fest und können sie pro Person ergänzen.",
   },
   {
     q: "Funktioniert TeamFokus auch mit Betriebshandys oder am PC?",
-    a: "Ja – sowohl am Smartphone als auch am PC. Mitarbeitende, die ihr Handy für die Arbeit brauchen, geben die benötigten Arbeits-Apps einfach frei (z. B. Teams, Outlook, Telefon, Navigation, Scanner- oder Branchen-Apps). Diese zählen nie als Ablenkung. Für PC-Nutzung gibt es das Browser-Dashboard und die Desktop-Unterstützung: Arbeits-Websites und -Tools werden ebenfalls freigegeben, sodass nur private Ablenkungen am Wettbewerb teilnehmen. Die Freigabe-Liste legen Sie unternehmensweit fest und können sie pro Person ergänzen.",
+    a: "Ja – sowohl am Smartphone als auch am PC. Mitarbeitende, die ihr Handy für die Arbeit brauchen, geben die benötigten Arbeits-Apps einfach frei (z. B. Teams, Outlook, Telefon, Navigation, Scanner- oder Branchen-Apps). Bei ihnen läuft die Fokuszeit ungestört weiter. Für PC-Nutzung gibt es das Browser-Dashboard und die Desktop-Unterstützung: Arbeits-Websites und -Tools werden ebenfalls freigegeben, sodass nur private Nutzung die Fokus-Uhr stoppt. Die Freigabe-Liste legen Sie unternehmensweit fest und können sie pro Person ergänzen.",
   },
   {
     q: "Was genau wird gemessen?",
-    a: "Nur die private Bildschirm- bzw. Ablenkungszeit während der Arbeitszeit – und auch nur bei Apps oder Websites, die nicht als Arbeits-App oder Arbeits-Seite freigegeben sind. Keine Inhalte, keine Screenshots, keine Tastatureingaben – ausschließlich Zeitdaten. Das Team mit der wenigsten Ablenkungszeit gewinnt.",
+    a: "Gezählt wird die Fokuszeit während der Arbeitszeit: Die Fokus-Uhr läuft, solange gearbeitet wird, und stoppt bei privaten Apps oder Websites, die nicht freigegeben sind – in High-Focus-Phasen wird sogar Zeit abgezogen. Keine Inhalte, keine Screenshots, keine Tastatureingaben – ausschließlich Zeitdaten. Das Team mit der meisten gesammelten Fokuszeit gewinnt.",
   },
 
   {
     q: "Werden einzelne Mitarbeitende überwacht?",
-    a: "Nein. Niemand – auch nicht die Geschäftsführung – sieht individuelle Bildschirmzeiten. Nur die Person selbst sieht ihre eigenen Daten. Führungskräfte sehen ausschließlich Team-Aggregate, und auch das erst ab Teamgröße 5 (k-Anonymität).",
+    a: "Nein. Niemand – auch nicht die Geschäftsführung – sieht individuelle Fokuszeiten. Nur die Person selbst sieht ihre eigenen Daten. Führungskräfte sehen ausschließlich Team-Aggregate, und auch das erst ab Teamgröße 5 (k-Anonymität).",
   },
   {
     q: "Ist die Teilnahme freiwillig?",

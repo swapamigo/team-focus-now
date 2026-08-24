@@ -3,14 +3,14 @@ import { Smartphone, Swords, Gift, ArrowRight } from "lucide-react";
 const steps = [
   {
     icon: Smartphone,
-    title: "Messen",
-    desc: "Handy- und PC-Zeit werden während der Arbeit erfasst – private Apps/Seiten zählen, Arbeits-Apps nie.",
+    title: "Fokuszeit sammeln",
+    desc: "Während der Arbeit läuft die Fokus-Uhr. Private Apps und Seiten stoppen sie – Arbeits-Apps nie.",
     accent: "from-primary/20 to-primary/5",
   },
   {
     icon: Swords,
     title: "Battlen",
-    desc: "Teams treten gegeneinander an: wer hat am wenigsten Ablenkung auf Handy und PC?",
+    desc: "Teams treten gegeneinander an: wer sammelt auf Handy und PC die meiste Fokuszeit?",
     accent: "from-accent/20 to-accent/5",
   },
   {

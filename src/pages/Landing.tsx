@@ -61,7 +61,7 @@ const benefits = [
   { icon: Brain, title: "Weniger Stress", desc: "Klare Fokus-Phasen statt ständiger Erreichbarkeit." },
   { icon: Zap, title: "Mehr Fokus", desc: "Rund 22 % mehr produktive Zeit pro Tag." },
   { icon: Heart, title: "Mitarbeiter-freundlich", desc: "Belohnung statt Druck – echte Motivation." },
-  { icon: TrendingUp, title: "Messbare Wirkung", desc: "Monat für Monat weniger Ablenkung." },
+  { icon: TrendingUp, title: "Messbare Wirkung", desc: "Monat für Monat mehr gesammelte Fokuszeit." },
 ];
 
 
@@ -93,7 +93,7 @@ export default function Landing() {
     <div className="min-h-screen bg-background">
       <Seo
         title="TeamFokus – Gamifizierte Produktivität für moderne Teams"
-        description="TeamFokus reduziert Smartphone-Ablenkung im Team durch faire, anonyme Challenges. Datenschutz-first und DSGVO-konform."
+        description="TeamFokus macht gesammelte Fokuszeit im Team sichtbar – als faire, anonyme Challenge. Datenschutz-first und DSGVO-konform."
 
         path="/"
         jsonLd={{
@@ -129,7 +129,7 @@ export default function Landing() {
             <span className="text-gradient animate-gradient-x">Mehr Umsatz.</span>
           </h1>
           <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed px-2">
-            TeamFokus verwandelt Handy- und PC-Ablenkung in einen freiwilligen Team-Wettbewerb –
+            TeamFokus zählt die Zeit, in der wirklich fokussiert gearbeitet wird – als freiwilligen Team-Wettbewerb,
             ohne Einzelüberwachung, ohne Kontrolle. Gemessen wird nur während der Arbeitszeit.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3 px-4">
@@ -157,7 +157,7 @@ export default function Landing() {
               <Smartphone className="h-5 w-5 text-primary shrink-0 mt-0.5" />
               <p className="text-sm md:text-base text-foreground/90 leading-relaxed">
                 <strong>Für Handy und PC:</strong> Arbeits-Apps und -Websites (z. B. Teams, Outlook, Scanner,
-                Navigation) werden freigegeben und zählen nie mit. Nur private Ablenkungen nehmen am Wettbewerb teil.
+                Navigation) werden freigegeben und stoppen die Fokuszeit nie. Nur private Ablenkung unterbricht sie.
               </p>
             </div>
           </div>
@@ -170,7 +170,7 @@ export default function Landing() {
       <section className="container py-10 md:py-14 border-b border-border/40">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-base md:text-lg text-foreground/90 leading-relaxed">
-            Jeder weiß es: Ein Handyverbot funktioniert nicht. Es erzeugt Frustration, wird umgangen und löst das eigentliche Problem nicht. TeamFokus macht das Ablenkungs-Problem deshalb auf eine völlig neue Art zur Vergangenheit – freiwillig, teambasiert und belohnend. Ob auf dem Smartphone oder am PC: Statt Einzelpersonen zu kontrollieren, messen wir anonym nur die Ablenkungszeit während der Arbeitszeit und verwandeln sie in einen fairen Team-Wettkampf. Das Team mit der geringsten Ablenkung gewinnt – und alle profitieren von mehr Fokus, weniger Stress und echten Belohnungen.
+            Jeder weiß es: Ein Handyverbot funktioniert nicht. Es erzeugt Frustration, wird umgangen und löst das eigentliche Problem nicht. TeamFokus dreht das Prinzip deshalb um: Statt Ablenkung zu bestrafen, sammelt jedes Team Fokuszeit. Solange konzentriert gearbeitet wird, läuft die Fokus-Uhr weiter – greift jemand privat zum Handy oder zur privaten Website am PC, stoppt sie und in High-Focus-Phasen wird sogar Zeit abgezogen. Alles anonym, freiwillig und nur während der Arbeitszeit. Am Ende gewinnt das Team mit der meisten gesammelten Fokuszeit – und alle profitieren von mehr Fokus, weniger Stress und echten Belohnungen.
           </p>
         </div>
       </section>
@@ -188,8 +188,8 @@ export default function Landing() {
         </div>
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
           {[
-            { img: step1Img, alt: "Schritt 1: Ablenkungszeit sichtbar machen – keine Inhalte, keine Screenshots, keine Überwachung." },
-            { img: step2Img, alt: "Schritt 2: Teams treten freiwillig an – niedrigste Ablenkungszeit gewinnt." },
+            { img: step1Img, alt: "Schritt 1: Fokuszeit sichtbar machen – keine Inhalte, keine Screenshots, keine Überwachung." },
+            { img: step2Img, alt: "Schritt 2: Teams treten freiwillig an – die meiste gesammelte Fokuszeit gewinnt." },
             { img: step3Img, alt: "Schritt 3: Nur anonyme Teamdaten – keine Namen, keine Inhalte, keine Einzelkontrolle." },
             { img: step4Img, alt: "Schritt 4: Gewinnerteam wird belohnt – Team-Lunch, Gutschein, Tankgutschein oder Event-Tickets." },
           ].map((s, i) => (

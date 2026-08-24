@@ -55,7 +55,7 @@ export default function HabitFeatures() {
       </div>
 
       <p className="text-center text-xs text-muted-foreground mt-8 max-w-xl mx-auto">
-        Hinweis: Individuelle Bildschirmzeiten bleiben privat – Manager sehen ausschließlich Team-Durchschnitte.
+        Hinweis: Individuelle Fokuszeiten bleiben privat – Manager sehen ausschließlich Team-Durchschnitte.
       </p>
     </section>
   );
