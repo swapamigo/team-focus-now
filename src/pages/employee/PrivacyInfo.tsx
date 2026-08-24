@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Check, X, ShieldCheck, Users, Clock, AlertTriangle, Server } from "lucide-react";
 
 const captured = [
-  "Bildschirmzeit gesamt (pro Tag)",
-  "Ablenkungs- / Strafminuten (pro Tag)",
+  "Gesammelte Fokuszeit (pro Tag)",
+  "Gestoppte / abgezogene Minuten (pro Tag)",
   "Kategorie eines Aufrufs: erlaubt / ablenkend",
   "Anonyme Team-Zugehörigkeit",
 ];
@@ -77,11 +77,11 @@ export default function PrivacyInfo() {
           <div className="grid grid-cols-2 gap-2">
             <div className="rounded-xl bg-muted/40 p-3 text-center">
               <Clock className="h-4 w-4 text-primary mx-auto mb-1" />
-              <p className="text-[11px] text-muted-foreground">Bildschirmzeit</p>
+              <p className="text-[11px] text-muted-foreground">Fokuszeit</p>
             </div>
             <div className="rounded-xl bg-muted/40 p-3 text-center">
               <AlertTriangle className="h-4 w-4 text-amber-500 mx-auto mb-1" />
-              <p className="text-[11px] text-muted-foreground">Ablenkungszeit</p>
+              <p className="text-[11px] text-muted-foreground">Gestoppte Zeit</p>
             </div>
           </div>
         </div>

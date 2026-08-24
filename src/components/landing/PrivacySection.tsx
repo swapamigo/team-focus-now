@@ -66,7 +66,7 @@ export default function PrivacySection() {
           <div className="max-w-md mx-auto mb-2">
             <div className="rounded-2xl border border-border/60 bg-card/60 p-6 text-center">
               <Clock className="h-7 w-7 text-primary mx-auto mb-3" />
-              <p className="text-sm text-muted-foreground mb-1">Bildschirmzeit gesamt</p>
+              <p className="text-sm text-muted-foreground mb-1">Gesammelte Fokuszeit</p>
               <p className="text-3xl font-semibold tracking-tight">z.&nbsp;B. 124 Min.</p>
               <p className="mt-2 text-sm text-success font-medium">= 24&nbsp;Min. weniger als letzte Woche</p>
             </div>

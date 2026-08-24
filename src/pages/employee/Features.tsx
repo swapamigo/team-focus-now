@@ -118,7 +118,7 @@ export default function FeaturesPage() {
         <div className="surface-card p-5 text-center">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">Privatsphäre</p>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Deine individuelle Bildschirmzeit sieht <strong className="text-foreground">niemand außer dir</strong>. Manager und Teamkolleg*innen sehen nur den Durchschnitt deines Teams.
+            Deine individuelle Fokuszeit sieht <strong className="text-foreground">niemand außer dir</strong>. Manager und Teamkolleg*innen sehen nur den Durchschnitt deines Teams.
           </p>
         </div>
       </section>

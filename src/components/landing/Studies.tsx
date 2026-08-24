@@ -28,7 +28,7 @@ const studies = [
   {
     icon: BookOpen,
     stat: "−35%",
-    headline: "weniger Ablenkungszeit durch Gruppen-Anreize",
+    headline: "mehr Fokuszeit durch Gruppen-Anreize",
     body: "Verhaltens­ökonomische Forschung (Thaler & Sunstein – »Nudge«) belegt: Team-basierte, positive Anreize verändern Gewohnheiten nachhaltiger als individuelle Kontrolle oder Verbote.",
     source: "Thaler & Sunstein – Nudge Theory",
     href: "https://en.wikipedia.org/wiki/Nudge_theory",

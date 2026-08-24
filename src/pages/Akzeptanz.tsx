@@ -74,11 +74,11 @@ const emailBody = `Hi [Vorname],
 
 das Handy zieht uns alle ständig aus der Konzentration – das ist kein persönliches Problem, sondern von den Apps genau so gewollt. Weil es uns alle betrifft, möchten wir dir etwas an die Hand geben, das wirklich dir hilft. Ab [Startdatum] starten wir mit TeamFokus.
 
-Kurz, was es ist: ein anonymes Team-Spiel. Dein Team tritt gegen die anderen an, am Monatsende gewinnt das Team mit dem besten Fokus – ihr macht das gemeinsam, als ganzes Unternehmen.
+Kurz, was es ist: ein anonymes Team-Spiel. Dein Team tritt gegen die anderen an, am Monatsende gewinnt das Team mit der meisten gesammelten Fokuszeit – ihr macht das gemeinsam, als ganzes Unternehmen.
 
 Was du davon hast:
 • Weniger Stress, mehr geschafft – ein Feierabend, der wirklich dir gehört.
-• 100 % anonym und datenschutzkonform: Niemand sieht deine Bildschirmzeit. Auch ich nicht.
+• 100 % anonym und datenschutzkonform: Niemand sieht deine persönliche Fokuszeit. Auch ich nicht.
 • Nichts wird verboten: Dein Handy und dein PC bleiben dir, eingehende Anrufe zählen nie.
 • Gut für dich: weniger Stress, beugt Burnout vor – oft mit besserem Schlaf.
 • Wenn du magst: optionale Helfer wie ein kurzer Timer vor Instagram oder TikTok.
@@ -99,7 +99,7 @@ P.S. Zwei Minuten genügen – und je mehr aus deinem Team mitmachen, desto grö
 
 const benefitsBullets = [
   { icon: Heart, text: "Weniger Stress, ein Feierabend der wirklich dir gehört" },
-  { icon: Lock, text: "100 % anonym – niemand sieht deine Bildschirmzeit" },
+  { icon: Lock, text: "100 % anonym – niemand sieht deine persönliche Fokuszeit" },
   { icon: ShieldCheck, text: "Nichts wird verboten – Anrufe zählen nie" },
   { icon: Brain, text: "Beugt Burnout vor, oft mit besserem Schlaf" },
   { icon: Sparkles, text: "Optionale Helfer wie Timer vor Instagram/TikTok" },
@@ -174,7 +174,7 @@ export default function Akzeptanz() {
                 Smartphones ziehen uns alle ständig aus der Konzentration. Das ist kein persönliches Versagen, sondern ein gesellschaftliches Problem: Apps sind gezielt darauf ausgelegt, Aufmerksamkeit zu binden.
               </p>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-                TeamFokus setzt auf <strong className="text-foreground">Unterstützung statt Kontrolle</strong>: ein anonymes Team-Spiel, bei dem Mitarbeitende ihre Ablenkung selbst reduzieren – weil ihr Team gewinnen will.
+                TeamFokus setzt auf <strong className="text-foreground">Unterstützung statt Kontrolle</strong>: ein anonymes Team-Spiel, bei dem Mitarbeitende gemeinsam Fokuszeit sammeln – weil ihr Team gewinnen will.
               </p>
             </div>
             <div className="relative">

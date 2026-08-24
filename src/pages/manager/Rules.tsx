@@ -67,7 +67,7 @@ export default function ManagerRules() {
 
       <section className="surface-card p-5 mb-5">
         <div className="flex items-center gap-2 mb-1"><AppWindow className="h-4 w-4 text-primary" /><h2 className="font-semibold">Erlaubte Apps (Unternehmen)</h2></div>
-        <p className="text-xs text-muted-foreground mb-3">Diese Apps gelten als arbeitsbezogen und zählen nicht als Ablenkung.</p>
+        <p className="text-xs text-muted-foreground mb-3">Diese Apps gelten als arbeitsbezogen – die Fokuszeit läuft dabei weiter.</p>
         <div className="flex gap-2 mb-3">
           <Input value={newApp} onChange={(e) => setNewApp(e.target.value)} placeholder="z. B. Slack, Microsoft Teams, Outlook" className="h-10" />
           <Button onClick={addApp} className="h-10"><Plus className="h-4 w-4" /></Button>
@@ -85,7 +85,7 @@ export default function ManagerRules() {
 
       <section className="surface-card p-5 mb-5">
         <div className="flex items-center gap-2 mb-1"><Ban className="h-4 w-4 text-destructive" /><h2 className="font-semibold">Blockierte Websites</h2></div>
-        <p className="text-xs text-muted-foreground mb-3">Diese Domains werden während der Arbeitszeit blockiert und zählen als Ablenkung.</p>
+        <p className="text-xs text-muted-foreground mb-3">Diese Domains werden während der Arbeitszeit blockiert und stoppen die Fokuszeit.</p>
         <div className="flex gap-2 mb-3">
           <Input value={newDomain} onChange={(e) => setNewDomain(e.target.value)} placeholder="z. B. instagram.com" className="h-10" />
           <Button onClick={addWebsite} className="h-10"><Plus className="h-4 w-4" /></Button>
