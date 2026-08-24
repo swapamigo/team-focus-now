@@ -13,7 +13,7 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, Tooltip, Cell, Area, AreaCha
 import Seo from "@/components/Seo";
 
 const monthSeries = Array.from({ length: 30 }).map((_, i) => ({
-  d: i + 1, mins: Math.round(110 + Math.sin(i * 0.45) * 20 - i * 0.6),
+  d: i + 1, mins: Math.round(300 + Math.sin(i * 0.45) * 18 + i * 1.6),
 }));
 
 const allowedApps = ["Microsoft Teams", "Slack", "Outlook", "Notion"];
@@ -135,7 +135,7 @@ export default function DemoEmployee() {
             </div>
 
             <div className="grid grid-cols-3 gap-3">
-              <Mini icon={Clock} label="Fokus-Zeit Ø" value="5,2 h" />
+              <Mini icon={Clock} label="Fokus-Zeit Ø" value="6,4 h" />
               <Mini icon={Smartphone} label="Unlocks Ø" value="42" />
               <Mini icon={Trophy} label="Streak" value="7 Tage" />
             </div>
