@@ -59,18 +59,18 @@ export default function DemoEmployee() {
           <TabsContent value="home" className="space-y-4">
             <div className="surface-card p-6 relative overflow-hidden">
               <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full gradient-primary opacity-10 blur-2xl" />
-              <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Bildschirmzeit heute</p>
-              <p className="text-5xl font-semibold tracking-tight mt-2">1 Std 36 Min</p>
+              <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Fokuszeit heute</p>
+              <p className="text-5xl font-semibold tracking-tight mt-2">6 Std 24 Min</p>
               <div className="flex items-center gap-2 mt-3 text-sm">
-                <TrendingDown className="h-4 w-4 text-success" />
-                <span className="text-success font-medium">22 Min weniger</span>
+                <TrendingUp className="h-4 w-4 text-success" />
+                <span className="text-success font-medium">22 Min mehr</span>
                 <span className="text-muted-foreground">als gestern</span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div className="surface-card p-4">
-                <div className="flex items-center gap-2 mb-1.5"><Smartphone className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Strafzeit</span></div>
+                <div className="flex items-center gap-2 mb-1.5"><Smartphone className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Abgezogene Zeit</span></div>
                 <p className="text-2xl font-semibold">14 Min</p>
               </div>
               <div className="surface-card p-4">
@@ -78,6 +78,7 @@ export default function DemoEmployee() {
                 <p className="text-2xl font-semibold">{ownRank}. von {demoTeams.length}</p>
               </div>
             </div>
+
 
             <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 flex items-start gap-3">
               <Lock className="h-4 w-4 text-primary shrink-0 mt-0.5" />
