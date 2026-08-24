@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { Users, Trophy, Activity, TrendingDown, Sparkles, Zap, Clock, CalendarRange } from "lucide-react";
+import { Users, Trophy, Activity, TrendingUp, Sparkles, Zap, Clock, CalendarRange } from "lucide-react";
 import PrivacySelfTest from "@/components/app/PrivacySelfTest";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { MONTHS_DE } from "@/lib/format";
+import { MONTHS_DE, focusMinutes } from "@/lib/format";
 
 interface TeamRow {
   id: string;
@@ -75,11 +75,11 @@ export default function ManagerDashboard() {
           const s = sumByTeam.get(t.id);
           return {
             id: t.id, name: t.name, emoji: t.emoji, color: t.color,
-            avgMin: Number(s?.avg_screen_minutes ?? 0),
+            avgMin: focusMinutes(Number(s?.avg_screen_minutes ?? 0)),
             members: counts[t.id] ?? 0,
           };
         })
-        .sort((a, b) => a.avgMin - b.avgMin)
+        .sort((a, b) => b.avgMin - a.avgMin)
     );
 
     // Aggregiere Jahresdaten in Monate (Datums-String direkt parsen, keine TZ-Verschiebung)
@@ -97,7 +97,7 @@ export default function ManagerDashboard() {
       .sort((a, b) => a.year - b.year || a.month - b.month)
       .map((b) => ({
         label: `${MONTHS_DE[b.month]} ${String(b.year).slice(2)}`,
-        avgMinutes: Math.round(b.sum / Math.max(1, b.n)),
+        avgMinutes: focusMinutes(Math.round(b.sum / Math.max(1, b.n))),
       }));
     setYearData(points);
 
@@ -130,8 +130,8 @@ export default function ManagerDashboard() {
     if (yearData.length < 2) return null;
     const first = yearData[0];
     const last = yearData[yearData.length - 1];
-    const diffMin = first.avgMinutes - last.avgMinutes;
-    // Stunden weniger pro Mitarbeiter pro Monat (≈22 Arbeitstage)
+    const diffMin = last.avgMinutes - first.avgMinutes;
+    // Zusätzliche Fokus-Stunden pro Mitarbeiter pro Monat (≈22 Arbeitstage)
     const hoursPerMonth = (diffMin * 22) / 60;
     const pct = first.avgMinutes > 0 ? Math.round((diffMin / first.avgMinutes) * 100) : 0;
     return {
@@ -158,7 +158,7 @@ export default function ManagerDashboard() {
       weekdays: [new Date().getDay()],
     });
     if (error) return toast.error(error.message);
-    toast.success(`High-Focus für ${minutes} min aktiv – Ablenkung zählt doppelt.`);
+    toast.success(`High-Focus für ${minutes} min aktiv – Fokuszeit zählt doppelt.`);
     load();
   };
 
@@ -204,8 +204,8 @@ export default function ManagerDashboard() {
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">
               {adHoc
-                ? <>Endet um {adHoc.end.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })} · Penalty ×{adHoc.multiplier}</>
-                : "Aktiviere eine fokussierte Phase. Ablenkungszeit zählt doppelt."}
+                ? <>Endet um {adHoc.end.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })} · Fokus ×{adHoc.multiplier}</>
+                : "Aktiviere eine fokussierte Phase. Gesammelte Fokuszeit zählt doppelt."}
             </p>
           </div>
           {adHoc ? (
@@ -229,7 +229,7 @@ export default function ManagerDashboard() {
         <Stat icon={Users} label="Mitarbeitende" value={memberCount.toString()} />
         <Stat icon={Trophy} label="Teams" value={teams.length.toString()} />
         <Stat icon={Activity} label="Aktive Challenge" value={activeChallenge ? "Läuft" : "—"} small={activeChallenge ?? undefined} />
-        <Stat icon={TrendingDown} label="Ø Ablenkung heute" value={teams.length ? `${Math.round(teams.reduce((s, t) => s + t.avgMin, 0) / teams.length)} min` : "—"} />
+        <Stat icon={TrendingUp} label="Ø Fokuszeit heute" value={teams.length ? `${Math.round(teams.reduce((s, t) => s + t.avgMin, 0) / teams.length)} min` : "—"} />
       </div>
 
       {/* Jahresüberblick */}
@@ -237,7 +237,7 @@ export default function ManagerDashboard() {
         <div className="flex items-start justify-between gap-4 mb-4">
           <div>
             <h2 className="font-semibold flex items-center gap-2"><CalendarRange className="h-4 w-4 text-primary" /> Jahresüberblick</h2>
-            <p className="text-xs text-muted-foreground mt-0.5">Bildschirmzeit Ø pro Mitarbeitendem · Monatsverlauf</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Fokuszeit Ø pro Mitarbeitendem · Monatsverlauf</p>
           </div>
         </div>
 
@@ -250,14 +250,14 @@ export default function ManagerDashboard() {
             {yearInsight && yearInsight.diffMin > 0 && (
               <div
                 className="mb-5 rounded-2xl bg-gradient-to-br from-primary/10 to-success/10 border border-primary/20 p-5"
-                title={`Seit Einführung: Ø Bildschirmzeit von ${yearInsight.firstAvg} auf ${yearInsight.lastAvg} min/Tag (${yearInsight.firstLabel} → ${yearInsight.lastLabel}).`}
+                title={`Seit Einführung: Ø Fokuszeit von ${yearInsight.firstAvg} auf ${yearInsight.lastAvg} min/Tag (${yearInsight.firstLabel} → ${yearInsight.lastLabel}).`}
               >
                 <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Seit Einführung von TeamFokus</p>
                 <p className="text-3xl md:text-4xl font-semibold tracking-tight">
-                  −{yearInsight.hoursPerMonth} Std / Monat
+                  +{yearInsight.hoursPerMonth} Std Fokus / Monat
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  {yearInsight.pct}% weniger Bildschirmzeit ({yearInsight.firstAvg} → {yearInsight.lastAvg} Min/Tag).
+                  {yearInsight.pct}% mehr Fokuszeit ({yearInsight.firstAvg} → {yearInsight.lastAvg} Min/Tag).
                 </p>
               </div>
             )}
@@ -275,7 +275,7 @@ export default function ManagerDashboard() {
                   <YAxis hide />
                   <Tooltip
                     contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }}
-                    formatter={(v: any) => [`${v} min`, "Ø Bildschirmzeit"]}
+                    formatter={(v: any) => [`${v} min`, "Ø Fokuszeit"]}
                   />
                   <Area type="monotone" dataKey="avgMinutes" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#yearGrad)" />
                 </AreaChart>
@@ -286,7 +286,7 @@ export default function ManagerDashboard() {
       </section>
 
       <section className="surface-card p-6">
-        <h2 className="font-semibold mb-4">Team-Ranking heute</h2>
+        <h2 className="font-semibold mb-4">Team-Ranking heute · meiste Fokuszeit</h2>
         {loading ? (
           <p className="text-sm text-muted-foreground">Lädt…</p>
         ) : teams.length === 0 ? (
@@ -301,7 +301,7 @@ export default function ManagerDashboard() {
                   <p className="font-medium truncate">{t.name}</p>
                   <p className="text-xs text-muted-foreground">{t.members} {t.members === 1 ? "Mitglied" : "Mitglieder"}</p>
                 </div>
-                <span className="text-sm font-semibold tabular-nums">{Math.round(t.avgMin)} min</span>
+                <span className="text-sm font-semibold tabular-nums">{Math.round(t.avgMin)} min Fokus</span>
               </li>
             ))}
           </ul>
