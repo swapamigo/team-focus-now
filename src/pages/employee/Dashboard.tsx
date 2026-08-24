@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { formatMinutes, isoDate, lastNDates, formatWeekdayShort, MONTHS_DE } from "@/lib/format";
+import { formatMinutes, isoDate, lastNDates, formatWeekdayShort, MONTHS_DE, focusMinutes } from "@/lib/format";
 import { Trophy, Flame, Smartphone, TrendingUp, TrendingDown, Lock, CalendarRange } from "lucide-react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell, Area, AreaChart } from "recharts";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,7 @@ interface TeamRanking {
   team_name: string;
   team_emoji: string | null;
   team_color: string;
-  avg_screen_minutes: number;
+  avg_focus_minutes: number;
   is_own: boolean;
 }
 
@@ -48,17 +48,17 @@ export default function EmployeeDashboard() {
       setWeek(dates.map((d) => {
         const key = isoDate(d);
         const r: any = ownMap.get(key);
-        return { date: key, mins: Number(r?.screen_minutes ?? 0), label: formatWeekdayShort(d) };
+        return { date: key, mins: focusMinutes(Number(r?.screen_minutes ?? 0), Number(r?.penalty_minutes ?? 0)), label: formatWeekdayShort(d) };
       }));
       setTwoWeek(dates14.map((d) => {
         const r: any = ownMap.get(isoDate(d));
-        return { label: formatWeekdayShort(d), mins: Number(r?.screen_minutes ?? 0) };
+        return { label: formatWeekdayShort(d), mins: focusMinutes(Number(r?.screen_minutes ?? 0), Number(r?.penalty_minutes ?? 0)) };
       }));
       const t: any = ownMap.get(today);
       const y: any = ownMap.get(yesterday);
-      setTodayMin(Number(t?.screen_minutes ?? 0));
+      setTodayMin(focusMinutes(Number(t?.screen_minutes ?? 0), Number(t?.penalty_minutes ?? 0)));
       setTodayPenalty(Number(t?.penalty_minutes ?? 0));
-      setYesterdayMin(Number(y?.screen_minutes ?? 0));
+      setYesterdayMin(focusMinutes(Number(y?.screen_minutes ?? 0), Number(y?.penalty_minutes ?? 0)));
 
       const { data: teamSummaries } = await supabase
         .from("daily_team_summaries")
@@ -72,7 +72,7 @@ export default function EmployeeDashboard() {
         team_name: r.teams.name,
         team_emoji: r.teams.emoji,
         team_color: r.teams.color,
-        avg_screen_minutes: Number(r.avg_screen_minutes),
+        avg_focus_minutes: focusMinutes(Number(r.avg_screen_minutes)),
         is_own: r.team_id === teamId,
       })));
 
@@ -130,20 +130,20 @@ export default function EmployeeDashboard() {
           .sort((a, b) => a.year - b.year || a.month - b.month)
           .map((b) => ({
             label: `${MONTHS_DE[b.month]} ${String(b.year).slice(2)}`,
-            avgMinutes: Math.round(b.sum / Math.max(1, b.n)),
+            avgMinutes: focusMinutes(Math.round(b.sum / Math.max(1, b.n))),
           }))
       );
     })();
   }, [user, companyId, teamId]);
 
   const ownRank = teams.findIndex((t) => t.is_own) + 1;
-  const diffYesterday = todayMin - yesterdayMin;
+  const diffYesterday = yesterdayMin - todayMin; // > 0 = heute weniger Fokus
   const heatMax = Math.max(1, ...heatmap.flat());
 
   const yearInsight = useMemo(() => {
     if (yearData.length < 2) return null;
     const first = yearData[0]; const last = yearData[yearData.length - 1];
-    const diffMin = first.avgMinutes - last.avgMinutes;
+    const diffMin = last.avgMinutes - first.avgMinutes;
     const hoursPerMonth = Math.round(((diffMin * 22) / 60) * 10) / 10;
     const pct = first.avgMinutes > 0 ? Math.round((diffMin / first.avgMinutes) * 100) : 0;
     return { diffMin: Math.round(diffMin), hoursPerMonth, pct };
@@ -174,18 +174,18 @@ export default function EmployeeDashboard() {
         <div className="surface-card p-6 relative overflow-hidden animate-fade-in">
           <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full gradient-primary opacity-10 blur-2xl" />
           <div className="relative">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Bildschirmzeit heute</p>
+            <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Fokuszeit heute</p>
             <p className="text-5xl font-semibold tracking-tight mt-2">{formatMinutes(todayMin)}</p>
             <div className="flex items-center gap-2 mt-3 text-sm">
               {diffYesterday <= 0 ? (
                 <>
-                  <TrendingDown className="h-4 w-4 text-success" />
-                  <span className="text-success font-medium">{formatMinutes(Math.abs(diffYesterday))} weniger</span>
+                  <TrendingUp className="h-4 w-4 text-success" />
+                  <span className="text-success font-medium">{formatMinutes(Math.abs(diffYesterday))} mehr</span>
                 </>
               ) : (
                 <>
-                  <TrendingUp className="h-4 w-4 text-warning" />
-                  <span className="text-warning font-medium">{formatMinutes(diffYesterday)} mehr</span>
+                  <TrendingDown className="h-4 w-4 text-warning" />
+                  <span className="text-warning font-medium">{formatMinutes(diffYesterday)} weniger</span>
                 </>
               )}
               <span className="text-muted-foreground">als gestern</span>
@@ -196,7 +196,7 @@ export default function EmployeeDashboard() {
 
       <section className="px-5 mb-6 grid grid-cols-2 gap-3">
         <div className="surface-card p-4">
-          <div className="flex items-center gap-2 mb-1.5"><Smartphone className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Strafzeit</span></div>
+          <div className="flex items-center gap-2 mb-1.5"><Smartphone className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Abgezogene Zeit</span></div>
           <p className="text-2xl font-semibold">{formatMinutes(todayPenalty)}</p>
         </div>
         <div className="surface-card p-4">
@@ -209,7 +209,7 @@ export default function EmployeeDashboard() {
         <div className="surface-card p-5 animate-fade-in">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold">Diese Woche</h2>
-            <span className="text-xs text-muted-foreground">Bildschirmminuten</span>
+            <span className="text-xs text-muted-foreground">Fokusminuten</span>
           </div>
           <div className="h-40">
             <ResponsiveContainer width="100%" height="100%">
@@ -218,7 +218,7 @@ export default function EmployeeDashboard() {
                 <Tooltip
                   cursor={{ fill: "hsl(var(--muted))", radius: 12 }}
                   contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }}
-                  formatter={(v: any) => [formatMinutes(Number(v)), "Zeit"]}
+                  formatter={(v: any) => [formatMinutes(Number(v)), "Fokuszeit"]}
                   labelFormatter={() => ""}
                 />
                 <Bar dataKey="mins" radius={[8, 8, 8, 8]}>
@@ -233,7 +233,7 @@ export default function EmployeeDashboard() {
       </section>
 
       <section className="px-5 mb-6">
-        <h2 className="font-semibold mb-3 px-1">Team-Ranking heute</h2>
+        <h2 className="font-semibold mb-3 px-1">Team-Ranking heute · meiste Fokuszeit</h2>
         <div className="surface-card divide-y divide-border/60 animate-fade-in">
           {teams.length === 0 && (
             <div className="p-6 text-sm text-muted-foreground text-center">Noch keine Daten – Demo-Tracking läuft.</div>
@@ -248,7 +248,7 @@ export default function EmployeeDashboard() {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-medium truncate">{t.team_name} {t.is_own && <span className="text-xs text-primary ml-1">(Dein Team)</span>}</p>
-                <p className="text-xs text-muted-foreground">Ø {formatMinutes(t.avg_screen_minutes)}</p>
+                <p className="text-xs text-muted-foreground">Ø {formatMinutes(t.avg_focus_minutes)} Fokus</p>
               </div>
             </div>
           ))}
@@ -270,7 +270,7 @@ export default function EmployeeDashboard() {
                 </defs>
                 <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
                 <YAxis hide />
-                <Tooltip contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [formatMinutes(Number(v)), "Bildschirmzeit"]} />
+                <Tooltip contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [formatMinutes(Number(v)), "Fokuszeit"]} />
                 <Area type="monotone" dataKey="mins" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#empG14)" />
               </AreaChart>
             </ResponsiveContainer>
@@ -281,8 +281,8 @@ export default function EmployeeDashboard() {
       {/* Heatmap */}
       <section className="px-5 mb-6">
         <div className="surface-card p-5">
-          <h2 className="font-semibold mb-1">Fokus-Heatmap</h2>
-          <p className="text-xs text-muted-foreground mb-4">Letzte 7 Tage · je dunkler, desto mehr Nutzung</p>
+          <h2 className="font-semibold mb-1">Ablenkungs-Heatmap</h2>
+          <p className="text-xs text-muted-foreground mb-4">Letzte 7 Tage · je dunkler, desto mehr unterbrochene Fokuszeit</p>
           <div className="space-y-1.5">
             {heatmap.map((row, di) => (
               <div key={di} className="flex items-center gap-1.5">
@@ -308,12 +308,12 @@ export default function EmployeeDashboard() {
         <section className="px-5 mb-6">
           <div className="surface-card p-5">
             <h2 className="font-semibold flex items-center gap-2"><CalendarRange className="h-4 w-4 text-primary" /> Jahresüberblick</h2>
-            <p className="text-xs text-muted-foreground mt-0.5 mb-4">Ø Bildschirmzeit pro Monat</p>
+            <p className="text-xs text-muted-foreground mt-0.5 mb-4">Ø Fokuszeit pro Monat</p>
             {yearInsight && yearInsight.diffMin > 0 && (
               <div className="mb-4 rounded-2xl bg-gradient-to-br from-primary/10 to-success/10 border border-primary/20 p-4">
                 <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Dein Fortschritt</p>
-                <p className="text-2xl font-semibold tracking-tight">−{yearInsight.hoursPerMonth} Std / Monat</p>
-                <p className="text-xs text-muted-foreground mt-1.5">{yearInsight.diffMin} Min/Tag weniger ({yearInsight.pct}%).</p>
+                <p className="text-2xl font-semibold tracking-tight">+{yearInsight.hoursPerMonth} Std Fokus / Monat</p>
+                <p className="text-xs text-muted-foreground mt-1.5">{yearInsight.diffMin} Min/Tag mehr Fokuszeit ({yearInsight.pct}%).</p>
               </div>
             )}
             <div className="h-48">
@@ -327,7 +327,7 @@ export default function EmployeeDashboard() {
                   </defs>
                   <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
                   <YAxis hide />
-                  <Tooltip contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [`${v} min`, "Ø Bildschirmzeit"]} />
+                  <Tooltip contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [`${v} min`, "Ø Fokuszeit"]} />
                   <Area type="monotone" dataKey="avgMinutes" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#empGY)" />
                 </AreaChart>
               </ResponsiveContainer>
