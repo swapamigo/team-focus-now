@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Trophy, Users, Calendar } from "lucide-react";
-import { formatMinutes } from "@/lib/format";
+import { formatMinutes, focusMinutes } from "@/lib/format";
 
 export default function TeamsPage() {
   const { companyId, teamId } = useAuth();
@@ -67,7 +67,7 @@ export default function TeamsPage() {
                 <div className="flex-1 min-w-0">
                   <p className="font-medium">{t.teams.name} {isOwn && <span className="text-xs text-primary ml-1">(Du)</span>}</p>
                   <div className="flex items-center gap-3 text-xs text-muted-foreground mt-0.5">
-                    <span>Ø {formatMinutes(Number(t.avg_screen_minutes))}</span>
+                    <span>Ø {formatMinutes(focusMinutes(Number(t.avg_screen_minutes)))} Fokus</span>
                     <span className="flex items-center gap-1"><Users className="h-3 w-3" />{t.member_count}</span>
                   </div>
                 </div>
