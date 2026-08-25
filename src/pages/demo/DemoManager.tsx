@@ -41,11 +41,7 @@ const demoWhitelist = {
 export default function DemoManager() {
   const [seed, setSeed] = useState(0);
   const yearData = useMemo(() => genYear(seed), [seed]);
-  const first = yearData[0].avgMinutes;
-  const last = yearData[yearData.length - 1].avgMinutes;
-  const diffMin = last - first;
-  const hoursPerMonth = Math.round(((diffMin * 22) / 60) * 10) / 10;
-  const pct = Math.round((diffMin / first) * 100);
+
 
   // Interactive demo state
   const [members, setMembers] = useState(initialMembers);
@@ -140,7 +136,7 @@ export default function DemoManager() {
     <div className="min-h-screen bg-background">
       <Seo
         title="Manager-Demo – TeamFokus Dashboard ausprobieren"
-        description="Interaktive Demo des TeamFokus Manager-Dashboards: Team-Aggregate, Challenges und Workspace-Einstellungen ohne Anmeldung erleben."
+        description="Interaktive Demo der Arbeitgeber-Ansicht: sichtbar ist ausschließlich, welches Team eine vereinbarte Belohnung freigeschaltet hat."
         path="/demo/manager"
       />
       <DemoBanner />
@@ -208,7 +204,7 @@ export default function DemoManager() {
           <TabsContent value="teams" className="space-y-6">
             <section className="surface-card p-5 md:p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold">Team-Ranking heute</h2>
+                <h2 className="font-semibold">Teams</h2>
                 <Dialog open={openTeam} onOpenChange={setOpenTeam}>
                   <DialogTrigger asChild>
                     <Button size="sm" variant="outline"><Plus className="h-4 w-4 mr-1" />Team</Button>
@@ -224,18 +220,20 @@ export default function DemoManager() {
                 </Dialog>
               </div>
               <ul className="space-y-2">
-                {[...teamsList].sort((a, b) => b.avgMin - a.avgMin).map((t, i) => (
+                {teamsList.map((t) => (
                   <li key={t.id} className="flex items-center gap-3 p-3 rounded-xl bg-secondary/60">
-                    <span className="w-6 text-sm font-semibold text-muted-foreground">#{i + 1}</span>
                     <span className="h-8 w-8 rounded-lg grid place-items-center text-xs font-semibold text-white" style={{ background: t.color }}>{t.name.slice(0, 2).toUpperCase()}</span>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium truncate">{t.name}</p>
                       <p className="text-xs text-muted-foreground">{t.members} Mitglieder</p>
                     </div>
-                    <span className="text-sm font-semibold tabular-nums">Ø {t.avgMin} min Fokus</span>
                   </li>
                 ))}
               </ul>
+              <p className="text-xs text-muted-foreground mt-3">
+                Fokuszeiten und Durchschnittswerte der Teams sind für Arbeitgeber nicht abrufbar.
+              </p>
+
             </section>
 
             <section className="surface-card p-5 md:p-6">
