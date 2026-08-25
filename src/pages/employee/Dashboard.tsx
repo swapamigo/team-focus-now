@@ -6,16 +6,11 @@ import { Trophy, Flame, Smartphone, TrendingUp, TrendingDown, Lock, CalendarRang
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell, Area, AreaChart } from "recharts";
 import { cn } from "@/lib/utils";
 
-interface TeamRanking {
-  team_id: string;
-  team_name: string;
-  team_emoji: string | null;
-  team_color: string;
-  avg_focus_minutes: number;
-  is_own: boolean;
+interface TeamGoal {
+  reward_title: string;
+  target_focus_minutes: number;
+  unlocked: boolean;
 }
-
-
 
 export default function EmployeeDashboard() {
   const { user, companyId, teamId, profile } = useAuth();
@@ -23,11 +18,13 @@ export default function EmployeeDashboard() {
   const [todayPenalty, setTodayPenalty] = useState(0);
   const [yesterdayMin, setYesterdayMin] = useState(0);
   const [week, setWeek] = useState<{ date: string; mins: number; label: string }[]>([]);
-  const [teams, setTeams] = useState<TeamRanking[]>([]);
+  const [teamGoal, setTeamGoal] = useState<TeamGoal | null>(null);
+  const [ownTeamAvg, setOwnTeamAvg] = useState<number | null>(null);
   const [highFocusActive, setHighFocusActive] = useState<{ label: string; multiplier: number } | null>(null);
   const [twoWeek, setTwoWeek] = useState<{ label: string; mins: number }[]>([]);
   const [heatmap, setHeatmap] = useState<number[][]>([]);
   const [yearData, setYearData] = useState<{ label: string; avgMinutes: number }[]>([]);
+
 
   useEffect(() => {
     if (!user || !companyId) return;
