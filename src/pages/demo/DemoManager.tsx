@@ -41,11 +41,7 @@ const demoWhitelist = {
 export default function DemoManager() {
   const [seed, setSeed] = useState(0);
   const yearData = useMemo(() => genYear(seed), [seed]);
-  const first = yearData[0].avgMinutes;
-  const last = yearData[yearData.length - 1].avgMinutes;
-  const diffMin = last - first;
-  const hoursPerMonth = Math.round(((diffMin * 22) / 60) * 10) / 10;
-  const pct = Math.round((diffMin / first) * 100);
+
 
   // Interactive demo state
   const [members, setMembers] = useState(initialMembers);
@@ -140,7 +136,7 @@ export default function DemoManager() {
     <div className="min-h-screen bg-background">
       <Seo
         title="Manager-Demo – TeamFokus Dashboard ausprobieren"
-        description="Interaktive Demo des TeamFokus Manager-Dashboards: Team-Aggregate, Challenges und Workspace-Einstellungen ohne Anmeldung erleben."
+        description="Interaktive Demo der Arbeitgeber-Ansicht: sichtbar ist ausschließlich, welches Team eine vereinbarte Belohnung freigeschaltet hat."
         path="/demo/manager"
       />
       <DemoBanner />
@@ -168,47 +164,47 @@ export default function DemoManager() {
 
           {/* ÜBERSICHT */}
           <TabsContent value="overview" className="space-y-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               <Stat icon={Users} label="Mitarbeitende" value={demoStats.memberCount.toString()} />
               <Stat icon={Trophy} label="Teams" value={String(teamsList.length)} />
-              <Stat icon={Activity} label="Aktive Challenge" value="Läuft" small={challenges.find(c => c.status === "Aktiv")?.name ?? "—"} />
-              <Stat icon={TrendingUp} label="Ø Fokuszeit heute" value={`${Math.round(teamsList.reduce((s, t) => s + t.avgMin, 0) / Math.max(1, teamsList.length))} min`} />
             </div>
 
             <section className="surface-card p-5 md:p-6">
-              <div className="mb-4">
-                <h2 className="font-semibold flex items-center gap-2"><CalendarRange className="h-4 w-4 text-primary" /> Jahresüberblick</h2>
-                <p className="text-xs text-muted-foreground mt-0.5">Fokuszeit Ø pro Mitarbeitendem · klar steigend</p>
-              </div>
-              <div className="mb-5 rounded-2xl bg-gradient-to-br from-primary/10 to-success/10 border border-primary/20 p-5">
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Seit Einführung von TeamFokus</p>
-                <p className="text-3xl md:text-4xl font-semibold tracking-tight">+{hoursPerMonth} Std Fokus / Monat</p>
-                <p className="text-sm text-muted-foreground mt-2">{pct}% mehr Fokuszeit ({first} → {last} Min/Tag).</p>
-              </div>
-              <div className="h-56">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={yearData}>
-                    <defs>
-                      <linearGradient id="dmGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.4} />
-                        <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
-                    <YAxis hide />
-                    <Tooltip contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [`${v} min`, "Ø Fokuszeit"]} />
-                    <Area type="monotone" dataKey="avgMinutes" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#dmGrad)" />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
+              <h2 className="font-semibold flex items-center gap-2 mb-1"><Shield className="h-4 w-4 text-primary" /> Diese eine Information erhältst du</h2>
+              <p className="text-sm text-muted-foreground mb-4">
+                Sichtbar wird ausschließlich, welches Team eine vorher vereinbarte Belohnung freigeschaltet hat.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  { name: "Team Blau", benefit: "zwei Stunden früherer Feierabend" },
+                  { name: "Team Alpha", benefit: "Team-Erlebnis nach Wahl" },
+                ].map((r) => (
+                  <li key={r.name} className="rounded-xl border border-success/30 bg-success/5 p-4">
+                    <p className="font-semibold">{r.name}</p>
+                    <p className="text-sm text-success font-medium">Belohnung freigeschaltet</p>
+                    <p className="text-sm text-muted-foreground mt-1">Gewählter Benefit: {r.benefit}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="surface-card p-5 md:p-6">
+              <h2 className="font-semibold mb-3">Nicht sichtbar für Arbeitgeber</h2>
+              <ul className="grid sm:grid-cols-2 gap-y-1.5 gap-x-4 text-sm text-muted-foreground">
+                {["Namen einzelner Teilnehmender", "individuelle Fokuszeiten", "Nutzungsminuten",
+                  "Team-Durchschnittswerte", "Ranglisten", "verwendete Apps, Webseiten oder URLs",
+                  "Nachrichten, Inhalte, Screenshots, Tastatureingaben", "Standortdaten",
+                  "Teams, die ihr Ziel nicht erreicht haben"].map((x) => <li key={x}>· {x}</li>)}
+              </ul>
             </section>
           </TabsContent>
+
 
           {/* TEAMS */}
           <TabsContent value="teams" className="space-y-6">
             <section className="surface-card p-5 md:p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold">Team-Ranking heute</h2>
+                <h2 className="font-semibold">Teams</h2>
                 <Dialog open={openTeam} onOpenChange={setOpenTeam}>
                   <DialogTrigger asChild>
                     <Button size="sm" variant="outline"><Plus className="h-4 w-4 mr-1" />Team</Button>
@@ -224,18 +220,20 @@ export default function DemoManager() {
                 </Dialog>
               </div>
               <ul className="space-y-2">
-                {[...teamsList].sort((a, b) => b.avgMin - a.avgMin).map((t, i) => (
+                {teamsList.map((t) => (
                   <li key={t.id} className="flex items-center gap-3 p-3 rounded-xl bg-secondary/60">
-                    <span className="w-6 text-sm font-semibold text-muted-foreground">#{i + 1}</span>
                     <span className="h-8 w-8 rounded-lg grid place-items-center text-xs font-semibold text-white" style={{ background: t.color }}>{t.name.slice(0, 2).toUpperCase()}</span>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium truncate">{t.name}</p>
                       <p className="text-xs text-muted-foreground">{t.members} Mitglieder</p>
                     </div>
-                    <span className="text-sm font-semibold tabular-nums">Ø {t.avgMin} min Fokus</span>
                   </li>
                 ))}
               </ul>
+              <p className="text-xs text-muted-foreground mt-3">
+                Fokuszeiten und Durchschnittswerte der Teams sind für Arbeitgeber nicht abrufbar.
+              </p>
+
             </section>
 
             <section className="surface-card p-5 md:p-6">

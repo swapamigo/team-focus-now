@@ -6,16 +6,11 @@ import { Trophy, Flame, Smartphone, TrendingUp, TrendingDown, Lock, CalendarRang
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell, Area, AreaChart } from "recharts";
 import { cn } from "@/lib/utils";
 
-interface TeamRanking {
-  team_id: string;
-  team_name: string;
-  team_emoji: string | null;
-  team_color: string;
-  avg_focus_minutes: number;
-  is_own: boolean;
+interface TeamGoal {
+  reward_title: string;
+  target_focus_minutes: number;
+  unlocked: boolean;
 }
-
-
 
 export default function EmployeeDashboard() {
   const { user, companyId, teamId, profile } = useAuth();
@@ -23,11 +18,13 @@ export default function EmployeeDashboard() {
   const [todayPenalty, setTodayPenalty] = useState(0);
   const [yesterdayMin, setYesterdayMin] = useState(0);
   const [week, setWeek] = useState<{ date: string; mins: number; label: string }[]>([]);
-  const [teams, setTeams] = useState<TeamRanking[]>([]);
+  const [teamGoal, setTeamGoal] = useState<TeamGoal | null>(null);
+  const [ownTeamAvg, setOwnTeamAvg] = useState<number | null>(null);
   const [highFocusActive, setHighFocusActive] = useState<{ label: string; multiplier: number } | null>(null);
   const [twoWeek, setTwoWeek] = useState<{ label: string; mins: number }[]>([]);
   const [heatmap, setHeatmap] = useState<number[][]>([]);
   const [yearData, setYearData] = useState<{ label: string; avgMinutes: number }[]>([]);
+
 
   useEffect(() => {
     if (!user || !companyId) return;
@@ -60,21 +57,27 @@ export default function EmployeeDashboard() {
       setTodayPenalty(Number(t?.penalty_minutes ?? 0));
       setYesterdayMin(focusMinutes(Number(y?.screen_minutes ?? 0), Number(y?.penalty_minutes ?? 0)));
 
-      const { data: teamSummaries } = await supabase
-        .from("daily_team_summaries")
-        .select("team_id, avg_screen_minutes, teams!inner(name, emoji, color)")
-        .eq("company_id", companyId)
-        .eq("date", today)
-        .order("avg_screen_minutes", { ascending: true });
+      // Nur das eigene Team – keine teamübergreifende Rangliste.
+      if (teamId) {
+        const [{ data: ownTeam }, { data: goal }] = await Promise.all([
+          supabase
+            .from("daily_team_summaries")
+            .select("avg_screen_minutes")
+            .eq("team_id", teamId)
+            .eq("date", today)
+            .maybeSingle(),
+          supabase
+            .from("team_goals")
+            .select("reward_title, target_focus_minutes, unlocked")
+            .eq("team_id", teamId)
+            .order("created_at", { ascending: false })
+            .limit(1)
+            .maybeSingle(),
+        ]);
+        setOwnTeamAvg(ownTeam ? focusMinutes(Number(ownTeam.avg_screen_minutes)) : null);
+        setTeamGoal(goal ? { reward_title: goal.reward_title, target_focus_minutes: Number(goal.target_focus_minutes), unlocked: goal.unlocked } : null);
+      }
 
-      setTeams((teamSummaries ?? []).map((r: any) => ({
-        team_id: r.team_id,
-        team_name: r.teams.name,
-        team_emoji: r.teams.emoji,
-        team_color: r.teams.color,
-        avg_focus_minutes: focusMinutes(Number(r.avg_screen_minutes)),
-        is_own: r.team_id === teamId,
-      })));
 
       const { data: hf } = await supabase
         .from("high_focus_periods")
@@ -136,7 +139,10 @@ export default function EmployeeDashboard() {
     })();
   }, [user, companyId, teamId]);
 
-  const ownRank = teams.findIndex((t) => t.is_own) + 1;
+  const goalProgress = teamGoal && teamGoal.target_focus_minutes > 0 && ownTeamAvg !== null
+    ? Math.min(100, Math.round((ownTeamAvg / teamGoal.target_focus_minutes) * 100))
+    : null;
+
   const diffYesterday = yesterdayMin - todayMin; // > 0 = heute weniger Fokus
   const heatMax = Math.max(1, ...heatmap.flat());
 
@@ -200,9 +206,10 @@ export default function EmployeeDashboard() {
           <p className="text-2xl font-semibold">{formatMinutes(todayPenalty)}</p>
         </div>
         <div className="surface-card p-4">
-          <div className="flex items-center gap-2 mb-1.5"><Trophy className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Team-Platz</span></div>
-          <p className="text-2xl font-semibold">{ownRank > 0 ? `${ownRank}. von ${teams.length}` : "–"}</p>
+          <div className="flex items-center gap-2 mb-1.5"><Trophy className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Team-Ziel</span></div>
+          <p className="text-2xl font-semibold">{goalProgress !== null ? `${goalProgress} %` : "–"}</p>
         </div>
+
       </section>
 
       <section className="px-5 mb-6">
@@ -233,27 +240,33 @@ export default function EmployeeDashboard() {
       </section>
 
       <section className="px-5 mb-6">
-        <h2 className="font-semibold mb-3 px-1">Team-Ranking heute · meiste Fokuszeit</h2>
-        <div className="surface-card divide-y divide-border/60 animate-fade-in">
-          {teams.length === 0 && (
-            <div className="p-6 text-sm text-muted-foreground text-center">Noch keine Daten – Demo-Tracking läuft.</div>
+        <h2 className="font-semibold mb-3 px-1">Euer Team-Ziel</h2>
+        <div className="surface-card p-5 animate-fade-in">
+          {!teamGoal ? (
+            <p className="text-sm text-muted-foreground">
+              Noch kein Ziel vereinbart. Ziel und Belohnung werden vor dem Start gemeinsam festgelegt.
+            </p>
+          ) : (
+            <>
+              <p className="font-medium">{teamGoal.reward_title}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Ziel: Ø {formatMinutes(teamGoal.target_focus_minutes)} Fokuszeit pro Tag im Team
+              </p>
+              <div className="mt-4 h-2.5 rounded-full bg-secondary overflow-hidden" role="progressbar"
+                aria-valuenow={goalProgress ?? 0} aria-valuemin={0} aria-valuemax={100} aria-label="Fortschritt Team-Ziel">
+                <div className={cn("h-full rounded-full", teamGoal.unlocked ? "bg-success" : "bg-primary")}
+                  style={{ width: `${goalProgress ?? 0}%` }} />
+              </div>
+              <p className="text-xs mt-2 text-muted-foreground">
+                {teamGoal.unlocked
+                  ? "Belohnung freigeschaltet. Dein Arbeitgeber sieht ausschließlich diese Information."
+                  : "Nur dein Team sieht diesen Fortschritt – dein Arbeitgeber nicht."}
+              </p>
+            </>
           )}
-          {teams.map((t, i) => (
-            <div key={t.team_id} className={cn("flex items-center gap-3 p-4", t.is_own && "bg-primary/5")}>
-              <div className="w-7 text-center">
-                {i === 0 ? <span className="text-lg">🥇</span> : i === 1 ? <span className="text-lg">🥈</span> : i === 2 ? <span className="text-lg">🥉</span> : <span className="text-sm font-medium text-muted-foreground">{i + 1}.</span>}
-              </div>
-              <div className="h-10 w-10 rounded-lg grid place-items-center text-xs font-semibold text-white shrink-0" style={{ background: t.team_color }}>
-                {t.team_name.slice(0, 2).toUpperCase()}
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-medium truncate">{t.team_name} {t.is_own && <span className="text-xs text-primary ml-1">(Dein Team)</span>}</p>
-                <p className="text-xs text-muted-foreground">Ø {formatMinutes(t.avg_focus_minutes)} Fokus</p>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
+
 
       {/* 14-Tage Verlauf */}
       <section className="px-5 mb-6">

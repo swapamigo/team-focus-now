@@ -143,33 +143,26 @@ export default function DemoEmployee() {
 
           {/* TEAMS */}
           <TabsContent value="teams" className="space-y-4">
-            <h2 className="font-semibold px-1">Team-Ranking heute</h2>
-            <div className="surface-card divide-y divide-border/60">
-              {[...demoTeams].sort((a, b) => b.avgMin - a.avgMin).map((t, i) => (
-                <div key={t.id} className={"flex items-center gap-3 p-4 " + (t.isOwn ? "bg-primary/5" : "")}>
-                  <div className="w-7 text-center">
-                    {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : <span className="text-sm text-muted-foreground">{i + 1}.</span>}
-                  </div>
-                  <div className="h-10 w-10 rounded-lg grid place-items-center text-xs font-semibold text-white shrink-0" style={{ background: t.color }}>
-                    {t.name.slice(5, 7).toUpperCase()}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium truncate">{t.name} {t.isOwn && <span className="text-xs text-primary ml-1">(Dein Team)</span>}</p>
-                    <p className="text-xs text-muted-foreground">Ø {t.avgMin} Min Fokus · {t.members} Mitglieder</p>
-                  </div>
-                </div>
-              ))}
+            <h2 className="font-semibold px-1">Euer Team-Ziel</h2>
+            <div className="surface-card p-5">
+              <p className="text-sm font-medium">Team Alpha · Ziel: Ø 5 Std Fokuszeit pro Tag</p>
+              <p className="text-xs text-muted-foreground mb-3">Gewählte Belohnung: zwei Stunden früherer Feierabend</p>
+              <div className="h-2.5 rounded-full bg-secondary overflow-hidden" role="progressbar"
+                aria-valuenow={68} aria-valuemin={0} aria-valuemax={100} aria-label="Fortschritt Team-Ziel">
+                <div className="h-full rounded-full bg-primary" style={{ width: "68%" }} />
+              </div>
+              <p className="text-sm mt-2">68 % erreicht · noch 5 Tage</p>
             </div>
 
             <div className="surface-card p-5">
-              <h3 className="font-semibold flex items-center gap-2 mb-3"><Trophy className="h-4 w-4 text-primary" />Aktive Challenge</h3>
-              <p className="text-sm font-medium">Fokus-Woche</p>
-              <p className="text-xs text-muted-foreground mb-3">Belohnung: Tankgutschein 50 € · 5 Tage übrig</p>
-              <div className="h-2 rounded-full bg-secondary overflow-hidden">
-                <div className="h-full gradient-primary" style={{ width: "68%" }} />
-              </div>
+              <h3 className="font-semibold mb-2">Was dein Arbeitgeber sieht</h3>
+              <p className="text-sm text-muted-foreground">
+                Ausschließlich, ob euer Team die vereinbarte Belohnung freigeschaltet hat. Keine Namen,
+                keine Minuten, keine Durchschnittswerte, keine Rangliste.
+              </p>
             </div>
           </TabsContent>
+
 
           {/* FEATURES */}
           <TabsContent value="features" className="space-y-3">
