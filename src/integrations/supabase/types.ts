@@ -825,6 +825,79 @@ export type Database = {
         }
         Relationships: []
       }
+      team_goals: {
+        Row: {
+          baseline_focus_minutes: number
+          challenge_id: string | null
+          company_id: string
+          created_at: string
+          id: string
+          period_end: string
+          period_start: string
+          reward_note: string | null
+          reward_title: string
+          target_focus_minutes: number
+          team_id: string
+          unlocked: boolean
+          unlocked_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          baseline_focus_minutes?: number
+          challenge_id?: string | null
+          company_id: string
+          created_at?: string
+          id?: string
+          period_end?: string
+          period_start?: string
+          reward_note?: string | null
+          reward_title: string
+          target_focus_minutes?: number
+          team_id: string
+          unlocked?: boolean
+          unlocked_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          baseline_focus_minutes?: number
+          challenge_id?: string | null
+          company_id?: string
+          created_at?: string
+          id?: string
+          period_end?: string
+          period_start?: string
+          reward_note?: string | null
+          reward_title?: string
+          target_focus_minutes?: number
+          team_id?: string
+          unlocked?: boolean
+          unlocked_at?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "team_goals_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "challenges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "team_goals_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "team_goals_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       team_members: {
         Row: {
           id: string
