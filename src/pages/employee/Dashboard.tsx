@@ -57,21 +57,27 @@ export default function EmployeeDashboard() {
       setTodayPenalty(Number(t?.penalty_minutes ?? 0));
       setYesterdayMin(focusMinutes(Number(y?.screen_minutes ?? 0), Number(y?.penalty_minutes ?? 0)));
 
-      const { data: teamSummaries } = await supabase
-        .from("daily_team_summaries")
-        .select("team_id, avg_screen_minutes, teams!inner(name, emoji, color)")
-        .eq("company_id", companyId)
-        .eq("date", today)
-        .order("avg_screen_minutes", { ascending: true });
+      // Nur das eigene Team – keine teamübergreifende Rangliste.
+      if (teamId) {
+        const [{ data: ownTeam }, { data: goal }] = await Promise.all([
+          supabase
+            .from("daily_team_summaries")
+            .select("avg_screen_minutes")
+            .eq("team_id", teamId)
+            .eq("date", today)
+            .maybeSingle(),
+          supabase
+            .from("team_goals")
+            .select("reward_title, target_focus_minutes, unlocked")
+            .eq("team_id", teamId)
+            .order("created_at", { ascending: false })
+            .limit(1)
+            .maybeSingle(),
+        ]);
+        setOwnTeamAvg(ownTeam ? focusMinutes(Number(ownTeam.avg_screen_minutes)) : null);
+        setTeamGoal(goal ? { reward_title: goal.reward_title, target_focus_minutes: Number(goal.target_focus_minutes), unlocked: goal.unlocked } : null);
+      }
 
-      setTeams((teamSummaries ?? []).map((r: any) => ({
-        team_id: r.team_id,
-        team_name: r.teams.name,
-        team_emoji: r.teams.emoji,
-        team_color: r.teams.color,
-        avg_focus_minutes: focusMinutes(Number(r.avg_screen_minutes)),
-        is_own: r.team_id === teamId,
-      })));
 
       const { data: hf } = await supabase
         .from("high_focus_periods")
