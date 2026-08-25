@@ -39,7 +39,12 @@ Deno.serve(async (req) => {
     });
   }
 
-  return new Response(JSON.stringify({ ok: true, result: data }), {
+  // Prüft Team-Ziele und setzt ausschließlich das Kennzeichen "Belohnung freigeschaltet".
+  const { data: goals, error: goalError } = await supabase.rpc("run_evaluate_team_goals");
+  if (goalError) console.error("run_evaluate_team_goals failed", goalError);
+
+  return new Response(JSON.stringify({ ok: true, result: data, goals: goals ?? null }), {
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 });
+
