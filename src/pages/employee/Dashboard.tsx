@@ -206,9 +206,10 @@ export default function EmployeeDashboard() {
           <p className="text-2xl font-semibold">{formatMinutes(todayPenalty)}</p>
         </div>
         <div className="surface-card p-4">
-          <div className="flex items-center gap-2 mb-1.5"><Trophy className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Team-Platz</span></div>
-          <p className="text-2xl font-semibold">{ownRank > 0 ? `${ownRank}. von ${teams.length}` : "–"}</p>
+          <div className="flex items-center gap-2 mb-1.5"><Trophy className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Team-Ziel</span></div>
+          <p className="text-2xl font-semibold">{goalProgress !== null ? `${goalProgress} %` : "–"}</p>
         </div>
+
       </section>
 
       <section className="px-5 mb-6">
