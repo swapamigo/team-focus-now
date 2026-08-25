@@ -1272,6 +1272,7 @@ export type Database = {
         }[]
       }
       run_aggregate_and_purge: { Args: never; Returns: Json }
+      run_evaluate_team_goals: { Args: never; Returns: Json }
     }
     Enums: {
       app_role: "manager" | "employee" | "admin"
