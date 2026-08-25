@@ -139,7 +139,10 @@ export default function EmployeeDashboard() {
     })();
   }, [user, companyId, teamId]);
 
-  const ownRank = teams.findIndex((t) => t.is_own) + 1;
+  const goalProgress = teamGoal && teamGoal.target_focus_minutes > 0 && ownTeamAvg !== null
+    ? Math.min(100, Math.round((ownTeamAvg / teamGoal.target_focus_minutes) * 100))
+    : null;
+
   const diffYesterday = yesterdayMin - todayMin; // > 0 = heute weniger Fokus
   const heatMax = Math.max(1, ...heatmap.flat());
 
