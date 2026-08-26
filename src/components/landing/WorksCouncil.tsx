@@ -22,9 +22,8 @@ export default function WorksCouncil() {
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
             Vom Betriebsrat freigegeben.<br />Von Mitarbeitenden geliebt.
           </h2>
-          <p className="mt-4 text-muted-foreground text-base md:text-lg leading-relaxed">
-            TeamFokus wurde von Anfang an so gebaut, dass es die typischen Hürden im Mitbestimmungsverfahren elegant löst –
-            und Mitarbeitende es freiwillig gerne nutzen.
+          <p className="mt-4 text-muted-foreground text-base md:text-lg">
+            Freiwillig, anonym, mitbestimmungsfreundlich.
           </p>
         </div>
 
@@ -50,14 +49,12 @@ export default function WorksCouncil() {
           ))}
         </div>
 
-        <div className="max-w-3xl mx-auto mt-10 surface-card p-6 md:p-7 text-center">
-          <p className="text-sm md:text-base text-foreground/90 leading-relaxed">
-            <strong>Hohe Akzeptanz</strong> entsteht, weil sich niemand kontrolliert fühlt,
-            sondern alle gemeinsam ein Ziel erreichen. Ergebnis: ruhigere Arbeitstage,
-            weniger Stress, mehr echte Pausen.
+        <div className="max-w-3xl mx-auto mt-10 surface-card p-6 text-center">
+          <p className="text-sm md:text-base text-foreground/90">
+            <strong>Hohe Akzeptanz</strong>, weil sich niemand kontrolliert fühlt – alle erreichen gemeinsam ein Ziel.
           </p>
-
         </div>
+
       </div>
     </section>
   );
