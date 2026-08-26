@@ -112,11 +112,11 @@ export default function Landing() {
       {/* Hero — Eigenverantwortung statt Handyverbot */}
       <section className="relative overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-40"
+          className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-80"
           style={{ backgroundImage: `url(${heroPhonesBg.url})` }}
           aria-hidden
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/75 via-background/85 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/80 to-background pointer-events-none" />
         <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
         <div className="absolute inset-0 gradient-hero opacity-60 pointer-events-none" />
         <div className="container relative pt-16 pb-12 md:pt-24 md:pb-16 text-center animate-fade-in">
@@ -374,7 +374,7 @@ export default function Landing() {
             <div className="inline-flex h-14 w-14 rounded-2xl gradient-primary items-center justify-center shadow-glow mb-5">
               <Shield className="h-7 w-7 text-primary-foreground" />
             </div>
-            <h2 className="text-2xl md:text-5xl font-semibold tracking-tight mb-4">Bereit für mehr Fokus im Team?</h2>
+            <h2 className="text-2xl md:text-5xl font-semibold tracking-tight mb-4">Eigenverantwortung statt Handyverbot.</h2>
             <p className="max-w-xl mx-auto text-muted-foreground mb-8 text-base md:text-lg leading-relaxed">
               Kein pauschales Handyverbot. Keine persönlichen Nutzungsdaten für den Arbeitgeber. Echte Team-Belohnungen.
             </p>
