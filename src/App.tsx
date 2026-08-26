@@ -34,8 +34,11 @@ import Waitlist from "./pages/Waitlist";
 import Trust from "./pages/Trust";
 import Akzeptanz from "./pages/Akzeptanz";
 import Vorteile from "./pages/Vorteile";
+import Arbeitgeber from "./pages/Arbeitgeber";
+import Einfuehrung from "./pages/Einfuehrung";
 import Impressum from "./pages/Impressum";
 import Unsubscribe from "./pages/Unsubscribe";
+
 
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLeads from "./pages/admin/AdminLeads";
