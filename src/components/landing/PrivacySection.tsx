@@ -2,43 +2,14 @@ import { Shield, Clock, Lock, Server, Trash2, Users, FileCheck } from "lucide-re
 import { Link } from "react-router-dom";
 
 const dsgvoPoints = [
-  {
-    icon: Shield,
-    title: "Datenminimierung",
-    article: "Art. 5 Abs. 1 lit. c DSGVO",
-    desc: "Wir erfassen ausschließlich Zeitdaten. Keine Inhalte, keine Screenshots, keine Tastatur- oder Mauseingaben, keine URLs.",
-  },
-  {
-    icon: FileCheck,
-    title: "Zweckbindung",
-    article: "Art. 5 Abs. 1 lit. b DSGVO",
-    desc: "Daten dienen ausschließlich dem aggregierten Team-Score – nicht der Leistungskontrolle einzelner Personen.",
-  },
-  {
-    icon: Users,
-    title: "k-Anonymität (k = 5)",
-    article: "Privacy by Design – Art. 25 DSGVO",
-    desc: "Team-Auswertungen erscheinen erst ab 5 teilnehmenden Personen. So lässt sich niemand zurückverfolgen.",
-  },
-  {
-    icon: Server,
-    title: "EU-Hosting",
-    article: "Kein Drittlandtransfer · Art. 44 ff. DSGVO",
-    desc: "Alle Daten liegen auf EU-Servern in Frankfurt. Verbindung TLS-verschlüsselt.",
-  },
-  {
-    icon: Trash2,
-    title: "Löschrecht",
-    article: "Art. 17 DSGVO",
-    desc: "Mitarbeitende können jederzeit alle Daten löschen lassen – mit einem Klick in der App.",
-  },
-  {
-    icon: Lock,
-    title: "Freiwilligkeit",
-    article: "Art. 7 Abs. 3 DSGVO",
-    desc: "Teilnahme ist freiwillig und jederzeit ohne Nachteil widerrufbar.",
-  },
+  { icon: Shield, title: "Datenminimierung", article: "Art. 5 DSGVO", desc: "Nur Zeitdaten. Keine Inhalte, Screenshots oder URLs." },
+  { icon: FileCheck, title: "Zweckbindung", article: "Art. 5 DSGVO", desc: "Nur Team-Score – keine Leistungskontrolle." },
+  { icon: Users, title: "k-Anonymität (k = 5)", article: "Art. 25 DSGVO", desc: "Auswertungen erst ab 5 Personen." },
+  { icon: Server, title: "EU-Hosting", article: "Art. 44 ff. DSGVO", desc: "Server in Frankfurt, TLS-verschlüsselt." },
+  { icon: Trash2, title: "Löschrecht", article: "Art. 17 DSGVO", desc: "Alle Daten jederzeit per Klick löschbar." },
+  { icon: Lock, title: "Freiwilligkeit", article: "Art. 7 DSGVO", desc: "Jederzeit widerrufbar, ohne Nachteil." },
 ];
+
 
 export default function PrivacySection() {
   return (
