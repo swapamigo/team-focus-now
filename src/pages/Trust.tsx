@@ -37,7 +37,7 @@ export default function Trust() {
       <Seo
         title="Trust &amp; Security – TeamFokus"
         description="Wie TeamFokus Daten schützt: Privacy-by-Design, EU-Hosting, Verschlüsselung, DSGVO-Konformität und Betriebsrats-Tauglichkeit."
-        path="/trust"
+        path="/datenschutz"
       />
       <header className="border-b border-border/40">
         <div className="container py-4 flex items-center justify-between">

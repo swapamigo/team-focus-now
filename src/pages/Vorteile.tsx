@@ -79,9 +79,9 @@ export default function Vorteile() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Vorteile für Mitarbeiter – TeamFokus"
+        title="TeamFokus für Mitarbeitende – kein Handyverbot, keine Einzeldaten"
         description="100 % DSGVO-konform und komplett anonym (k=5). Gewinne jeden Monat ein Geschenk mit deinem Team – weniger Stress, mehr Gelassenheit, glücklichere Familie."
-        path="/vorteile"
+        path="/fuer-mitarbeitende"
       />
       <LandingHeader onDemo={() => setDemoOpen(true)} />
 

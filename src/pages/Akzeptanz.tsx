@@ -122,7 +122,7 @@ export default function Akzeptanz() {
       <Seo
         title="Betriebsrat-Akzeptanz – TeamFokus richtig einführen"
         description="Wie du TeamFokus erfolgreich ankündigst: Sieben Überzeugungs-Prinzipien und eine fertige E-Mail-Vorlage für maximale Betriebsrat-Akzeptanz."
-        path="/akzeptanz"
+        path="/fuer-betriebsrat"
       />
       <LandingHeader onDemo={() => setDemoOpen(true)} />
 

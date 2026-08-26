@@ -18,8 +18,8 @@ export default function Footer() {
             <li><a href="#how" className="hover:text-foreground transition-colors">So funktioniert's</a></li>
             <li><a href="#roi" className="hover:text-foreground transition-colors">ROI-Rechner</a></li>
             <li><Link to="/demo/manager" className="hover:text-foreground transition-colors">Demo ansehen</Link></li>
-            <li><Link to="/akzeptanz" className="hover:text-foreground transition-colors">Betriebsrat-Akzeptanz</Link></li>
-            <li><Link to="/vorteile" className="hover:text-foreground transition-colors">Vorteile für Mitarbeiter</Link></li>
+            <li><Link to="/fuer-betriebsrat" className="hover:text-foreground transition-colors">Betriebsrat-Akzeptanz</Link></li>
+            <li><Link to="/fuer-mitarbeitende" className="hover:text-foreground transition-colors">Vorteile für Mitarbeiter</Link></li>
           </ul>
         </div>
         <div>
@@ -28,8 +28,8 @@ export default function Footer() {
             <li>
               <a href="mailto:joel@teamfokus.app" className="hover:text-foreground transition-colors">joel@teamfokus.app</a>
             </li>
-            <li><Link to="/trust" className="hover:text-foreground transition-colors">Datenschutz &amp; Sicherheit</Link></li>
-            <li><Link to="/akzeptanz" className="hover:text-foreground transition-colors">Betriebsrat-Akzeptanz</Link></li>
+            <li><Link to="/datenschutz" className="hover:text-foreground transition-colors">Datenschutz &amp; Sicherheit</Link></li>
+            <li><Link to="/fuer-betriebsrat" className="hover:text-foreground transition-colors">Betriebsrat-Akzeptanz</Link></li>
           </ul>
         </div>
       </div>
@@ -38,7 +38,7 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} TeamFokus · Hosting in der EU</span>
           <div className="flex items-center gap-4 flex-wrap justify-center">
             <span>Privacy-by-Design · DSGVO-konform</span>
-            <Link to="/trust" className="hover:text-foreground transition-colors underline underline-offset-2">Trust &amp; Security</Link>
+            <Link to="/datenschutz" className="hover:text-foreground transition-colors underline underline-offset-2">Trust &amp; Security</Link>
             <Link to="/impressum" className="hover:text-foreground transition-colors underline underline-offset-2">Impressum</Link>
           </div>
         </div>
