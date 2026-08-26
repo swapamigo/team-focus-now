@@ -7,9 +7,13 @@ import Logo from "@/components/Logo";
 import { openCallBooking } from "@/lib/track";
 
 const navItems = [
-  { href: "#how", label: "So funktioniert's" },
-  { href: "/fuer-mitarbeitende", label: "Vorteile für Mitarbeiter", route: true as const },
+  { href: "/fuer-mitarbeitende", label: "Für Mitarbeitende", route: true as const },
+  { href: "/fuer-arbeitgeber", label: "Für Unternehmen", route: true as const },
+  { href: "/fuer-betriebsrat", label: "Für Betriebsrat", route: true as const },
+  { href: "/datenschutz", label: "Datenschutz", route: true as const },
+  { href: "/einfuehrung", label: "Einführung", route: true as const },
 ];
+
 
 export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => void; onBookCall?: () => void }) {
   const [open, setOpen] = useState(false);
