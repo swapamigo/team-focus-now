@@ -166,17 +166,61 @@ export default function Landing() {
       </section>
 
 
+      {/* Einstiege je Zielgruppe */}
+      <section className="container py-10 md:py-14 border-b border-border/40" id="einstiege">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          {[
+            { to: "/fuer-mitarbeitende", t: "Für Mitarbeitende", d: "Kein Handyverbot, keine Einzeldaten – echte Team-Belohnungen." },
+            { to: "/fuer-arbeitgeber", t: "Für Unternehmen", d: "Weniger Nacharbeit, weniger Fehler, kürzere Bearbeitungszeiten." },
+            { to: "/fuer-betriebsrat", t: "Für Betriebsrat", d: "Freiwilligkeit, k-Anonymität, Vorlagen für die Mitbestimmung." },
+            { to: "/einfuehrung", t: "Einführung", d: "Ablauf in vier Phasen inklusive fertiger Kommunikationsvorlagen." },
+          ].map((c) => (
+            <Link key={c.to} to={c.to} className="surface-card p-5 hover:shadow-lg transition-all hover:-translate-y-0.5 group">
+              <p className="font-semibold flex items-center gap-1.5">{c.t}<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></p>
+              <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{c.d}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Produktbeschreibung */}
       <section className="container py-10 md:py-14 border-b border-border/40">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-base md:text-lg text-foreground/90 leading-relaxed">
-            Jeder weiß es: Ein Handyverbot funktioniert nicht. Es erzeugt Frustration, wird umgangen und löst das eigentliche Problem nicht. TeamFokus dreht das Prinzip deshalb um: Statt Ablenkung zu bestrafen, sammelt jedes Team Fokuszeit. Solange konzentriert gearbeitet wird, läuft die Fokus-Uhr weiter – greift jemand privat zum Handy oder zur privaten Website am PC, stoppt sie und in High-Focus-Phasen wird sogar Zeit abgezogen. Alles anonym, freiwillig und nur während der Arbeitszeit. Am Ende gewinnt das Team mit der meisten gesammelten Fokuszeit – und alle profitieren von mehr Fokus, weniger Stress und echten Belohnungen.
+            Jeder weiß es: Ein Handyverbot funktioniert nicht. Es erzeugt Frustration, wird umgangen und löst das eigentliche Problem nicht. TeamFokus dreht das Prinzip deshalb um: Statt Ablenkung zu bestrafen, sammelt jedes Team Fokuszeit. Solange konzentriert gearbeitet wird, läuft die Fokus-Uhr weiter – greift jemand privat zum Handy oder zur privaten Website am PC, stoppt sie und in High-Focus-Phasen wird sogar Zeit abgezogen. Alles anonym, freiwillig und nur während der Arbeitszeit. Sichtbar wird am Ende ausschließlich, welches Team seine vereinbarte Belohnung freigeschaltet hat.
           </p>
+        </div>
+      </section>
+
+      {/* Betriebliche Wirkung */}
+      <section className="container py-12 md:py-16 border-b border-border/40" id="wirkung">
+        <div className="max-w-2xl mx-auto text-center mb-8">
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Für die Unternehmensführung</p>
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Was sich betrieblich verbessert.</h2>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          {[
+            "Weniger notwendige Korrekturen und Nacharbeiten",
+            "Niedrigere Fehler- beziehungsweise Ausnahmequote",
+            "Kürzere durchschnittliche Bearbeitungszeit",
+            "Bessere Einhaltung interner Fristen",
+          ].map((t) => (
+            <div key={t} className="surface-card p-5 flex items-start gap-3">
+              <Check className="h-4 w-4 mt-0.5 shrink-0 text-success" />
+              <p className="text-sm leading-relaxed">{t}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-7 text-center">
+          <Button asChild variant="outline" size="lg" className="h-12 px-8">
+            <Link to="/fuer-arbeitgeber">Details für Unternehmen<ArrowRight className="ml-1 h-4 w-4" /></Link>
+          </Button>
         </div>
       </section>
 
       {/* ROI Calculator */}
       <RoiCalculator />
+
 
       {/* Visuelle Übersicht — So funktioniert TeamFokus */}
       <section className="container py-14 md:py-20 border-t border-border/40" id="how">
