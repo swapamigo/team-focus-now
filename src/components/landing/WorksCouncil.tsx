@@ -2,27 +2,12 @@ import { ShieldCheck, Users, HeartHandshake, FileCheck2 } from "lucide-react";
 import anonymisierungImg from "@/assets/anonymisierung-k5.png.asset.json";
 
 const pillars = [
-  {
-    icon: HeartHandshake,
-    title: "Belohnung statt Druck",
-    desc: "Es wird ausschließlich der Erfolg eines Teams belohnt – nie ein Einzelner bestraft. Spielerischer Ansatz, der nachweislich Stress reduziert statt erhöht.",
-  },
-  {
-    icon: FileCheck2,
-    title: "Mitbestimmung leicht gemacht",
-    desc: "Wir liefern Vorlagen für Betriebsvereinbarung, DSFA (Datenschutz-Folgenabschätzung) und Einwilligungstexte – fertig zur Vorlage beim Betriebsrat.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "DSGVO & EU-Hosting",
-    desc: "Daten werden ausschließlich in der EU verarbeitet. Keine Inhalte, keine Screenshots, keine Tastatureingaben – nur aggregierte Zeitdaten während der Arbeitszeit.",
-  },
-  {
-    icon: Users,
-    title: "Mitarbeiter-Wohlbefinden im Fokus",
-    desc: "Weniger Smartphone-Stress, bessere Konzentration, mehr Pausenqualität. TeamFokus ist Teil eines gesunden Arbeitsumfelds – nicht eine weitere Kontrollinstanz.",
-  },
+  { icon: HeartHandshake, title: "Belohnung statt Druck", desc: "Nur Team-Erfolge werden belohnt – niemand wird bestraft." },
+  { icon: FileCheck2, title: "Mitbestimmung leicht gemacht", desc: "Vorlagen für Betriebsvereinbarung, DSFA und Einwilligung inklusive." },
+  { icon: ShieldCheck, title: "DSGVO & EU-Hosting", desc: "Nur aggregierte Zeitdaten, verarbeitet in der EU." },
+  { icon: Users, title: "Wohlbefinden im Fokus", desc: "Weniger Handy-Stress, mehr Konzentration – keine Kontrollinstanz." },
 ];
+
 
 export default function WorksCouncil() {
   return (

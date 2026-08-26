@@ -19,9 +19,8 @@ export default function PrivacySection() {
         <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
           Strukturell datensparsam – nicht nur versprochen.
         </h2>
-        <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-          TeamFokus ist nach dem Prinzip <strong className="text-foreground">Privacy by Design</strong> gebaut.
-          Was nicht gespeichert wird, kann auch nicht missbraucht werden.
+        <p className="text-muted-foreground text-base md:text-lg">
+          Privacy by Design: Was nicht gespeichert wird, kann nicht missbraucht werden.
         </p>
       </div>
 
@@ -64,18 +63,11 @@ export default function PrivacySection() {
       <div className="max-w-4xl mx-auto surface-card rounded-2xl p-6 md:p-8">
         <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Mitbestimmung</p>
         <h3 className="text-xl md:text-2xl font-semibold mb-3">Betriebsrat & Beschäftigtendatenschutz</h3>
-        <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-4">
-          TeamFokus berücksichtigt von Anfang an die Mitbestimmungsrechte:{" "}
-          <strong className="text-foreground">Österreich §&nbsp;96 / §&nbsp;96a ArbVG</strong> und{" "}
-          <strong className="text-foreground">Deutschland §&nbsp;87 BetrVG</strong>, ergänzt durch{" "}
-          §&nbsp;26 BDSG und Art.&nbsp;88 DSGVO.
+        <p className="text-muted-foreground text-sm md:text-base mb-5">
+          Mitbestimmung berücksichtigt (§ 96 ArbVG, § 87 BetrVG). Vorlagen für Betriebsvereinbarung,
+          DSFA, AVV und Mitarbeiter-Infoblatt sind inklusive.
         </p>
-        <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-5">
-          Wir liefern <strong className="text-foreground">Muster-Betriebsvereinbarung</strong>, Bausteine für die
-          <strong className="text-foreground"> Datenschutz-Folgenabschätzung</strong>, einen
-          <strong className="text-foreground"> Auftragsverarbeitungsvertrag</strong> sowie ein
-          <strong className="text-foreground"> Mitarbeiter-Infoblatt</strong> mit – fertig zur Vorlage beim Betriebsrat.
-        </p>
+
         <Link
           to="/fuer-betriebsrat"
           className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
