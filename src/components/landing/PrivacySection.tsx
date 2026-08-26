@@ -2,43 +2,14 @@ import { Shield, Clock, Lock, Server, Trash2, Users, FileCheck } from "lucide-re
 import { Link } from "react-router-dom";
 
 const dsgvoPoints = [
-  {
-    icon: Shield,
-    title: "Datenminimierung",
-    article: "Art. 5 Abs. 1 lit. c DSGVO",
-    desc: "Wir erfassen ausschließlich Zeitdaten. Keine Inhalte, keine Screenshots, keine Tastatur- oder Mauseingaben, keine URLs.",
-  },
-  {
-    icon: FileCheck,
-    title: "Zweckbindung",
-    article: "Art. 5 Abs. 1 lit. b DSGVO",
-    desc: "Daten dienen ausschließlich dem aggregierten Team-Score – nicht der Leistungskontrolle einzelner Personen.",
-  },
-  {
-    icon: Users,
-    title: "k-Anonymität (k = 5)",
-    article: "Privacy by Design – Art. 25 DSGVO",
-    desc: "Team-Auswertungen erscheinen erst ab 5 teilnehmenden Personen. So lässt sich niemand zurückverfolgen.",
-  },
-  {
-    icon: Server,
-    title: "EU-Hosting",
-    article: "Kein Drittlandtransfer · Art. 44 ff. DSGVO",
-    desc: "Alle Daten liegen auf EU-Servern in Frankfurt. Verbindung TLS-verschlüsselt.",
-  },
-  {
-    icon: Trash2,
-    title: "Löschrecht",
-    article: "Art. 17 DSGVO",
-    desc: "Mitarbeitende können jederzeit alle Daten löschen lassen – mit einem Klick in der App.",
-  },
-  {
-    icon: Lock,
-    title: "Freiwilligkeit",
-    article: "Art. 7 Abs. 3 DSGVO",
-    desc: "Teilnahme ist freiwillig und jederzeit ohne Nachteil widerrufbar.",
-  },
+  { icon: Shield, title: "Datenminimierung", article: "Art. 5 DSGVO", desc: "Nur Zeitdaten. Keine Inhalte, Screenshots oder URLs." },
+  { icon: FileCheck, title: "Zweckbindung", article: "Art. 5 DSGVO", desc: "Nur Team-Score – keine Leistungskontrolle." },
+  { icon: Users, title: "k-Anonymität (k = 5)", article: "Art. 25 DSGVO", desc: "Auswertungen erst ab 5 Personen." },
+  { icon: Server, title: "EU-Hosting", article: "Art. 44 ff. DSGVO", desc: "Server in Frankfurt, TLS-verschlüsselt." },
+  { icon: Trash2, title: "Löschrecht", article: "Art. 17 DSGVO", desc: "Alle Daten jederzeit per Klick löschbar." },
+  { icon: Lock, title: "Freiwilligkeit", article: "Art. 7 DSGVO", desc: "Jederzeit widerrufbar, ohne Nachteil." },
 ];
+
 
 export default function PrivacySection() {
   return (
@@ -48,9 +19,8 @@ export default function PrivacySection() {
         <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
           Strukturell datensparsam – nicht nur versprochen.
         </h2>
-        <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-          TeamFokus ist nach dem Prinzip <strong className="text-foreground">Privacy by Design</strong> gebaut.
-          Was nicht gespeichert wird, kann auch nicht missbraucht werden.
+        <p className="text-muted-foreground text-base md:text-lg">
+          Privacy by Design: Was nicht gespeichert wird, kann nicht missbraucht werden.
         </p>
       </div>
 
@@ -93,18 +63,11 @@ export default function PrivacySection() {
       <div className="max-w-4xl mx-auto surface-card rounded-2xl p-6 md:p-8">
         <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Mitbestimmung</p>
         <h3 className="text-xl md:text-2xl font-semibold mb-3">Betriebsrat & Beschäftigtendatenschutz</h3>
-        <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-4">
-          TeamFokus berücksichtigt von Anfang an die Mitbestimmungsrechte:{" "}
-          <strong className="text-foreground">Österreich §&nbsp;96 / §&nbsp;96a ArbVG</strong> und{" "}
-          <strong className="text-foreground">Deutschland §&nbsp;87 BetrVG</strong>, ergänzt durch{" "}
-          §&nbsp;26 BDSG und Art.&nbsp;88 DSGVO.
+        <p className="text-muted-foreground text-sm md:text-base mb-5">
+          Mitbestimmung berücksichtigt (§ 96 ArbVG, § 87 BetrVG). Vorlagen für Betriebsvereinbarung,
+          DSFA, AVV und Mitarbeiter-Infoblatt sind inklusive.
         </p>
-        <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-5">
-          Wir liefern <strong className="text-foreground">Muster-Betriebsvereinbarung</strong>, Bausteine für die
-          <strong className="text-foreground"> Datenschutz-Folgenabschätzung</strong>, einen
-          <strong className="text-foreground"> Auftragsverarbeitungsvertrag</strong> sowie ein
-          <strong className="text-foreground"> Mitarbeiter-Infoblatt</strong> mit – fertig zur Vorlage beim Betriebsrat.
-        </p>
+
         <Link
           to="/fuer-betriebsrat"
           className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"

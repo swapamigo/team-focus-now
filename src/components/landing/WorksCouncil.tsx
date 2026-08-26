@@ -2,27 +2,12 @@ import { ShieldCheck, Users, HeartHandshake, FileCheck2 } from "lucide-react";
 import anonymisierungImg from "@/assets/anonymisierung-k5.png.asset.json";
 
 const pillars = [
-  {
-    icon: HeartHandshake,
-    title: "Belohnung statt Druck",
-    desc: "Es wird ausschließlich der Erfolg eines Teams belohnt – nie ein Einzelner bestraft. Spielerischer Ansatz, der nachweislich Stress reduziert statt erhöht.",
-  },
-  {
-    icon: FileCheck2,
-    title: "Mitbestimmung leicht gemacht",
-    desc: "Wir liefern Vorlagen für Betriebsvereinbarung, DSFA (Datenschutz-Folgenabschätzung) und Einwilligungstexte – fertig zur Vorlage beim Betriebsrat.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "DSGVO & EU-Hosting",
-    desc: "Daten werden ausschließlich in der EU verarbeitet. Keine Inhalte, keine Screenshots, keine Tastatureingaben – nur aggregierte Zeitdaten während der Arbeitszeit.",
-  },
-  {
-    icon: Users,
-    title: "Mitarbeiter-Wohlbefinden im Fokus",
-    desc: "Weniger Smartphone-Stress, bessere Konzentration, mehr Pausenqualität. TeamFokus ist Teil eines gesunden Arbeitsumfelds – nicht eine weitere Kontrollinstanz.",
-  },
+  { icon: HeartHandshake, title: "Belohnung statt Druck", desc: "Nur Team-Erfolge werden belohnt – niemand wird bestraft." },
+  { icon: FileCheck2, title: "Mitbestimmung leicht gemacht", desc: "Vorlagen für Betriebsvereinbarung, DSFA und Einwilligung inklusive." },
+  { icon: ShieldCheck, title: "DSGVO & EU-Hosting", desc: "Nur aggregierte Zeitdaten, verarbeitet in der EU." },
+  { icon: Users, title: "Wohlbefinden im Fokus", desc: "Weniger Handy-Stress, mehr Konzentration – keine Kontrollinstanz." },
 ];
+
 
 export default function WorksCouncil() {
   return (
@@ -37,9 +22,8 @@ export default function WorksCouncil() {
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
             Vom Betriebsrat freigegeben.<br />Von Mitarbeitenden geliebt.
           </h2>
-          <p className="mt-4 text-muted-foreground text-base md:text-lg leading-relaxed">
-            TeamFokus wurde von Anfang an so gebaut, dass es die typischen Hürden im Mitbestimmungsverfahren elegant löst –
-            und Mitarbeitende es freiwillig gerne nutzen.
+          <p className="mt-4 text-muted-foreground text-base md:text-lg">
+            Freiwillig, anonym, mitbestimmungsfreundlich.
           </p>
         </div>
 
@@ -65,14 +49,12 @@ export default function WorksCouncil() {
           ))}
         </div>
 
-        <div className="max-w-3xl mx-auto mt-10 surface-card p-6 md:p-7 text-center">
-          <p className="text-sm md:text-base text-foreground/90 leading-relaxed">
-            <strong>Hohe Akzeptanz</strong> entsteht, weil sich niemand kontrolliert fühlt,
-            sondern alle gemeinsam ein Ziel erreichen. Ergebnis: ruhigere Arbeitstage,
-            weniger Stress, mehr echte Pausen.
+        <div className="max-w-3xl mx-auto mt-10 surface-card p-6 text-center">
+          <p className="text-sm md:text-base text-foreground/90">
+            <strong>Hohe Akzeptanz</strong>, weil sich niemand kontrolliert fühlt – alle erreichen gemeinsam ein Ziel.
           </p>
-
         </div>
+
       </div>
     </section>
   );
