@@ -416,7 +416,7 @@ export default function Akzeptanz() {
                   <Link to="/waitlist">TeamFokus starten <ChevronRight className="ml-1 h-4 w-4" /></Link>
                 </Button>
                 <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
-                  <Link to="/vorteile"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
+                  <Link to="/fuer-mitarbeitende"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
                 </Button>
               </div>
             </div>

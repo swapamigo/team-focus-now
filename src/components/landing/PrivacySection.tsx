@@ -106,7 +106,7 @@ export default function PrivacySection() {
           <strong className="text-foreground"> Mitarbeiter-Infoblatt</strong> mit – fertig zur Vorlage beim Betriebsrat.
         </p>
         <Link
-          to="/akzeptanz"
+          to="/fuer-betriebsrat"
           className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
         >
           <FileCheck className="h-4 w-4" />

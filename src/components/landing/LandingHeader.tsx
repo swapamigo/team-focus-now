@@ -8,7 +8,7 @@ import { openCallBooking } from "@/lib/track";
 
 const navItems = [
   { href: "#how", label: "So funktioniert's" },
-  { href: "/vorteile", label: "Vorteile für Mitarbeiter", route: true as const },
+  { href: "/fuer-mitarbeitende", label: "Vorteile für Mitarbeiter", route: true as const },
 ];
 
 export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => void; onBookCall?: () => void }) {
