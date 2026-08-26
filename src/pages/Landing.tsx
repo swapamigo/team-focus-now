@@ -176,9 +176,9 @@ export default function Landing() {
       <section className="container py-10 md:py-14 border-b border-border/40" id="einstiege">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
           {[
-            { to: "/fuer-mitarbeitende", t: "Für Mitarbeitende", d: "Kein Handyverbot, keine Einzeldaten – echte Team-Belohnungen." },
+            { to: "/fuer-mitarbeitende", t: "Für Mitarbeitende", d: "Dein Handy bleibt bei dir. Keine Einzeldaten. Echte Team-Belohnungen." },
+            { to: "/fuer-betriebsrat", t: "Für den Betriebsrat", d: "Freiwilligkeit, k-Anonymität, fertige Vorlagen für die Mitbestimmung." },
             { to: "/fuer-arbeitgeber", t: "Für Unternehmen", d: "Weniger Nacharbeit, weniger Fehler, kürzere Bearbeitungszeiten." },
-            { to: "/fuer-betriebsrat", t: "Für Betriebsrat", d: "Freiwilligkeit, k-Anonymität, Vorlagen für die Mitbestimmung." },
             { to: "/einfuehrung", t: "Einführung", d: "Ablauf in vier Phasen inklusive fertiger Kommunikationsvorlagen." },
           ].map((c) => (
             <Link key={c.to} to={c.to} className="surface-card p-5 hover:shadow-lg transition-all hover:-translate-y-0.5 group">
@@ -189,14 +189,37 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Produktbeschreibung */}
-      <section className="container py-10 md:py-14 border-b border-border/40">
+      {/* Produktbeschreibung — Sicht der Mitarbeitenden */}
+      <section className="container py-12 md:py-16 border-b border-border/40">
         <div className="max-w-3xl mx-auto text-center">
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Wie das funktioniert</p>
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-5">
+            Nicht kontrollieren. Gemeinsam entscheiden.
+          </h2>
           <p className="text-base md:text-lg text-foreground/90 leading-relaxed">
-            Jeder weiß es: Ein Handyverbot funktioniert nicht. Es erzeugt Frustration, wird umgangen und löst das eigentliche Problem nicht. TeamFokus dreht das Prinzip deshalb um: Statt Ablenkung zu bestrafen, sammelt jedes Team Fokuszeit. Solange konzentriert gearbeitet wird, läuft die Fokus-Uhr weiter – greift jemand privat zum Handy oder zur privaten Website am PC, stoppt sie und in High-Focus-Phasen wird sogar Zeit abgezogen. Alles anonym, freiwillig und nur während der Arbeitszeit. Sichtbar wird am Ende ausschließlich, welches Team seine vereinbarte Belohnung freigeschaltet hat.
+            Ein pauschales Handyverbot funktioniert nicht: Es erzeugt Frust, wird umgangen und löst das
+            eigentliche Problem nicht. TeamFokus dreht das Prinzip um. Euer Team vereinbart freiwillig
+            gemeinsame Fokuszeiten – und sammelt in dieser Zeit gemeinsam Fokusminuten. Solange konzentriert
+            gearbeitet wird, läuft die Fokus-Uhr; greift jemand privat zum Handy oder zu einer privaten
+            Website am PC, pausiert sie einfach. Erreicht euer Team das gemeinsam gesetzte Ziel, schaltet ihr
+            eine Belohnung frei – Team-Lunch, Tankgutschein, Event-Tickets, was euch motiviert.
           </p>
+          <p className="mt-5 text-base md:text-lg text-foreground/90 leading-relaxed">
+            Und ganz klar: Es gibt kein Ranking einzelner Personen, keine Inhalte, keine Screenshots.
+            Der Arbeitgeber sieht nur, welches Team eine Belohnung freigeschaltet hat – nicht mehr.
+          </p>
+          <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
+            <Button asChild size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto">
+              <Link to="/fuer-mitarbeitende">Vorteile für Mitarbeitende<ArrowRight className="ml-1 h-4 w-4" /></Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="h-12 px-8 w-full sm:w-auto">
+              <Link to="/fuer-betriebsrat">Für den Betriebsrat</Link>
+            </Button>
+          </div>
         </div>
       </section>
+
+
 
       {/* Betriebliche Wirkung */}
       <section className="container py-12 md:py-16 border-b border-border/40" id="wirkung">
