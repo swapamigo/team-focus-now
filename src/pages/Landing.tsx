@@ -65,7 +65,7 @@ const benefits = [
 ];
 
 
-const trustLine = "Keine Kreditkarte · Setup in 5 Minuten · monatlich kündbar";
+const trustLine = "Freiwillige Teilnahme · Setup in 5 Minuten · anonym ab 5 Personen";
 
 export default function Landing() {
   const [demoOpen, setDemoOpen] = useState(false);
@@ -92,8 +92,8 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="TeamFokus – Gamifizierte Produktivität für moderne Teams"
-        description="TeamFokus macht gesammelte Fokuszeit im Team sichtbar – als faire, anonyme Challenge. Datenschutz-first und DSGVO-konform."
+        title="TeamFokus – Fokuszeit im Team ohne Handyverbot | DSGVO-konform"
+        description="Kein pauschales Handyverbot. Keine persönlichen Nutzungsdaten für den Arbeitgeber. Echte Team-Belohnungen – freiwillig, anonym ab 5 Personen, Hosting in Deutschland."
 
         path="/"
         jsonLd={{
@@ -344,7 +344,7 @@ export default function Landing() {
             </div>
             <h2 className="text-2xl md:text-5xl font-semibold tracking-tight mb-4">Bereit für mehr Fokus im Team?</h2>
             <p className="max-w-xl mx-auto text-muted-foreground mb-8 text-base md:text-lg leading-relaxed">
-              Starten Sie 30 Tage gratis. Keine Kreditkarte, kein Risiko – nur fokussiertere Teams.
+              Kein pauschales Handyverbot. Keine persönlichen Nutzungsdaten für den Arbeitgeber. Echte Team-Belohnungen.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
               <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={() => { trackClick("cta:demo", "Demo ansehen"); setDemoOpen(true); }}>
