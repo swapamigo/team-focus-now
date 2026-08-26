@@ -9,6 +9,7 @@ import { openCallBooking } from "@/lib/track";
 const navItems = [
   { href: "/fuer-mitarbeitende", label: "Für Mitarbeitende" },
   { href: "/fuer-arbeitgeber", label: "Für Unternehmen" },
+  { href: "/#roi", label: "ROI-Rechner" },
   { href: "/fuer-betriebsrat", label: "Für Betriebsrat" },
   { href: "/datenschutz", label: "Datenschutz" },
   { href: "/einfuehrung", label: "Einführung" },
