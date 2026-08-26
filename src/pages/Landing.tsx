@@ -221,11 +221,14 @@ export default function Landing() {
 
 
 
-      {/* Betriebliche Wirkung */}
-      <section className="container py-12 md:py-16 border-b border-border/40" id="wirkung">
+      {/* Bereich für Unternehmen: Wirkung + ROI */}
+      <section className="container py-12 md:py-16 border-b border-border/40" id="fuer-unternehmen">
         <div className="max-w-2xl mx-auto text-center mb-8">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Für die Unternehmensführung</p>
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Was sich betrieblich verbessert.</h2>
+          <p className="mt-4 text-muted-foreground">
+            Ohne Verbote, ohne Einzelüberwachung – und mit ROI-Rechner direkt darunter.
+          </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
           {[
