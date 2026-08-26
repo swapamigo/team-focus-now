@@ -26,7 +26,7 @@ import WorksCouncil from "@/components/landing/WorksCouncil";
 import PrivacySection from "@/components/landing/PrivacySection";
 import focusedImg from "@/assets/employee-focused.jpg";
 import stressedImg from "@/assets/employee-stressed.jpg";
-import heroBg from "@/assets/hero-bg.png.asset.json";
+import heroPhonesBg from "@/assets/team-throwing-phones.png.asset.json";
 import step1Img from "@/assets/tf_step1.png.asset.json";
 import step2Img from "@/assets/tf_step2.png.asset.json";
 import step3Img from "@/assets/tf_step_teamdaten.png.asset.json";
@@ -109,55 +109,60 @@ export default function Landing() {
       <LandingHeader onDemo={() => { trackClick("cta:demo", "Demo ansehen"); setDemoOpen(true); }} onBookCall={() => openCallBooking("landing")} />
 
       <main>
-      {/* Hero — ohne Mockup-Bild */}
+      {/* Hero — Eigenverantwortung statt Handyverbot */}
       <section className="relative overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-60"
-          style={{ backgroundImage: `url(${heroBg.url})` }}
+          className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-80"
+          style={{ backgroundImage: `url(${heroPhonesBg.url})` }}
           aria-hidden
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/80 to-background pointer-events-none" />
-        <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
-        <div className="absolute inset-0 gradient-hero opacity-70 pointer-events-none" />
-        <div className="container relative pt-16 pb-12 md:pt-20 md:pb-14 text-center animate-fade-in">
+        <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/80 to-background pointer-events-none" />
+        <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
+        <div className="absolute inset-0 gradient-hero opacity-60 pointer-events-none" />
+        <div className="container relative pt-16 pb-12 md:pt-24 md:pb-16 text-center animate-fade-in">
           <div className="inline-flex items-center gap-2 rounded-full border-2 border-primary/40 bg-primary/10 backdrop-blur px-5 py-2 text-sm font-semibold text-primary mb-6 shadow-glow">
-            <ShieldCheck className="h-4 w-4" />
-            100 % DSGVO-konform · Hosting in Deutschland
+            <Sparkles className="h-4 w-4" />
+            Genug vom Handyverbot?
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight mb-6 leading-[1.05]">
-            Mehr Fokus. Weniger Fehler.<br />
-            <span className="text-gradient animate-gradient-x">Mehr Umsatz.</span>
+            Eigenverantwortung<br />
+            <span className="text-gradient animate-gradient-x">statt Handyverbot.</span>
           </h1>
-          <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed px-2">
-            TeamFokus zählt die Zeit, in der wirklich fokussiert gearbeitet wird – als freiwilligen Team-Wettbewerb,
-            ohne Einzelüberwachung, ohne Kontrolle. Gemessen wird nur während der Arbeitszeit.
+          <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-4 leading-relaxed px-2">
+            Du findest, dass ein pauschales Handyverbot mehr Stress als Nutzen verursacht? Wir auch.
+            TeamFokus ersetzt Kontrolle durch Eigenverantwortung: Ihr vereinbart freiwillig gemeinsame
+            Fokuszeiten und schaltet als Team attraktive Belohnungen frei.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-3 px-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 px-4 mt-8">
             <Button size="lg" className="h-14 px-8 text-base shadow-glow w-full sm:w-auto" onClick={() => { trackClick("cta:demo", "Demo ansehen"); setDemoOpen(true); }}>
               <Sparkles className="mr-2 h-5 w-5" />
               Demo ansehen
               <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="ghost" className="h-14 px-8 text-base w-full sm:w-auto" onClick={() => openCallBooking("landing")}>
-              <CalendarClock className="mr-2 h-5 w-5" />
-              Call vereinbaren
+            <Button asChild size="lg" variant="outline" className="h-14 px-8 text-base w-full sm:w-auto">
+              <Link to="/fuer-mitarbeitende">
+                <Heart className="mr-2 h-5 w-5" />
+                Was habe ich davon?
+              </Link>
             </Button>
           </div>
 
           {/* Trust-Leiste direkt unter den CTAs */}
-          <div className="mt-6 max-w-3xl mx-auto px-4 space-y-3">
+          <div className="mt-8 max-w-3xl mx-auto px-4 space-y-3">
             <div className="inline-flex items-start gap-3 rounded-2xl border border-success/30 bg-success/5 backdrop-blur px-5 py-3 text-left">
               <Lock className="h-5 w-5 text-success shrink-0 mt-0.5" />
               <p className="text-sm md:text-base text-foreground/90 leading-relaxed">
-                <strong>100 % privat:</strong> anonym und DSGVO-konform – keine Einzelwerte für deinen Manager,
-                keine Inhalte, keine Überwachung. Nur das Teamergebnis zählt.
+                <strong>Wichtig:</strong> Dein Arbeitgeber erhält keine persönlichen Nutzungsdaten, keine
+                App-Verläufe und keine Inhalte. Er erfährt ausschließlich, welches Team eine Belohnung
+                freigeschaltet hat.
               </p>
             </div>
             <div className="inline-flex items-start gap-3 rounded-2xl border border-primary/30 bg-primary/5 backdrop-blur px-5 py-3 text-left">
               <Smartphone className="h-5 w-5 text-primary shrink-0 mt-0.5" />
               <p className="text-sm md:text-base text-foreground/90 leading-relaxed">
-                <strong>Für Handy und PC:</strong> Arbeits-Apps und -Websites (z. B. Teams, Outlook, Scanner,
-                Navigation) werden freigegeben und stoppen die Fokuszeit nie. Nur private Ablenkung unterbricht sie.
+                <strong>Kein Verbot, keine Abgabe:</strong> Dein Handy bleibt bei dir. Arbeits-Apps und
+                -Websites (Teams, Outlook, Scanner, Navigation) sind freigegeben und stoppen die Fokuszeit nie –
+                gemessen wird ausschließlich während der Arbeitszeit.
               </p>
             </div>
           </div>
@@ -166,13 +171,14 @@ export default function Landing() {
       </section>
 
 
+
       {/* Einstiege je Zielgruppe */}
       <section className="container py-10 md:py-14 border-b border-border/40" id="einstiege">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
           {[
-            { to: "/fuer-mitarbeitende", t: "Für Mitarbeitende", d: "Kein Handyverbot, keine Einzeldaten – echte Team-Belohnungen." },
+            { to: "/fuer-mitarbeitende", t: "Für Mitarbeitende", d: "Dein Handy bleibt bei dir. Keine Einzeldaten. Echte Team-Belohnungen." },
+            { to: "/fuer-betriebsrat", t: "Für den Betriebsrat", d: "Freiwilligkeit, k-Anonymität, fertige Vorlagen für die Mitbestimmung." },
             { to: "/fuer-arbeitgeber", t: "Für Unternehmen", d: "Weniger Nacharbeit, weniger Fehler, kürzere Bearbeitungszeiten." },
-            { to: "/fuer-betriebsrat", t: "Für Betriebsrat", d: "Freiwilligkeit, k-Anonymität, Vorlagen für die Mitbestimmung." },
             { to: "/einfuehrung", t: "Einführung", d: "Ablauf in vier Phasen inklusive fertiger Kommunikationsvorlagen." },
           ].map((c) => (
             <Link key={c.to} to={c.to} className="surface-card p-5 hover:shadow-lg transition-all hover:-translate-y-0.5 group">
@@ -183,20 +189,46 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Produktbeschreibung */}
-      <section className="container py-10 md:py-14 border-b border-border/40">
+      {/* Produktbeschreibung — Sicht der Mitarbeitenden */}
+      <section className="container py-12 md:py-16 border-b border-border/40">
         <div className="max-w-3xl mx-auto text-center">
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Wie das funktioniert</p>
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-5">
+            Nicht kontrollieren. Gemeinsam entscheiden.
+          </h2>
           <p className="text-base md:text-lg text-foreground/90 leading-relaxed">
-            Jeder weiß es: Ein Handyverbot funktioniert nicht. Es erzeugt Frustration, wird umgangen und löst das eigentliche Problem nicht. TeamFokus dreht das Prinzip deshalb um: Statt Ablenkung zu bestrafen, sammelt jedes Team Fokuszeit. Solange konzentriert gearbeitet wird, läuft die Fokus-Uhr weiter – greift jemand privat zum Handy oder zur privaten Website am PC, stoppt sie und in High-Focus-Phasen wird sogar Zeit abgezogen. Alles anonym, freiwillig und nur während der Arbeitszeit. Sichtbar wird am Ende ausschließlich, welches Team seine vereinbarte Belohnung freigeschaltet hat.
+            Ein pauschales Handyverbot funktioniert nicht: Es erzeugt Frust, wird umgangen und löst das
+            eigentliche Problem nicht. TeamFokus dreht das Prinzip um. Euer Team vereinbart freiwillig
+            gemeinsame Fokuszeiten – und sammelt in dieser Zeit gemeinsam Fokusminuten. Solange konzentriert
+            gearbeitet wird, läuft die Fokus-Uhr; greift jemand privat zum Handy oder zu einer privaten
+            Website am PC, pausiert sie einfach. Erreicht euer Team das gemeinsam gesetzte Ziel, schaltet ihr
+            eine Belohnung frei – Team-Lunch, Tankgutschein, Event-Tickets, was euch motiviert.
           </p>
+          <p className="mt-5 text-base md:text-lg text-foreground/90 leading-relaxed">
+            Und ganz klar: Es gibt kein Ranking einzelner Personen, keine Inhalte, keine Screenshots.
+            Der Arbeitgeber sieht nur, welches Team eine Belohnung freigeschaltet hat – nicht mehr.
+          </p>
+          <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
+            <Button asChild size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto">
+              <Link to="/fuer-mitarbeitende">Vorteile für Mitarbeitende<ArrowRight className="ml-1 h-4 w-4" /></Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="h-12 px-8 w-full sm:w-auto">
+              <Link to="/fuer-betriebsrat">Für den Betriebsrat</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
-      {/* Betriebliche Wirkung */}
-      <section className="container py-12 md:py-16 border-b border-border/40" id="wirkung">
+
+
+      {/* Bereich für Unternehmen: Wirkung + ROI */}
+      <section className="container py-12 md:py-16 border-b border-border/40" id="fuer-unternehmen">
         <div className="max-w-2xl mx-auto text-center mb-8">
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Für die Unternehmensführung</p>
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Was sich betrieblich verbessert.</h2>
+          <p className="mt-4 text-muted-foreground">
+            Ohne Verbote, ohne Einzelüberwachung – und mit ROI-Rechner direkt darunter.
+          </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
           {[
@@ -342,7 +374,7 @@ export default function Landing() {
             <div className="inline-flex h-14 w-14 rounded-2xl gradient-primary items-center justify-center shadow-glow mb-5">
               <Shield className="h-7 w-7 text-primary-foreground" />
             </div>
-            <h2 className="text-2xl md:text-5xl font-semibold tracking-tight mb-4">Bereit für mehr Fokus im Team?</h2>
+            <h2 className="text-2xl md:text-5xl font-semibold tracking-tight mb-4">Eigenverantwortung statt Handyverbot.</h2>
             <p className="max-w-xl mx-auto text-muted-foreground mb-8 text-base md:text-lg leading-relaxed">
               Kein pauschales Handyverbot. Keine persönlichen Nutzungsdaten für den Arbeitgeber. Echte Team-Belohnungen.
             </p>
