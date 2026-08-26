@@ -13,25 +13,26 @@ export default function Footer() {
           </p>
         </div>
         <div>
-          <p className="font-semibold mb-3">Produkt</p>
+          <p className="font-semibold mb-3">Seiten</p>
           <ul className="space-y-2 text-muted-foreground">
-            <li><a href="#how" className="hover:text-foreground transition-colors">So funktioniert's</a></li>
-            <li><a href="#roi" className="hover:text-foreground transition-colors">ROI-Rechner</a></li>
-            <li><Link to="/demo/manager" className="hover:text-foreground transition-colors">Demo ansehen</Link></li>
-            <li><Link to="/fuer-betriebsrat" className="hover:text-foreground transition-colors">Betriebsrat-Akzeptanz</Link></li>
-            <li><Link to="/fuer-mitarbeitende" className="hover:text-foreground transition-colors">Vorteile für Mitarbeiter</Link></li>
+            <li><Link to="/fuer-mitarbeitende" className="hover:text-foreground transition-colors">Für Mitarbeitende</Link></li>
+            <li><Link to="/fuer-arbeitgeber" className="hover:text-foreground transition-colors">Für Unternehmen</Link></li>
+            <li><Link to="/fuer-betriebsrat" className="hover:text-foreground transition-colors">Für Betriebsrat</Link></li>
+            <li><Link to="/datenschutz" className="hover:text-foreground transition-colors">Datenschutz &amp; Sicherheit</Link></li>
+            <li><Link to="/einfuehrung" className="hover:text-foreground transition-colors">Einführung</Link></li>
           </ul>
         </div>
         <div>
-          <p className="font-semibold mb-3">Kontakt</p>
+          <p className="font-semibold mb-3">Produkt &amp; Kontakt</p>
           <ul className="space-y-2 text-muted-foreground">
+            <li><Link to="/demo/manager" className="hover:text-foreground transition-colors">Demo ansehen</Link></li>
+            <li><Link to="/#roi" className="hover:text-foreground transition-colors">ROI-Rechner</Link></li>
             <li>
               <a href="mailto:joel@teamfokus.app" className="hover:text-foreground transition-colors">joel@teamfokus.app</a>
             </li>
-            <li><Link to="/datenschutz" className="hover:text-foreground transition-colors">Datenschutz &amp; Sicherheit</Link></li>
-            <li><Link to="/fuer-betriebsrat" className="hover:text-foreground transition-colors">Betriebsrat-Akzeptanz</Link></li>
           </ul>
         </div>
+
       </div>
       <div className="border-t border-border/40">
         <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
