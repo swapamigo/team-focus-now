@@ -26,7 +26,6 @@ import WorksCouncil from "@/components/landing/WorksCouncil";
 import PrivacySection from "@/components/landing/PrivacySection";
 import focusedImg from "@/assets/employee-focused.jpg";
 import stressedImg from "@/assets/employee-stressed.jpg";
-import heroBg from "@/assets/hero-bg.png.asset.json";
 import heroPhonesBg from "@/assets/team-throwing-phones.png.asset.json";
 import step1Img from "@/assets/tf_step1.png.asset.json";
 import step2Img from "@/assets/tf_step2.png.asset.json";
