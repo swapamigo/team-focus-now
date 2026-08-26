@@ -34,8 +34,11 @@ import Waitlist from "./pages/Waitlist";
 import Trust from "./pages/Trust";
 import Akzeptanz from "./pages/Akzeptanz";
 import Vorteile from "./pages/Vorteile";
+import Arbeitgeber from "./pages/Arbeitgeber";
+import Einfuehrung from "./pages/Einfuehrung";
 import Impressum from "./pages/Impressum";
 import Unsubscribe from "./pages/Unsubscribe";
+
 
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLeads from "./pages/admin/AdminLeads";
@@ -69,15 +72,24 @@ const App = () => (
 
           {/* Waitlist (public) */}
           <Route path="/waitlist" element={<Waitlist />} />
-          <Route path="/trust" element={<Trust />} />
-          <Route path="/akzeptanz" element={<Akzeptanz />} />
-          <Route path="/betriebsrat" element={<Akzeptanz />} />
-          <Route path="/vorteile" element={<Vorteile />} />
+
+          {/* Öffentliche Informationsarchitektur (kanonische URLs) */}
           <Route path="/fuer-mitarbeitende" element={<Vorteile />} />
-          <Route path="/datenschutz-by-design" element={<Trust />} />
+          <Route path="/fuer-arbeitgeber" element={<Arbeitgeber />} />
+          <Route path="/fuer-betriebsrat" element={<Akzeptanz />} />
+          <Route path="/datenschutz" element={<Trust />} />
+          <Route path="/einfuehrung" element={<Einfuehrung />} />
+
+          {/* Alte URLs → Weiterleitung auf die kanonische Seite */}
+          <Route path="/vorteile" element={<Navigate to="/fuer-mitarbeitende" replace />} />
+          <Route path="/akzeptanz" element={<Navigate to="/fuer-betriebsrat" replace />} />
+          <Route path="/betriebsrat" element={<Navigate to="/fuer-betriebsrat" replace />} />
+          <Route path="/datenschutz-by-design" element={<Navigate to="/datenschutz" replace />} />
+          <Route path="/trust" element={<Navigate to="/datenschutz" replace />} />
           <Route path="/impressum" element={<Impressum />} />
           <Route path="/checkout" element={<Navigate to="/waitlist" replace />} />
           <Route path="/checkout/success" element={<Navigate to="/waitlist" replace />} />
+
 
           <Route path="/onboarding/role" element={<ProtectedRoute requireOnboarded={false}><RoleSelect /></ProtectedRoute>} />
           <Route path="/onboarding/manager" element={<ProtectedRoute requireOnboarded={false}><ManagerOnboarding /></ProtectedRoute>} />

@@ -7,9 +7,13 @@ import Logo from "@/components/Logo";
 import { openCallBooking } from "@/lib/track";
 
 const navItems = [
-  { href: "#how", label: "So funktioniert's" },
-  { href: "/vorteile", label: "Vorteile für Mitarbeiter", route: true as const },
+  { href: "/fuer-mitarbeitende", label: "Für Mitarbeitende" },
+  { href: "/fuer-arbeitgeber", label: "Für Unternehmen" },
+  { href: "/fuer-betriebsrat", label: "Für Betriebsrat" },
+  { href: "/datenschutz", label: "Datenschutz" },
+  { href: "/einfuehrung", label: "Einführung" },
 ];
+
 
 export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => void; onBookCall?: () => void }) {
   const [open, setOpen] = useState(false);
@@ -21,11 +25,7 @@ export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => vo
 
         <nav className="hidden lg:flex items-center gap-7 text-sm text-muted-foreground">
           {navItems.map((n) => (
-            "route" in n ? (
-              <Link key={n.href} to={n.href} className="hover:text-foreground transition-colors">{n.label}</Link>
-            ) : (
-              <a key={n.href} href={n.href} className="hover:text-foreground transition-colors">{n.label}</a>
-            )
+            <Link key={n.href} to={n.href} className="hover:text-foreground transition-colors">{n.label}</Link>
           ))}
         </nav>
 
@@ -45,17 +45,10 @@ export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => vo
             <SheetContent side="right" className="w-72">
               <div className="flex flex-col gap-1 mt-6">
                 {navItems.map((n) => (
-                  "route" in n ? (
-                    <Link key={n.href} to={n.href} onClick={() => setOpen(false)}
-                      className="px-3 py-3 rounded-lg hover:bg-secondary text-sm font-medium">
-                      {n.label}
-                    </Link>
-                  ) : (
-                    <a key={n.href} href={n.href} onClick={() => setOpen(false)}
-                      className="px-3 py-3 rounded-lg hover:bg-secondary text-sm font-medium">
-                      {n.label}
-                    </a>
-                  )
+                  <Link key={n.href} to={n.href} onClick={() => setOpen(false)}
+                    className="px-3 py-3 rounded-lg hover:bg-secondary text-sm font-medium">
+                    {n.label}
+                  </Link>
                 ))}
                 <div className="border-t border-border my-3" />
                 <Button variant="ghost" onClick={() => { setOpen(false); handleBookCall(); }}>

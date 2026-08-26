@@ -298,8 +298,8 @@ export default function RoiCalculator() {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
     doc.textWithLink("teamfokus.app", 56, cy + 64, { url: "https://teamfokus.app" });
-    doc.textWithLink("teamfokus.app/akzeptanz", 160, cy + 64, { url: "https://teamfokus.app/akzeptanz" });
-    doc.textWithLink("teamfokus.app/vorteile", 320, cy + 64, { url: "https://teamfokus.app/vorteile" });
+    doc.textWithLink("teamfokus.app/fuer-betriebsrat", 160, cy + 64, { url: "https://teamfokus.app/fuer-betriebsrat" });
+    doc.textWithLink("teamfokus.app/fuer-mitarbeitende", 320, cy + 64, { url: "https://teamfokus.app/fuer-mitarbeitende" });
 
     setText(SLATE);
     doc.setFont("helvetica", "normal");
@@ -319,7 +319,7 @@ export default function RoiCalculator() {
       `- Mögliche Einsparung / Jahr (35 %): ${fmtEUR(savingsPerYear)}\n\n` +
       `Individuelles Angebot anfragen: https://cal.com/joelschoppe/teamfocus\n` +
       `Mehr Infos: https://teamfokus.app\n` +
-      `Betriebsrat-Akzeptanz: https://teamfokus.app/akzeptanz\n\n` +
+      `Betriebsrat-Akzeptanz: https://teamfokus.app/fuer-betriebsrat\n\n` +
       `(PDF-Export bitte separat anhängen – wurde aus dem Rechner heruntergeladen.)`
     );
     exportPdf();

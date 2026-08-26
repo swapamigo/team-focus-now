@@ -79,9 +79,9 @@ export default function Vorteile() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Vorteile für Mitarbeiter – TeamFokus"
+        title="TeamFokus für Mitarbeitende – kein Handyverbot, keine Einzeldaten"
         description="100 % DSGVO-konform und komplett anonym (k=5). Gewinne jeden Monat ein Geschenk mit deinem Team – weniger Stress, mehr Gelassenheit, glücklichere Familie."
-        path="/vorteile"
+        path="/fuer-mitarbeitende"
       />
       <LandingHeader onDemo={() => setDemoOpen(true)} />
 
@@ -296,7 +296,7 @@ export default function Vorteile() {
                   <a href="#datenschutz"><ShieldCheck className="mr-1.5 h-4 w-4" />Datenschutz im Detail</a>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto">
-                  <Link to="/akzeptanz"><Users className="mr-1.5 h-4 w-4" />Betriebsrat-Akzeptanz</Link>
+                  <Link to="/fuer-betriebsrat"><Users className="mr-1.5 h-4 w-4" />Betriebsrat-Akzeptanz</Link>
                 </Button>
               </div>
             </div>

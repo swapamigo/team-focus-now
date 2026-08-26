@@ -17,7 +17,7 @@ const sections = [
   {
     icon: Eye,
     title: "Zugriffskontrolle",
-    body: "Mitarbeitende sehen nur ihre eigenen Daten und das anonymisierte Team-Ranking. Manager sehen Team-Aggregate, niemals Einzelpersonen-Detaildaten.",
+    body: "Mitarbeitende sehen nur ihre eigenen Daten und den Fortschritt ihres Teams. Arbeitgeber erfahren ausschließlich, welches Team eine vereinbarte Belohnung freigeschaltet hat – keine persönlichen Nutzungsdaten, keine App-Verläufe, keine Inhalte.",
   },
   {
     icon: Server,
@@ -35,9 +35,9 @@ export default function Trust() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Trust &amp; Security – TeamFokus"
-        description="Wie TeamFokus Daten schützt: Privacy-by-Design, EU-Hosting, Verschlüsselung, DSGVO-Konformität und Betriebsrats-Tauglichkeit."
-        path="/trust"
+        title="Datenschutz &amp; Sicherheit – TeamFokus"
+        description="Datenschutz by Design: keine persönlichen Nutzungsdaten für den Arbeitgeber, k-Anonymität ab 5 Personen, EU-Hosting, Verschlüsselung und Betriebsrats-Tauglichkeit."
+        path="/datenschutz"
       />
       <header className="border-b border-border/40">
         <div className="container py-4 flex items-center justify-between">
@@ -53,7 +53,7 @@ export default function Trust() {
           <div className="inline-flex h-14 w-14 rounded-2xl gradient-primary items-center justify-center shadow-glow mb-5">
             <Shield className="h-7 w-7 text-primary-foreground" />
           </div>
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">Trust &amp; Security</h1>
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">Datenschutz &amp; Sicherheit</h1>
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
             Wie TeamFokus Ihre Daten schützt – kurz und ehrlich. Diese Seite wird von uns gepflegt
             und ist keine externe Zertifizierung.

@@ -67,10 +67,11 @@ export default function WorksCouncil() {
 
         <div className="max-w-3xl mx-auto mt-10 surface-card p-6 md:p-7 text-center">
           <p className="text-sm md:text-base text-foreground/90 leading-relaxed">
-            <strong>92 % Akzeptanz­quote</strong> in Pilot-Teams – weil sich niemand kontrolliert fühlt,
+            <strong>Hohe Akzeptanz</strong> entsteht, weil sich niemand kontrolliert fühlt,
             sondern alle gemeinsam ein Ziel erreichen. Ergebnis: ruhigere Arbeitstage,
             weniger Stress, mehr echte Pausen.
           </p>
+
         </div>
       </div>
     </section>
