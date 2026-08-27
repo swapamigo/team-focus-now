@@ -1,59 +1,31 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useT } from "@/i18n";
 
-export const faqItems = [
-  {
-    q: "Wie steht der Betriebsrat zu TeamFokus?",
-    a: "Sehr positiv – weil TeamFokus genau die Punkte erfüllt, die der Betriebsrat prüft: freiwillige Teilnahme, keine Einzeldaten (nur Team-Durchschnitte mit k-Anonymität k=5), keine Inhalte/Screenshots/Keystrokes, EU-Hosting, klare Zweckbindung. Wir stellen Mustervorlagen für Betriebsvereinbarung, DSFA und Einwilligungstexte bereit.",
-  },
-  {
-    q: "Wie hilft das den Mitarbeitenden konkret?",
-    a: "Weniger Smartphone-Stress, bessere Konzentration, echte Pausen statt ständiger Mikro-Ablenkung. Studien (z. B. Sohn et al., 2019) zeigen einen direkten Zusammenhang zwischen problematischer Smartphone-Nutzung und höherem Stresslevel sowie Schlafproblemen. TeamFokus reduziert genau diese Belastung – freiwillig und spielerisch.",
-  },
-  {
-    q: "Funktioniert TeamFokus auch mit Betriebshandys?",
-    a: "Ja. Wenn Mitarbeitende ihr Handy für die Arbeit brauchen, geben Sie die benötigten Arbeits-Apps einfach frei (z. B. Teams, Outlook, Telefon, Navigation, Scanner- oder Branchen-Apps). Bei ihnen läuft die Fokuszeit ungestört weiter. Nur private Apps stoppen die Fokus-Uhr – die Freigabe-Liste legen Sie unternehmensweit fest und können sie pro Person ergänzen.",
-  },
-  {
-    q: "Funktioniert TeamFokus auch mit Betriebshandys oder am PC?",
-    a: "Ja – sowohl am Smartphone als auch am PC. Mitarbeitende, die ihr Handy für die Arbeit brauchen, geben die benötigten Arbeits-Apps einfach frei (z. B. Teams, Outlook, Telefon, Navigation, Scanner- oder Branchen-Apps). Bei ihnen läuft die Fokuszeit ungestört weiter. Für PC-Nutzung gibt es das Browser-Dashboard und die Desktop-Unterstützung: Arbeits-Websites und -Tools werden ebenfalls freigegeben, sodass nur private Nutzung die Fokus-Uhr stoppt. Die Freigabe-Liste legen Sie unternehmensweit fest und können sie pro Person ergänzen.",
-  },
-  {
-    q: "Was genau wird gemessen?",
-    a: "Gezählt wird die Fokuszeit während der Arbeitszeit: Die Fokus-Uhr läuft, solange gearbeitet wird, und stoppt bei privaten Apps oder Websites, die nicht freigegeben sind – in High-Focus-Phasen wird sogar Zeit abgezogen. Keine Inhalte, keine Screenshots, keine Tastatureingaben – ausschließlich Zeitdaten. Das Team mit der meisten gesammelten Fokuszeit gewinnt.",
-  },
-
-  {
-    q: "Werden einzelne Mitarbeitende überwacht?",
-    a: "Nein. Niemand – auch nicht die Geschäftsführung – sieht individuelle Fokuszeiten. Nur die Person selbst sieht ihre eigenen Daten. Führungskräfte sehen ausschließlich Team-Aggregate, und auch das erst ab Teamgröße 5 (k-Anonymität).",
-  },
-  {
-    q: "Ist die Teilnahme freiwillig?",
-    a: "Ja, vollständig. Jede:r Mitarbeitende entscheidet selbst über Teilnahme und über jede einzelne Anti-Sucht-Funktion (Timer, Graustufen, NFC-Sperre). Keine Nachteile bei Nicht-Teilnahme – das ist Voraussetzung für die Akzeptanz im Betrieb.",
-  },
-  {
-    q: "Ist das DSGVO-konform?",
-    a: "Ja. Privacy-by-Design, ausdrückliche Einwilligung der Mitarbeitenden, EU-Hosting, Datenminimierung und klare Zweckbindung sind von Anfang an eingebaut. Eine DSFA-Vorlage liegt bei.",
-  },
-  {
-    q: "Was kostet es?",
-    a: "Der Preis wird individuell abgestimmt – je nach Unternehmensgröße, Branche und gewünschtem Funktionsumfang. Vereinbare einen kurzen Call, um innerhalb weniger Minuten ein passendes Angebot zu erhalten.",
-  },
-  {
-    q: "Was bekommt das Gewinner-Team?",
-    a: "Die Belohnung legt die Führungskraft frei fest. Bewährte Beispiele: Tankgutschein, Essensgutschein, bezahlter Team-Lunch, Event-Tickets oder ein Fokus-Champion-Badge. Wichtig: Es wird nie ein Einzelner bestraft, nur ein Team belohnt.",
-  },
-  {
-    q: "Wie schnell ist es eingerichtet?",
-    a: "In rund 5 Minuten – ohne IT-Abteilung. Workspace anlegen, Einladungslink teilen, loslegen. Für die Einführung mit Betriebsrat planen Sie typischerweise 2–4 Wochen ein.",
-  },
-];
+export function useFaqItems() {
+  const t = useT();
+  return [
+    { q: t("landing.faq.q1.q"), a: t("landing.faq.q1.a") },
+    { q: t("landing.faq.q2.q"), a: t("landing.faq.q2.a") },
+    { q: t("landing.faq.q3.q"), a: t("landing.faq.q3.a") },
+    { q: t("landing.faq.q4.q"), a: t("landing.faq.q4.a") },
+    { q: t("landing.faq.q5.q"), a: t("landing.faq.q5.a") },
+    { q: t("landing.faq.q6.q"), a: t("landing.faq.q6.a") },
+    { q: t("landing.faq.q7.q"), a: t("landing.faq.q7.a") },
+    { q: t("landing.faq.q8.q"), a: t("landing.faq.q8.a") },
+    { q: t("landing.faq.q9.q"), a: t("landing.faq.q9.a") },
+    { q: t("landing.faq.q10.q"), a: t("landing.faq.q10.a") },
+    { q: t("landing.faq.q11.q"), a: t("landing.faq.q11.a") },
+  ];
+}
 
 export default function Faq() {
+  const t = useT();
+  const faqItems = useFaqItems();
   return (
     <section className="container py-20 md:py-24 border-t border-border/40" id="faq">
       <div className="max-w-2xl mx-auto text-center mb-12">
-        <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">FAQ</p>
-        <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Häufige Fragen.</h2>
+        <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("landing.faq.eyebrow")}</p>
+        <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">{t("landing.faq.title")}</h2>
       </div>
 
       <div className="max-w-3xl mx-auto surface-card p-3 md:p-5">

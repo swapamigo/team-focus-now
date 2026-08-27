@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { useT } from "@/i18n";
 
 interface TeamRow {
   id: string;
@@ -22,19 +23,8 @@ interface UnlockedGoal {
   unlocked_at: string | null;
 }
 
-const NOT_VISIBLE = [
-  "Namen einzelner Teilnehmender",
-  "individuelle Fokuszeiten",
-  "Nutzungsminuten",
-  "Team-Durchschnittswerte",
-  "Ranglisten",
-  "verwendete Apps, Webseiten oder URLs",
-  "Nachrichten, Inhalte, Screenshots, Tastatureingaben",
-  "Standortdaten",
-  "Teams, die ihr Ziel nicht erreicht haben",
-];
-
 export default function ManagerDashboard() {
+  const t = useT();
   const { companyId, profile } = useAuth();
   const [teams, setTeams] = useState<TeamRow[]>([]);
   const [memberCount, setMemberCount] = useState(0);
@@ -44,6 +34,18 @@ export default function ManagerDashboard() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ team_id: "", reward_title: "", target: "300", period_end: "" });
   const [saving, setSaving] = useState(false);
+
+  const NOT_VISIBLE = [
+    t("manager.dashboard.hidden_names"),
+    t("manager.dashboard.hidden_focus_times"),
+    t("manager.dashboard.hidden_usage_minutes"),
+    t("manager.dashboard.hidden_team_averages"),
+    t("manager.dashboard.hidden_rankings"),
+    t("manager.dashboard.hidden_apps_urls"),
+    t("manager.dashboard.hidden_content"),
+    t("manager.dashboard.hidden_location"),
+    t("manager.dashboard.hidden_teams_not_reached"),
+  ];
 
   const load = async () => {
     if (!companyId) return;
@@ -69,12 +71,12 @@ export default function ManagerDashboard() {
 
   useEffect(() => { load(); }, [companyId]);
 
-  const teamName = (id: string) => teams.find((t) => t.id === id)?.name ?? "Team";
+  const teamName = (id: string) => teams.find((t) => t.id === id)?.name ?? t("manager.dashboard.team_fallback");
   const teamColor = (id: string) => teams.find((t) => t.id === id)?.color ?? "hsl(var(--primary))";
 
   const createGoal = async () => {
     if (!companyId || !form.team_id || !form.reward_title.trim()) {
-      return toast.error("Team und Belohnung angeben.");
+      return toast.error(t("manager.dashboard.goal_validation"));
     }
     setSaving(true);
     const { error } = await supabase.from("team_goals").insert({
@@ -85,8 +87,8 @@ export default function ManagerDashboard() {
       period_end: form.period_end || undefined,
     });
     setSaving(false);
-    if (error) return toast.error("Ziel konnte nicht gespeichert werden.");
-    toast.success("Ziel und Belohnung festgelegt. Werte bleiben beim Team.");
+    if (error) return toast.error(t("manager.dashboard.goal_save_error"));
+    toast.success(t("manager.dashboard.goal_saved_toast"));
     setShowForm(false);
     setForm({ team_id: "", reward_title: "", target: "300", period_end: "" });
     load();
@@ -95,8 +97,8 @@ export default function ManagerDashboard() {
   return (
     <div className="p-5 md:p-8 max-w-4xl mx-auto">
       <header className="mb-8">
-        <p className="text-sm text-muted-foreground">Hallo {profile?.display_name ?? "Manager"}</p>
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mt-1">{companyName || "Workspace"}</h1>
+        <p className="text-sm text-muted-foreground">{t("manager.dashboard.greeting", { name: profile?.display_name ?? t("manager.dashboard.manager_fallback") })}</p>
+        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mt-1">{companyName || t("manager.dashboard.workspace_fallback")}</h1>
       </header>
 
       <section className="surface-card p-5 mb-6 flex items-start gap-4">
@@ -104,24 +106,23 @@ export default function ManagerDashboard() {
           <ShieldCheck className="h-5 w-5" />
         </div>
         <div>
-          <p className="font-semibold">Diese eine Information erhältst du</p>
+          <p className="font-semibold">{t("manager.dashboard.info_title")}</p>
           <p className="text-sm text-muted-foreground mt-1">
-            Sichtbar wird ausschließlich, welches Team eine vorher vereinbarte Belohnung freigeschaltet hat.
-            Persönliche Nutzungsdaten, Fokuszeiten, Team-Durchschnitte und Ranglisten stehen dir nicht zur Verfügung.
+            {t("manager.dashboard.info_desc")}
           </p>
         </div>
       </section>
 
       <div className="grid grid-cols-2 gap-3 mb-8">
-        <Stat icon={Users} label="Mitarbeitende" value={memberCount.toString()} />
-        <Stat icon={Trophy} label="Teams" value={teams.length.toString()} />
+        <Stat icon={Users} label={t("manager.dashboard.employees")} value={memberCount.toString()} />
+        <Stat icon={Trophy} label={t("manager.dashboard.teams")} value={teams.length.toString()} />
       </div>
 
       <section className="surface-card p-6 mb-6">
         <div className="flex items-center justify-between gap-4 mb-4">
-          <h2 className="font-semibold flex items-center gap-2"><Gift className="h-4 w-4 text-primary" /> Freigeschaltete Belohnungen</h2>
+          <h2 className="font-semibold flex items-center gap-2"><Gift className="h-4 w-4 text-primary" /> {t("manager.dashboard.unlocked_rewards")}</h2>
           <Button size="sm" variant="outline" onClick={() => setShowForm((v) => !v)}>
-            <Plus className="h-4 w-4 mr-1.5" /> Ziel festlegen
+            <Plus className="h-4 w-4 mr-1.5" /> {t("manager.dashboard.set_goal")}
           </Button>
         </div>
 
@@ -129,45 +130,45 @@ export default function ManagerDashboard() {
           <div className="rounded-xl border border-border/60 p-4 mb-5 space-y-3">
             <div className="grid sm:grid-cols-2 gap-3">
               <div>
-                <Label htmlFor="goal-team">Team</Label>
+                <Label htmlFor="goal-team">{t("manager.dashboard.field_team")}</Label>
                 <select
                   id="goal-team"
                   className="mt-1 w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
                   value={form.team_id}
                   onChange={(e) => setForm({ ...form, team_id: e.target.value })}
                 >
-                  <option value="">Team wählen…</option>
+                  <option value="">{t("manager.dashboard.field_team_placeholder")}</option>
                   {teams.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
                 </select>
               </div>
               <div>
-                <Label htmlFor="goal-reward">Vereinbarte Belohnung</Label>
-                <Input id="goal-reward" className="mt-1" placeholder="z. B. zwei Stunden früherer Feierabend"
+                <Label htmlFor="goal-reward">{t("manager.dashboard.field_reward")}</Label>
+                <Input id="goal-reward" className="mt-1" placeholder={t("manager.dashboard.field_reward_placeholder")}
                   value={form.reward_title} onChange={(e) => setForm({ ...form, reward_title: e.target.value })} />
               </div>
               <div>
-                <Label htmlFor="goal-target">Zielwert (Fokusminuten / Tag)</Label>
+                <Label htmlFor="goal-target">{t("manager.dashboard.field_target")}</Label>
                 <Input id="goal-target" className="mt-1" type="number" min={0}
                   value={form.target} onChange={(e) => setForm({ ...form, target: e.target.value })} />
               </div>
               <div>
-                <Label htmlFor="goal-end">Ende des Zeitraums</Label>
+                <Label htmlFor="goal-end">{t("manager.dashboard.field_end")}</Label>
                 <Input id="goal-end" className="mt-1" type="date"
                   value={form.period_end} onChange={(e) => setForm({ ...form, period_end: e.target.value })} />
               </div>
             </div>
             <p className="text-xs text-muted-foreground">
-              Ziel und Belohnung werden vorab gemeinsam festgelegt. Den Fortschritt sieht ausschließlich das Team selbst.
+              {t("manager.dashboard.goal_form_note")}
             </p>
-            <Button size="sm" onClick={createGoal} disabled={saving}>{saving ? "Speichert…" : "Ziel speichern"}</Button>
+            <Button size="sm" onClick={createGoal} disabled={saving}>{saving ? t("manager.dashboard.saving") : t("manager.dashboard.save_goal")}</Button>
           </div>
         )}
 
         {loading ? (
-          <p className="text-sm text-muted-foreground">Lädt…</p>
+          <p className="text-sm text-muted-foreground">{t("manager.dashboard.loading")}</p>
         ) : unlocked.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            Noch keine Belohnung freigeschaltet. Sobald ein Team sein vereinbartes Ziel erreicht, erscheint es hier.
+            {t("manager.dashboard.no_unlocked")}
           </p>
         ) : (
           <ul className="space-y-3">
@@ -176,12 +177,12 @@ export default function ManagerDashboard() {
                 <div className="flex items-center gap-3">
                   <span className="h-8 w-8 rounded-lg shrink-0" style={{ background: teamColor(g.team_id) }} aria-hidden="true" />
                   <div className="min-w-0">
-                    <p className="font-semibold truncate">Team {teamName(g.team_id)}</p>
-                    <p className="text-sm text-success font-medium">Belohnung freigeschaltet</p>
+                    <p className="font-semibold truncate">{t("manager.dashboard.team_prefix")} {teamName(g.team_id)}</p>
+                    <p className="text-sm text-success font-medium">{t("manager.dashboard.reward_unlocked")}</p>
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Gewählter Benefit: {g.reward_title}
+                  {t("manager.dashboard.chosen_benefit")}: {g.reward_title}
                   {g.reward_note ? ` · ${g.reward_note}` : ""}
                 </p>
               </li>
@@ -191,7 +192,7 @@ export default function ManagerDashboard() {
       </section>
 
       <section className="surface-card p-6 mb-6">
-        <h2 className="font-semibold flex items-center gap-2 mb-3"><EyeOff className="h-4 w-4 text-muted-foreground" /> Nicht sichtbar für dich</h2>
+        <h2 className="font-semibold flex items-center gap-2 mb-3"><EyeOff className="h-4 w-4 text-muted-foreground" /> {t("manager.dashboard.not_visible")}</h2>
         <ul className="grid sm:grid-cols-2 gap-y-1.5 gap-x-4 text-sm text-muted-foreground">
           {NOT_VISIBLE.map((x) => <li key={x}>· {x}</li>)}
         </ul>

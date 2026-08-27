@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
 import { Timer, Smartphone, Sparkles, Wifi, MoonStar, AlarmClockOff, ScanLine } from "lucide-react";
+import { useT } from "@/i18n";
 
 interface Feature {
   key: string;
@@ -11,44 +12,45 @@ interface Feature {
   tag?: string;
 }
 
-const features: Feature[] = [
-  {
-    key: "open_delay",
-    icon: Timer,
-    title: "30-Sekunden Öffnungs-Timer",
-    desc: "Vor dem Öffnen von Social-Apps läuft ein kurzer Timer. Das durchbricht den Reflex und gibt dir Zeit, bewusst zu entscheiden.",
-    tag: "Beliebt",
-  },
-  {
-    key: "brick_nfc",
-    icon: ScanLine,
-    title: "Physische Sperre per NFC (Brick)",
-    desc: "Verbinde einen physischen NFC-Chip wie Brick. Instagram & Co. öffnen sich nur, wenn du den Chip aktiv mit dem Handy berührst – die Hürde, die süchtig macht, verschwindet.",
-    tag: "Brick kompatibel",
-  },
-  {
-    key: "grayscale",
-    icon: MoonStar,
-    title: "Graustufen während der Arbeit",
-    desc: "Während der Arbeitszeit schaltet dein Handy automatisch in Graustufen. Bunte Reize verlieren ihre Anziehungskraft.",
-  },
-  {
-    key: "scroll_break",
-    icon: AlarmClockOff,
-    title: "Scroll-Stopper nach 2 Minuten",
-    desc: "Wenn du länger als 2 Minuten in einer Social-App bist, kommt eine sanfte Erinnerung. Du entscheidest, ob du bleibst.",
-  },
-  {
-    key: "focus_wifi",
-    icon: Wifi,
-    title: "Auto-Fokus bei Arbeits-WLAN",
-    desc: "Sobald du dich im Büro-WLAN befindest, aktivieren sich deine Fokus-Regeln automatisch.",
-  },
-];
-
 export default function FeaturesPage() {
+  const t = useT();
   const [state, setState] = useState<Record<string, boolean>>({});
   const [delay, setDelay] = useState(30);
+
+  const features: Feature[] = [
+    {
+      key: "open_delay",
+      icon: Timer,
+      title: t("employee.features.open_delay_title"),
+      desc: t("employee.features.open_delay_desc"),
+      tag: t("employee.features.popular_tag"),
+    },
+    {
+      key: "brick_nfc",
+      icon: ScanLine,
+      title: t("employee.features.brick_title"),
+      desc: t("employee.features.brick_desc"),
+      tag: t("employee.features.brick_tag"),
+    },
+    {
+      key: "grayscale",
+      icon: MoonStar,
+      title: t("employee.features.grayscale_title"),
+      desc: t("employee.features.grayscale_desc"),
+    },
+    {
+      key: "scroll_break",
+      icon: AlarmClockOff,
+      title: t("employee.features.scroll_break_title"),
+      desc: t("employee.features.scroll_break_desc"),
+    },
+    {
+      key: "focus_wifi",
+      icon: Wifi,
+      title: t("employee.features.focus_wifi_title"),
+      desc: t("employee.features.focus_wifi_desc"),
+    },
+  ];
 
   useEffect(() => {
     try {
@@ -68,10 +70,10 @@ export default function FeaturesPage() {
   return (
     <div className="min-h-screen bg-background pb-24">
       <header className="px-5 pt-8 pb-4">
-        <p className="text-sm text-muted-foreground flex items-center gap-1.5"><Sparkles className="h-4 w-4 text-primary" /> Anti-Sucht Werkzeuge</p>
-        <h1 className="text-3xl font-semibold tracking-tight mt-1">Features</h1>
+        <p className="text-sm text-muted-foreground flex items-center gap-1.5"><Sparkles className="h-4 w-4 text-primary" /> {t("employee.features.eyebrow")}</p>
+        <h1 className="text-3xl font-semibold tracking-tight mt-1">{t("employee.features.title")}</h1>
         <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-          Optionale Hilfen, die dir helfen, weniger abhängig vom Handy zu werden. Aktiviere nur das, was zu dir passt – alles ist freiwillig.
+          {t("employee.features.intro")}
         </p>
       </header>
 
@@ -94,7 +96,7 @@ export default function FeaturesPage() {
                   {on && f.key === "open_delay" && (
                     <div className="mt-3">
                       <div className="flex items-center justify-between text-xs mb-1.5">
-                        <span className="text-muted-foreground">Verzögerung</span>
+                        <span className="text-muted-foreground">{t("employee.features.delay_label")}</span>
                         <span className="font-medium tabular-nums">{delay}s</span>
                       </div>
                       <Slider min={5} max={120} step={5} value={[delay]} onValueChange={(v) => { setDelay(v[0]); try { localStorage.setItem("tf_open_delay", String(v[0])); } catch {} }} />
@@ -103,7 +105,7 @@ export default function FeaturesPage() {
                   {on && f.key === "brick_nfc" && (
                     <div className="mt-3 rounded-lg bg-secondary/60 px-3 py-2 text-xs text-muted-foreground flex items-center gap-2">
                       <Smartphone className="h-3.5 w-3.5 text-primary" />
-                      Halte deinen Brick an die Rückseite des Handys, um die Apps freizuschalten.
+                      {t("employee.features.brick_hint")}
                     </div>
                   )}
                 </div>
@@ -116,9 +118,9 @@ export default function FeaturesPage() {
 
       <section className="px-5 mt-6">
         <div className="surface-card p-5 text-center">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">Privatsphäre</p>
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">{t("employee.features.privacy_label")}</p>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Deine individuelle Fokuszeit sieht <strong className="text-foreground">niemand außer dir</strong>. Manager und Teamkolleg*innen sehen nur den Durchschnitt deines Teams.
+            {t("employee.features.privacy_note")}
           </p>
         </div>
       </section>

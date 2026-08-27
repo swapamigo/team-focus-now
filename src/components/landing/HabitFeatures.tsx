@@ -1,37 +1,40 @@
 import { Timer, ScanLine, MoonStar, Sparkles } from "lucide-react";
-
-const items = [
-  {
-    icon: Timer,
-    title: "30-Sek Öffnungs-Timer",
-    desc: "Bevor sich Instagram, TikTok & Co öffnen, läuft ein kurzer Timer. Der Reflex bricht, die bewusste Entscheidung gewinnt.",
-  },
-  {
-    icon: ScanLine,
-    title: "Physische NFC-Sperre",
-    desc: "Kompatibel mit Geräten wie Brick: Social-Apps öffnen sich nur, wenn der Mitarbeitende einen physischen NFC-Chip aktiv berührt.",
-    tag: "Brick kompatibel",
-  },
-  {
-    icon: MoonStar,
-    title: "Graustufen-Modus",
-    desc: "Während der Arbeitszeit wird das Handy automatisch grau. Bunte Reize verlieren ihre Anziehungskraft.",
-  },
-  {
-    icon: Sparkles,
-    title: "Freiwillig & individuell",
-    desc: "Jeder Mitarbeitende entscheidet selbst, welche Anti-Sucht-Tools er nutzt. Kein Zwang, nur Unterstützung.",
-  },
-];
+import { useT } from "@/i18n";
 
 export default function HabitFeatures() {
+  const t = useT();
+
+  const items = [
+    {
+      icon: Timer,
+      title: t("landing.habit_features.item1.title"),
+      desc: t("landing.habit_features.item1.desc"),
+    },
+    {
+      icon: ScanLine,
+      title: t("landing.habit_features.item2.title"),
+      desc: t("landing.habit_features.item2.desc"),
+      tag: t("landing.habit_features.item2.tag"),
+    },
+    {
+      icon: MoonStar,
+      title: t("landing.habit_features.item3.title"),
+      desc: t("landing.habit_features.item3.desc"),
+    },
+    {
+      icon: Sparkles,
+      title: t("landing.habit_features.item4.title"),
+      desc: t("landing.habit_features.item4.desc"),
+    },
+  ];
+
   return (
     <section id="habits" className="container py-16 md:py-24 border-t border-border/40">
       <div className="max-w-2xl mx-auto text-center mb-10 md:mb-14">
-        <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Mehr als nur ein Tracker</p>
-        <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Werkzeuge gegen die Handy-Sucht.</h2>
+        <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("landing.habit_features.eyebrow")}</p>
+        <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">{t("landing.habit_features.title")}</h2>
         <p className="mt-4 text-muted-foreground text-base md:text-lg leading-relaxed">
-          Freiwillig einschaltbare Werkzeuge – jeder Mitarbeitende aktiviert nur, was zu ihm passt.
+          {t("landing.habit_features.subtitle")}
         </p>
       </div>
 
@@ -55,7 +58,7 @@ export default function HabitFeatures() {
       </div>
 
       <p className="text-center text-xs text-muted-foreground mt-8 max-w-xl mx-auto">
-        Hinweis: Individuelle Fokuszeiten bleiben privat – Manager sehen ausschließlich Team-Durchschnitte.
+        {t("landing.habit_features.footnote")}
       </p>
     </section>
   );

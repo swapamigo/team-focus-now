@@ -7,7 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DemoBanner from "@/components/demo/DemoBanner";
-import { demoTeams, demoStats, genYear } from "@/components/demo/demoData";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { demoTeams, demoTeamNameKey, demoStats, genYear, MONTH_KEYS } from "@/components/demo/demoData";
 import { toast } from "sonner";
 import {
   Users, Trophy, Activity, TrendingUp, Sparkles, CalendarRange, UserCog,
@@ -15,22 +16,23 @@ import {
 } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import Seo from "@/components/Seo";
+import { useT } from "@/i18n";
 
 const initialMembers = [
-  { name: "Anna Berger", email: "anna.berger@beispiel.de", team: "Team Alpha", role: "Mitarbeiterin" },
-  { name: "Lukas Schmidt", email: "lukas.schmidt@beispiel.de", team: "Team Alpha", role: "Mitarbeiter" },
-  { name: "Sophie Wagner", email: "sophie.wagner@beispiel.de", team: "Team Beta", role: "Mitarbeiterin" },
-  { name: "Jonas Klein", email: "jonas.klein@beispiel.de", team: "Team Beta", role: "Mitarbeiter" },
-  { name: "Mia Hoffmann", email: "mia.hoffmann@beispiel.de", team: "Team Gamma", role: "Mitarbeiterin" },
-  { name: "Felix Braun", email: "felix.braun@beispiel.de", team: "Team Gamma", role: "Mitarbeiter" },
-  { name: "Lara Krüger", email: "lara.krueger@beispiel.de", team: "Team Delta", role: "Mitarbeiterin" },
-  { name: "Tim Werner", email: "tim.werner@beispiel.de", team: "Team Delta", role: "Mitarbeiter" },
+  { name: "Anna Berger", email: "anna.berger@beispiel.de", team: "Team Alpha", roleKey: "demo.manager.role.f" },
+  { name: "Lukas Schmidt", email: "lukas.schmidt@beispiel.de", team: "Team Alpha", roleKey: "demo.manager.role.m" },
+  { name: "Sophie Wagner", email: "sophie.wagner@beispiel.de", team: "Team Beta", roleKey: "demo.manager.role.f" },
+  { name: "Jonas Klein", email: "jonas.klein@beispiel.de", team: "Team Beta", roleKey: "demo.manager.role.m" },
+  { name: "Mia Hoffmann", email: "mia.hoffmann@beispiel.de", team: "Team Gamma", roleKey: "demo.manager.role.f" },
+  { name: "Felix Braun", email: "felix.braun@beispiel.de", team: "Team Gamma", roleKey: "demo.manager.role.m" },
+  { name: "Lara Krüger", email: "lara.krueger@beispiel.de", team: "Team Delta", roleKey: "demo.manager.role.f" },
+  { name: "Tim Werner", email: "tim.werner@beispiel.de", team: "Team Delta", roleKey: "demo.manager.role.m" },
 ];
 
 const initialChallenges = [
-  { name: "Fokus-Woche", status: "Aktiv", reward: "Tankgutschein 50 €", progress: 68, days: "5 Tage übrig" },
-  { name: "Handy-Diät", status: "Geplant", reward: "Bezahltes Team-Mittagessen", progress: 0, days: "Start in 12 Tagen" },
-  { name: "Quartals-Marathon", status: "Beendet", reward: "Essensgutschein 50 €", progress: 100, days: "Gewinner: Team Alpha" },
+  { key: "focusWeek", statusKey: "active", rewardKey: "fuelVoucher", progress: 68, daysKey: "daysLeft5" },
+  { key: "phoneDiet", statusKey: "planned", rewardKey: "teamLunch", progress: 0, daysKey: "startIn12" },
+  { key: "quarterMarathon", statusKey: "finished", rewardKey: "mealVoucher", progress: 100, daysKey: "winnerAlpha" },
 ];
 
 const demoWhitelist = {
@@ -39,13 +41,20 @@ const demoWhitelist = {
 };
 
 export default function DemoManager() {
+  const t = useT();
   const [seed, setSeed] = useState(0);
-  const yearData = useMemo(() => genYear(seed), [seed]);
+  const monthLabels = useMemo(() => MONTH_KEYS.map((k) => t(k)), [t]);
+  const yearData = useMemo(() => genYear(seed, monthLabels), [seed, monthLabels]);
 
+  const statusLabel = (k: string) => t(`demo.manager.challenges.status.${k}`);
+  const challengeName = (k: string) => t(`demo.manager.challenges.name.${k}`);
+  const challengeReward = (k: string) => t(`demo.manager.challenges.reward.${k}`);
+  const challengeDays = (k: string) => t(`demo.manager.challenges.days.${k}`);
+  const roleLabel = (k: string) => t(k);
 
   // Interactive demo state
   const [members, setMembers] = useState(initialMembers);
-  const [teamsList, setTeamsList] = useState(demoTeams.map((t) => ({ id: t.id, name: t.name, color: t.color, members: t.members, avgMin: t.avgMin, isOwn: t.isOwn })));
+  const [teamsList, setTeamsList] = useState(demoTeams.map((tm) => ({ id: tm.id, name: tm.name, color: tm.color, members: tm.members, avgMin: tm.avgMin, isOwn: tm.isOwn })));
   const [challenges, setChallenges] = useState(initialChallenges);
 
   // dialog states
@@ -63,25 +72,25 @@ export default function DemoManager() {
   const [inviteTeam, setInviteTeam] = useState("Team Alpha");
 
   const createChallenge = () => {
-    if (!chName.trim()) return toast.error("Name fehlt");
-    setChallenges([{ name: chName, status: "Geplant", reward: chReward || "Team-Belohnung", progress: 0, days: `Start in ${chDays} Tagen` }, ...challenges]);
+    if (!chName.trim()) return toast.error(t("demo.manager.toast.nameMissing"));
+    setChallenges([{ key: `custom-${Date.now()}`, name: chName, statusKey: "planned", reward: chReward || t("demo.manager.dialog.teamRewardDefault"), progress: 0, days: t("demo.manager.dialog.startInDays", { days: chDays }) } as any, ...challenges]);
     setOpenChallenge(false); setChName(""); setChReward(""); setChDays("7");
-    toast.success("Challenge erstellt");
+    toast.success(t("demo.manager.toast.challengeCreated"));
   };
 
   const createTeam = () => {
-    if (!teamName.trim()) return toast.error("Name fehlt");
+    if (!teamName.trim()) return toast.error(t("demo.manager.toast.nameMissing"));
     setTeamsList([...teamsList, { id: `t-${Date.now()}`, name: teamName, color: teamColor, members: 0, avgMin: 0, isOwn: false }]);
     setOpenTeam(false); setTeamName(""); setTeamColor("#6366f1");
-    toast.success("Team angelegt");
+    toast.success(t("demo.manager.toast.teamCreated"));
   };
 
   const invite = () => {
-    if (!inviteName.trim()) return toast.error("Name fehlt");
+    if (!inviteName.trim()) return toast.error(t("demo.manager.toast.nameMissing"));
     const slug = inviteName.trim().toLowerCase().replace(/\s+/g, ".").replace(/[^a-z0-9.]/g, "");
-    setMembers([{ name: inviteName, email: `${slug}@beispiel.de`, team: inviteTeam, role: "Mitarbeiter:in" }, ...members]);
+    setMembers([{ name: inviteName, email: `${slug}@beispiel.de`, team: inviteTeam, roleKey: "demo.manager.role.neutral" } as any, ...members]);
     setOpenInvite(false); setInviteName("");
-    toast.success("Einladung verschickt");
+    toast.success(t("demo.manager.toast.invitationSent"));
   };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -98,13 +107,13 @@ export default function DemoManager() {
       const wb = XLSX.read(buf, { type: "array" });
       const sheet = wb.Sheets[wb.SheetNames[0]];
       const rows = XLSX.utils.sheet_to_json<Record<string, any>>(sheet, { defval: "" });
-      if (!rows.length) return toast.error("Datei enthält keine Zeilen");
+      if (!rows.length) return toast.error(t("demo.manager.toast.noRows"));
 
       const domain = (rows.find((r) => Object.values(r).some((v) => String(v).includes("@")))
         ? (Object.values(rows[0]).map(String).find((v) => v.includes("@")) ?? "").split("@")[1]
         : "") || "firma.de";
 
-      const teamNames = teamsList.map((t) => t.name);
+      const teamNames = teamsList.map((tm) => tm.name);
       const added = rows.map((r, i) => {
         const vals = Object.entries(r);
         const nameKey = vals.find(([k]) => /name/i.test(k))?.[1] ?? vals[0]?.[1] ?? "";
@@ -113,20 +122,20 @@ export default function DemoManager() {
         if (!name) return null;
         const email = String(emailKey).trim() || `${slugify(name)}@${domain}`;
         const team = teamNames[Math.floor(Math.random() * teamNames.length)] ?? "Team Alpha";
-        return { name, email, team, role: "Mitarbeiter:in" };
-      }).filter(Boolean) as { name: string; email: string; team: string; role: string }[];
+        return { name, email, team, roleKey: "demo.manager.role.neutral" };
+      }).filter(Boolean) as { name: string; email: string; team: string; roleKey: string }[];
 
-      if (!added.length) return toast.error("Keine gültigen Namen gefunden");
+      if (!added.length) return toast.error(t("demo.manager.toast.noValidNames"));
 
       setMembers([...added, ...members]);
-      setTeamsList(teamsList.map((t) => ({
-        ...t,
-        members: t.members + added.filter((a) => a.team === t.name).length,
+      setTeamsList(teamsList.map((tm) => ({
+        ...tm,
+        members: tm.members + added.filter((a) => a.team === tm.name).length,
       })));
-      toast.success(`${added.length} Mitarbeitende importiert & zufällig auf ${teamNames.length} Teams verteilt`);
+      toast.success(t("demo.manager.toast.importSuccess", { count: added.length, teams: teamNames.length }));
     } catch (err) {
       console.error(err);
-      toast.error("Datei konnte nicht gelesen werden");
+      toast.error(t("demo.manager.toast.importFailed"));
     } finally {
       if (fileInputRef.current) fileInputRef.current.value = "";
     }
@@ -135,66 +144,74 @@ export default function DemoManager() {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Manager-Demo – TeamFokus Dashboard ausprobieren"
-        description="Interaktive Demo der Arbeitgeber-Ansicht: sichtbar ist ausschließlich, welches Team eine vereinbarte Belohnung freigeschaltet hat."
+        title={t("demo.manager.seo.title")}
+        description={t("demo.manager.seo.description")}
         path="/demo/manager"
       />
       <DemoBanner />
       <div className="container py-6 md:py-8 max-w-5xl">
         <header className="mb-6 flex items-start justify-between gap-3 flex-wrap">
           <div>
-            <p className="text-sm text-muted-foreground flex items-center gap-1.5"><UserCog className="h-4 w-4" /> Manager-Demo</p>
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">Manager Dashboard Demo</h1>
+            <p className="text-sm text-muted-foreground flex items-center gap-1.5"><UserCog className="h-4 w-4" /> {t("demo.manager.header.eyebrow")}</p>
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">{t("demo.manager.header.title")}</h1>
           </div>
-          <div className="flex gap-2">
-            <Button asChild variant="outline" size="sm"><Link to="/demo/employee">Mitarbeiter-Sicht</Link></Button>
+          <div className="flex gap-2 items-center">
+            <LanguageSwitcher compact />
+            <Button asChild variant="outline" size="sm"><Link to="/demo/employee">{t("demo.manager.header.employeeView")}</Link></Button>
             <Button onClick={() => setSeed((s) => s + 1)} size="sm">
-              <Sparkles className="h-4 w-4 mr-1" /> Neue Demo-Daten
+              <Sparkles className="h-4 w-4 mr-1" /> {t("demo.manager.header.newData")}
             </Button>
           </div>
         </header>
 
         <Tabs defaultValue="overview" className="w-full">
           <TabsList className="mb-6 flex w-full overflow-x-auto">
-            <TabsTrigger value="overview"><CalendarRange className="h-4 w-4 mr-1.5" />Übersicht</TabsTrigger>
-            <TabsTrigger value="teams"><Users className="h-4 w-4 mr-1.5" />Teams</TabsTrigger>
-            <TabsTrigger value="challenges"><Trophy className="h-4 w-4 mr-1.5" />Challenges</TabsTrigger>
-            <TabsTrigger value="settings"><Cog className="h-4 w-4 mr-1.5" />Einstellungen</TabsTrigger>
+            <TabsTrigger value="overview"><CalendarRange className="h-4 w-4 mr-1.5" />{t("demo.manager.tabs.overview")}</TabsTrigger>
+            <TabsTrigger value="teams"><Users className="h-4 w-4 mr-1.5" />{t("demo.manager.tabs.teams")}</TabsTrigger>
+            <TabsTrigger value="challenges"><Trophy className="h-4 w-4 mr-1.5" />{t("demo.manager.tabs.challenges")}</TabsTrigger>
+            <TabsTrigger value="settings"><Cog className="h-4 w-4 mr-1.5" />{t("demo.manager.tabs.settings")}</TabsTrigger>
           </TabsList>
 
           {/* ÜBERSICHT */}
           <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-2 gap-3">
-              <Stat icon={Users} label="Mitarbeitende" value={demoStats.memberCount.toString()} />
-              <Stat icon={Trophy} label="Teams" value={String(teamsList.length)} />
+              <Stat icon={Users} label={t("demo.manager.overview.members")} value={demoStats.memberCount.toString()} />
+              <Stat icon={Trophy} label={t("demo.manager.overview.teams")} value={String(teamsList.length)} />
             </div>
 
             <section className="surface-card p-5 md:p-6">
-              <h2 className="font-semibold flex items-center gap-2 mb-1"><Shield className="h-4 w-4 text-primary" /> Diese eine Information erhältst du</h2>
+              <h2 className="font-semibold flex items-center gap-2 mb-1"><Shield className="h-4 w-4 text-primary" /> {t("demo.manager.overview.oneInfoTitle")}</h2>
               <p className="text-sm text-muted-foreground mb-4">
-                Sichtbar wird ausschließlich, welches Team eine vorher vereinbarte Belohnung freigeschaltet hat.
+                {t("demo.manager.overview.oneInfoBody")}
               </p>
               <ul className="space-y-3">
                 {[
-                  { name: "Team Blau", benefit: "zwei Stunden früherer Feierabend" },
-                  { name: "Team Alpha", benefit: "Team-Erlebnis nach Wahl" },
+                  { name: t("demo.manager.overview.rewardTeamBlue"), benefit: t("demo.manager.overview.rewardBenefitEarlyLeave") },
+                  { name: t("demo.manager.overview.rewardTeamAlpha"), benefit: t("demo.manager.overview.rewardBenefitTeamEvent") },
                 ].map((r) => (
                   <li key={r.name} className="rounded-xl border border-success/30 bg-success/5 p-4">
                     <p className="font-semibold">{r.name}</p>
-                    <p className="text-sm text-success font-medium">Belohnung freigeschaltet</p>
-                    <p className="text-sm text-muted-foreground mt-1">Gewählter Benefit: {r.benefit}</p>
+                    <p className="text-sm text-success font-medium">{t("demo.manager.overview.rewardUnlocked")}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{t("demo.manager.overview.chosenBenefit", { benefit: r.benefit })}</p>
                   </li>
                 ))}
               </ul>
             </section>
 
             <section className="surface-card p-5 md:p-6">
-              <h2 className="font-semibold mb-3">Nicht sichtbar für Arbeitgeber</h2>
+              <h2 className="font-semibold mb-3">{t("demo.manager.overview.notVisibleTitle")}</h2>
               <ul className="grid sm:grid-cols-2 gap-y-1.5 gap-x-4 text-sm text-muted-foreground">
-                {["Namen einzelner Teilnehmender", "individuelle Fokuszeiten", "Nutzungsminuten",
-                  "Team-Durchschnittswerte", "Ranglisten", "verwendete Apps, Webseiten oder URLs",
-                  "Nachrichten, Inhalte, Screenshots, Tastatureingaben", "Standortdaten",
-                  "Teams, die ihr Ziel nicht erreicht haben"].map((x) => <li key={x}>· {x}</li>)}
+                {[
+                  t("demo.manager.overview.notVisible.names"),
+                  t("demo.manager.overview.notVisible.focusTimes"),
+                  t("demo.manager.overview.notVisible.usageMinutes"),
+                  t("demo.manager.overview.notVisible.teamAverages"),
+                  t("demo.manager.overview.notVisible.rankings"),
+                  t("demo.manager.overview.notVisible.appsWebsites"),
+                  t("demo.manager.overview.notVisible.messages"),
+                  t("demo.manager.overview.notVisible.location"),
+                  t("demo.manager.overview.notVisible.missedGoal"),
+                ].map((x) => <li key={x}>· {x}</li>)}
               </ul>
             </section>
           </TabsContent>
@@ -204,41 +221,41 @@ export default function DemoManager() {
           <TabsContent value="teams" className="space-y-6">
             <section className="surface-card p-5 md:p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold">Teams</h2>
+                <h2 className="font-semibold">{t("demo.manager.teams.title")}</h2>
                 <Dialog open={openTeam} onOpenChange={setOpenTeam}>
                   <DialogTrigger asChild>
-                    <Button size="sm" variant="outline"><Plus className="h-4 w-4 mr-1" />Team</Button>
+                    <Button size="sm" variant="outline"><Plus className="h-4 w-4 mr-1" />{t("demo.manager.teams.team")}</Button>
                   </DialogTrigger>
                   <DialogContent>
-                    <DialogHeader><DialogTitle>Neues Team</DialogTitle></DialogHeader>
+                    <DialogHeader><DialogTitle>{t("demo.manager.teams.newTeam")}</DialogTitle></DialogHeader>
                     <div className="space-y-3">
-                      <div><Label>Name</Label><Input value={teamName} onChange={(e) => setTeamName(e.target.value)} placeholder="z. B. Vertrieb" /></div>
-                      <div><Label>Farbe</Label><Input type="color" value={teamColor} onChange={(e) => setTeamColor(e.target.value)} className="h-10 w-20 p-1" /></div>
+                      <div><Label>{t("demo.manager.teams.name")}</Label><Input value={teamName} onChange={(e) => setTeamName(e.target.value)} placeholder={t("demo.manager.teams.namePlaceholder")} /></div>
+                      <div><Label>{t("demo.manager.teams.color")}</Label><Input type="color" value={teamColor} onChange={(e) => setTeamColor(e.target.value)} className="h-10 w-20 p-1" /></div>
                     </div>
-                    <DialogFooter><Button onClick={createTeam}>Anlegen</Button></DialogFooter>
+                    <DialogFooter><Button onClick={createTeam}>{t("demo.manager.teams.create")}</Button></DialogFooter>
                   </DialogContent>
                 </Dialog>
               </div>
               <ul className="space-y-2">
-                {teamsList.map((t) => (
-                  <li key={t.id} className="flex items-center gap-3 p-3 rounded-xl bg-secondary/60">
-                    <span className="h-8 w-8 rounded-lg grid place-items-center text-xs font-semibold text-white" style={{ background: t.color }}>{t.name.slice(0, 2).toUpperCase()}</span>
+                {teamsList.map((tm) => (
+                  <li key={tm.id} className="flex items-center gap-3 p-3 rounded-xl bg-secondary/60">
+                    <span className="h-8 w-8 rounded-lg grid place-items-center text-xs font-semibold text-white" style={{ background: tm.color }}>{tm.name.slice(0, 2).toUpperCase()}</span>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate">{t.name}</p>
-                      <p className="text-xs text-muted-foreground">{t.members} Mitglieder</p>
+                      <p className="font-medium truncate">{t(demoTeamNameKey(tm.id))}</p>
+                      <p className="text-xs text-muted-foreground">{t("demo.manager.teams.memberCount", { count: tm.members })}</p>
                     </div>
                   </li>
                 ))}
               </ul>
               <p className="text-xs text-muted-foreground mt-3">
-                Fokuszeiten und Durchschnittswerte der Teams sind für Arbeitgeber nicht abrufbar.
+                {t("demo.manager.teams.averagesHidden")}
               </p>
 
             </section>
 
             <section className="surface-card p-5 md:p-6">
               <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
-                <h2 className="font-semibold">Mitarbeitende</h2>
+                <h2 className="font-semibold">{t("demo.manager.members.title")}</h2>
                 <div className="flex gap-2">
                   <input
                     ref={fileInputRef}
@@ -248,35 +265,33 @@ export default function DemoManager() {
                     className="hidden"
                   />
                   <Button size="sm" variant="outline" onClick={() => fileInputRef.current?.click()}>
-                    <FileSpreadsheet className="h-4 w-4 mr-1" />Excel importieren
+                    <FileSpreadsheet className="h-4 w-4 mr-1" />{t("demo.manager.members.importExcel")}
                   </Button>
                   <Dialog open={openInvite} onOpenChange={setOpenInvite}>
                     <DialogTrigger asChild>
-                      <Button size="sm" variant="outline"><Mail className="h-4 w-4 mr-1" />Einladen</Button>
+                      <Button size="sm" variant="outline"><Mail className="h-4 w-4 mr-1" />{t("demo.manager.members.invite")}</Button>
                     </DialogTrigger>
                     <DialogContent>
-                      <DialogHeader><DialogTitle>Person einladen</DialogTitle></DialogHeader>
+                      <DialogHeader><DialogTitle>{t("demo.manager.members.inviteTitle")}</DialogTitle></DialogHeader>
                       <div className="space-y-3">
-                        <div><Label>Name</Label><Input value={inviteName} onChange={(e) => setInviteName(e.target.value)} placeholder="Vor- und Nachname" /></div>
+                        <div><Label>{t("demo.manager.teams.name")}</Label><Input value={inviteName} onChange={(e) => setInviteName(e.target.value)} placeholder={t("demo.manager.members.inviteNamePlaceholder")} /></div>
                         <div>
-                          <Label>Team</Label>
+                          <Label>{t("demo.manager.members.team")}</Label>
                           <select value={inviteTeam} onChange={(e) => setInviteTeam(e.target.value)} className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm">
-                            {teamsList.map((t) => <option key={t.id} value={t.name}>{t.name}</option>)}
+                            {teamsList.map((tm) => <option key={tm.id} value={tm.name}>{tm.name}</option>)}
                           </select>
                         </div>
                       </div>
-                      <DialogFooter><Button onClick={invite}>Einladen</Button></DialogFooter>
+                      <DialogFooter><Button onClick={invite}>{t("demo.manager.members.invite")}</Button></DialogFooter>
                     </DialogContent>
                   </Dialog>
                 </div>
               </div>
               <div className="mb-3 rounded-lg bg-primary/5 border border-primary/15 p-3 text-xs text-muted-foreground leading-relaxed">
-                <strong className="text-foreground">Excel-Import:</strong> Lade eine Tabelle mit Spalten <em>Name</em> und <em>E-Mail</em> hoch.
-                Für jede Zeile wird automatisch ein Profil erstellt und zufällig einem Team zugeordnet.
-                Mitarbeitende melden sich anschließend einfach mit ihrer Unternehmens-E-Mail an – kein Passwort-Setup nötig.
+                <strong className="text-foreground">{t("demo.manager.members.importLabel")}</strong> {t("demo.manager.members.importHint")}
               </div>
               <p className="text-xs text-muted-foreground mb-3 flex items-center gap-1.5">
-                <Shield className="h-3 w-3 text-primary" /> Individuelle Fokuszeiten sind <strong>nie</strong> sichtbar – nur Team-Aggregate.
+                <Shield className="h-3 w-3 text-primary" /> {t("demo.manager.members.privacyHint")}
               </p>
               <ul className="divide-y divide-border/60">
                 {members.map((m, idx) => (
@@ -299,32 +314,32 @@ export default function DemoManager() {
             <div className="flex justify-end">
               <Dialog open={openChallenge} onOpenChange={setOpenChallenge}>
                 <DialogTrigger asChild>
-                  <Button size="sm"><Plus className="h-4 w-4 mr-1" />Neue Challenge</Button>
+                  <Button size="sm"><Plus className="h-4 w-4 mr-1" />{t("demo.manager.challenges.new")}</Button>
                 </DialogTrigger>
                 <DialogContent>
-                  <DialogHeader><DialogTitle>Neue Challenge</DialogTitle></DialogHeader>
+                  <DialogHeader><DialogTitle>{t("demo.manager.challenges.newTitle")}</DialogTitle></DialogHeader>
                   <div className="space-y-3">
-                    <div><Label>Name</Label><Input value={chName} onChange={(e) => setChName(e.target.value)} placeholder="z. B. Fokus-Sprint" /></div>
-                    <div><Label>Belohnung</Label><Input value={chReward} onChange={(e) => setChReward(e.target.value)} placeholder="z. B. Team-Frühstück" /></div>
-                    <div><Label>Start in (Tagen)</Label><Input type="number" min="0" value={chDays} onChange={(e) => setChDays(e.target.value)} /></div>
+                    <div><Label>{t("demo.manager.teams.name")}</Label><Input value={chName} onChange={(e) => setChName(e.target.value)} placeholder={t("demo.manager.challenges.namePlaceholder")} /></div>
+                    <div><Label>{t("demo.manager.challenges.reward")}</Label><Input value={chReward} onChange={(e) => setChReward(e.target.value)} placeholder={t("demo.manager.challenges.rewardPlaceholder")} /></div>
+                    <div><Label>{t("demo.manager.challenges.startInDays")}</Label><Input type="number" min="0" value={chDays} onChange={(e) => setChDays(e.target.value)} /></div>
                   </div>
-                  <DialogFooter><Button onClick={createChallenge}>Erstellen</Button></DialogFooter>
+                  <DialogFooter><Button onClick={createChallenge}>{t("demo.manager.challenges.createBtn")}</Button></DialogFooter>
                 </DialogContent>
               </Dialog>
             </div>
-            {challenges.map((c) => (
-              <div key={c.name} className="surface-card p-5">
+            {challenges.map((c: any) => (
+              <div key={c.key ?? c.name} className="surface-card p-5">
                 <div className="flex items-start justify-between gap-3 mb-2 flex-wrap">
                   <div>
-                    <h3 className="font-semibold flex items-center gap-2"><Trophy className="h-4 w-4 text-primary" />{c.name}</h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">{c.days}</p>
+                    <h3 className="font-semibold flex items-center gap-2"><Trophy className="h-4 w-4 text-primary" />{c.key ? challengeName(c.key) : c.name}</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">{c.daysKey ? challengeDays(c.daysKey) : c.days}</p>
                   </div>
                   <span className={"text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full font-semibold " +
-                    (c.status === "Aktiv" ? "bg-success/15 text-success" : c.status === "Geplant" ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground")}>
-                    {c.status}
+                    (c.statusKey === "active" ? "bg-success/15 text-success" : c.statusKey === "planned" ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground")}>
+                    {statusLabel(c.statusKey)}
                   </span>
                 </div>
-                <p className="text-sm text-muted-foreground mb-3"><span className="text-foreground font-medium">Belohnung:</span> {c.reward}</p>
+                <p className="text-sm text-muted-foreground mb-3"><span className="text-foreground font-medium">{t("demo.manager.challenges.rewardLabel")}</span> {c.rewardKey ? challengeReward(c.rewardKey) : c.reward}</p>
                 <div className="h-2 rounded-full bg-secondary overflow-hidden">
                   <div className="h-full gradient-primary transition-all" style={{ width: c.progress + "%" }} />
                 </div>
@@ -335,14 +350,14 @@ export default function DemoManager() {
           {/* EINSTELLUNGEN */}
           <TabsContent value="settings" className="space-y-6">
             <section className="surface-card p-5 md:p-6">
-              <h2 className="font-semibold flex items-center gap-2 mb-4"><Shield className="h-4 w-4 text-primary" />Workspace</h2>
-              <Field label="Firmenname" value="Beispiel GmbH" />
-              <Field label="Branche" value="Logistik" />
-              <Field label="Plan" value="Jährlich · 35 Sitze" />
+              <h2 className="font-semibold flex items-center gap-2 mb-4"><Shield className="h-4 w-4 text-primary" />{t("demo.manager.settings.workspace")}</h2>
+              <Field label={t("demo.manager.settings.companyName")} value="Beispiel GmbH" />
+              <Field label={t("demo.manager.settings.industry")} value={t("demo.manager.settings.industryValue")} />
+              <Field label={t("demo.manager.settings.plan")} value={t("demo.manager.settings.planValue")} />
             </section>
 
             <section className="surface-card p-5 md:p-6">
-              <h2 className="font-semibold flex items-center gap-2 mb-4"><Smartphone className="h-4 w-4 text-primary" />Erlaubte Apps</h2>
+              <h2 className="font-semibold flex items-center gap-2 mb-4"><Smartphone className="h-4 w-4 text-primary" />{t("demo.manager.settings.allowedApps")}</h2>
               <div className="flex flex-wrap gap-2">
                 {demoWhitelist.apps.map((a) => (
                   <span key={a} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-success/10 text-success text-xs font-medium">
@@ -353,7 +368,7 @@ export default function DemoManager() {
             </section>
 
             <section className="surface-card p-5 md:p-6">
-              <h2 className="font-semibold flex items-center gap-2 mb-4"><Globe className="h-4 w-4 text-destructive" />Blockierte Websites</h2>
+              <h2 className="font-semibold flex items-center gap-2 mb-4"><Globe className="h-4 w-4 text-destructive" />{t("demo.manager.settings.blockedSites")}</h2>
               <div className="flex flex-wrap gap-2">
                 {demoWhitelist.blockedWebsites.map((w) => (
                   <span key={w} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-destructive/10 text-destructive text-xs font-medium">
@@ -364,16 +379,16 @@ export default function DemoManager() {
             </section>
 
             <section className="surface-card p-5 md:p-6">
-              <h2 className="font-semibold flex items-center gap-2 mb-4"><Bell className="h-4 w-4 text-primary" />Benachrichtigungen</h2>
-              <ToggleRow label="Wöchentlicher Report per E-Mail" on />
-              <ToggleRow label="Challenge-Updates" on />
-              <ToggleRow label="Auffällige Trends" />
+              <h2 className="font-semibold flex items-center gap-2 mb-4"><Bell className="h-4 w-4 text-primary" />{t("demo.manager.settings.notifications")}</h2>
+              <ToggleRow label={t("demo.manager.settings.weeklyReport")} on />
+              <ToggleRow label={t("demo.manager.settings.challengeUpdates")} on />
+              <ToggleRow label={t("demo.manager.settings.notableTrends")} />
             </section>
 
             <section className="surface-card p-5 md:p-6 border-destructive/30">
-              <h2 className="font-semibold flex items-center gap-2 mb-2 text-destructive"><Trash2 className="h-4 w-4" />Gefahrenzone</h2>
-              <p className="text-xs text-muted-foreground mb-3">Workspace und alle Daten unwiderruflich löschen.</p>
-              <Button variant="outline" size="sm" className="border-destructive/40 text-destructive">Workspace löschen</Button>
+              <h2 className="font-semibold flex items-center gap-2 mb-2 text-destructive"><Trash2 className="h-4 w-4" />{t("demo.manager.settings.dangerZone")}</h2>
+              <p className="text-xs text-muted-foreground mb-3">{t("demo.manager.settings.dangerZoneDesc")}</p>
+              <Button variant="outline" size="sm" className="border-destructive/40 text-destructive">{t("demo.manager.settings.deleteWorkspace")}</Button>
             </section>
           </TabsContent>
         </Tabs>

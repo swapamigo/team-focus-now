@@ -4,21 +4,24 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, CalendarClock } from "lucide-react";
 import Logo from "@/components/Logo";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { openCallBooking } from "@/lib/track";
-
-const navItems = [
-  { href: "/fuer-mitarbeitende", label: "Für Mitarbeitende" },
-  { href: "/fuer-arbeitgeber", label: "Für Unternehmen" },
-  { href: "/#roi", label: "ROI-Rechner" },
-  { href: "/fuer-betriebsrat", label: "Für Betriebsrat" },
-  { href: "/datenschutz", label: "Datenschutz" },
-  { href: "/einfuehrung", label: "Einführung" },
-];
-
+import { useT } from "@/i18n";
 
 export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => void; onBookCall?: () => void }) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   const handleBookCall = onBookCall ?? (() => openCallBooking("header"));
+
+  const navItems = [
+    { href: "/fuer-mitarbeitende", label: t("common.nav.employees") },
+    { href: "/fuer-arbeitgeber", label: t("common.nav.employers") },
+    { href: "/#roi", label: t("common.nav.roi") },
+    { href: "/fuer-betriebsrat", label: t("common.nav.works_council") },
+    { href: "/datenschutz", label: t("common.nav.privacy") },
+    { href: "/einfuehrung", label: t("common.nav.onboarding") },
+  ];
+
   return (
     <header className="sticky top-0 z-50 glass border-b border-border/40">
       <div className="container flex h-16 items-center justify-between gap-3">
@@ -31,17 +34,19 @@ export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => vo
         </nav>
 
         <div className="hidden sm:flex items-center gap-2">
+          <LanguageSwitcher />
           <Button variant="ghost" size="sm" onClick={handleBookCall}>
-            <CalendarClock className="mr-1.5 h-4 w-4" />Call vereinbaren
+            <CalendarClock className="mr-1.5 h-4 w-4" />{t("common.buttons.book_call")}
           </Button>
-          <Button size="sm" className="shadow-sm" onClick={onDemo}>Demo ansehen</Button>
+          <Button size="sm" className="shadow-sm" onClick={onDemo}>{t("common.buttons.demo")}</Button>
         </div>
 
 
-        <div className="sm:hidden">
+        <div className="sm:hidden flex items-center gap-1">
+          <LanguageSwitcher compact />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Menü öffnen"><Menu className="h-5 w-5" /></Button>
+              <Button variant="ghost" size="icon" aria-label={t("common.aria.open_menu")}><Menu className="h-5 w-5" /></Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-72">
               <div className="flex flex-col gap-1 mt-6">
@@ -53,9 +58,9 @@ export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => vo
                 ))}
                 <div className="border-t border-border my-3" />
                 <Button variant="ghost" onClick={() => { setOpen(false); handleBookCall(); }}>
-                  <CalendarClock className="mr-1.5 h-4 w-4" />Call vereinbaren
+                  <CalendarClock className="mr-1.5 h-4 w-4" />{t("common.buttons.book_call")}
                 </Button>
-                <Button onClick={() => { setOpen(false); onDemo(); }}>Demo ansehen</Button>
+                <Button onClick={() => { setOpen(false); onDemo(); }}>{t("common.buttons.demo")}</Button>
 
               </div>
             </SheetContent>

@@ -1,3 +1,5 @@
+import { useT } from "@/i18n";
+
 // Stilisierte Fantasy-Brand-Logos – rein dekorativ.
 const Logo1 = () => (
   <svg viewBox="0 0 140 32" className="h-7 w-auto" aria-hidden>
@@ -58,13 +60,14 @@ const Logo8 = () => (
 const logos = [Logo1, Logo2, Logo3, Logo4, Logo5, Logo6, Logo7, Logo8];
 
 export default function SocialProofStrip() {
+  const t = useT();
   // Doppelte Liste für nahtloses Marquee.
   const row = [...logos, ...logos];
   return (
     <section className="border-b border-border/40 bg-secondary/20 overflow-hidden">
       <div className="container py-6 md:py-7">
         <p className="text-center text-[11px] uppercase tracking-widest text-muted-foreground font-semibold mb-4">
-          Vertraut von wachsenden Teams
+          {t("landing.social_proof.trusted_by")}
         </p>
         <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           <div className="flex items-center gap-14 animate-marquee whitespace-nowrap text-foreground/60">

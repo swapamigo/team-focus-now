@@ -1,34 +1,37 @@
 import { Smartphone, Swords, Gift, ArrowRight } from "lucide-react";
-
-const steps = [
-  {
-    icon: Smartphone,
-    title: "Fokuszeit sammeln",
-    desc: "Während der Arbeit läuft die Fokus-Uhr. Private Apps und Seiten stoppen sie – Arbeits-Apps nie.",
-    accent: "from-primary/20 to-primary/5",
-  },
-  {
-    icon: Swords,
-    title: "Battlen",
-    desc: "Teams treten gegeneinander an: wer sammelt auf Handy und PC die meiste Fokuszeit?",
-    accent: "from-accent/20 to-accent/5",
-  },
-  {
-    icon: Gift,
-    title: "Belohnen",
-    desc: "Das Sieger-Team gewinnt – z. B. Tankgutschein, Team-Lunch oder Event-Tickets.",
-    accent: "from-success/20 to-success/5",
-  },
-];
+import { useT } from "@/i18n";
 
 export default function HowItWorks() {
+  const t = useT();
+
+  const steps = [
+    {
+      icon: Smartphone,
+      title: t("landing.how_it_works.step1.title"),
+      desc: t("landing.how_it_works.step1.desc"),
+      accent: "from-primary/20 to-primary/5",
+    },
+    {
+      icon: Swords,
+      title: t("landing.how_it_works.step2.title"),
+      desc: t("landing.how_it_works.step2.desc"),
+      accent: "from-accent/20 to-accent/5",
+    },
+    {
+      icon: Gift,
+      title: t("landing.how_it_works.step3.title"),
+      desc: t("landing.how_it_works.step3.desc"),
+      accent: "from-success/20 to-success/5",
+    },
+  ];
+
   return (
     <section className="container py-20 md:py-28 border-t border-border/40" id="how">
       <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
-        <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">In 3 Schritten</p>
-        <h2 className="text-4xl md:text-6xl font-semibold tracking-tight">So funktioniert's.</h2>
+        <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("landing.how_it_works.eyebrow")}</p>
+        <h2 className="text-4xl md:text-6xl font-semibold tracking-tight">{t("landing.how_it_works.title")}</h2>
         <p className="mt-4 text-muted-foreground text-base md:text-lg">
-          Keine Inhalte, keine Screenshots – nur Zeitdaten. Freiwillig, anonym, mit echter Belohnung.
+          {t("landing.how_it_works.subtitle")}
         </p>
       </div>
 

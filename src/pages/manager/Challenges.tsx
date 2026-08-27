@@ -9,59 +9,61 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { useT } from "@/i18n";
 
 interface Challenge { id: string; title: string; description: string | null; status: string; start_date: string; end_date: string; duration: string }
 
-const DURATIONS: { value: "1_week" | "2_weeks" | "3_weeks" | "1_month"; label: string; days: number }[] = [
-  { value: "1_week", label: "Wöchentlich (1 Woche)", days: 7 },
-  { value: "2_weeks", label: "Alle 2 Wochen", days: 14 },
-  { value: "3_weeks", label: "Alle 3 Wochen", days: 21 },
-  { value: "1_month", label: "Monatlich (1 Monat)", days: 30 },
-];
-
-const REWARD_SUGGESTIONS: { category: string; icon: any; tone: string; items: string[] }[] = [
-  {
-    category: "Gutscheine & Erlebnisse",
-    icon: Ticket,
-    tone: "bg-primary/10 text-primary",
-    items: [
-      "Tankgutschein",
-      "Restaurant- oder Lieferdienst-Gutschein",
-      "Kinokarten oder Event-Tickets",
-      "Streaming- oder Musik-Abonnement",
-    ],
-  },
-  {
-    category: "Monetäre Belohnungen",
-    icon: Euro,
-    tone: "bg-success/10 text-success",
-    items: [
-      "Bezahlter Team-Lunch oder Kaffee-/Eis-Runde",
-      "Geld- oder Sachbonus (z. B. Noise-Cancelling-Kopfhörer)",
-      "Gemeinsame Team-Aktivität",
-    ],
-  },
-  {
-    category: "Symbolische Belohnungen",
-    icon: Award,
-    tone: "bg-warning/10 text-warning",
-    items: [
-      "\u201EFokus-Champion\u201C-Badge & Anerkennung im Team-Meeting",
-      "Team darf nächstes Team-Event / Lunch auswählen",
-      "Bevorzugter Parkplatz oder Lieblings-Arbeitsplatz für 1 Monat",
-    ],
-  },
-];
-
 export default function ManagerChallenges() {
+  const t = useT();
   const { companyId } = useAuth();
   const [items, setItems] = useState<Challenge[]>([]);
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [duration, setDuration] = useState<typeof DURATIONS[number]["value"]>("1_week");
+  const [duration, setDuration] = useState<"1_week" | "2_weeks" | "3_weeks" | "1_month">("1_week");
   const [reward, setReward] = useState("");
   const [saving, setSaving] = useState(false);
+
+  const DURATIONS: { value: "1_week" | "2_weeks" | "3_weeks" | "1_month"; label: string; days: number }[] = [
+    { value: "1_week", label: t("manager.challenges.duration_weekly"), days: 7 },
+    { value: "2_weeks", label: t("manager.challenges.duration_2weeks"), days: 14 },
+    { value: "3_weeks", label: t("manager.challenges.duration_3weeks"), days: 21 },
+    { value: "1_month", label: t("manager.challenges.duration_monthly"), days: 30 },
+  ];
+
+  const REWARD_SUGGESTIONS: { category: string; icon: any; tone: string; items: string[] }[] = [
+    {
+      category: t("manager.challenges.category_vouchers"),
+      icon: Ticket,
+      tone: "bg-primary/10 text-primary",
+      items: [
+        t("manager.challenges.reward_fuel"),
+        t("manager.challenges.reward_restaurant"),
+        t("manager.challenges.reward_cinema"),
+        t("manager.challenges.reward_streaming"),
+      ],
+    },
+    {
+      category: t("manager.challenges.category_monetary"),
+      icon: Euro,
+      tone: "bg-success/10 text-success",
+      items: [
+        t("manager.challenges.reward_lunch"),
+        t("manager.challenges.reward_bonus"),
+        t("manager.challenges.reward_team_activity"),
+      ],
+    },
+    {
+      category: t("manager.challenges.category_symbolic"),
+      icon: Award,
+      tone: "bg-warning/10 text-warning",
+      items: [
+        t("manager.challenges.reward_badge"),
+        t("manager.challenges.reward_choose_event"),
+        t("manager.challenges.reward_parking"),
+      ],
+    },
+  ];
 
   const load = async () => {
     if (!companyId) return;
@@ -73,7 +75,7 @@ export default function ManagerChallenges() {
 
   const create = async () => {
     if (!companyId) return;
-    if (!title.trim()) return toast.error("Bitte Titel angeben");
+    if (!title.trim()) return toast.error(t("manager.challenges.title_required"));
     setSaving(true);
     const days = DURATIONS.find(d => d.value === duration)!.days;
     const start = new Date();
@@ -95,7 +97,7 @@ export default function ManagerChallenges() {
     }
     setSaving(false); setOpen(false);
     setTitle(""); setDescription(""); setReward(""); setDuration("1_week");
-    toast.success("Challenge erstellt");
+    toast.success(t("manager.challenges.created_toast"));
     load();
   };
 
@@ -103,41 +105,41 @@ export default function ManagerChallenges() {
     <div className="p-5 md:p-8 max-w-3xl mx-auto">
       <header className="flex items-start justify-between mb-6 gap-4">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Challenges</h1>
-          <p className="text-sm text-muted-foreground mt-1">Motivieren Sie Teams mit Wettbewerben um die meiste gesammelte Fokuszeit.</p>
+          <h1 className="text-3xl font-semibold tracking-tight">{t("manager.challenges.title")}</h1>
+          <p className="text-sm text-muted-foreground mt-1">{t("manager.challenges.subtitle")}</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button><Plus className="h-4 w-4 mr-2" />Neue Challenge</Button>
+            <Button><Plus className="h-4 w-4 mr-2" />{t("manager.challenges.new_challenge")}</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle className="flex items-center gap-2"><Sparkles className="h-4 w-4 text-primary" /> Challenge erstellen</DialogTitle>
+              <DialogTitle className="flex items-center gap-2"><Sparkles className="h-4 w-4 text-primary" /> {t("manager.challenges.create_challenge")}</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 py-2">
               <div className="space-y-1.5">
-                <Label htmlFor="t">Titel</Label>
-                <Input id="t" value={title} onChange={e => setTitle(e.target.value)} placeholder="z. B. Fokus-Sprint Mai" />
+                <Label htmlFor="t">{t("manager.challenges.field_title")}</Label>
+                <Input id="t" value={title} onChange={e => setTitle(e.target.value)} placeholder={t("manager.challenges.field_title_placeholder")} />
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="d">Beschreibung (optional)</Label>
-                <Textarea id="d" value={description} onChange={e => setDescription(e.target.value)} rows={2} placeholder="Worum geht's?" />
+                <Label htmlFor="d">{t("manager.challenges.field_description")}</Label>
+                <Textarea id="d" value={description} onChange={e => setDescription(e.target.value)} rows={2} placeholder={t("manager.challenges.field_description_placeholder")} />
               </div>
               <div className="space-y-1.5">
-                <Label>Belohnungs-Zyklus</Label>
+                <Label>{t("manager.challenges.field_cycle")}</Label>
                 <Select value={duration} onValueChange={(v) => setDuration(v as any)}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
                     {DURATIONS.map(d => <SelectItem key={d.value} value={d.value}>{d.label}</SelectItem>)}
                   </SelectContent>
                 </Select>
-                <p className="text-[11px] text-muted-foreground">Am Ende jedes Zyklus gewinnt das Team mit der meisten Fokuszeit.</p>
+                <p className="text-[11px] text-muted-foreground">{t("manager.challenges.field_cycle_hint")}</p>
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="r">Belohnung für das Gewinnerteam</Label>
-                <Input id="r" value={reward} onChange={e => setReward(e.target.value)} placeholder="z. B. Team-Mittagessen" />
+                <Label htmlFor="r">{t("manager.challenges.field_reward")}</Label>
+                <Input id="r" value={reward} onChange={e => setReward(e.target.value)} placeholder={t("manager.challenges.field_reward_placeholder")} />
                 <div className="space-y-3 pt-2">
-                  <p className="text-[11px] uppercase tracking-widest text-muted-foreground font-semibold">Vorschläge – klicken zum Übernehmen</p>
+                  <p className="text-[11px] uppercase tracking-widest text-muted-foreground font-semibold">{t("manager.challenges.suggestions_label")}</p>
                   {REWARD_SUGGESTIONS.map((cat) => (
                     <div key={cat.category}>
                       <div className="flex items-center gap-2 mb-1.5">
@@ -164,8 +166,8 @@ export default function ManagerChallenges() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setOpen(false)}>Abbrechen</Button>
-              <Button onClick={create} disabled={saving}>{saving ? "Speichere…" : "Starten"}</Button>
+              <Button variant="outline" onClick={() => setOpen(false)}>{t("manager.challenges.cancel")}</Button>
+              <Button onClick={create} disabled={saving}>{saving ? t("manager.challenges.saving") : t("manager.challenges.start")}</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -187,7 +189,7 @@ export default function ManagerChallenges() {
         ))}
         {items.length === 0 && (
           <li className="surface-card p-8 text-center text-sm text-muted-foreground">
-            Noch keine Challenges. Starten Sie Ihre erste oben rechts.
+            {t("manager.challenges.empty")}
           </li>
         )}
       </ul>

@@ -8,41 +8,43 @@ import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useT } from "@/i18n";
 
 export default function SettingsPage() {
+  const t = useT();
   const { profile, role } = useAuth();
   const nav = useNavigate();
 
   const logout = async () => {
     await supabase.auth.signOut();
-    toast.success("Abgemeldet");
+    toast.success(t("employee.settings.logged_out"));
     nav("/");
   };
 
   const deleteAccount = async () => {
-    toast.loading("Konto wird gelöscht…", { id: "del" });
+    toast.loading(t("employee.settings.deleting_account"), { id: "del" });
     const { error } = await supabase.functions.invoke("delete-account", {});
     if (error) {
-      toast.error("Fehler: " + error.message, { id: "del" });
+      toast.error(t("employee.settings.error_prefix") + error.message, { id: "del" });
       return;
     }
     await supabase.auth.signOut();
-    toast.success("Konto gelöscht.", { id: "del" });
+    toast.success(t("employee.settings.account_deleted"), { id: "del" });
     window.location.replace("/");
   };
 
   const simulate = async () => {
-    toast.info("Simuliere Demo-Monat…");
+    toast.info(t("employee.settings.simulating"));
     const { error } = await supabase.functions.invoke("simulate-month", {});
-    if (error) return toast.error("Fehler bei Simulation");
-    toast.success("30 Tage Demo-Daten aktualisiert.");
+    if (error) return toast.error(t("employee.settings.simulate_error"));
+    toast.success(t("employee.settings.simulate_done"));
     setTimeout(() => window.location.reload(), 600);
   };
 
   return (
     <div className="min-h-screen bg-background pb-24">
       <header className="px-5 pt-8 pb-4">
-        <h1 className="text-3xl font-semibold tracking-tight">Einstellungen</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">{t("employee.settings.title")}</h1>
       </header>
 
       <section className="px-5 mb-5">
@@ -52,7 +54,7 @@ export default function SettingsPage() {
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-semibold">{profile?.display_name ?? "—"}</p>
-            <p className="text-xs text-muted-foreground">Rolle: {role === "manager" ? "Manager" : "Mitarbeiter"}</p>
+            <p className="text-xs text-muted-foreground">{t("employee.settings.role_label")}: {role === "manager" ? t("employee.settings.role_manager") : t("employee.settings.role_employee")}</p>
           </div>
         </div>
       </section>
@@ -64,32 +66,32 @@ export default function SettingsPage() {
               <Shield className="h-4 w-4 text-primary-foreground" />
             </div>
             <div>
-              <p className="font-semibold text-sm">Deine Privatsphäre 🔒</p>
+              <p className="font-semibold text-sm">{t("employee.settings.privacy_title")}</p>
               <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                TeamFokus schützt deine persönlichen Daten konsequent.
+                {t("employee.settings.privacy_intro")}
               </p>
             </div>
           </div>
           <ul className="space-y-2.5 text-xs text-muted-foreground">
             <li className="flex items-start gap-2">
               <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-              <span><strong className="text-foreground">Nur du</strong> siehst deine individuellen Werte – niemand sonst, auch nicht dein Manager.</span>
+              <span>{t("employee.settings.privacy_point1")}</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-              <span>Der Manager sieht ausschließlich <strong className="text-foreground">anonyme Team-Aggregate</strong>.</span>
+              <span>{t("employee.settings.privacy_point2")}</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-              <span>Erfassung <strong className="text-foreground">ausschließlich während deiner Arbeitszeit</strong> – Freizeit bleibt frei.</span>
+              <span>{t("employee.settings.privacy_point3")}</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-              <span>Keine Inhalte, keine Screenshots, keine Tastatureingaben – nur aggregierte Zeitwerte.</span>
+              <span>{t("employee.settings.privacy_point4")}</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-              <span>Du kannst deine Teilnahme jederzeit widerrufen (DSGVO).</span>
+              <span>{t("employee.settings.privacy_point5")}</span>
             </li>
           </ul>
         </div>
@@ -99,7 +101,7 @@ export default function SettingsPage() {
         <section className="px-5 mb-5">
           <Button onClick={simulate} variant="outline" className="w-full h-12 rounded-2xl">
             <Sparkles className="h-4 w-4 mr-2" />
-            Demo-Monat simulieren
+            {t("employee.settings.simulate_button")}
           </Button>
         </section>
       )}
@@ -107,27 +109,27 @@ export default function SettingsPage() {
       <section className="px-5 space-y-2">
         <Button onClick={logout} variant="ghost" className="w-full h-12 rounded-2xl">
           <LogOut className="h-4 w-4 mr-2" />
-          Abmelden
+          {t("employee.settings.logout")}
         </Button>
 
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button variant="ghost" className="w-full h-12 rounded-2xl text-destructive hover:text-destructive">
               <Trash2 className="h-4 w-4 mr-2" />
-              Konto löschen
+              {t("employee.settings.delete_account")}
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Konto endgültig löschen?</AlertDialogTitle>
+              <AlertDialogTitle>{t("employee.settings.delete_confirm_title")}</AlertDialogTitle>
               <AlertDialogDescription>
-                Dein Konto und alle deine Daten (Statistiken, Mitgliedschaften) werden unwiderruflich entfernt.
+                {t("employee.settings.delete_confirm_desc")}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Abbrechen</AlertDialogCancel>
+              <AlertDialogCancel>{t("employee.settings.cancel")}</AlertDialogCancel>
               <AlertDialogAction onClick={deleteAccount} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-                Endgültig löschen
+                {t("employee.settings.delete_final")}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

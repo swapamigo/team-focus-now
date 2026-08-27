@@ -9,8 +9,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { Shield } from "lucide-react";
 import Logo from "@/components/Logo";
+import { useT } from "@/i18n";
 
 export default function ManagerOnboarding() {
+  const t = useT();
   const { user, profile, role } = useAuth();
   const [name, setName] = useState("");
   const [industry, setIndustry] = useState("");
@@ -25,8 +27,8 @@ export default function ManagerOnboarding() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
-    if (!name.trim()) return toast.error("Bitte einen Workspace-Namen angeben.");
-    if (!consent) return toast.error("Bitte den Datenschutzhinweis akzeptieren.");
+    if (!name.trim()) return toast.error(t("onboarding.manager.name_required"));
+    if (!consent) return toast.error(t("onboarding.manager.consent_required"));
     setLoading(true);
     try {
       const { data: companyId, error } = await supabase.rpc("create_workspace", {
@@ -35,7 +37,7 @@ export default function ManagerOnboarding() {
       });
       if (error) throw error;
 
-      toast.success("Workspace erstellt – Demo-Daten werden geladen…");
+      toast.success(t("onboarding.manager.workspace_created_toast"));
       const { error: seedErr } = await supabase.functions.invoke("seed-demo", {
         body: { company_id: companyId },
       });
@@ -45,7 +47,7 @@ export default function ManagerOnboarding() {
       window.location.replace("/manager");
     } catch (err: any) {
       console.error(err);
-      toast.error(err.message ?? "Fehler beim Erstellen");
+      toast.error(err.message ?? t("onboarding.manager.create_error"));
       setLoading(false);
     }
   };
@@ -58,34 +60,33 @@ export default function ManagerOnboarding() {
       <div className="flex-1 grid place-items-center px-4 pb-12">
         <form onSubmit={submit} className="w-full max-w-md surface-card p-8 animate-scale-in space-y-5">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight mb-1">Workspace erstellen</h1>
-            <p className="text-sm text-muted-foreground">Wir richten alles ein und erzeugen Demo-Daten.</p>
+            <h1 className="text-2xl font-semibold tracking-tight mb-1">{t("onboarding.manager.title")}</h1>
+            <p className="text-sm text-muted-foreground">{t("onboarding.manager.subtitle")}</p>
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="name">Unternehmen / Workspace</Label>
-            <Input id="name" required value={name} onChange={(e) => setName(e.target.value)} placeholder="Mustermann GmbH" className="h-11" />
+            <Label htmlFor="name">{t("onboarding.manager.company_label")}</Label>
+            <Input id="name" required value={name} onChange={(e) => setName(e.target.value)} placeholder={t("onboarding.manager.company_placeholder")} className="h-11" />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="industry">Branche (optional)</Label>
-            <Input id="industry" value={industry} onChange={(e) => setIndustry(e.target.value)} placeholder="Beratung, Tech, Handel…" className="h-11" />
+            <Label htmlFor="industry">{t("onboarding.manager.industry_label")}</Label>
+            <Input id="industry" value={industry} onChange={(e) => setIndustry(e.target.value)} placeholder={t("onboarding.manager.industry_placeholder")} className="h-11" />
           </div>
 
           <div className="flex items-start gap-3 rounded-xl bg-secondary p-4">
             <Shield className="h-5 w-5 text-primary shrink-0 mt-0.5" />
             <div className="text-xs text-muted-foreground leading-relaxed">
-              TeamFokus erhebt nur aggregierte Zeitdaten. Keine Inhalte, keine Screenshots, keine Tastatureingaben.
-              Mitarbeitende stimmen separat zu und können jederzeit widerrufen (DSGVO).
+              {t("onboarding.manager.privacy_note")}
             </div>
           </div>
 
           <label className="flex items-start gap-3 cursor-pointer">
             <Checkbox checked={consent} onCheckedChange={(v) => setConsent(!!v)} />
-            <span className="text-sm">Ich habe den Datenschutzhinweis gelesen und akzeptiere ihn.</span>
+            <span className="text-sm">{t("onboarding.manager.consent_label")}</span>
           </label>
 
           <Button type="submit" disabled={loading} className="w-full h-12">
-            {loading ? "Wird erstellt…" : "Workspace erstellen"}
+            {loading ? t("onboarding.manager.creating") : t("onboarding.manager.create_button")}
           </Button>
         </form>
       </div>
