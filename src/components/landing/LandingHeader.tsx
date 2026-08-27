@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, CalendarClock } from "lucide-react";
 import Logo from "@/components/Logo";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { openCallBooking } from "@/lib/track";
 
 const navItems = [
@@ -31,6 +32,7 @@ export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => vo
         </nav>
 
         <div className="hidden sm:flex items-center gap-2">
+          <LanguageSwitcher />
           <Button variant="ghost" size="sm" onClick={handleBookCall}>
             <CalendarClock className="mr-1.5 h-4 w-4" />Call vereinbaren
           </Button>
@@ -38,7 +40,8 @@ export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => vo
         </div>
 
 
-        <div className="sm:hidden">
+        <div className="sm:hidden flex items-center gap-1">
+          <LanguageSwitcher compact />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Menü öffnen"><Menu className="h-5 w-5" /></Button>
