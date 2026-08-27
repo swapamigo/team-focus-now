@@ -12,64 +12,50 @@ import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
 import RoiCalculator from "@/components/landing/RoiCalculator";
 import { openCallBooking, trackClick } from "@/lib/track";
 import heroImg from "@/assets/team-meeting-office.png.asset.json";
-
-const goals = [
-  {
-    icon: ClipboardCheck,
-    title: "Weniger Korrekturen und Nacharbeiten",
-    desc: "Unterbrochene Arbeit erzeugt Nacharbeit. Längere ungestörte Fokusblöcke reduzieren die Anzahl notwendiger Korrekturen.",
-  },
-  {
-    icon: XCircle,
-    title: "Niedrigere Fehler- und Ausnahmequote",
-    desc: "Weniger Kontextwechsel bedeutet weniger Übertragungs-, Eingabe- und Prüffehler – und damit weniger Ausnahmen im Prozess.",
-  },
-  {
-    icon: Clock,
-    title: "Kürzere durchschnittliche Bearbeitungszeit",
-    desc: "Aufgaben werden in einem Zug fertig statt in vielen Anläufen. Die Durchlaufzeit pro Auftrag sinkt messbar.",
-  },
-  {
-    icon: Gauge,
-    title: "Bessere Einhaltung interner Fristen",
-    desc: "Planbare Fokuszeiten machen Zusagen realistischer – interne Termine werden zuverlässiger gehalten.",
-  },
-];
-
-const notVisible = [
-  "Keine individuellen Fokus- oder Nutzungswerte",
-  "Keine App-Verläufe, Nachrichten, Screenshots oder Tastatureingaben",
-  "Keine Standortdaten, keine Auswertung außerhalb der Arbeitszeit",
-  "Kein Ranking einzelner Mitarbeitender – auch nicht für die Geschäftsführung",
-];
-
-const visible = [
-  "Welches Team eine vereinbarte Belohnung freigeschaltet hat",
-  "Die von Ihnen selbst definierten Team-Ziele und Belohnungen",
-  "Ob eine Challenge läuft, wann sie endet und wie viele Teams teilnehmen",
-];
-
-const steps = [
-  { n: "1", t: "Ziel und Belohnung festlegen", d: "Sie definieren pro Team ein gemeinsames Fokusziel und die Belohnung bei Erreichen." },
-  { n: "2", t: "Teams entscheiden freiwillig", d: "Mitarbeitende nehmen freiwillig teil. Arbeits-Apps und -Programme werden freigegeben." },
-  { n: "3", t: "Belohnung wird freigeschaltet", d: "Erreicht ein Team das Ziel, sehen Sie ausschließlich diese Freischaltung – keine Einzeldaten." },
-];
+import { useT } from "@/i18n";
 
 export default function Arbeitgeber() {
+  const t = useT();
   const [demoOpen, setDemoOpen] = useState(false);
+
+  const goals = [
+    { icon: ClipboardCheck, title: t("pages.arbeitgeber.goal1.title"), desc: t("pages.arbeitgeber.goal1.desc") },
+    { icon: XCircle, title: t("pages.arbeitgeber.goal2.title"), desc: t("pages.arbeitgeber.goal2.desc") },
+    { icon: Clock, title: t("pages.arbeitgeber.goal3.title"), desc: t("pages.arbeitgeber.goal3.desc") },
+    { icon: Gauge, title: t("pages.arbeitgeber.goal4.title"), desc: t("pages.arbeitgeber.goal4.desc") },
+  ];
+
+  const notVisible = [
+    t("pages.arbeitgeber.notvisible1"),
+    t("pages.arbeitgeber.notvisible2"),
+    t("pages.arbeitgeber.notvisible3"),
+    t("pages.arbeitgeber.notvisible4"),
+  ];
+
+  const visible = [
+    t("pages.arbeitgeber.visible1"),
+    t("pages.arbeitgeber.visible2"),
+    t("pages.arbeitgeber.visible3"),
+  ];
+
+  const steps = [
+    { n: "1", t: t("pages.arbeitgeber.step1.t"), d: t("pages.arbeitgeber.step1.d") },
+    { n: "2", t: t("pages.arbeitgeber.step2.t"), d: t("pages.arbeitgeber.step2.d") },
+    { n: "3", t: t("pages.arbeitgeber.step3.t"), d: t("pages.arbeitgeber.step3.d") },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="TeamFokus für Unternehmensführung – weniger Fehler, kürzere Durchlaufzeiten"
-        description="Kein pauschales Handyverbot, keine persönlichen Nutzungsdaten für den Arbeitgeber. Weniger Nacharbeit, niedrigere Fehlerquote, kürzere Bearbeitungszeiten und zuverlässigere interne Fristen."
+        title={t("pages.arbeitgeber.seo.title")}
+        description={t("pages.arbeitgeber.seo.description")}
         path="/fuer-arbeitgeber"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Start", item: "https://teamfokus.app/" },
-            { "@type": "ListItem", position: 2, name: "Für Unternehmensführung", item: "https://teamfokus.app/fuer-arbeitgeber" },
+            { "@type": "ListItem", position: 1, name: t("pages.arbeitgeber.seo.breadcrumb.start"), item: "https://teamfokus.app/" },
+            { "@type": "ListItem", position: 2, name: t("pages.arbeitgeber.seo.breadcrumb.arbeitgeber"), item: "https://teamfokus.app/fuer-arbeitgeber" },
           ],
         }}
       />
@@ -83,23 +69,21 @@ export default function Arbeitgeber() {
           <div className="container relative pt-16 md:pt-24 pb-14 md:pb-20 text-center animate-fade-in">
             <div className="inline-flex items-center gap-2 rounded-full border-2 border-primary/40 bg-primary/10 backdrop-blur px-5 py-2 text-sm font-semibold text-primary mb-6 shadow-glow">
               <ShieldCheck className="h-4 w-4" />
-              Kein Handyverbot · Keine persönlichen Nutzungsdaten · Echte Team-Belohnungen
+              {t("pages.arbeitgeber.hero.badge")}
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.05]">
-              Fokussierter arbeiten –<br />
-              <span className="text-gradient animate-gradient-x">ohne Kontrolle, ohne Verbote.</span>
+              {t("pages.arbeitgeber.hero.title1")}<br />
+              <span className="text-gradient animate-gradient-x">{t("pages.arbeitgeber.hero.title2")}</span>
             </h1>
             <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Handyverbote werden nicht eingehalten und erzeugen Frustration, ohne die Nutzung nachweislich zu senken
-              (Whelan &amp; Turel, 2024). TeamFokus setzt stattdessen auf freiwillige Fokus-Challenges mit
-              Team-Belohnungen – und liefert Ihnen genau das, was betrieblich zählt.
+              {t("pages.arbeitgeber.hero.desc")}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
               <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={() => openCallBooking("arbeitgeber")}>
-                <CalendarClock className="mr-1.5 h-4 w-4" />Call vereinbaren
+                <CalendarClock className="mr-1.5 h-4 w-4" />{t("pages.arbeitgeber.hero.cta1")}
               </Button>
               <Button size="lg" variant="ghost" className="h-12 px-8 w-full sm:w-auto" onClick={() => { trackClick("cta:demo", "Demo ansehen"); setDemoOpen(true); }}>
-                <Sparkles className="mr-1.5 h-4 w-4" />Demo ansehen
+                <Sparkles className="mr-1.5 h-4 w-4" />{t("pages.arbeitgeber.hero.cta2")}
               </Button>
             </div>
           </div>
@@ -108,10 +92,10 @@ export default function Arbeitgeber() {
         {/* Betriebliche Ziele */}
         <section className="container py-14 md:py-20" id="ziele">
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Wirkung, die zählt</p>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Vier Ziele, die messbar besser werden.</h2>
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.arbeitgeber.goals.eyebrow")}</p>
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">{t("pages.arbeitgeber.goals.title")}</h2>
             <p className="mt-4 text-muted-foreground text-base md:text-lg">
-              TeamFokus verbessert nicht „Anwesenheit“, sondern die Qualität der Arbeitszeit.
+              {t("pages.arbeitgeber.goals.desc")}
             </p>
           </div>
           <div className="grid sm:grid-cols-2 gap-4 md:gap-5 max-w-5xl mx-auto">
@@ -130,42 +114,42 @@ export default function Arbeitgeber() {
         {/* Was Sie sehen / nicht sehen */}
         <section className="container py-14 md:py-20 border-t border-border/40" id="datenzugriff">
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Ihr Datenzugriff</p>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Sie erfahren nur das Ergebnis.</h2>
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.arbeitgeber.access.eyebrow")}</p>
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">{t("pages.arbeitgeber.access.title")}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
             <div className="glow-card p-6 md:p-7 border-destructive/20 bg-destructive/[0.02]">
-              <h3 className="font-semibold mb-4 text-muted-foreground">Das sehen Sie nie</h3>
+              <h3 className="font-semibold mb-4 text-muted-foreground">{t("pages.arbeitgeber.access.neverTitle")}</h3>
               <ul className="space-y-3">
-                {notVisible.map((t) => (
-                  <li key={t} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <XCircle className="h-4 w-4 shrink-0 mt-0.5 text-destructive" />{t}
+                {notVisible.map((tx) => (
+                  <li key={tx} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <XCircle className="h-4 w-4 shrink-0 mt-0.5 text-destructive" />{tx}
                   </li>
                 ))}
               </ul>
             </div>
             <div className="glow-card p-6 md:p-7 border-primary/30 ring-1 ring-primary/20 bg-primary/[0.02]">
-              <h3 className="font-semibold mb-4 text-gradient">Das sehen Sie</h3>
+              <h3 className="font-semibold mb-4 text-gradient">{t("pages.arbeitgeber.access.alwaysTitle")}</h3>
               <ul className="space-y-3">
-                {visible.map((t) => (
-                  <li key={t} className="flex items-start gap-3 text-sm">
-                    <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5 text-success" />{t}
+                {visible.map((tx) => (
+                  <li key={tx} className="flex items-start gap-3 text-sm">
+                    <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5 text-success" />{tx}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
           <p className="mt-6 text-center text-sm text-muted-foreground">
-            Details zur Architektur:{" "}
-            <Link to="/datenschutz" className="text-primary underline underline-offset-2">Datenschutz &amp; Sicherheit</Link>
+            {t("pages.arbeitgeber.access.detailsPrefix")}{" "}
+            <Link to="/datenschutz" className="text-primary underline underline-offset-2">{t("pages.arbeitgeber.access.detailsLink")}</Link>
           </p>
         </section>
 
         {/* Ablauf */}
         <section className="container py-14 md:py-20 border-t border-border/40" id="ablauf">
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">So läuft es bei Ihnen</p>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Drei Schritte, kein IT-Projekt.</h2>
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.arbeitgeber.flow.eyebrow")}</p>
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">{t("pages.arbeitgeber.flow.title")}</h2>
           </div>
           <div className="grid sm:grid-cols-3 gap-4 md:gap-5 max-w-5xl mx-auto">
             {steps.map((s) => (
@@ -178,7 +162,7 @@ export default function Arbeitgeber() {
           </div>
           <div className="mt-8 text-center">
             <Button asChild variant="outline" size="lg" className="h-12 px-8">
-              <Link to="/einfuehrung"><Users className="mr-1.5 h-4 w-4" />Einführung &amp; Kommunikation ansehen</Link>
+              <Link to="/einfuehrung"><Users className="mr-1.5 h-4 w-4" />{t("pages.arbeitgeber.flow.cta")}</Link>
             </Button>
           </div>
         </section>
@@ -194,17 +178,16 @@ export default function Arbeitgeber() {
               <div className="inline-flex h-14 w-14 rounded-2xl gradient-primary items-center justify-center shadow-glow mb-5">
                 <Target className="h-7 w-7 text-primary-foreground" />
               </div>
-              <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-4">Passt TeamFokus zu Ihren Prozessen?</h2>
+              <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-4">{t("pages.arbeitgeber.cta.title")}</h2>
               <p className="max-w-xl mx-auto text-muted-foreground mb-8 text-base md:text-lg leading-relaxed">
-                In einem kurzen Gespräch klären wir Ihre Ausgangslage, sinnvolle Ziele pro Team und die
-                Einführung mit Betriebsrat.
+                {t("pages.arbeitgeber.cta.desc")}
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
                 <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={() => openCallBooking("arbeitgeber-cta")}>
-                  <CalendarClock className="mr-1.5 h-4 w-4" />Call vereinbaren
+                  <CalendarClock className="mr-1.5 h-4 w-4" />{t("pages.arbeitgeber.cta.btn1")}
                 </Button>
                 <Button asChild size="lg" variant="ghost" className="h-12 px-8 w-full sm:w-auto">
-                  <Link to="/fuer-betriebsrat"><TrendingUp className="mr-1.5 h-4 w-4" />Betriebsrat-Akzeptanz<ArrowRight className="ml-1 h-4 w-4" /></Link>
+                  <Link to="/fuer-betriebsrat"><TrendingUp className="mr-1.5 h-4 w-4" />{t("pages.arbeitgeber.cta.btn2")}<ArrowRight className="ml-1 h-4 w-4" /></Link>
                 </Button>
               </div>
             </div>

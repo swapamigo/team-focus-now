@@ -12,116 +12,50 @@ import Seo from "@/components/Seo";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
 import LegalBasis from "@/components/landing/LegalBasis";
 import { toast } from "@/hooks/use-toast";
-
-const principles = [
-  {
-    icon: Gift,
-    title: "Als Geschenk rahmen",
-    desc: "Stell in den Vordergrund, was die Person bekommt – nicht, was sie tun soll.",
-    color: "from-amber-500/20 to-orange-500/10",
-    ring: "ring-amber-500/30",
-  },
-  {
-    icon: Users,
-    title: "Gemeinsam statt allein",
-    desc: "„Das ganze Unternehmen macht mit“ – der Team-Wettbewerb erzeugt sozialen Rückenwind.",
-    color: "from-sky-500/20 to-blue-500/10",
-    ring: "ring-sky-500/30",
-  },
-  {
-    icon: UserCheck,
-    title: "Selbst vorangehen",
-    desc: "Mach sichtbar mit und schreib das auch. Vorbild wirkt stärker als jede Aufforderung.",
-    color: "from-violet-500/20 to-purple-500/10",
-    ring: "ring-violet-500/30",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Sorgen sofort ausräumen",
-    desc: "Anonymität und „nichts wird verboten“ früh nennen – das nimmt den häufigsten Einwand vorweg.",
-    color: "from-emerald-500/20 to-green-500/10",
-    ring: "ring-emerald-500/30",
-  },
-  {
-    icon: MousePointerClick,
-    title: "Nur eine, einfache Handlung",
-    desc: "Ein klarer Aufruf, in zwei Minuten erledigt. Weniger Aufwand = mehr Teilnahme.",
-    color: "from-pink-500/20 to-rose-500/10",
-    ring: "ring-pink-500/30",
-  },
-];
-
-const subjects = [
-  {
-    letter: "A",
-    text: "[Vorname], 2 Minuten für weniger Handystress",
-    note: "persönlich + Nutzen + niedrige Hürde",
-    recommended: true,
-  },
-  {
-    letter: "B",
-    text: "Unser Geschenk an dich: mehr Fokus, weniger Stress",
-    note: "Geschenk-Rahmung (Reziprozität)",
-  },
-  {
-    letter: "C",
-    text: "[Vorname], dein Team kann diesen Monat gewinnen",
-    note: "Neugier + Wettbewerb",
-  },
-];
-
-const emailBody = `Hi [Vorname],
-
-das Handy zieht uns alle ständig aus der Konzentration – das ist kein persönliches Problem, sondern von den Apps genau so gewollt. Weil es uns alle betrifft, möchten wir dir etwas an die Hand geben, das wirklich dir hilft. Ab [Startdatum] starten wir mit TeamFokus.
-
-Kurz, was es ist: ein anonymes Team-Spiel. Dein Team tritt gegen die anderen an, am Monatsende gewinnt das Team mit der meisten gesammelten Fokuszeit – ihr macht das gemeinsam, als ganzes Unternehmen.
-
-Was du davon hast:
-• Weniger Stress, mehr geschafft – ein Feierabend, der wirklich dir gehört.
-• 100 % anonym und datenschutzkonform: Niemand sieht deine persönliche Fokuszeit. Auch ich nicht.
-• Nichts wird verboten: Dein Handy und dein PC bleiben dir, eingehende Anrufe zählen nie.
-• Gut für dich: weniger Stress, beugt Burnout vor – oft mit besserem Schlaf.
-• Wenn du magst: optionale Helfer wie ein kurzer Timer vor Instagram oder TikTok.
-• Fair: Bekannt wird immer nur das Gewinnerteam – wer hinten liegt, bleibt unsichtbar.
-
-Und das Beste: Das Gewinnerteam bekommt [Belohnung, z. B. ein gemeinsames Team-Essen].
-
-In 2 Minuten dabei:
-1. App laden: [Link / QR-Code]
-2. Team-Code eingeben: [Team-Code]
-3. Fertig – Start ist am [Startdatum].
-
-Ich freue mich darauf, dir – und unserem ganzen Unternehmen – dabei zu helfen, dass Arbeit und Privatleben für alle entspannter werden. Ich bin selbst dabei. Fragen? Komm jederzeit gern auf mich zu.
-
-[Dein Name]
-
-P.S. Zwei Minuten genügen – und je mehr aus deinem Team mitmachen, desto größer eure Gewinnchance. Sei am [Startdatum] dabei.`;
-
-const benefitsBullets = [
-  { icon: Heart, text: "Weniger Stress, ein Feierabend der wirklich dir gehört" },
-  { icon: Lock, text: "100 % anonym – niemand sieht deine persönliche Fokuszeit" },
-  { icon: ShieldCheck, text: "Nichts wird verboten – Anrufe zählen nie" },
-  { icon: Brain, text: "Beugt Burnout vor, oft mit besserem Schlaf" },
-  { icon: Sparkles, text: "Optionale Helfer wie Timer vor Instagram/TikTok" },
-  { icon: Trophy, text: "Fair: nur das Gewinnerteam wird bekannt gegeben" },
-];
+import { useT } from "@/i18n";
 
 export default function Akzeptanz() {
+  const t = useT();
   const [demoOpen, setDemoOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const principles = [
+    { icon: Gift, title: t("pages.akzeptanz.principle1.title"), desc: t("pages.akzeptanz.principle1.desc"), color: "from-amber-500/20 to-orange-500/10", ring: "ring-amber-500/30" },
+    { icon: Users, title: t("pages.akzeptanz.principle2.title"), desc: t("pages.akzeptanz.principle2.desc"), color: "from-sky-500/20 to-blue-500/10", ring: "ring-sky-500/30" },
+    { icon: UserCheck, title: t("pages.akzeptanz.principle3.title"), desc: t("pages.akzeptanz.principle3.desc"), color: "from-violet-500/20 to-purple-500/10", ring: "ring-violet-500/30" },
+    { icon: ShieldCheck, title: t("pages.akzeptanz.principle4.title"), desc: t("pages.akzeptanz.principle4.desc"), color: "from-emerald-500/20 to-green-500/10", ring: "ring-emerald-500/30" },
+    { icon: MousePointerClick, title: t("pages.akzeptanz.principle5.title"), desc: t("pages.akzeptanz.principle5.desc"), color: "from-pink-500/20 to-rose-500/10", ring: "ring-pink-500/30" },
+  ];
+
+  const subjects = [
+    { letter: "A", text: t("pages.akzeptanz.subjectA.text"), note: t("pages.akzeptanz.subjectA.note"), recommended: true },
+    { letter: "B", text: t("pages.akzeptanz.subjectB.text"), note: t("pages.akzeptanz.subjectB.note") },
+    { letter: "C", text: t("pages.akzeptanz.subjectC.text"), note: t("pages.akzeptanz.subjectC.note") },
+  ];
+
+  const emailBody = t("pages.akzeptanz.emailBody");
+
+  const benefitsBullets = [
+    { icon: Heart, text: t("pages.akzeptanz.benefitBullet1") },
+    { icon: Lock, text: t("pages.akzeptanz.benefitBullet2") },
+    { icon: ShieldCheck, text: t("pages.akzeptanz.benefitBullet3") },
+    { icon: Brain, text: t("pages.akzeptanz.benefitBullet4") },
+    { icon: Sparkles, text: t("pages.akzeptanz.benefitBullet5") },
+    { icon: Trophy, text: t("pages.akzeptanz.benefitBullet6") },
+  ];
 
   const copyEmail = async () => {
     await navigator.clipboard.writeText(emailBody);
     setCopied(true);
-    toast({ title: "E-Mail kopiert", description: "Du kannst sie jetzt einfügen und anpassen." });
+    toast({ title: t("pages.akzeptanz.toast.title"), description: t("pages.akzeptanz.toast.desc") });
     setTimeout(() => setCopied(false), 2400);
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Betriebsrat-Akzeptanz – TeamFokus richtig einführen"
-        description="Wie du TeamFokus erfolgreich ankündigst: Sieben Überzeugungs-Prinzipien und eine fertige E-Mail-Vorlage für maximale Betriebsrat-Akzeptanz."
+        title={t("pages.akzeptanz.seo.title")}
+        description={t("pages.akzeptanz.seo.description")}
         path="/fuer-betriebsrat"
       />
       <LandingHeader onDemo={() => setDemoOpen(true)} />
@@ -134,25 +68,25 @@ export default function Akzeptanz() {
           <div className="container relative pt-16 pb-14 md:pt-24 md:pb-20 text-center animate-fade-in">
             <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 backdrop-blur px-4 py-1.5 text-xs font-medium text-muted-foreground mb-6 shadow-sm">
               <Sparkles className="h-3.5 w-3.5 text-primary" />
-              Manager-Leitfaden · Betriebsrat-Akzeptanz
+              {t("pages.akzeptanz.hero.badge")}
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.05]">
-              So lädst du dein Team<br />
-              <span className="text-gradient animate-gradient-x">zu TeamFokus ein.</span>
+              {t("pages.akzeptanz.hero.title1")}<br />
+              <span className="text-gradient animate-gradient-x">{t("pages.akzeptanz.hero.title2")}</span>
             </h1>
             <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed px-2">
-              Wie du TeamFokus ankündigst, entscheidet über die Akzeptanz. Hier findest du die wirksamsten Überzeugungs-Prinzipien und eine sofort einsetzbare E-Mail-Vorlage.
+              {t("pages.akzeptanz.hero.desc")}
             </p>
             <p className="mx-auto max-w-2xl text-base sm:text-lg text-foreground/90 font-medium mb-8 leading-relaxed px-2 border-l-2 border-primary/60 pl-4 italic text-left sm:text-center sm:border-l-0 sm:pl-0">
-              „Wir wollen dir dein Handy nicht wegnehmen – aber wir müssen gemeinsam etwas tun. So wie bisher kann es nicht weitergehen, denn es wird immer schlimmer."
+              {t("pages.akzeptanz.hero.quote")}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-4">
               <Button size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto" onClick={copyEmail}>
-                {copied ? <><Check className="mr-1 h-4 w-4" /> Kopiert</> : <><Copy className="mr-1 h-4 w-4" /> E-Mail kopieren</>}
+                {copied ? <><Check className="mr-1 h-4 w-4" /> {t("pages.akzeptanz.hero.copied")}</> : <><Copy className="mr-1 h-4 w-4" /> {t("pages.akzeptanz.hero.copy")}</>}
               </Button>
               <Button size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto" asChild>
-                <a href="#prinzipien">7 Prinzipien ansehen <ArrowRight className="ml-1 h-4 w-4" /></a>
+                <a href="#prinzipien">{t("pages.akzeptanz.hero.cta2")} <ArrowRight className="ml-1 h-4 w-4" /></a>
               </Button>
             </div>
           </div>
@@ -166,15 +100,15 @@ export default function Akzeptanz() {
         <section className="container py-16 md:py-24 border-b border-border/40">
           <div className="grid md:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
             <div>
-              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Hintergrund</p>
+              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.akzeptanz.background.eyebrow")}</p>
               <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-5">
-                Es geht um die <span className="text-gradient">Mitarbeitenden</span> – nicht um das Unternehmen.
+                {t("pages.akzeptanz.background.title.pre")} <span className="text-gradient">{t("pages.akzeptanz.background.title.highlight")}</span> {t("pages.akzeptanz.background.title.post")}
               </h2>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-4">
-                Smartphones ziehen uns alle ständig aus der Konzentration. Das ist kein persönliches Versagen, sondern ein gesellschaftliches Problem: Apps sind gezielt darauf ausgelegt, Aufmerksamkeit zu binden.
+                {t("pages.akzeptanz.background.p1")}
               </p>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-                TeamFokus setzt auf <strong className="text-foreground">Unterstützung statt Kontrolle</strong>: ein anonymes Team-Spiel, bei dem Mitarbeitende gemeinsam Fokuszeit sammeln – weil ihr Team gewinnen will.
+                {t("pages.akzeptanz.background.p2.pre")} <strong className="text-foreground">{t("pages.akzeptanz.background.p2.strong")}</strong>{t("pages.akzeptanz.background.p2.post")}
               </p>
             </div>
             <div className="relative">
@@ -183,10 +117,10 @@ export default function Akzeptanz() {
                 <div className="inline-flex h-14 w-14 rounded-2xl gradient-primary items-center justify-center shadow-glow mb-5">
                   <Clock className="h-7 w-7 text-primary-foreground" />
                 </div>
-                <p className="text-6xl md:text-7xl font-semibold tracking-tight text-gradient mb-3">23 Min.</p>
-                <p className="text-lg font-medium mb-2">bis zur vollen Konzentration</p>
+                <p className="text-6xl md:text-7xl font-semibold tracking-tight text-gradient mb-3">{t("pages.akzeptanz.stat.value")}</p>
+                <p className="text-lg font-medium mb-2">{t("pages.akzeptanz.stat.label")}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Nach jeder Unterbrechung dauert es im Schnitt rund 23 Minuten bis zur vollen Konzentration zurück.
+                  {t("pages.akzeptanz.stat.desc")}
                   <span className="block mt-2 italic">
                     —{" "}
                     <a
@@ -195,7 +129,7 @@ export default function Akzeptanz() {
                       rel="noopener noreferrer"
                       className="not-italic underline underline-offset-2 hover:text-foreground"
                     >
-                      G. Mark, University of California, Irvine
+                      {t("pages.akzeptanz.stat.source")}
                     </a>
                   </span>
                 </p>
@@ -208,10 +142,10 @@ export default function Akzeptanz() {
               <Quote className="h-8 w-8 text-primary shrink-0" />
               <div>
                 <p className="text-lg md:text-xl font-medium leading-relaxed mb-2">
-                  Hilfe, nicht Kontrolle.
+                  {t("pages.akzeptanz.quote2.title")}
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Wer das Gefühl hat, etwas geschenkt zu bekommen und selbst zu entscheiden, macht freiwillig und gern mit – Druck erzeugt das Gegenteil.
+                  {t("pages.akzeptanz.quote2.desc")}
                 </p>
               </div>
             </div>
@@ -221,12 +155,12 @@ export default function Akzeptanz() {
         {/* 7 Prinzipien */}
         <section id="prinzipien" className="container py-16 md:py-24 border-b border-border/40">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Die richtige Ansprache</p>
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.akzeptanz.principles.eyebrow")}</p>
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
-              Sieben Prinzipien, mit denen du dein Team gewinnst.
+              {t("pages.akzeptanz.principles.title")}
             </h2>
             <p className="text-muted-foreground text-base md:text-lg">
-              Bewährte Überzeugungs-Mechaniken aus Kommunikations- und Verhaltensforschung – konkret auf TeamFokus angewendet.
+              {t("pages.akzeptanz.principles.desc")}
             </p>
           </div>
 
@@ -251,13 +185,13 @@ export default function Akzeptanz() {
                 <div className="h-10 w-10 rounded-xl gradient-primary grid place-items-center shadow-glow mb-4">
                   <Sparkles className="h-5 w-5 text-primary-foreground" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2 tracking-tight">Alles drin in einer Vorlage</h3>
+                <h3 className="text-lg font-semibold mb-2 tracking-tight">{t("pages.akzeptanz.templateCard.title")}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  Wir haben die sieben Prinzipien in eine fertige E-Mail gegossen. Nur anpassen, nicht neu schreiben.
+                  {t("pages.akzeptanz.templateCard.desc")}
                 </p>
               </div>
               <Button onClick={copyEmail} className="w-full" variant="outline">
-                {copied ? <><Check className="mr-1 h-4 w-4" /> Kopiert</> : <><Copy className="mr-1 h-4 w-4" /> E-Mail kopieren</>}
+                {copied ? <><Check className="mr-1 h-4 w-4" /> {t("pages.akzeptanz.hero.copied")}</> : <><Copy className="mr-1 h-4 w-4" /> {t("pages.akzeptanz.hero.copy")}</>}
               </Button>
             </div>
           </div>
@@ -266,11 +200,11 @@ export default function Akzeptanz() {
         {/* Betreff Optionen */}
         <section className="container py-16 md:py-24 border-b border-border/40">
           <div className="max-w-3xl mx-auto text-center mb-10">
-            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Schritt 1 · Betreff wählen</p>
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.akzeptanz.subjects.eyebrow")}</p>
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
-              Wähle deinen Betreff.
+              {t("pages.akzeptanz.subjects.title")}
             </h2>
-            <p className="text-muted-foreground">Drei getestete Varianten – A ist empfohlen.</p>
+            <p className="text-muted-foreground">{t("pages.akzeptanz.subjects.desc")}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
@@ -281,14 +215,14 @@ export default function Akzeptanz() {
               >
                 {s.recommended && (
                   <span className="absolute -top-3 left-6 text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full gradient-primary text-primary-foreground font-semibold shadow-glow">
-                    Empfohlen
+                    {t("pages.akzeptanz.subjects.recommended")}
                   </span>
                 )}
                 <div className="flex items-center gap-3 mb-4">
                   <div className={`h-10 w-10 rounded-xl grid place-items-center font-semibold ${s.recommended ? "gradient-primary text-primary-foreground" : "bg-secondary text-foreground"}`}>
                     {s.letter}
                   </div>
-                  <span className="text-xs text-muted-foreground">{s.text.length} Zeichen</span>
+                  <span className="text-xs text-muted-foreground">{s.text.length} {t("pages.akzeptanz.subjects.charsSuffix")}</span>
                 </div>
                 <p className="text-base font-medium mb-2 leading-snug">„{s.text}"</p>
                 <p className="text-xs text-muted-foreground italic">{s.note}</p>
@@ -297,9 +231,9 @@ export default function Akzeptanz() {
           </div>
 
           <div className="max-w-3xl mx-auto mt-8 surface-card p-5 border-dashed border border-border">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Preview-Text</p>
+            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">{t("pages.akzeptanz.subjects.previewLabel")}</p>
             <p className="text-sm text-foreground/90 font-medium">
-              100 % anonym, in 2 Minuten startklar – und dein Team kann gewinnen.
+              {t("pages.akzeptanz.subjects.previewText")}
             </p>
           </div>
         </section>
@@ -307,11 +241,11 @@ export default function Akzeptanz() {
         {/* E-Mail Mockup */}
         <section className="container py-16 md:py-24 border-b border-border/40">
           <div className="max-w-3xl mx-auto text-center mb-10">
-            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Schritt 2 · E-Mail versenden</p>
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.akzeptanz.mail.eyebrow")}</p>
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
-              Die fertige Vorlage.
+              {t("pages.akzeptanz.mail.title")}
             </h2>
-            <p className="text-muted-foreground">Nur die <span className="px-1.5 py-0.5 rounded bg-primary/15 text-primary font-mono text-xs">[markierten Stellen]</span> anpassen – fertig.</p>
+            <p className="text-muted-foreground">{t("pages.akzeptanz.mail.hint.pre")} <span className="px-1.5 py-0.5 rounded bg-primary/15 text-primary font-mono text-xs">{t("pages.akzeptanz.mail.hint.highlight")}</span> {t("pages.akzeptanz.mail.hint.post")}</p>
           </div>
 
           <div className="max-w-3xl mx-auto">
@@ -324,13 +258,13 @@ export default function Akzeptanz() {
                   <span className="h-3 w-3 rounded-full bg-emerald-500/60" />
                 </div>
                 <p className="text-xs text-muted-foreground ml-2 font-mono truncate">
-                  Von: [Dein Name] &lt;[name@unternehmen.at]&gt; → An: Team
+                  {t("pages.akzeptanz.mail.from")}
                 </p>
               </div>
 
               <div className="px-6 md:px-8 py-6 space-y-1 border-b border-border/40">
-                <p className="text-xs uppercase tracking-widest text-muted-foreground">Betreff</p>
-                <p className="text-lg font-semibold tracking-tight">[Vorname], 2 Minuten für weniger Handystress</p>
+                <p className="text-xs uppercase tracking-widest text-muted-foreground">{t("pages.akzeptanz.mail.subjectLabel")}</p>
+                <p className="text-lg font-semibold tracking-tight">{t("pages.akzeptanz.mail.subjectText")}</p>
               </div>
 
               <div className="px-6 md:px-8 py-6">
@@ -338,9 +272,9 @@ export default function Akzeptanz() {
               </div>
 
               <div className="border-t border-border/60 bg-secondary/20 px-6 py-4 flex flex-col sm:flex-row gap-3 justify-between items-center">
-                <p className="text-xs text-muted-foreground">Tipp: Versende morgens dienstags–donnerstags für höchste Öffnungsrate.</p>
+                <p className="text-xs text-muted-foreground">{t("pages.akzeptanz.mail.tip")}</p>
                 <Button onClick={copyEmail} size="sm">
-                  {copied ? <><Check className="mr-1 h-4 w-4" /> Kopiert</> : <><Copy className="mr-1 h-4 w-4" /> E-Mail kopieren</>}
+                  {copied ? <><Check className="mr-1 h-4 w-4" /> {t("pages.akzeptanz.hero.copied")}</> : <><Copy className="mr-1 h-4 w-4" /> {t("pages.akzeptanz.hero.copy")}</>}
                 </Button>
               </div>
             </div>
@@ -350,9 +284,9 @@ export default function Akzeptanz() {
         {/* What's in it for them */}
         <section className="container py-16 md:py-24 border-b border-border/40">
           <div className="max-w-3xl mx-auto text-center mb-10">
-            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Was Mitarbeitende davon haben</p>
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.akzeptanz.benefits.eyebrow")}</p>
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
-              Die Vorteile auf einen Blick.
+              {t("pages.akzeptanz.benefits.title")}
             </h2>
           </div>
 
@@ -371,17 +305,17 @@ export default function Akzeptanz() {
         {/* 2-Minuten-Schritte */}
         <section className="container py-16 md:py-24 border-b border-border/40">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">In 2 Minuten dabei</p>
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.akzeptanz.steps.eyebrow")}</p>
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
-              Drei Schritte für jedes Teammitglied.
+              {t("pages.akzeptanz.steps.title")}
             </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
             {[
-              { n: 1, t: "App laden", d: "Link oder QR-Code aus der E-Mail antippen." },
-              { n: 2, t: "Team-Code eingeben", d: "Der vom Manager bereitgestellte Code." },
-              { n: 3, t: "Fertig", d: "Am Startdatum geht's automatisch los." },
+              { n: 1, t: t("pages.akzeptanz.step1.t"), d: t("pages.akzeptanz.step1.d") },
+              { n: 2, t: t("pages.akzeptanz.step2.t"), d: t("pages.akzeptanz.step2.d") },
+              { n: 3, t: t("pages.akzeptanz.step3.t"), d: t("pages.akzeptanz.step3.d") },
             ].map((s) => (
               <div key={s.n} className="surface-card p-7 md:p-8 relative overflow-hidden">
                 <div className="absolute -top-10 -right-10 h-32 w-32 gradient-primary opacity-10 blur-3xl rounded-full" />
@@ -403,20 +337,20 @@ export default function Akzeptanz() {
                 <Trophy className="h-7 w-7 text-primary-foreground" />
               </div>
               <h2 className="text-2xl md:text-5xl font-semibold tracking-tight mb-4">
-                Bereit, dein Team zu begeistern?
+                {t("pages.akzeptanz.cta.title")}
               </h2>
               <p className="max-w-xl mx-auto text-muted-foreground mb-8 text-base md:text-lg leading-relaxed">
-                Kopiere die Vorlage, passe die markierten Stellen an – und beobachte, wie aus Skepsis Teamgeist wird.
+                {t("pages.akzeptanz.cta.desc")}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Button size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto" onClick={copyEmail}>
-                  {copied ? <><Check className="mr-1 h-4 w-4" /> Kopiert</> : <><Copy className="mr-1 h-4 w-4" /> E-Mail kopieren</>}
+                  {copied ? <><Check className="mr-1 h-4 w-4" /> {t("pages.akzeptanz.hero.copied")}</> : <><Copy className="mr-1 h-4 w-4" /> {t("pages.akzeptanz.hero.copy")}</>}
                 </Button>
                 <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto">
-                  <Link to="/waitlist">TeamFokus starten <ChevronRight className="ml-1 h-4 w-4" /></Link>
+                  <Link to="/waitlist">{t("pages.akzeptanz.cta.btn2")} <ChevronRight className="ml-1 h-4 w-4" /></Link>
                 </Button>
                 <Button asChild size="lg" variant="ghost" className="h-12 px-6 w-full sm:w-auto">
-                  <Link to="/fuer-mitarbeitende"><Heart className="mr-1.5 h-4 w-4" />Vorteile für Mitarbeiter</Link>
+                  <Link to="/fuer-mitarbeitende"><Heart className="mr-1.5 h-4 w-4" />{t("pages.akzeptanz.cta.btn3")}</Link>
                 </Button>
               </div>
             </div>

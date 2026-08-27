@@ -4,16 +4,17 @@ import Logo from "@/components/Logo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import OnboardingTour from "@/components/app/OnboardingTour";
 import { cn } from "@/lib/utils";
-
-const items = [
-  { to: "/manager", icon: LayoutDashboard, label: "Übersicht", end: true },
-  { to: "/manager/teams", icon: Users, label: "Teams" },
-  { to: "/manager/challenges", icon: Trophy, label: "Challenges" },
-  { to: "/manager/settings", icon: Cog, label: "Einstellungen" },
-];
+import { useT } from "@/i18n";
 
 export default function ManagerShell() {
+  const t = useT();
   const loc = useLocation();
+  const items = [
+    { to: "/manager", icon: LayoutDashboard, label: t("app.managershell.overview"), end: true },
+    { to: "/manager/teams", icon: Users, label: t("app.managershell.teams") },
+    { to: "/manager/challenges", icon: Trophy, label: t("app.managershell.challenges") },
+    { to: "/manager/settings", icon: Cog, label: t("app.managershell.settings") },
+  ];
   return (
     <div className="min-h-screen bg-background flex flex-col md:flex-row">
       <aside className="hidden md:flex md:flex-col w-64 border-r border-border/60 bg-card/40 p-6 gap-6">

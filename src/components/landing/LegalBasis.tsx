@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronDown, Check, AlertCircle, Building2, FileText, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useT } from "@/i18n";
 import avvAsset from "@/assets/compliance/avv.pdf.asset.json";
 import infoblattAsset from "@/assets/compliance/infoblatt.pdf.asset.json";
 import vvtAsset from "@/assets/compliance/vvt.pdf.asset.json";
@@ -16,51 +17,6 @@ type Category = {
   intro: string;
   items: Item[];
 };
-
-const categories: Category[] = [
-  {
-    id: "green",
-    label: "Bereits durch TeamFokus erfüllt",
-    tone: "green",
-    icon: Check,
-    intro: "Technisch und strukturell in der Software verankert.",
-    items: [
-      { title: "Datenminimierung – nur Zeitdaten, keine Inhalte, URLs oder Screenshots", ref: "Art. 5 Abs. 1 lit. c DSGVO" },
-      { title: "Zweckbindung – ausschließlich aggregierter Team-Score", ref: "Art. 5 Abs. 1 lit. b DSGVO" },
-      { title: "Speicherbegrenzung – individuelle Tageswerte werden gelöscht", ref: "Art. 5 Abs. 1 lit. e DSGVO" },
-      { title: "Privacy by Design & Default – Mindest-Teamgröße strukturell kodiert", ref: "Art. 25 DSGVO" },
-      { title: "Keine besonderen Datenkategorien", ref: "Art. 9 DSGVO" },
-      { title: "Betroffenenrechte / Löschung", ref: "Art. 17, Art. 7 Abs. 3 DSGVO" },
-      { title: "Datensicherheit – TLS, Row-Level-Security, EU-Hosting", ref: "Art. 32 DSGVO" },
-      { title: "Kein Drittlandtransfer – EU-Hosting Frankfurt", ref: "Art. 44 ff. DSGVO" },
-    ],
-  },
-  {
-    id: "amber",
-    label: "Gemeinsam mit Betriebsrat & Unternehmen zu regeln",
-    tone: "amber",
-    icon: AlertCircle,
-    intro: "Von TeamFokus mit Vorlagen unterstützt.",
-    items: [
-      { title: "Echte Freiwilligkeit in der Teilnahme absichern (Opt-in, kein Nachteil, kein Gruppendruck)" },
-      { title: "Rechtsgrundlage der Verarbeitung (Akzeptanz des Betriebsrates) – Betriebsvereinbarung als tragende Grundlage", ref: "Art. 6, Art. 88 DSGVO" },
-      { title: "Mitbestimmung (AT & DE)", ref: "§ 96 Abs. 1 Z 3 ArbVG / § 10 AVRAG · § 87 Abs. 1 Nr. 6 BetrVG / § 26 BDSG" },
-    ],
-  },
-  {
-    id: "grey",
-    label: "Pflicht des einsetzenden Unternehmens",
-    tone: "grey",
-    icon: Building2,
-    intro: "Verantwortlicher i.S.d. DSGVO.",
-    items: [
-      { title: "Verzeichnis der Verarbeitungstätigkeiten", ref: "Art. 30 DSGVO", template: { url: vvtAsset.url, label: "VVT-Baustein" } },
-      { title: "Datenschutz-Folgenabschätzung – in Österreich Entlastung bei Betriebsvereinbarung", ref: "Art. 35 DSGVO", template: { url: dsfaAsset.url, label: "DSFA-Vorlage" } },
-      { title: "Auftragsverarbeitungsvertrag", ref: "Art. 28 DSGVO", template: { url: avvAsset.url, label: "AVV" } },
-      { title: "Informationspflichten gegenüber Beschäftigten", ref: "Art. 13 DSGVO", template: { url: infoblattAsset.url, label: "Mitarbeiter-Infoblatt" } },
-    ],
-  },
-];
 
 const toneStyles: Record<Category["tone"], { wrap: string; dot: string; chip: string; icon: string }> = {
   green: {
@@ -84,21 +40,64 @@ const toneStyles: Record<Category["tone"], { wrap: string; dot: string; chip: st
 };
 
 export default function LegalBasis() {
+  const t = useT();
   const [open, setOpen] = useState<string | null>("green");
+
+  const categories: Category[] = [
+    {
+      id: "green",
+      label: t("landing.legal_basis.green.label"),
+      tone: "green",
+      icon: Check,
+      intro: t("landing.legal_basis.green.intro"),
+      items: [
+        { title: t("landing.legal_basis.green.item1.title"), ref: t("landing.legal_basis.green.item1.ref") },
+        { title: t("landing.legal_basis.green.item2.title"), ref: t("landing.legal_basis.green.item2.ref") },
+        { title: t("landing.legal_basis.green.item3.title"), ref: t("landing.legal_basis.green.item3.ref") },
+        { title: t("landing.legal_basis.green.item4.title"), ref: t("landing.legal_basis.green.item4.ref") },
+        { title: t("landing.legal_basis.green.item5.title"), ref: t("landing.legal_basis.green.item5.ref") },
+        { title: t("landing.legal_basis.green.item6.title"), ref: t("landing.legal_basis.green.item6.ref") },
+        { title: t("landing.legal_basis.green.item7.title"), ref: t("landing.legal_basis.green.item7.ref") },
+        { title: t("landing.legal_basis.green.item8.title"), ref: t("landing.legal_basis.green.item8.ref") },
+      ],
+    },
+    {
+      id: "amber",
+      label: t("landing.legal_basis.amber.label"),
+      tone: "amber",
+      icon: AlertCircle,
+      intro: t("landing.legal_basis.amber.intro"),
+      items: [
+        { title: t("landing.legal_basis.amber.item1.title") },
+        { title: t("landing.legal_basis.amber.item2.title"), ref: t("landing.legal_basis.amber.item2.ref") },
+        { title: t("landing.legal_basis.amber.item3.title"), ref: t("landing.legal_basis.amber.item3.ref") },
+      ],
+    },
+    {
+      id: "grey",
+      label: t("landing.legal_basis.grey.label"),
+      tone: "grey",
+      icon: Building2,
+      intro: t("landing.legal_basis.grey.intro"),
+      items: [
+        { title: t("landing.legal_basis.grey.item1.title"), ref: t("landing.legal_basis.grey.item1.ref"), template: { url: vvtAsset.url, label: t("landing.legal_basis.grey.item1.template") } },
+        { title: t("landing.legal_basis.grey.item2.title"), ref: t("landing.legal_basis.grey.item2.ref"), template: { url: dsfaAsset.url, label: t("landing.legal_basis.grey.item2.template") } },
+        { title: t("landing.legal_basis.grey.item3.title"), ref: t("landing.legal_basis.grey.item3.ref"), template: { url: avvAsset.url, label: t("landing.legal_basis.grey.item3.template") } },
+        { title: t("landing.legal_basis.grey.item4.title"), ref: t("landing.legal_basis.grey.item4.ref"), template: { url: infoblattAsset.url, label: t("landing.legal_basis.grey.item4.template") } },
+      ],
+    },
+  ];
 
   return (
     <section className="container py-12 md:py-16">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8 md:mb-10">
-          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Rechtliche Grundlagen</p>
+          <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("landing.legal_basis.eyebrow")}</p>
           <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-4">
-            DSGVO, ArbVG/AVRAG, BetrVG/BDSG – strukturell verankert.
+            {t("landing.legal_basis.title")}
           </h2>
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-            TeamFokus ist konsequent nach den datenschutz- und arbeitsrechtlichen Vorgaben des DACH-Raums
-            (DSGVO, ArbVG/AVRAG, BetrVG/BDSG) konzipiert – Datenschutz ist strukturell in der Software verankert,
-            nicht nachträglich aufgesetzt. Die folgende Übersicht zeigt transparent, welche Vorgaben TeamFokus bereits
-            technisch erfüllt und welche Punkte gemeinsam mit Betriebsrat und Unternehmen geregelt werden.
+            {t("landing.legal_basis.subtitle")}
           </p>
         </div>
 
@@ -130,7 +129,7 @@ export default function LegalBasis() {
                       <a
                         href={starterKitAsset.url}
                         download
-                        aria-label="Komplettes Compliance-Starter-Kit als ZIP herunterladen"
+                        aria-label={t("landing.legal_basis.starter_kit.aria")}
                         className="group flex items-center gap-3 rounded-xl border border-primary/40 bg-primary/10 hover:bg-primary/15 px-4 py-3 transition-colors"
                       >
                         <span className="h-10 w-10 rounded-lg bg-primary/20 grid place-items-center shrink-0">
@@ -138,10 +137,10 @@ export default function LegalBasis() {
                         </span>
                         <span className="flex-1 min-w-0">
                           <span className="block text-sm md:text-base font-semibold text-foreground">
-                            Komplettes Compliance-Starter-Kit herunterladen
+                            {t("landing.legal_basis.starter_kit.title")}
                           </span>
                           <span className="block text-xs text-muted-foreground mt-0.5">
-                            Vorbereitete Vorlagen – vom Unternehmen zu prüfen und anzupassen.
+                            {t("landing.legal_basis.starter_kit.desc")}
                           </span>
                         </span>
                         <span className="text-[11px] uppercase tracking-wider text-primary font-semibold shrink-0">ZIP</span>
@@ -159,8 +158,8 @@ export default function LegalBasis() {
                                 href={it.template.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label={`${it.template.label} als PDF öffnen oder herunterladen`}
-                                title="Vorlage (PDF, aus Word generiert)"
+                                aria-label={t("landing.legal_basis.template_aria", { label: it.template.label })}
+                                title={t("landing.legal_basis.template_title")}
                                 className="inline-flex items-center gap-1.5 mt-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
                               >
                                 <FileText className="h-3.5 w-3.5" />

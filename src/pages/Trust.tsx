@@ -2,48 +2,31 @@ import { Link } from "react-router-dom";
 import { Shield, Lock, Eye, Server, FileCheck, ArrowLeft } from "lucide-react";
 import Logo from "@/components/Logo";
 import Seo from "@/components/Seo";
-
-const sections = [
-  {
-    icon: Shield,
-    title: "Privacy-by-Design",
-    body: "TeamFokus erfasst ausschließlich aggregierte Zeitdaten – keine Screenshots, keine Tastatureingaben, keine App-Inhalte. Auswertungen erfolgen pro Team, nicht pro Person.",
-  },
-  {
-    icon: Lock,
-    title: "Verschlüsselung",
-    body: "Transport via TLS 1.3. Daten werden in der EU bei einem ISO-27001-zertifizierten Hoster gespeichert und ruhend verschlüsselt.",
-  },
-  {
-    icon: Eye,
-    title: "Zugriffskontrolle",
-    body: "Mitarbeitende sehen nur ihre eigenen Daten und den Fortschritt ihres Teams. Arbeitgeber erfahren ausschließlich, welches Team eine vereinbarte Belohnung freigeschaltet hat – keine persönlichen Nutzungsdaten, keine App-Verläufe, keine Inhalte.",
-  },
-  {
-    icon: Server,
-    title: "Datenminimierung",
-    body: "Wir speichern nur, was zur Funktion nötig ist. Sie können Ihren Account und alle zugehörigen Daten jederzeit aus den Einstellungen heraus löschen.",
-  },
-  {
-    icon: FileCheck,
-    title: "DSGVO &amp; Betriebsrat",
-    body: "TeamFokus ist betriebsrats-tauglich, dokumentiert nach Art. 30 DSGVO und unterstützt Auftragsverarbeitungsverträge (AVV). Eine Vorlage stellen wir auf Anfrage zur Verfügung.",
-  },
-];
+import { useT } from "@/i18n";
 
 export default function Trust() {
+  const t = useT();
+
+  const sections = [
+    { icon: Shield, title: t("pages.trust.s1.title"), body: t("pages.trust.s1.body") },
+    { icon: Lock, title: t("pages.trust.s2.title"), body: t("pages.trust.s2.body") },
+    { icon: Eye, title: t("pages.trust.s3.title"), body: t("pages.trust.s3.body") },
+    { icon: Server, title: t("pages.trust.s4.title"), body: t("pages.trust.s4.body") },
+    { icon: FileCheck, title: t("pages.trust.s5.title"), body: t("pages.trust.s5.body") },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Datenschutz &amp; Sicherheit – TeamFokus"
-        description="Datenschutz by Design: keine persönlichen Nutzungsdaten für den Arbeitgeber, k-Anonymität ab 5 Personen, EU-Hosting, Verschlüsselung und Betriebsrats-Tauglichkeit."
+        title={t("pages.trust.seo.title")}
+        description={t("pages.trust.seo.description")}
         path="/datenschutz"
       />
       <header className="border-b border-border/40">
         <div className="container py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center"><Logo withWordmark /></Link>
           <Link to="/" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5">
-            <ArrowLeft className="h-4 w-4" /> Zurück
+            <ArrowLeft className="h-4 w-4" /> {t("pages.trust.back")}
           </Link>
         </div>
       </header>
@@ -53,10 +36,9 @@ export default function Trust() {
           <div className="inline-flex h-14 w-14 rounded-2xl gradient-primary items-center justify-center shadow-glow mb-5">
             <Shield className="h-7 w-7 text-primary-foreground" />
           </div>
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">Datenschutz &amp; Sicherheit</h1>
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">{t("pages.trust.title")}</h1>
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-            Wie TeamFokus Ihre Daten schützt – kurz und ehrlich. Diese Seite wird von uns gepflegt
-            und ist keine externe Zertifizierung.
+            {t("pages.trust.desc")}
           </p>
         </div>
 
@@ -76,9 +58,9 @@ export default function Trust() {
 
         <div className="surface-card p-6 md:p-7 mt-8 text-sm text-muted-foreground leading-relaxed">
           <p>
-            Sicherheitsproblem gefunden? Schreiben Sie uns an{" "}
+            {t("pages.trust.security.pre")}{" "}
             <a href="mailto:security@teamfokus.app" className="text-primary hover:underline">security@teamfokus.app</a>.
-            Wir bestätigen den Eingang innerhalb von 48 Stunden.
+            {" "}{t("pages.trust.security.post")}
           </p>
         </div>
       </main>
