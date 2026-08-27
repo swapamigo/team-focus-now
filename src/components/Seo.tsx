@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { useI18n } from "@/i18n";
 
 const SITE_URL = "https://teamfokus.app";
 
