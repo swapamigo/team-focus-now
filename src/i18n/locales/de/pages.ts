@@ -103,7 +103,7 @@ const d: Dict = {
   "pages.arbeitgeber.hero.cta2": "Demo ansehen",
   "pages.arbeitgeber.goals.eyebrow": "Wirkung, die zählt",
   "pages.arbeitgeber.goals.title": "Vier Ziele, die messbar besser werden.",
-  "pages.arbeitgeber.goals.desc": "TeamFokus verbessert nicht „Anwesenheit", sondern die Qualität der Arbeitszeit.",
+  "pages.arbeitgeber.goals.desc": "TeamFokus verbessert nicht „Anwesenheit“, sondern die Qualität der Arbeitszeit.",
   "pages.arbeitgeber.access.eyebrow": "Ihr Datenzugriff",
   "pages.arbeitgeber.access.title": "Sie erfahren nur das Ergebnis.",
   "pages.arbeitgeber.access.neverTitle": "Das sehen Sie nie",
