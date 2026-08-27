@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { AppWindow, Globe, Clock, Coffee, Smartphone, ShieldCheck, Ban } from "lucide-react";
-
-const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+import { useT } from "@/i18n";
 
 export default function EmployeeRules() {
+  const t = useT();
   const { user, companyId } = useAuth();
   const [allowedApps, setAllowedApps] = useState<string[]>([]);
   const [companyApps, setCompanyApps] = useState<string[]>([]);
@@ -13,6 +13,8 @@ export default function EmployeeRules() {
   const [schedule, setSchedule] = useState<Record<number, { start: string; end: string }>>({});
   const [breaks, setBreaks] = useState<{ id: string; label: string; start_time: string; end_time: string }[]>([]);
   const [phoneTimes, setPhoneTimes] = useState<{ id: string; label: string; start_time: string; end_time: string }[]>([]);
+
+  const WEEKDAYS = [t("employee.rules.day_sun"), t("employee.rules.day_mon"), t("employee.rules.day_tue"), t("employee.rules.day_wed"), t("employee.rules.day_thu"), t("employee.rules.day_fri"), t("employee.rules.day_sat")];
 
   useEffect(() => {
     if (!user || !companyId) return;
@@ -44,15 +46,15 @@ export default function EmployeeRules() {
   return (
     <div className="min-h-screen bg-background pb-24">
       <header className="px-5 pt-8 pb-4">
-        <h1 className="text-3xl font-semibold tracking-tight">Regeln</h1>
-        <p className="text-sm text-muted-foreground mt-0.5">Was zählt, was nicht — dein persönlicher Rahmen.</p>
+        <h1 className="text-3xl font-semibold tracking-tight">{t("employee.rules.title")}</h1>
+        <p className="text-sm text-muted-foreground mt-0.5">{t("employee.rules.subtitle")}</p>
       </header>
 
       <section className="px-5 mb-5">
         <div className="surface-card p-5">
-          <div className="flex items-center gap-2 mb-3"><AppWindow className="h-4 w-4 text-primary" /><h2 className="font-semibold">Erlaubte Apps</h2></div>
+          <div className="flex items-center gap-2 mb-3"><AppWindow className="h-4 w-4 text-primary" /><h2 className="font-semibold">{t("employee.rules.allowed_apps")}</h2></div>
           {allApps.length === 0 ? (
-            <p className="text-sm text-muted-foreground">Keine Apps freigegeben.</p>
+            <p className="text-sm text-muted-foreground">{t("employee.rules.no_apps")}</p>
           ) : (
             <ul className="flex flex-wrap gap-2">
               {allApps.map((a) => (
@@ -65,9 +67,9 @@ export default function EmployeeRules() {
 
       <section className="px-5 mb-5">
         <div className="surface-card p-5">
-          <div className="flex items-center gap-2 mb-3"><Ban className="h-4 w-4 text-destructive" /><h2 className="font-semibold">Blockierte Websites</h2></div>
+          <div className="flex items-center gap-2 mb-3"><Ban className="h-4 w-4 text-destructive" /><h2 className="font-semibold">{t("employee.rules.blocked_sites")}</h2></div>
           {websites.length === 0 ? (
-            <p className="text-sm text-muted-foreground">Keine Domains blockiert.</p>
+            <p className="text-sm text-muted-foreground">{t("employee.rules.no_sites")}</p>
           ) : (
             <ul className="flex flex-wrap gap-2">
               {websites.map((w) => (
@@ -80,9 +82,9 @@ export default function EmployeeRules() {
 
       <section className="px-5 mb-5">
         <div className="surface-card p-5">
-          <div className="flex items-center gap-2 mb-3"><Clock className="h-4 w-4 text-primary" /><h2 className="font-semibold">Arbeitszeiten</h2></div>
+          <div className="flex items-center gap-2 mb-3"><Clock className="h-4 w-4 text-primary" /><h2 className="font-semibold">{t("employee.rules.working_hours")}</h2></div>
           {Object.keys(schedule).length === 0 ? (
-            <p className="text-sm text-muted-foreground">Noch keine Arbeitszeit hinterlegt.</p>
+            <p className="text-sm text-muted-foreground">{t("employee.rules.no_hours")}</p>
           ) : (
             <ul className="divide-y divide-border/60">
               {[1,2,3,4,5,6,0].map((wd) => {
@@ -102,9 +104,9 @@ export default function EmployeeRules() {
 
       <section className="px-5 mb-5">
         <div className="surface-card p-5">
-          <div className="flex items-center gap-2 mb-3"><Coffee className="h-4 w-4 text-primary" /><h2 className="font-semibold">Pausen</h2></div>
+          <div className="flex items-center gap-2 mb-3"><Coffee className="h-4 w-4 text-primary" /><h2 className="font-semibold">{t("employee.rules.breaks")}</h2></div>
           {breaks.length === 0 ? (
-            <p className="text-sm text-muted-foreground">Keine Pausen konfiguriert.</p>
+            <p className="text-sm text-muted-foreground">{t("employee.rules.no_breaks")}</p>
           ) : (
             <ul className="divide-y divide-border/60">
               {breaks.map((b) => (
@@ -120,9 +122,9 @@ export default function EmployeeRules() {
 
       <section className="px-5 mb-5">
         <div className="surface-card p-5">
-          <div className="flex items-center gap-2 mb-3"><Smartphone className="h-4 w-4 text-primary" /><h2 className="font-semibold">Freie Handy-Zeiten</h2></div>
+          <div className="flex items-center gap-2 mb-3"><Smartphone className="h-4 w-4 text-primary" /><h2 className="font-semibold">{t("employee.rules.free_phone_times")}</h2></div>
           {phoneTimes.length === 0 ? (
-            <p className="text-sm text-muted-foreground">Keine freien Zeiten definiert.</p>
+            <p className="text-sm text-muted-foreground">{t("employee.rules.no_free_times")}</p>
           ) : (
             <ul className="divide-y divide-border/60">
               {phoneTimes.map((p) => (
@@ -140,7 +142,7 @@ export default function EmployeeRules() {
         <div className="rounded-2xl bg-secondary/60 p-4 flex items-start gap-3">
           <ShieldCheck className="h-4 w-4 text-primary shrink-0 mt-0.5" />
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Außerhalb deiner Arbeitszeit, während Pausen und in freien Zeiten wird keine Nutzung erfasst.
+            {t("employee.rules.footer_note")}
           </p>
         </div>
       </section>

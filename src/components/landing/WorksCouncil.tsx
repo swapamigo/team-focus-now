@@ -1,15 +1,17 @@
 import { ShieldCheck, Users, HeartHandshake, FileCheck2 } from "lucide-react";
 import anonymisierungImg from "@/assets/anonymisierung-k5.png.asset.json";
-
-const pillars = [
-  { icon: HeartHandshake, title: "Belohnung statt Druck", desc: "Nur Team-Erfolge werden belohnt – niemand wird bestraft." },
-  { icon: FileCheck2, title: "Mitbestimmung leicht gemacht", desc: "Vorlagen für Betriebsvereinbarung, DSFA und Einwilligung inklusive." },
-  { icon: ShieldCheck, title: "DSGVO & EU-Hosting", desc: "Nur aggregierte Zeitdaten, verarbeitet in der EU." },
-  { icon: Users, title: "Wohlbefinden im Fokus", desc: "Weniger Handy-Stress, mehr Konzentration – keine Kontrollinstanz." },
-];
-
+import { useT } from "@/i18n";
 
 export default function WorksCouncil() {
+  const t = useT();
+
+  const pillars = [
+    { icon: HeartHandshake, title: t("landing.works_council.pillar1.title"), desc: t("landing.works_council.pillar1.desc") },
+    { icon: FileCheck2, title: t("landing.works_council.pillar2.title"), desc: t("landing.works_council.pillar2.desc") },
+    { icon: ShieldCheck, title: t("landing.works_council.pillar3.title"), desc: t("landing.works_council.pillar3.desc") },
+    { icon: Users, title: t("landing.works_council.pillar4.title"), desc: t("landing.works_council.pillar4.desc") },
+  ];
+
   return (
     <section id="betriebsrat" className="relative border-t border-border/40">
       <div className="absolute inset-0 gradient-hero opacity-40 pointer-events-none" />
@@ -17,20 +19,20 @@ export default function WorksCouncil() {
         <div className="max-w-2xl mx-auto text-center mb-10 md:mb-14">
           <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 backdrop-blur px-4 py-1.5 text-xs font-medium text-muted-foreground mb-5 shadow-sm">
             <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-            Für Betriebsrat &amp; Mitarbeitende konzipiert
+            {t("landing.works_council.badge")}
           </div>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
-            Vom Betriebsrat freigegeben.<br />Von Mitarbeitenden geliebt.
+            {t("landing.works_council.title_line1")}<br />{t("landing.works_council.title_line2")}
           </h2>
           <p className="mt-4 text-muted-foreground text-base md:text-lg">
-            Freiwillig, anonym, mitbestimmungsfreundlich.
+            {t("landing.works_council.subtitle")}
           </p>
         </div>
 
         <div className="max-w-5xl mx-auto mb-10 md:mb-14 surface-card p-3 md:p-5">
           <img
             src={anonymisierungImg.url}
-            alt="Anonymisierung mit k-Anonymität (k=5): Einzelne Geräte werden zu Team-Durchschnitten zusammengefasst"
+            alt={t("landing.works_council.image_alt")}
             className="w-full h-auto rounded-xl"
             loading="lazy"
           />
@@ -51,7 +53,7 @@ export default function WorksCouncil() {
 
         <div className="max-w-3xl mx-auto mt-10 surface-card p-6 text-center">
           <p className="text-sm md:text-base text-foreground/90">
-            <strong>Hohe Akzeptanz</strong>, weil sich niemand kontrolliert fühlt – alle erreichen gemeinsam ein Ziel.
+            <strong>{t("landing.works_council.acceptance_bold")}</strong>{t("landing.works_council.acceptance_rest")}
           </p>
         </div>
 

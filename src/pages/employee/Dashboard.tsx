@@ -5,6 +5,7 @@ import { formatMinutes, isoDate, lastNDates, formatWeekdayShort, MONTHS_DE, focu
 import { Trophy, Flame, Smartphone, TrendingUp, TrendingDown, Lock, CalendarRange } from "lucide-react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell, Area, AreaChart } from "recharts";
 import { cn } from "@/lib/utils";
+import { useT } from "@/i18n";
 
 interface TeamGoal {
   reward_title: string;
@@ -13,6 +14,7 @@ interface TeamGoal {
 }
 
 export default function EmployeeDashboard() {
+  const t = useT();
   const { user, companyId, teamId, profile } = useAuth();
   const [todayMin, setTodayMin] = useState(0);
   const [todayPenalty, setTodayPenalty] = useState(0);
@@ -158,8 +160,8 @@ export default function EmployeeDashboard() {
   return (
     <div className="min-h-screen bg-background pb-24">
       <header className="px-5 pt-8 pb-4 animate-fade-in">
-        <p className="text-sm text-muted-foreground">Hallo {profile?.display_name?.split(" ")[0] ?? "👋"}</p>
-        <h1 className="text-3xl font-semibold tracking-tight mt-0.5">Heute</h1>
+        <p className="text-sm text-muted-foreground">{t("employee.dashboard.greeting", { name: profile?.display_name?.split(" ")[0] ?? "👋" })}</p>
+        <h1 className="text-3xl font-semibold tracking-tight mt-0.5">{t("employee.dashboard.title_today")}</h1>
       </header>
 
       {highFocusActive && (
@@ -169,8 +171,8 @@ export default function EmployeeDashboard() {
               <Flame className="h-5 w-5" />
             </div>
             <div className="flex-1">
-              <p className="font-semibold">High-Focus-Zeit aktiv</p>
-              <p className="text-xs opacity-90">{highFocusActive.label} · Private Nutzung zählt {highFocusActive.multiplier}×</p>
+              <p className="font-semibold">{t("employee.dashboard.high_focus_active")}</p>
+              <p className="text-xs opacity-90">{t("employee.dashboard.high_focus_detail", { label: highFocusActive.label, multiplier: highFocusActive.multiplier })}</p>
             </div>
           </div>
         </div>
@@ -180,21 +182,21 @@ export default function EmployeeDashboard() {
         <div className="surface-card p-6 relative overflow-hidden animate-fade-in">
           <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full gradient-primary opacity-10 blur-2xl" />
           <div className="relative">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Fokuszeit heute</p>
+            <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">{t("employee.dashboard.focus_today")}</p>
             <p className="text-5xl font-semibold tracking-tight mt-2">{formatMinutes(todayMin)}</p>
             <div className="flex items-center gap-2 mt-3 text-sm">
               {diffYesterday <= 0 ? (
                 <>
                   <TrendingUp className="h-4 w-4 text-success" />
-                  <span className="text-success font-medium">{formatMinutes(Math.abs(diffYesterday))} mehr</span>
+                  <span className="text-success font-medium">{t("employee.dashboard.more_by", { value: formatMinutes(Math.abs(diffYesterday)) })}</span>
                 </>
               ) : (
                 <>
                   <TrendingDown className="h-4 w-4 text-warning" />
-                  <span className="text-warning font-medium">{formatMinutes(diffYesterday)} weniger</span>
+                  <span className="text-warning font-medium">{t("employee.dashboard.less_by", { value: formatMinutes(diffYesterday) })}</span>
                 </>
               )}
-              <span className="text-muted-foreground">als gestern</span>
+              <span className="text-muted-foreground">{t("employee.dashboard.than_yesterday")}</span>
             </div>
           </div>
         </div>
@@ -202,11 +204,11 @@ export default function EmployeeDashboard() {
 
       <section className="px-5 mb-6 grid grid-cols-2 gap-3">
         <div className="surface-card p-4">
-          <div className="flex items-center gap-2 mb-1.5"><Smartphone className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Abgezogene Zeit</span></div>
+          <div className="flex items-center gap-2 mb-1.5"><Smartphone className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">{t("employee.dashboard.deducted_time")}</span></div>
           <p className="text-2xl font-semibold">{formatMinutes(todayPenalty)}</p>
         </div>
         <div className="surface-card p-4">
-          <div className="flex items-center gap-2 mb-1.5"><Trophy className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Team-Ziel</span></div>
+          <div className="flex items-center gap-2 mb-1.5"><Trophy className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">{t("employee.dashboard.team_goal")}</span></div>
           <p className="text-2xl font-semibold">{goalProgress !== null ? `${goalProgress} %` : "–"}</p>
         </div>
 
@@ -215,8 +217,8 @@ export default function EmployeeDashboard() {
       <section className="px-5 mb-6">
         <div className="surface-card p-5 animate-fade-in">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold">Diese Woche</h2>
-            <span className="text-xs text-muted-foreground">Fokusminuten</span>
+            <h2 className="font-semibold">{t("employee.dashboard.this_week")}</h2>
+            <span className="text-xs text-muted-foreground">{t("employee.dashboard.focus_minutes")}</span>
           </div>
           <div className="h-40">
             <ResponsiveContainer width="100%" height="100%">
@@ -225,7 +227,7 @@ export default function EmployeeDashboard() {
                 <Tooltip
                   cursor={{ fill: "hsl(var(--muted))", radius: 12 }}
                   contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }}
-                  formatter={(v: any) => [formatMinutes(Number(v)), "Fokuszeit"]}
+                  formatter={(v: any) => [formatMinutes(Number(v)), t("employee.dashboard.focus_time")]}
                   labelFormatter={() => ""}
                 />
                 <Bar dataKey="mins" radius={[8, 8, 8, 8]}>
@@ -240,27 +242,27 @@ export default function EmployeeDashboard() {
       </section>
 
       <section className="px-5 mb-6">
-        <h2 className="font-semibold mb-3 px-1">Euer Team-Ziel</h2>
+        <h2 className="font-semibold mb-3 px-1">{t("employee.dashboard.team_goal_heading")}</h2>
         <div className="surface-card p-5 animate-fade-in">
           {!teamGoal ? (
             <p className="text-sm text-muted-foreground">
-              Noch kein Ziel vereinbart. Ziel und Belohnung werden vor dem Start gemeinsam festgelegt.
+              {t("employee.dashboard.no_goal")}
             </p>
           ) : (
             <>
               <p className="font-medium">{teamGoal.reward_title}</p>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Ziel: Ø {formatMinutes(teamGoal.target_focus_minutes)} Fokuszeit pro Tag im Team
+                {t("employee.dashboard.goal_daily", { value: formatMinutes(teamGoal.target_focus_minutes) })}
               </p>
               <div className="mt-4 h-2.5 rounded-full bg-secondary overflow-hidden" role="progressbar"
-                aria-valuenow={goalProgress ?? 0} aria-valuemin={0} aria-valuemax={100} aria-label="Fortschritt Team-Ziel">
+                aria-valuenow={goalProgress ?? 0} aria-valuemin={0} aria-valuemax={100} aria-label={t("employee.dashboard.progress_aria")}>
                 <div className={cn("h-full rounded-full", teamGoal.unlocked ? "bg-success" : "bg-primary")}
                   style={{ width: `${goalProgress ?? 0}%` }} />
               </div>
               <p className="text-xs mt-2 text-muted-foreground">
                 {teamGoal.unlocked
-                  ? "Belohnung freigeschaltet. Dein Arbeitgeber sieht ausschließlich diese Information."
-                  : "Nur dein Team sieht diesen Fortschritt – dein Arbeitgeber nicht."}
+                  ? t("employee.dashboard.goal_unlocked_note")
+                  : t("employee.dashboard.goal_progress_private")}
               </p>
             </>
           )}
@@ -271,7 +273,7 @@ export default function EmployeeDashboard() {
       {/* 14-Tage Verlauf */}
       <section className="px-5 mb-6">
         <div className="surface-card p-5">
-          <h2 className="font-semibold mb-4">Verlauf · 14 Tage</h2>
+          <h2 className="font-semibold mb-4">{t("employee.dashboard.history_14d")}</h2>
           <div className="h-40">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={twoWeek}>
@@ -283,7 +285,7 @@ export default function EmployeeDashboard() {
                 </defs>
                 <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
                 <YAxis hide />
-                <Tooltip contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [formatMinutes(Number(v)), "Fokuszeit"]} />
+                <Tooltip contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [formatMinutes(Number(v)), t("employee.dashboard.focus_time")]} />
                 <Area type="monotone" dataKey="mins" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#empG14)" />
               </AreaChart>
             </ResponsiveContainer>
@@ -294,8 +296,8 @@ export default function EmployeeDashboard() {
       {/* Heatmap */}
       <section className="px-5 mb-6">
         <div className="surface-card p-5">
-          <h2 className="font-semibold mb-1">Ablenkungs-Heatmap</h2>
-          <p className="text-xs text-muted-foreground mb-4">Letzte 7 Tage · je dunkler, desto mehr unterbrochene Fokuszeit</p>
+          <h2 className="font-semibold mb-1">{t("employee.dashboard.heatmap_title")}</h2>
+          <p className="text-xs text-muted-foreground mb-4">{t("employee.dashboard.heatmap_desc")}</p>
           <div className="space-y-1.5">
             {heatmap.map((row, di) => (
               <div key={di} className="flex items-center gap-1.5">
@@ -320,13 +322,13 @@ export default function EmployeeDashboard() {
       {yearData.length >= 2 && (
         <section className="px-5 mb-6">
           <div className="surface-card p-5">
-            <h2 className="font-semibold flex items-center gap-2"><CalendarRange className="h-4 w-4 text-primary" /> Jahresüberblick</h2>
-            <p className="text-xs text-muted-foreground mt-0.5 mb-4">Ø Fokuszeit pro Monat</p>
+            <h2 className="font-semibold flex items-center gap-2"><CalendarRange className="h-4 w-4 text-primary" /> {t("employee.dashboard.year_overview")}</h2>
+            <p className="text-xs text-muted-foreground mt-0.5 mb-4">{t("employee.dashboard.year_overview_sub")}</p>
             {yearInsight && yearInsight.diffMin > 0 && (
               <div className="mb-4 rounded-2xl bg-gradient-to-br from-primary/10 to-success/10 border border-primary/20 p-4">
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Dein Fortschritt</p>
-                <p className="text-2xl font-semibold tracking-tight">+{yearInsight.hoursPerMonth} Std Fokus / Monat</p>
-                <p className="text-xs text-muted-foreground mt-1.5">{yearInsight.diffMin} Min/Tag mehr Fokuszeit ({yearInsight.pct}%).</p>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">{t("employee.dashboard.your_progress")}</p>
+                <p className="text-2xl font-semibold tracking-tight">{t("employee.dashboard.hours_per_month", { value: yearInsight.hoursPerMonth })}</p>
+                <p className="text-xs text-muted-foreground mt-1.5">{t("employee.dashboard.min_per_day_more", { min: yearInsight.diffMin, pct: yearInsight.pct })}</p>
               </div>
             )}
             <div className="h-48">
@@ -340,7 +342,7 @@ export default function EmployeeDashboard() {
                   </defs>
                   <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
                   <YAxis hide />
-                  <Tooltip contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [`${v} min`, "Ø Fokuszeit"]} />
+                  <Tooltip contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [`${v} min`, t("employee.dashboard.avg_focus_time")]} />
                   <Area type="monotone" dataKey="avgMinutes" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#empGY)" />
                 </AreaChart>
               </ResponsiveContainer>
@@ -353,11 +355,11 @@ export default function EmployeeDashboard() {
         <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 flex items-start gap-3">
           <Lock className="h-4 w-4 text-primary shrink-0 mt-0.5" />
           <div className="space-y-1.5">
-            <p className="text-xs font-semibold text-foreground">Deine Privatsphäre ist geschützt 🔒</p>
+            <p className="text-xs font-semibold text-foreground">{t("employee.dashboard.privacy_title")}</p>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">Nur du</strong> siehst deine persönlichen Daten.
-              Dein Manager erhält ausschließlich <strong className="text-foreground">anonyme Team-Aggregate</strong> – nie individuelle Werte.
-              Erfasst wird nur während deiner Arbeitszeit.
+              <strong className="text-foreground">{t("employee.dashboard.privacy_only_you")}</strong> {t("employee.dashboard.privacy_rest1")}
+              <strong className="text-foreground"> {t("employee.dashboard.privacy_aggregates")}</strong> {t("employee.dashboard.privacy_rest2")}
+              {t("employee.dashboard.privacy_rest3")}
             </p>
           </div>
         </div>

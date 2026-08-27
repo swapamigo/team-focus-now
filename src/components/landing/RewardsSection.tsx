@@ -1,15 +1,18 @@
 import { Utensils, Car, Coffee, Gift, Fuel, Ticket } from "lucide-react";
 import bgAsset from "@/assets/team-throwing-phones.png.asset.json";
-
-const rewards = [
-  { icon: Utensils, title: "Essensgutschein", highlight: true },
-  { icon: Fuel, title: "Tankgutschein" },
-  { icon: Ticket, title: "Event-Tickets" },
-  { icon: Coffee, title: "Bezahlter Team-Lunch" },
-  { icon: Car, title: "Bevorzugter Parkplatz" },
-];
+import { useT } from "@/i18n";
 
 export default function RewardsSection() {
+  const t = useT();
+
+  const rewards = [
+    { icon: Utensils, title: t("landing.rewards.item1"), highlight: true },
+    { icon: Fuel, title: t("landing.rewards.item2") },
+    { icon: Ticket, title: t("landing.rewards.item3") },
+    { icon: Coffee, title: t("landing.rewards.item4") },
+    { icon: Car, title: t("landing.rewards.item5") },
+  ];
+
   return (
     <section
       id="rewards"
@@ -25,9 +28,9 @@ export default function RewardsSection() {
       <div className="container relative z-10">
         <div className="max-w-2xl mx-auto text-center mb-10">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-4 py-1.5 text-xs font-semibold mb-4">
-            <Gift className="h-3.5 w-3.5" /> Belohnungen
+            <Gift className="h-3.5 w-3.5" /> {t("landing.rewards.eyebrow")}
           </div>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">Was das Gewinner-Team bekommt.</h2>
+          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">{t("landing.rewards.title")}</h2>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 max-w-5xl mx-auto">
@@ -45,7 +48,7 @@ export default function RewardsSection() {
               <p className="text-sm font-semibold leading-tight">{r.title}</p>
               {r.highlight && (
                 <span className="mt-2 text-[10px] uppercase tracking-wider font-bold text-primary px-2 py-0.5 rounded-full bg-primary/15">
-                  Top-Tipp
+                  {t("landing.rewards.top_tip")}
                 </span>
               )}
             </div>
@@ -53,7 +56,7 @@ export default function RewardsSection() {
         </div>
 
         <p className="text-center text-xs text-muted-foreground mt-8 text-white/60">
-          Zyklus frei wählbar: <span className="text-white font-medium">wöchentlich bis monatlich</span>.
+          {t("landing.rewards.cycle_prefix")} <span className="text-white font-medium">{t("landing.rewards.cycle_value")}</span>.
         </p>
       </div>
     </section>
