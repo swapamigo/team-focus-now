@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import Logo from "@/components/Logo";
+import { useT } from "@/i18n";
 
 interface Props {
   children: ReactNode;
@@ -13,6 +14,7 @@ interface Props {
 // Zugang nur für Profile mit `beta_access = true` (serverseitig gesetzt) oder Admins.
 
 export default function ProtectedRoute({ children, requireOnboarded = true, requireRole }: Props) {
+  const t = useT();
   const { session, profile, role, isAdmin, loading } = useAuth();
 
   if (loading) {
@@ -20,7 +22,7 @@ export default function ProtectedRoute({ children, requireOnboarded = true, requ
       <div className="min-h-screen grid place-items-center bg-background">
         <div className="flex flex-col items-center gap-3 text-muted-foreground">
           <div className="animate-pulse-glow"><Logo size={48} /></div>
-          <p className="text-sm">Lädt…</p>
+          <p className="text-sm">{t("app.protectedroute.loading")}</p>
         </div>
       </div>
     );

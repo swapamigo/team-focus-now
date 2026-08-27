@@ -10,9 +10,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { useT } from "@/i18n";
 
 
 export default function AdminLayout() {
+  const t = useT();
   const { isAdmin, loading, session, refresh } = useAuth();
   const nav = useNavigate();
   const [email, setEmail] = useState("");
@@ -25,16 +27,16 @@ export default function AdminLayout() {
     const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
     setAuthLoading(false);
     if (error) {
-      toast.error("Anmeldung fehlgeschlagen. Bitte E-Mail/Passwort prüfen oder Google nutzen.");
+      toast.error(t("admin.layout.login_failed"));
       return;
     }
     await refresh();
-    toast.success("Anmeldung erfolgreich.");
+    toast.success(t("admin.layout.login_success"));
   };
 
   const createAdminAccount = async () => {
     if (password.length < 6) {
-      toast.error("Das Passwort braucht mindestens 6 Zeichen.");
+      toast.error(t("admin.layout.password_too_short"));
       return;
     }
     setAuthLoading(true);
@@ -45,14 +47,14 @@ export default function AdminLayout() {
     });
     setAuthLoading(false);
     if (error) {
-      toast.error(error.message ?? "Konto konnte nicht erstellt werden.");
+      toast.error(error.message ?? t("admin.layout.account_create_failed"));
       return;
     }
     if (data.session) {
       await refresh();
-      toast.success("Admin-Konto erstellt.");
+      toast.success(t("admin.layout.admin_account_created"));
     } else {
-      toast.success("Konto erstellt. Bitte Bestätigungs-E-Mail öffnen und danach erneut anmelden.");
+      toast.success(t("admin.layout.account_created_confirm"));
     }
   };
 
@@ -60,7 +62,7 @@ export default function AdminLayout() {
     setAuthLoading(true);
     const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: `${window.location.origin}/admin/leads` });
     if (result.error) {
-      toast.error("Google-Anmeldung fehlgeschlagen.");
+      toast.error(t("admin.layout.google_login_failed"));
       setAuthLoading(false);
       return;
     }
@@ -72,7 +74,7 @@ export default function AdminLayout() {
   if (loading) {
     return (
       <div className="min-h-screen grid place-items-center bg-background text-muted-foreground text-sm">
-        Lädt…
+        {t("admin.layout.loading")}
       </div>
     );
   }
@@ -82,37 +84,37 @@ export default function AdminLayout() {
         <div className="surface-card p-8 max-w-md w-full">
           <div className="text-center mb-6">
             <Shield className="h-9 w-9 text-primary mx-auto mb-3" />
-            <h1 className="text-xl font-semibold mb-2">Admin bestätigen</h1>
+            <h1 className="text-xl font-semibold mb-2">{t("admin.layout.confirm_admin_title")}</h1>
             <p className="text-sm text-muted-foreground">
-              Melde dich mit einer freigegebenen Admin-E-Mail an, um Leads und eingetragene E-Mails zu sehen.
+              {t("admin.layout.confirm_admin_desc")}
             </p>
           </div>
           <Button onClick={loginWithGoogle} disabled={authLoading} variant="outline" className="w-full h-12 rounded-2xl mb-4">
             <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-            Schnell mit Google anmelden
+            {t("admin.layout.google_button")}
           </Button>
           <div className="relative my-5">
             <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border" /></div>
-            <div className="relative flex justify-center text-xs uppercase"><span className="bg-card px-2 text-muted-foreground">oder per Passwort</span></div>
+            <div className="relative flex justify-center text-xs uppercase"><span className="bg-card px-2 text-muted-foreground">{t("admin.layout.or_password")}</span></div>
           </div>
           <form onSubmit={loginWithPassword} className="space-y-4">
             <div className="space-y-1.5">
-              <Label htmlFor="admin-email">Admin-E-Mail</Label>
+              <Label htmlFor="admin-email">{t("admin.layout.admin_email")}</Label>
               <Input id="admin-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Swapamigo@gmail.com" required className="h-11 rounded-xl" />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="admin-password">Passwort</Label>
+              <Label htmlFor="admin-password">{t("admin.layout.password")}</Label>
               <Input id="admin-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required className="h-11 rounded-xl" />
             </div>
             <Button type="submit" disabled={authLoading} className="w-full h-12 rounded-2xl shadow-glow">
-              {authLoading ? "Prüfe…" : "Admin-Zugang öffnen"}
+              {authLoading ? t("admin.layout.checking") : t("admin.layout.open_admin_access")}
             </Button>
             <Button type="button" onClick={createAdminAccount} disabled={authLoading} variant="ghost" className="w-full h-11 rounded-2xl">
-              Noch kein Passwort? Admin-Konto erstellen
+              {t("admin.layout.no_password_yet")}
             </Button>
           </form>
           <p className="text-xs text-muted-foreground text-center mt-5">
-            Nur freigegebene Admin-Konten haben Zugang.
+            {t("admin.layout.only_approved")}
           </p>
         </div>
       </div>
@@ -124,11 +126,11 @@ export default function AdminLayout() {
       <div className="min-h-screen grid place-items-center bg-background">
         <div className="surface-card p-8 max-w-sm text-center">
           <Shield className="h-8 w-8 text-destructive mx-auto mb-3" />
-          <h1 className="text-lg font-semibold mb-2">Kein Zugriff</h1>
-          <p className="text-sm text-muted-foreground mb-4">Dieser Bereich ist nur für freigegebene Admin-Konten zugänglich.</p>
+          <h1 className="text-lg font-semibold mb-2">{t("admin.layout.no_access_title")}</h1>
+          <p className="text-sm text-muted-foreground mb-4">{t("admin.layout.no_access_desc")}</p>
           <div className="flex flex-col sm:flex-row gap-2 justify-center">
-            <Button onClick={() => nav("/")} variant="outline" size="sm">Zur Startseite</Button>
-            <Button onClick={async () => { await supabase.auth.signOut(); nav("/admin/leads"); }} size="sm">Anderes Admin-Konto nutzen</Button>
+            <Button onClick={() => nav("/")} variant="outline" size="sm">{t("admin.layout.go_home")}</Button>
+            <Button onClick={async () => { await supabase.auth.signOut(); nav("/admin/leads"); }} size="sm">{t("admin.layout.use_other_account")}</Button>
           </div>
         </div>
       </div>
@@ -141,8 +143,8 @@ export default function AdminLayout() {
   };
 
   const items = [
-    { to: "/admin/leads", icon: Inbox, label: "Leads & Antworten" },
-    { to: "/admin/analytics", icon: BarChart3, label: "Link-Statistiken" },
+    { to: "/admin/leads", icon: Inbox, label: t("admin.layout.nav_leads") },
+    { to: "/admin/analytics", icon: BarChart3, label: t("admin.layout.nav_analytics") },
   ];
 
   return (
@@ -152,7 +154,7 @@ export default function AdminLayout() {
           <Logo />
           <div>
             <p className="text-sm font-semibold leading-tight">TeamFokus</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Admin</p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider">{t("admin.layout.admin_label")}</p>
           </div>
         </div>
         <nav className="flex flex-col gap-1">
@@ -174,13 +176,13 @@ export default function AdminLayout() {
         </nav>
         <div className="mt-auto">
           <Button onClick={logout} variant="ghost" size="sm" className="w-full justify-start">
-            <LogOut className="h-4 w-4 mr-2" /> Abmelden
+            <LogOut className="h-4 w-4 mr-2" /> {t("admin.layout.logout")}
           </Button>
         </div>
       </aside>
 
       <header className="md:hidden glass border-b border-border/40 px-4 py-3 sticky top-0 z-40 flex items-center justify-between w-full">
-        <div className="flex items-center gap-2"><Logo /><span className="text-xs uppercase tracking-wider text-muted-foreground">Admin</span></div>
+        <div className="flex items-center gap-2"><Logo /><span className="text-xs uppercase tracking-wider text-muted-foreground">{t("admin.layout.admin_label")}</span></div>
         <Button onClick={logout} variant="ghost" size="sm"><LogOut className="h-4 w-4" /></Button>
       </header>
 

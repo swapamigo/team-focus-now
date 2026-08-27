@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Building2, Mail, Phone, Scale } from "lucide-react";
 import Logo from "@/components/Logo";
 import Seo from "@/components/Seo";
+import { useT } from "@/i18n";
 
 const company = {
   name: "TeamFokus GmbH",
@@ -17,11 +18,12 @@ const company = {
 };
 
 export default function Impressum() {
+  const t = useT();
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Impressum – TeamFokus"
-        description="Impressum von TeamFokus: Angaben gemäß § 5 TMG, Kontakt, Handelsregister und Verantwortlicher."
+        title={t("pages.impressum.seo.title")}
+        description={t("pages.impressum.seo.description")}
         path="/impressum"
       />
 
@@ -29,7 +31,7 @@ export default function Impressum() {
         <div className="container py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center"><Logo withWordmark /></Link>
           <Link to="/" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5">
-            <ArrowLeft className="h-4 w-4" /> Zurück
+            <ArrowLeft className="h-4 w-4" /> {t("pages.impressum.back")}
           </Link>
         </div>
       </header>
@@ -39,9 +41,9 @@ export default function Impressum() {
           <div className="inline-flex h-14 w-14 rounded-2xl gradient-primary items-center justify-center shadow-glow mb-5">
             <Scale className="h-7 w-7 text-primary-foreground" />
           </div>
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">Impressum</h1>
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">{t("pages.impressum.title")}</h1>
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-            Angaben gemäß § 5 TMG.
+            {t("pages.impressum.subtitle")}
           </p>
         </div>
 
@@ -52,7 +54,7 @@ export default function Impressum() {
             </div>
             <div className="space-y-4 flex-1">
               <div>
-                <h2 className="font-semibold mb-1">Diensteanbieter</h2>
+                <h2 className="font-semibold mb-1">{t("pages.impressum.provider")}</h2>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   <strong className="text-foreground">{company.name}</strong><br />
                   {company.street}<br />
@@ -63,7 +65,7 @@ export default function Impressum() {
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <h3 className="text-xs uppercase tracking-wider text-primary font-semibold mb-1">Kontakt</h3>
+                  <h3 className="text-xs uppercase tracking-wider text-primary font-semibold mb-1">{t("pages.impressum.contact")}</h3>
                   <ul className="text-sm text-muted-foreground space-y-1">
                     <li className="flex items-center gap-2">
                       <Phone className="h-3.5 w-3.5" />
@@ -76,24 +78,24 @@ export default function Impressum() {
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-xs uppercase tracking-wider text-primary font-semibold mb-1">Register & Steuer</h3>
+                  <h3 className="text-xs uppercase tracking-wider text-primary font-semibold mb-1">{t("pages.impressum.registerTax")}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {company.registerCourt}<br />
                     {company.registerNumber}<br />
-                    USt-IdNr.: {company.vatId}
+                    {t("pages.impressum.vatPrefix")} {company.vatId}
                   </p>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-xs uppercase tracking-wider text-primary font-semibold mb-1">Geschäftsführung</h3>
+                <h3 className="text-xs uppercase tracking-wider text-primary font-semibold mb-1">{t("pages.impressum.management")}</h3>
                 <p className="text-sm text-muted-foreground">{company.managingDirector}</p>
               </div>
             </div>
           </section>
 
           <section className="surface-card p-6 md:p-7">
-            <h2 className="font-semibold mb-3">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+            <h2 className="font-semibold mb-3">{t("pages.impressum.responsibleTitle")}</h2>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Joel Schöppe<br />
               TeamFokus GmbH<br />
@@ -102,23 +104,17 @@ export default function Impressum() {
           </section>
 
           <section className="surface-card p-6 md:p-7">
-            <h2 className="font-semibold mb-3">Haftungsausschluss</h2>
+            <h2 className="font-semibold mb-3">{t("pages.impressum.liabilityTitle")}</h2>
             <div className="text-sm text-muted-foreground leading-relaxed space-y-3">
-              <p>
-                Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links.
-                Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
-              </p>
-              <p>
-                Die Inhalte dieser Website werden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit,
-                Vollständigkeit und Aktualität der Inhalte übernehmen wir jedoch keine Gewähr.
-              </p>
+              <p>{t("pages.impressum.liability.p1")}</p>
+              <p>{t("pages.impressum.liability.p2")}</p>
             </div>
           </section>
 
           <section className="surface-card p-6 md:p-7">
-            <h2 className="font-semibold mb-3">Online-Streitbeilegung</h2>
+            <h2 className="font-semibold mb-3">{t("pages.impressum.disputeTitle")}</h2>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+              {t("pages.impressum.dispute.p1.pre")}
               {" "}
               <a
                 href="https://ec.europa.eu/consumers/odr"
@@ -128,8 +124,7 @@ export default function Impressum() {
               >
                 https://ec.europa.eu/consumers/odr
               </a>.
-              Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer
-              Verbraucherschlichtungsstelle teilzunehmen.
+              {" "}{t("pages.impressum.dispute.p1.post")}
             </p>
           </section>
         </div>

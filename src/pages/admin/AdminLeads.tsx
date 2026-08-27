@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Mail, Download, Inbox, MessageSquare, Globe2, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useT } from "@/i18n";
 
 interface Lead {
   id: string;
@@ -46,6 +47,7 @@ const flag = (cc: string | null) => {
 };
 
 export default function AdminLeads() {
+  const t = useT();
   const [leads, setLeads] = useState<Lead[]>([]);
   const [feedback, setFeedback] = useState<Feedback[]>([]);
   const [loading, setLoading] = useState(true);
@@ -59,7 +61,7 @@ export default function AdminLeads() {
         supabase.from("feedback_responses").select("*").order("created_at", { ascending: false }),
       ]);
       if (leadsError || feedbackError) {
-        setLoadError("Leads konnten nicht geladen werden. Bitte erneut als freigegebener Admin anmelden.");
+        setLoadError(t("admin.leads.load_error"));
       }
       setLeads((l ?? []) as any);
       setFeedback((f ?? []) as any);
@@ -136,36 +138,36 @@ export default function AdminLeads() {
       <header className="mb-6 flex items-start justify-between gap-3 flex-wrap">
         <div>
           <h1 className="text-2xl md:text-3xl font-semibold tracking-tight flex items-center gap-2">
-            <Inbox className="h-6 w-6 text-primary" /> Leads & Antworten
+            <Inbox className="h-6 w-6 text-primary" /> {t("admin.leads.title")}
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Alle E-Mails aus Demo-Anmeldungen und Newsletter, zusammengeführt mit Umfrage-Antworten.
+            {t("admin.leads.subtitle")}
           </p>
         </div>
         <Button onClick={exportCsv} variant="outline" size="sm" disabled={combined.length === 0}>
-          <Download className="h-4 w-4 mr-1.5" /> CSV exportieren
+          <Download className="h-4 w-4 mr-1.5" /> {t("admin.leads.export_csv")}
         </Button>
       </header>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        <StatCard label="Unique E-Mails" value={uniqueEmails} icon={Mail} />
-        <StatCard label="Lead-Einträge" value={totalLeads} icon={Inbox} />
-        <StatCard label="Umfrage-Antworten" value={totalResponses} icon={MessageSquare} />
-        <StatCard label="Länder" value={countries} icon={Globe2} />
+        <StatCard label={t("admin.leads.stat_unique_emails")} value={uniqueEmails} icon={Mail} />
+        <StatCard label={t("admin.leads.stat_lead_entries")} value={totalLeads} icon={Inbox} />
+        <StatCard label={t("admin.leads.stat_survey_responses")} value={totalResponses} icon={MessageSquare} />
+        <StatCard label={t("admin.leads.stat_countries")} value={countries} icon={Globe2} />
       </div>
 
       <div className="surface-card p-4 md:p-5 mb-4 flex items-center gap-2">
         <Search className="h-4 w-4 text-muted-foreground" />
-        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Suche E-Mail, Land oder Quelle…" className="border-0 bg-transparent focus-visible:ring-0 px-0 h-9" />
+        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("admin.leads.search_placeholder")} className="border-0 bg-transparent focus-visible:ring-0 px-0 h-9" />
       </div>
 
       {loading ? (
-        <p className="text-sm text-muted-foreground p-6">Lädt…</p>
+        <p className="text-sm text-muted-foreground p-6">{t("admin.leads.loading")}</p>
       ) : loadError ? (
         <div className="surface-card p-6 text-sm text-destructive">{loadError}</div>
       ) : filtered.length === 0 ? (
         <div className="surface-card p-6 text-sm text-muted-foreground">
-          Noch keine gespeicherten Einträge. Ab jetzt werden Demo- und Wartelisten-E-Mails hier angezeigt.
+          {t("admin.leads.empty")}
         </div>
       ) : (
         <div className="space-y-3">
@@ -189,23 +191,23 @@ export default function AdminLeads() {
                   </div>
                 </div>
                 <div className="text-right text-xs text-muted-foreground whitespace-nowrap">
-                  <div>Erste: {new Date(c.firstSeen).toLocaleString("de-DE")}</div>
-                  <div>Letzte: {new Date(c.lastSeen).toLocaleString("de-DE")}</div>
+                  <div>{t("admin.leads.first_seen")}: {new Date(c.firstSeen).toLocaleString("de-DE")}</div>
+                  <div>{t("admin.leads.last_seen")}: {new Date(c.lastSeen).toLocaleString("de-DE")}</div>
                 </div>
               </div>
 
               {c.responses.length > 0 && (
                 <div className="mt-4 space-y-2 border-t border-border/50 pt-3">
                   <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
-                    <MessageSquare className="h-3 w-3" /> Umfrage-Antworten ({c.responses.length})
+                    <MessageSquare className="h-3 w-3" /> {t("admin.leads.survey_responses")} ({c.responses.length})
                   </p>
                   {c.responses.map((r) => (
                     <div key={r.id} className="rounded-xl bg-secondary/40 p-3 text-sm">
                       <div className="grid sm:grid-cols-4 gap-2 text-xs">
-                        <Field label="Bewusstsein" value={r.awareness_score != null ? `${r.awareness_score}/10` : "—"} />
-                        <Field label="Firma" value={r.company_name ?? "—"} />
-                        <Field label="Bereich" value={r.sector ?? r.business_area ?? "—"} />
-                        <Field label="MA-Anzahl" value={r.employee_count != null ? String(r.employee_count) : "—"} />
+                        <Field label={t("admin.leads.field_awareness")} value={r.awareness_score != null ? `${r.awareness_score}/10` : "—"} />
+                        <Field label={t("admin.leads.field_company")} value={r.company_name ?? "—"} />
+                        <Field label={t("admin.leads.field_sector")} value={r.sector ?? r.business_area ?? "—"} />
+                        <Field label={t("admin.leads.field_employee_count")} value={r.employee_count != null ? String(r.employee_count) : "—"} />
                       </div>
                       {r.suggestion && (
                         <p className="text-xs text-muted-foreground mt-2 italic">„{r.suggestion}"</p>

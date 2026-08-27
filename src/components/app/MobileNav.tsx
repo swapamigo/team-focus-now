@@ -1,17 +1,18 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { Home, Trophy, Sparkles, Settings, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const items = [
-  { to: "/app", icon: Home, label: "Heute" },
-  { to: "/app/teams", icon: Trophy, label: "Teams" },
-  { to: "/app/features", icon: Sparkles, label: "Features" },
-  { to: "/app/rules", icon: ShieldCheck, label: "Regeln" },
-  { to: "/app/settings", icon: Settings, label: "Mehr" },
-];
+import { useT } from "@/i18n";
 
 export default function MobileNav() {
+  const t = useT();
   const loc = useLocation();
+  const items = [
+    { to: "/app", icon: Home, label: t("app.mobilenav.today") },
+    { to: "/app/teams", icon: Trophy, label: t("app.mobilenav.teams") },
+    { to: "/app/features", icon: Sparkles, label: t("app.mobilenav.features") },
+    { to: "/app/rules", icon: ShieldCheck, label: t("app.mobilenav.rules") },
+    { to: "/app/settings", icon: Settings, label: t("app.mobilenav.more") },
+  ];
   return (
     <nav className="fixed bottom-0 inset-x-0 z-40 glass border-t border-border/40 safe-bottom">
       <ul className="flex justify-around max-w-md mx-auto px-2 pt-2 pb-3">

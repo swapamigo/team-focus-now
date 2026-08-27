@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Plus, Trash2, AppWindow, Globe, Smartphone, ShieldCheck, Ban } from "lucide-react";
+import { useT } from "@/i18n";
 
 interface Row { id: string; }
 interface AppRow extends Row { app_name: string; }
@@ -13,6 +14,7 @@ interface WebRow extends Row { domain: string; }
 interface PhoneTime extends Row { label: string; start_time: string; end_time: string; }
 
 export default function ManagerRules() {
+  const t = useT();
   const { companyId } = useAuth();
   const [apps, setApps] = useState<AppRow[]>([]);
   const [websites, setWebsites] = useState<WebRow[]>([]);
@@ -20,7 +22,7 @@ export default function ManagerRules() {
 
   const [newApp, setNewApp] = useState("");
   const [newDomain, setNewDomain] = useState("");
-  const [ptLabel, setPtLabel] = useState("Mittagspause");
+  const [ptLabel, setPtLabel] = useState(t("manager.rules.default_break_label"));
   const [ptStart, setPtStart] = useState("12:00");
   const [ptEnd, setPtEnd] = useState("12:30");
 
@@ -39,7 +41,7 @@ export default function ManagerRules() {
     if (!newApp.trim() || !companyId) return;
     const { error } = await supabase.from("whitelisted_apps").insert({ company_id: companyId, app_name: newApp.trim() });
     if (error) return toast.error(error.message);
-    setNewApp(""); toast.success("App freigegeben"); load();
+    setNewApp(""); toast.success(t("manager.rules.app_approved")); load();
   };
   const removeApp = async (id: string) => { await supabase.from("whitelisted_apps").delete().eq("id", id); load(); };
 
@@ -48,7 +50,7 @@ export default function ManagerRules() {
     const clean = newDomain.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/$/, "");
     const { error } = await supabase.from("blocked_websites").insert({ company_id: companyId, domain: clean });
     if (error) return toast.error(error.message);
-    setNewDomain(""); toast.success("Website blockiert"); load();
+    setNewDomain(""); toast.success(t("manager.rules.website_blocked")); load();
   };
   const removeWebsite = async (id: string) => { await supabase.from("blocked_websites").delete().eq("id", id); load(); };
 
@@ -56,20 +58,20 @@ export default function ManagerRules() {
     if (!companyId) return;
     const { error } = await supabase.from("free_phone_times").insert({ company_id: companyId, label: ptLabel, start_time: ptStart, end_time: ptEnd });
     if (error) return toast.error(error.message);
-    toast.success("Handy-Freizeit hinzugefügt"); load();
+    toast.success(t("manager.rules.phone_time_added")); load();
   };
   const removePhoneTime = async (id: string) => { await supabase.from("free_phone_times").delete().eq("id", id); load(); };
 
   return (
     <div className="p-5 md:p-8 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-semibold tracking-tight mb-2">Regeln & Whitelist</h1>
-      <p className="text-sm text-muted-foreground mb-6">Unternehmensweite Freigaben. Individuelle Einstellungen pro Person findest du unter „Personen".</p>
+      <h1 className="text-3xl font-semibold tracking-tight mb-2">{t("manager.rules.title")}</h1>
+      <p className="text-sm text-muted-foreground mb-6">{t("manager.rules.subtitle")}</p>
 
       <section className="surface-card p-5 mb-5">
-        <div className="flex items-center gap-2 mb-1"><AppWindow className="h-4 w-4 text-primary" /><h2 className="font-semibold">Erlaubte Apps (Unternehmen)</h2></div>
-        <p className="text-xs text-muted-foreground mb-3">Diese Apps gelten als arbeitsbezogen – die Fokuszeit läuft dabei weiter.</p>
+        <div className="flex items-center gap-2 mb-1"><AppWindow className="h-4 w-4 text-primary" /><h2 className="font-semibold">{t("manager.rules.apps_title")}</h2></div>
+        <p className="text-xs text-muted-foreground mb-3">{t("manager.rules.apps_desc")}</p>
         <div className="flex gap-2 mb-3">
-          <Input value={newApp} onChange={(e) => setNewApp(e.target.value)} placeholder="z. B. Slack, Microsoft Teams, Outlook" className="h-10" />
+          <Input value={newApp} onChange={(e) => setNewApp(e.target.value)} placeholder={t("manager.rules.apps_placeholder")} className="h-10" />
           <Button onClick={addApp} className="h-10"><Plus className="h-4 w-4" /></Button>
         </div>
         <ul className="flex flex-wrap gap-2">
@@ -79,15 +81,15 @@ export default function ManagerRules() {
               <button onClick={() => removeApp(a.id)} className="text-muted-foreground hover:text-destructive"><Trash2 className="h-3.5 w-3.5" /></button>
             </li>
           ))}
-          {apps.length === 0 && <p className="text-sm text-muted-foreground">Noch keine Apps freigegeben.</p>}
+          {apps.length === 0 && <p className="text-sm text-muted-foreground">{t("manager.rules.apps_empty")}</p>}
         </ul>
       </section>
 
       <section className="surface-card p-5 mb-5">
-        <div className="flex items-center gap-2 mb-1"><Ban className="h-4 w-4 text-destructive" /><h2 className="font-semibold">Blockierte Websites</h2></div>
-        <p className="text-xs text-muted-foreground mb-3">Diese Domains werden während der Arbeitszeit blockiert und stoppen die Fokuszeit.</p>
+        <div className="flex items-center gap-2 mb-1"><Ban className="h-4 w-4 text-destructive" /><h2 className="font-semibold">{t("manager.rules.websites_title")}</h2></div>
+        <p className="text-xs text-muted-foreground mb-3">{t("manager.rules.websites_desc")}</p>
         <div className="flex gap-2 mb-3">
-          <Input value={newDomain} onChange={(e) => setNewDomain(e.target.value)} placeholder="z. B. instagram.com" className="h-10" />
+          <Input value={newDomain} onChange={(e) => setNewDomain(e.target.value)} placeholder={t("manager.rules.websites_placeholder")} className="h-10" />
           <Button onClick={addWebsite} className="h-10"><Plus className="h-4 w-4" /></Button>
         </div>
         <ul className="flex flex-wrap gap-2">
@@ -97,19 +99,19 @@ export default function ManagerRules() {
               <button onClick={() => removeWebsite(w.id)} className="text-destructive/70 hover:text-destructive"><Trash2 className="h-3.5 w-3.5" /></button>
             </li>
           ))}
-          {websites.length === 0 && <p className="text-sm text-muted-foreground">Noch keine Domains blockiert.</p>}
+          {websites.length === 0 && <p className="text-sm text-muted-foreground">{t("manager.rules.websites_empty")}</p>}
         </ul>
       </section>
 
       <section className="surface-card p-5 mb-5">
-        <div className="flex items-center gap-2 mb-1"><Smartphone className="h-4 w-4 text-primary" /><h2 className="font-semibold">Freie Handy-Zeiten</h2></div>
-        <p className="text-xs text-muted-foreground mb-3">In diesen Fenstern darf das Handy unternehmensweit frei genutzt werden.</p>
+        <div className="flex items-center gap-2 mb-1"><Smartphone className="h-4 w-4 text-primary" /><h2 className="font-semibold">{t("manager.rules.phone_times_title")}</h2></div>
+        <p className="text-xs text-muted-foreground mb-3">{t("manager.rules.phone_times_desc")}</p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
-          <Input value={ptLabel} onChange={(e) => setPtLabel(e.target.value)} placeholder="Bezeichnung" className="h-10 col-span-2" />
+          <Input value={ptLabel} onChange={(e) => setPtLabel(e.target.value)} placeholder={t("manager.rules.phone_times_label_placeholder")} className="h-10 col-span-2" />
           <Input type="time" value={ptStart} onChange={(e) => setPtStart(e.target.value)} className="h-10" />
           <Input type="time" value={ptEnd} onChange={(e) => setPtEnd(e.target.value)} className="h-10" />
         </div>
-        <Button onClick={addPhoneTime} variant="outline" className="w-full"><Plus className="h-4 w-4 mr-1" /> Zeitfenster hinzufügen</Button>
+        <Button onClick={addPhoneTime} variant="outline" className="w-full"><Plus className="h-4 w-4 mr-1" /> {t("manager.rules.phone_times_add")}</Button>
         <ul className="mt-4 space-y-2">
           {phoneTimes.map((p) => (
             <li key={p.id} className="flex items-center gap-3 p-2 rounded-lg bg-secondary/60">
@@ -118,14 +120,14 @@ export default function ManagerRules() {
               <button onClick={() => removePhoneTime(p.id)} className="text-muted-foreground hover:text-destructive"><Trash2 className="h-4 w-4" /></button>
             </li>
           ))}
-          {phoneTimes.length === 0 && <p className="text-sm text-muted-foreground">Keine freien Zeiten definiert.</p>}
+          {phoneTimes.length === 0 && <p className="text-sm text-muted-foreground">{t("manager.rules.phone_times_empty")}</p>}
         </ul>
       </section>
 
       <div className="rounded-2xl bg-secondary/60 p-4 flex items-start gap-3">
         <ShieldCheck className="h-4 w-4 text-primary shrink-0 mt-0.5" />
         <p className="text-xs text-muted-foreground leading-relaxed">
-          Diese Regeln gelten als Standard für alle Mitarbeitenden. Pro Person kannst du unter <strong>Personen</strong> zusätzliche Freigaben, Arbeitszeiten und Pausen festlegen.
+          {t("manager.rules.footer_note_pre")} <strong>{t("manager.rules.footer_note_strong")}</strong> {t("manager.rules.footer_note_post")}
         </p>
       </div>
     </div>

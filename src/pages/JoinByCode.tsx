@@ -6,8 +6,10 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import Seo from "@/components/Seo";
+import { useT } from "@/i18n";
 
 export default function JoinByCode() {
+  const t = useT();
   const { code } = useParams<{ code: string }>();
   const { session, loading, refresh } = useAuth();
   const nav = useNavigate();
@@ -33,11 +35,11 @@ export default function JoinByCode() {
       if (error) {
         setStatus("error");
         setMessage(error.message);
-        toast.error("Beitritt fehlgeschlagen: " + error.message);
+        toast.error(`${t("pages.joinbycode.errorPrefix")} ${error.message}`);
         return;
       }
       sessionStorage.removeItem("pending_invite_code");
-      toast.success("Workspace beigetreten");
+      toast.success(t("pages.joinbycode.successToast"));
       await refresh();
       // Hard reload damit alle States frisch sind
       window.location.replace("/app");
@@ -47,8 +49,8 @@ export default function JoinByCode() {
   return (
     <div className="min-h-screen grid place-items-center bg-background px-6">
       <Seo
-        title="Team beitreten – TeamFokus"
-        description="Tritt deinem Team auf TeamFokus per Einladungscode bei."
+        title={t("pages.joinbycode.seo.title")}
+        description={t("pages.joinbycode.seo.description")}
         path={`/join/${code ?? ""}`}
         noindex
       />
@@ -56,14 +58,14 @@ export default function JoinByCode() {
         <div className="flex justify-center mb-6"><Logo /></div>
         {status === "error" ? (
           <>
-            <h1 className="text-xl font-semibold mb-2">Beitritt nicht möglich</h1>
+            <h1 className="text-xl font-semibold mb-2">{t("pages.joinbycode.error.title")}</h1>
             <p className="text-sm text-muted-foreground">{message}</p>
           </>
         ) : (
           <>
             <Loader2 className="h-6 w-6 animate-spin mx-auto mb-3 text-primary" />
             <p className="text-sm text-muted-foreground">
-              {status === "joining" ? "Du wirst dem Workspace hinzugefügt…" : "Einen Moment…"}
+              {status === "joining" ? t("pages.joinbycode.joining") : t("pages.joinbycode.waiting")}
             </p>
           </>
         )}

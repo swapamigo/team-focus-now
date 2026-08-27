@@ -3,6 +3,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Lock, Trophy, BarChart3, ArrowRight, Check } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { useT } from "@/i18n";
 
 interface Slide {
   icon: any;
@@ -10,24 +11,25 @@ interface Slide {
   desc: string;
 }
 
-const employeeSlides: Slide[] = [
-  { icon: Sparkles, title: "Willkommen bei TeamFokus", desc: "Schön, dass du dabei bist. Wir helfen dir, fokussierter zu arbeiten – ohne Druck, ohne Überwachung." },
-  { icon: BarChart3, title: "Dein persönliches Dashboard", desc: "Sieh deinen Fortschritt auf einen Blick: gesammelte Fokuszeit, Fokus-Phasen und dein Team-Ranking." },
-  { icon: Lock, title: "Deine Privatsphäre ist geschützt", desc: "Nur DU siehst deine Daten. Dein Manager erhält ausschließlich anonyme Team-Aggregate – nie individuelle Werte." },
-  { icon: Trophy, title: "Motivation statt Kontrolle", desc: "Verdiene Belohnungen, gewinne Challenges und arbeite entspannter. Erfasst wird nur während deiner Arbeitszeit." },
-];
-
-const managerSlides: Slide[] = [
-  { icon: Sparkles, title: "Willkommen bei TeamFokus", desc: "Das motivationsbasierte Produktivitäts-Tool für Ihr Team. In 5 Minuten startklar." },
-  { icon: Trophy, title: "Teams & Challenges", desc: "Legen Sie Teams an, starten Sie faire Wettbewerbe und verteilen Sie Belohnungen für mehr Fokus." },
-  { icon: BarChart3, title: "Anonyme Team-Statistiken", desc: "Sie sehen Trends auf Team-Ebene – nie individuelle Daten einzelner Mitarbeitender. Das schafft Vertrauen." },
-  { icon: Lock, title: "Privacy-by-Design", desc: "Keine Screenshots, keine Tastatureingaben. Messung ausschließlich während der Arbeitszeit. DSGVO-konform." },
-];
-
 export default function OnboardingTour() {
+  const t = useT();
   const { user, role } = useAuth();
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
+
+  const employeeSlides: Slide[] = [
+    { icon: Sparkles, title: t("app.onboardingtour.employee_slide1_title"), desc: t("app.onboardingtour.employee_slide1_desc") },
+    { icon: BarChart3, title: t("app.onboardingtour.employee_slide2_title"), desc: t("app.onboardingtour.employee_slide2_desc") },
+    { icon: Lock, title: t("app.onboardingtour.employee_slide3_title"), desc: t("app.onboardingtour.employee_slide3_desc") },
+    { icon: Trophy, title: t("app.onboardingtour.employee_slide4_title"), desc: t("app.onboardingtour.employee_slide4_desc") },
+  ];
+
+  const managerSlides: Slide[] = [
+    { icon: Sparkles, title: t("app.onboardingtour.manager_slide1_title"), desc: t("app.onboardingtour.manager_slide1_desc") },
+    { icon: Trophy, title: t("app.onboardingtour.manager_slide2_title"), desc: t("app.onboardingtour.manager_slide2_desc") },
+    { icon: BarChart3, title: t("app.onboardingtour.manager_slide3_title"), desc: t("app.onboardingtour.manager_slide3_desc") },
+    { icon: Lock, title: t("app.onboardingtour.manager_slide4_title"), desc: t("app.onboardingtour.manager_slide4_desc") },
+  ];
 
   const storageKey = user ? `tf:onboarded:${user.id}` : null;
   const slides = role === "manager" ? managerSlides : employeeSlides;
@@ -35,8 +37,8 @@ export default function OnboardingTour() {
   useEffect(() => {
     if (!storageKey) return;
     if (!localStorage.getItem(storageKey)) {
-      const t = setTimeout(() => setOpen(true), 400);
-      return () => clearTimeout(t);
+      const timer = setTimeout(() => setOpen(true), 400);
+      return () => clearTimeout(timer);
     }
   }, [storageKey]);
 
@@ -74,16 +76,16 @@ export default function OnboardingTour() {
             <div className="mt-7 flex gap-2">
               {step > 0 && (
                 <Button variant="ghost" className="flex-1 h-11 rounded-xl" onClick={() => setStep(step - 1)}>
-                  Zurück
+                  {t("app.onboardingtour.back")}
                 </Button>
               )}
               {!isLast ? (
                 <Button className="flex-1 h-11 rounded-xl" onClick={() => setStep(step + 1)}>
-                  Weiter <ArrowRight className="ml-1 h-4 w-4" />
+                  {t("app.onboardingtour.next")} <ArrowRight className="ml-1 h-4 w-4" />
                 </Button>
               ) : (
                 <Button className="flex-1 h-11 rounded-xl shadow-glow" onClick={finish}>
-                  <Check className="mr-1 h-4 w-4" /> Loslegen
+                  <Check className="mr-1 h-4 w-4" /> {t("app.onboardingtour.start")}
                 </Button>
               )}
             </div>
@@ -92,7 +94,7 @@ export default function OnboardingTour() {
               onClick={finish}
               className="block mx-auto mt-3 text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
-              Tour überspringen
+              {t("app.onboardingtour.skip")}
             </button>
           </div>
         </div>

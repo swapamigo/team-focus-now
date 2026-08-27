@@ -14,73 +14,59 @@ import familyImg from "@/assets/happy-family-dinner.jpg";
 import giftImg from "@/assets/monthly-gift.jpg";
 import societyImg from "@/assets/smartphone-gesellschaftliches-problem.png.asset.json";
 import k5Img from "@/assets/anonymisierung-k5.png.asset.json";
-
-const benefits = [
-  {
-    icon: Gift,
-    eyebrow: "Jeden Monat",
-    title: "Ein echtes Geschenk gewinnen",
-    desc: "Am Monatsende gewinnt das fokussierteste Team gemeinsam ein Geschenk – Team-Lunch, Gutschein, Tankgutschein oder Event-Tickets. Du gewinnst mit deinem Team, nie auf Kosten anderer.",
-    img: giftImg,
-    accent: "from-amber-500/30 to-orange-500/10",
-  },
-  {
-    icon: Brain,
-    eyebrow: "Bei der Arbeit",
-    title: "Weniger Stress, klarer Kopf",
-    desc: "Weniger ständige Unterbrechungen heißt: ruhigerer Kopf, weniger Hetze und das gute Gefühl, deine Aufgaben tatsächlich zu schaffen – statt abends zu denken, der Tag sei verpufft.",
-    img: calmImg,
-    accent: "from-sky-500/30 to-blue-500/10",
-  },
-  {
-    icon: Heart,
-    eyebrow: "Zu Hause",
-    title: "Mehr Gelassenheit, glücklichere Familie",
-    desc: "Die Gewohnheit, das Handy nicht alle paar Minuten zu zücken, nimmst du mit nach Hause: präsenter bei Familie und Freund*innen, weniger Doomscrolling am Abend, ruhigerer Schlaf.",
-    img: familyImg,
-    accent: "from-pink-500/30 to-rose-500/10",
-  },
-];
-
-const privacyPillars = [
-  {
-    icon: ShieldCheck,
-    title: "100 % DSGVO-konform",
-    desc: "Hosting in Deutschland. Verarbeitung streng nach DSGVO. Auftragsverarbeitungsvertrag inklusive.",
-  },
-  {
-    icon: EyeOff,
-    title: "k = 5 Anonymität",
-    desc: "Werte werden erst ab mindestens 5 Personen vermischt. Dich einzeln herauszulesen ist technisch unmöglich.",
-  },
-  {
-    icon: Lock,
-    title: "Keine Inhalte, nie",
-    desc: "Keine Screenshots, keine Nachrichten, kein Standort – weder auf dem Smartphone noch am PC. Nur die Dauer privater Nutzung.",
-  },
-  {
-    icon: Clock,
-    title: "Nur Arbeitszeit",
-    desc: "Pause, Feierabend, Wochenende, Urlaub: Es wird nichts gemessen. Eingehende Anrufe zählen grundsätzlich nie.",
-  },
-];
-
-const faqs = [
-  { q: "Kann mein Chef meine Fokuszeit sehen?", a: "Nein. Deine Werte werden ab mindestens fünf Personen zu einem Team-Durchschnitt zusammengefasst – unabhängig davon, ob du Handy oder PC nutzt. Sichtbar sind ausschließlich Team-Werte – nie eine einzelne Person." },
-  { q: "Werden meine Nachrichten oder Inhalte gelesen?", a: "Nein. Erfasst wird nur die Nutzungsdauer. Niemals Inhalte, Nachrichten, Fotos, Tastatureingaben oder dein Standort – weder auf dem Smartphone noch am PC." },
-  { q: "Muss ich mein Handy abgeben oder werden Apps gesperrt?", a: "Nein. Dein Handy und dein PC bleiben vollständig deine. Es wird nichts gesperrt und nichts verboten – TeamFokus zählt nur die Fokuszeit mit." },
-  { q: "Was passiert, wenn ich angerufen werde?", a: "Gar nichts. Eingehende Anrufe werden grundsätzlich nicht gewertet. Du bleibst für Familie, Schule oder Notfälle erreichbar." },
-  { q: "Und wenn mein Team verliert – erfährt das jemand?", a: "Nein. Es gibt keine sichtbare Verliererliste. Nur das Gewinnerteam wird angezeigt." },
-];
+import { useT } from "@/i18n";
 
 export default function Vorteile() {
+  const t = useT();
   const [demoOpen, setDemoOpen] = useState(false);
+
+  const benefits = [
+    {
+      icon: Gift,
+      eyebrow: t("pages.vorteile.benefit1.eyebrow"),
+      title: t("pages.vorteile.benefit1.title"),
+      desc: t("pages.vorteile.benefit1.desc"),
+      img: giftImg,
+      accent: "from-amber-500/30 to-orange-500/10",
+    },
+    {
+      icon: Brain,
+      eyebrow: t("pages.vorteile.benefit2.eyebrow"),
+      title: t("pages.vorteile.benefit2.title"),
+      desc: t("pages.vorteile.benefit2.desc"),
+      img: calmImg,
+      accent: "from-sky-500/30 to-blue-500/10",
+    },
+    {
+      icon: Heart,
+      eyebrow: t("pages.vorteile.benefit3.eyebrow"),
+      title: t("pages.vorteile.benefit3.title"),
+      desc: t("pages.vorteile.benefit3.desc"),
+      img: familyImg,
+      accent: "from-pink-500/30 to-rose-500/10",
+    },
+  ];
+
+  const privacyPillars = [
+    { icon: ShieldCheck, title: t("pages.vorteile.pillar1.title"), desc: t("pages.vorteile.pillar1.desc") },
+    { icon: EyeOff, title: t("pages.vorteile.pillar2.title"), desc: t("pages.vorteile.pillar2.desc") },
+    { icon: Lock, title: t("pages.vorteile.pillar3.title"), desc: t("pages.vorteile.pillar3.desc") },
+    { icon: Clock, title: t("pages.vorteile.pillar4.title"), desc: t("pages.vorteile.pillar4.desc") },
+  ];
+
+  const faqs = [
+    { q: t("pages.vorteile.faq1.q"), a: t("pages.vorteile.faq1.a") },
+    { q: t("pages.vorteile.faq2.q"), a: t("pages.vorteile.faq2.a") },
+    { q: t("pages.vorteile.faq3.q"), a: t("pages.vorteile.faq3.a") },
+    { q: t("pages.vorteile.faq4.q"), a: t("pages.vorteile.faq4.a") },
+    { q: t("pages.vorteile.faq5.q"), a: t("pages.vorteile.faq5.a") },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="TeamFokus für Mitarbeitende – kein Handyverbot, keine Einzeldaten"
-        description="100 % DSGVO-konform und komplett anonym (k=5). Gewinne jeden Monat ein Geschenk mit deinem Team – weniger Stress, mehr Gelassenheit, glücklichere Familie."
+        title={t("pages.vorteile.seo.title")}
+        description={t("pages.vorteile.seo.description")}
         path="/fuer-mitarbeitende"
       />
       <LandingHeader onDemo={() => setDemoOpen(true)} />
@@ -93,33 +79,32 @@ export default function Vorteile() {
           <div className="container relative pt-16 md:pt-24 pb-14 md:pb-20 text-center animate-fade-in">
             <div className="inline-flex items-center gap-2 rounded-full border-2 border-primary/40 bg-primary/10 backdrop-blur px-5 py-2 text-sm font-semibold text-primary mb-6 shadow-glow">
               <ShieldCheck className="h-4 w-4" />
-              100 % DSGVO · k = 5 Anonymität · Hosting in DE
+              {t("pages.vorteile.hero.badge")}
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight mb-6 leading-[1.05]">
-              Deine Daten bleiben deins.<br />
-              <span className="text-gradient animate-gradient-x">Der Gewinn ist deiner.</span>
+              {t("pages.vorteile.hero.title1")}<br />
+              <span className="text-gradient animate-gradient-x">{t("pages.vorteile.hero.title2")}</span>
             </h1>
             <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed">
-              Niemand sieht je deine persönliche Fokuszeit – weder auf dem Handy noch am PC.
-              Dafür gewinnst du jeden Monat mit deinem Team ein echtes Geschenk – und ganz nebenbei einen klareren Kopf.
+              {t("pages.vorteile.hero.desc")}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 text-success px-3 py-1 text-xs font-semibold">
-                <Clock className="h-3.5 w-3.5" /> Nur Arbeitszeit
+                <Clock className="h-3.5 w-3.5" /> {t("pages.vorteile.hero.tag1")}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-semibold">
-                <EyeOff className="h-3.5 w-3.5" /> 0 Einzelwerte sichtbar
+                <EyeOff className="h-3.5 w-3.5" /> {t("pages.vorteile.hero.tag2")}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary text-foreground px-3 py-1 text-xs font-semibold">
-                <Lock className="h-3.5 w-3.5" /> Keine Inhalte
+                <Lock className="h-3.5 w-3.5" /> {t("pages.vorteile.hero.tag3")}
               </span>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button asChild size="lg" className="h-12 px-8 shadow-glow group w-full sm:w-auto">
-                <a href="#datenschutz"><ShieldCheck className="mr-1.5 h-4 w-4" />So bleiben deine Daten privat</a>
+                <a href="#datenschutz"><ShieldCheck className="mr-1.5 h-4 w-4" />{t("pages.vorteile.hero.cta1")}</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto">
-                <a href="#vorteile"><Heart className="mr-1.5 h-4 w-4 text-primary" />Was du davon hast</a>
+                <a href="#vorteile"><Heart className="mr-1.5 h-4 w-4 text-primary" />{t("pages.vorteile.hero.cta2")}</a>
               </Button>
             </div>
           </div>
@@ -128,12 +113,12 @@ export default function Vorteile() {
         {/* Datenschutz – 4 Säulen */}
         <section className="container py-16 md:py-24 border-b border-border/40" id="datenschutz">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Dein Schutz</p>
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.vorteile.privacy.eyebrow")}</p>
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
-              Niemand sieht deine Daten. Punkt.
+              {t("pages.vorteile.privacy.title")}
             </h2>
             <p className="text-muted-foreground text-base md:text-lg">
-              TeamFokus ist von Grund auf datensparsam gebaut. Vier Garantien, auf die du dich verlassen kannst.
+              {t("pages.vorteile.privacy.desc")}
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mb-12">
@@ -154,27 +139,27 @@ export default function Vorteile() {
             <div className="md:col-span-3 surface-card p-3">
               <img
                 src={k5Img.url}
-                alt="Anonymisierung mit k = 5 – Werte werden mit anderen Teammitgliedern vermischt"
+                alt={t("pages.vorteile.k5.imgAlt")}
                 className="w-full h-auto rounded-xl"
                 loading="lazy"
               />
             </div>
             <div className="md:col-span-2 space-y-4">
               <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-bold">
-                <Server className="h-3.5 w-3.5" /> Wie es technisch funktioniert
+                <Server className="h-3.5 w-3.5" /> {t("pages.vorteile.k5.badge")}
               </div>
               <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
-                Du bist nie eine einzelne Zahl.
+                {t("pages.vorteile.k5.title")}
               </h3>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                Deine Werte werden mit denen von mindestens 4 Kolleg*innen verrechnet,
-                <strong className="text-foreground"> bevor sie überhaupt jemand sieht</strong>.
-                Dein persönlicher Wert verlässt dein Gerät erst gar nicht als Einzelwert.
+                {t("pages.vorteile.k5.desc").split("{{strong_start}}")[0]}
+                <strong className="text-foreground"> {t("pages.vorteile.k5.desc").split("{{strong_start}}")[1]?.split("{{strong_end}}")[0]}</strong>
+                {t("pages.vorteile.k5.desc").split("{{strong_end}}")[1]}
               </p>
               <ul className="space-y-2 text-sm">
-                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 mt-0.5 text-success shrink-0" />Kein Name, keine ID, keine Zuordnung</li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 mt-0.5 text-success shrink-0" />Rohdaten werden nach 24 h gelöscht</li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 mt-0.5 text-success shrink-0" />Auch die Geschäftsführung sieht nur Team-Werte</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 mt-0.5 text-success shrink-0" />{t("pages.vorteile.k5.point1")}</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 mt-0.5 text-success shrink-0" />{t("pages.vorteile.k5.point2")}</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 mt-0.5 text-success shrink-0" />{t("pages.vorteile.k5.point3")}</li>
               </ul>
             </div>
           </div>
@@ -183,12 +168,12 @@ export default function Vorteile() {
         {/* Drei große Vorteile mit Bildern */}
         <section className="container py-16 md:py-24 border-b border-border/40" id="vorteile">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Was du davon hast</p>
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.vorteile.vorteile.eyebrow")}</p>
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
-              Drei Dinge, die wirklich besser werden.
+              {t("pages.vorteile.vorteile.title")}
             </h2>
             <p className="text-muted-foreground text-base md:text-lg">
-              Es geht um dich. Um deinen Arbeitstag, deinen Feierabend, dein Leben.
+              {t("pages.vorteile.vorteile.desc")}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -225,29 +210,28 @@ export default function Vorteile() {
         <section className="container py-16 md:py-24 border-b border-border/40">
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
             <div>
-              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Es liegt nicht an dir</p>
+              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.vorteile.society.eyebrow")}</p>
               <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
-                Handysucht ist ein gesellschaftliches Problem.
+                {t("pages.vorteile.society.title")}
               </h2>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-5">
-                Apps werden von ganzen Teams gezielt darauf optimiert, dich immer wieder zurückzuholen.
-                Dagegen anzukommen ist schwer – für fast alle. Gemeinsam im Team gelingt es leichter.
+                {t("pages.vorteile.society.desc")}
               </p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="surface-card p-4">
-                  <div className="text-3xl font-bold text-gradient">23 min</div>
-                  <p className="text-xs text-muted-foreground mt-1">bis du nach einer Unterbrechung wieder voll fokussiert bist</p>
+                  <div className="text-3xl font-bold text-gradient">{t("pages.vorteile.society.stat1.value")}</div>
+                  <p className="text-xs text-muted-foreground mt-1">{t("pages.vorteile.society.stat1.label")}</p>
                 </div>
                 <div className="surface-card p-4">
-                  <div className="text-3xl font-bold text-gradient">Dutzende</div>
-                  <p className="text-xs text-muted-foreground mt-1">Male am Tag greifen wir unbewusst zum Handy</p>
+                  <div className="text-3xl font-bold text-gradient">{t("pages.vorteile.society.stat2.value")}</div>
+                  <p className="text-xs text-muted-foreground mt-1">{t("pages.vorteile.society.stat2.label")}</p>
                 </div>
               </div>
             </div>
             <div className="surface-card p-3">
               <img
                 src={societyImg.url}
-                alt="Smartphone-Sucht als gesellschaftliches Problem"
+                alt={t("pages.vorteile.society.imgAlt")}
                 className="w-full h-auto rounded-xl"
                 loading="lazy"
               />
@@ -258,9 +242,9 @@ export default function Vorteile() {
         {/* FAQ */}
         <section className="container py-16 md:py-24 border-b border-border/40">
           <div className="max-w-3xl mx-auto text-center mb-10">
-            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Ehrliche Antworten</p>
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.vorteile.faq.eyebrow")}</p>
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
-              Was du dich wahrscheinlich fragst.
+              {t("pages.vorteile.faq.title")}
             </h2>
           </div>
           <div className="max-w-3xl mx-auto space-y-3">
@@ -286,17 +270,17 @@ export default function Vorteile() {
                 <Trophy className="h-7 w-7 text-primary-foreground" />
               </div>
               <h2 className="text-2xl md:text-5xl font-semibold tracking-tight mb-4">
-                Mit deinem Team gewinnen – ohne deine Privatsphäre zu verlieren.
+                {t("pages.vorteile.cta.title")}
               </h2>
               <p className="max-w-2xl mx-auto text-muted-foreground mb-8 text-base md:text-lg leading-relaxed">
-                App laden, mit dem Team-Code beitreten, fertig. Keine Inhalte, keine Einzelwerte, kein Verbot.
+                {t("pages.vorteile.cta.desc")}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Button asChild size="lg" className="h-12 px-8 shadow-glow w-full sm:w-auto">
-                  <a href="#datenschutz"><ShieldCheck className="mr-1.5 h-4 w-4" />Datenschutz im Detail</a>
+                  <a href="#datenschutz"><ShieldCheck className="mr-1.5 h-4 w-4" />{t("pages.vorteile.cta.btn1")}</a>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="h-12 px-8 backdrop-blur bg-card/60 w-full sm:w-auto">
-                  <Link to="/fuer-betriebsrat"><Users className="mr-1.5 h-4 w-4" />Betriebsrat-Akzeptanz</Link>
+                  <Link to="/fuer-betriebsrat"><Users className="mr-1.5 h-4 w-4" />{t("pages.vorteile.cta.btn2")}</Link>
                 </Button>
               </div>
             </div>
