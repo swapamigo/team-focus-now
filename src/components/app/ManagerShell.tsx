@@ -1,6 +1,7 @@
 import { Outlet, NavLink, useLocation } from "react-router-dom";
 import { LayoutDashboard, Users, Trophy, Settings as Cog } from "lucide-react";
 import Logo from "@/components/Logo";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import OnboardingTour from "@/components/app/OnboardingTour";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +17,10 @@ export default function ManagerShell() {
   return (
     <div className="min-h-screen bg-background flex flex-col md:flex-row">
       <aside className="hidden md:flex md:flex-col w-64 border-r border-border/60 bg-card/40 p-6 gap-6">
-        <Logo withWordmark />
+        <div className="flex items-center justify-between gap-2">
+          <Logo withWordmark />
+          <LanguageSwitcher compact />
+        </div>
         <nav className="flex flex-col gap-1">
           {items.map((it) => (
             <NavLink
@@ -39,6 +43,7 @@ export default function ManagerShell() {
 
       <header className="md:hidden glass border-b border-border/40 px-4 py-3 sticky top-0 z-40 flex items-center justify-between">
         <Logo withWordmark />
+        <LanguageSwitcher compact />
       </header>
 
       <main className="flex-1 min-w-0 pb-24 md:pb-6">
