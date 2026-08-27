@@ -3,8 +3,10 @@ import { Building2, UserCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import Logo from "@/components/Logo";
+import { useT } from "@/i18n";
 
 export default function RoleSelect() {
+  const t = useT();
   const nav = useNavigate();
   const { profile, role } = useAuth();
   if (profile?.onboarded) {
@@ -17,8 +19,8 @@ export default function RoleSelect() {
       </header>
       <div className="flex-1 grid place-items-center px-4 pb-12">
         <div className="w-full max-w-2xl text-center animate-fade-in">
-          <h1 className="text-4xl font-semibold tracking-tight mb-3">Wie möchtest du starten?</h1>
-          <p className="text-muted-foreground mb-10">Du kannst einen neuen Workspace erstellen oder einer bestehenden Einladung folgen.</p>
+          <h1 className="text-4xl font-semibold tracking-tight mb-3">{t("onboarding.roleselect.title")}</h1>
+          <p className="text-muted-foreground mb-10">{t("onboarding.roleselect.subtitle")}</p>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <button
@@ -28,8 +30,8 @@ export default function RoleSelect() {
               <div className="h-12 w-12 rounded-2xl gradient-primary grid place-items-center mb-4 shadow-glow">
                 <Building2 className="h-6 w-6 text-primary-foreground" />
               </div>
-              <h3 className="font-semibold text-lg mb-1">Ich bin Manager</h3>
-              <p className="text-sm text-muted-foreground">Workspace erstellen, Teams und Mitarbeitende einladen.</p>
+              <h3 className="font-semibold text-lg mb-1">{t("onboarding.roleselect.manager_title")}</h3>
+              <p className="text-sm text-muted-foreground">{t("onboarding.roleselect.manager_desc")}</p>
             </button>
 
             <button
@@ -39,12 +41,12 @@ export default function RoleSelect() {
               <div className="h-12 w-12 rounded-2xl bg-secondary grid place-items-center mb-4">
                 <UserCircle2 className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-semibold text-lg mb-1">Ich bin Mitarbeiter</h3>
-              <p className="text-sm text-muted-foreground">Mit Einladungs-Code beitreten.</p>
+              <h3 className="font-semibold text-lg mb-1">{t("onboarding.roleselect.employee_title")}</h3>
+              <p className="text-sm text-muted-foreground">{t("onboarding.roleselect.employee_desc")}</p>
             </button>
           </div>
 
-          <Button variant="ghost" className="mt-8" onClick={() => nav("/")}>Zurück</Button>
+          <Button variant="ghost" className="mt-8" onClick={() => nav("/")}>{t("onboarding.roleselect.back")}</Button>
         </div>
       </div>
     </div>

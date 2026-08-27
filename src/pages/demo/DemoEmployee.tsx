@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DemoBanner from "@/components/demo/DemoBanner";
-import { demoTeams, genWeek } from "@/components/demo/demoData";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { demoTeams, demoTeamNameKey, genWeek, DAY_KEYS } from "@/components/demo/demoData";
 import {
   Trophy, Smartphone, TrendingDown, TrendingUp, Lock, Sparkles, Users, Home,
   BarChart3, Settings as Cog, Bell, CheckCircle2, Globe, Shield, Clock,
@@ -11,6 +12,7 @@ import {
 } from "lucide-react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, Tooltip, Cell, Area, AreaChart } from "recharts";
 import Seo from "@/components/Seo";
+import { useT } from "@/i18n";
 
 const monthSeries = Array.from({ length: 30 }).map((_, i) => ({
   d: i + 1, mins: Math.round(300 + Math.sin(i * 0.45) * 18 + i * 1.6),
@@ -20,62 +22,65 @@ const allowedApps = ["Microsoft Teams", "Slack", "Outlook", "Notion"];
 const blockedSites = ["instagram.com", "tiktok.com", "youtube.com", "x.com"];
 
 export default function DemoEmployee() {
+  const t = useT();
   const [seed, setSeed] = useState(0);
-  const week = useMemo(() => genWeek(seed), [seed]);
-  const ownRank = demoTeams.findIndex((t) => t.isOwn) + 1 || 3;
+  const dayLabels = useMemo(() => DAY_KEYS.map((k) => t(k)), [t]);
+  const week = useMemo(() => genWeek(seed, dayLabels), [seed, dayLabels]);
+  const ownRank = demoTeams.findIndex((tm) => tm.isOwn) + 1 || 3;
 
   return (
     <div className="min-h-screen bg-background pb-12">
       <Seo
-        title="Mitarbeiter-Demo – TeamFokus App ausprobieren"
-        description="Interaktive Demo der TeamFokus Mitarbeiter-App: Team-Ranking, Wochenfokus und Anti-Sucht-Funktionen ohne Anmeldung erleben."
+        title={t("demo.employee.seo.title")}
+        description={t("demo.employee.seo.description")}
         path="/demo/employee"
       />
       <DemoBanner />
       <div className="px-4 sm:px-5 max-w-3xl mx-auto">
         <header className="pt-6 pb-3 flex items-start justify-between gap-3 flex-wrap">
           <div>
-            <p className="text-sm text-muted-foreground flex items-center gap-1.5"><Users className="h-4 w-4" /> Mitarbeiter-Demo</p>
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">Mitarbeiter Dashboard Demo</h1>
+            <p className="text-sm text-muted-foreground flex items-center gap-1.5"><Users className="h-4 w-4" /> {t("demo.employee.header.eyebrow")}</p>
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">{t("demo.employee.header.title")}</h1>
           </div>
-          <div className="flex gap-2">
-            <Button asChild variant="outline" size="sm"><Link to="/demo/manager">Manager-Sicht</Link></Button>
+          <div className="flex gap-2 items-center">
+            <LanguageSwitcher compact />
+            <Button asChild variant="outline" size="sm"><Link to="/demo/manager">{t("demo.employee.header.managerView")}</Link></Button>
             <Button size="sm" onClick={() => setSeed((s) => s + 1)}>
-              <Sparkles className="h-4 w-4 mr-1" /> Neue Demo-Daten
+              <Sparkles className="h-4 w-4 mr-1" /> {t("demo.employee.header.newData")}
             </Button>
           </div>
         </header>
 
         <Tabs defaultValue="home" className="w-full mt-2">
           <TabsList className="mb-5 flex w-full overflow-x-auto">
-            <TabsTrigger value="home"><Home className="h-4 w-4 mr-1.5" />Heute</TabsTrigger>
-            <TabsTrigger value="stats"><BarChart3 className="h-4 w-4 mr-1.5" />Statistik</TabsTrigger>
-            <TabsTrigger value="teams"><Trophy className="h-4 w-4 mr-1.5" />Teams</TabsTrigger>
-            <TabsTrigger value="features"><Sparkles className="h-4 w-4 mr-1.5" />Features</TabsTrigger>
-            <TabsTrigger value="settings"><Cog className="h-4 w-4 mr-1.5" />Einstellungen</TabsTrigger>
+            <TabsTrigger value="home"><Home className="h-4 w-4 mr-1.5" />{t("demo.employee.tabs.today")}</TabsTrigger>
+            <TabsTrigger value="stats"><BarChart3 className="h-4 w-4 mr-1.5" />{t("demo.employee.tabs.stats")}</TabsTrigger>
+            <TabsTrigger value="teams"><Trophy className="h-4 w-4 mr-1.5" />{t("demo.employee.tabs.teams")}</TabsTrigger>
+            <TabsTrigger value="features"><Sparkles className="h-4 w-4 mr-1.5" />{t("demo.employee.tabs.features")}</TabsTrigger>
+            <TabsTrigger value="settings"><Cog className="h-4 w-4 mr-1.5" />{t("demo.employee.tabs.settings")}</TabsTrigger>
           </TabsList>
 
           {/* HEUTE */}
           <TabsContent value="home" className="space-y-4">
             <div className="surface-card p-6 relative overflow-hidden">
               <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full gradient-primary opacity-10 blur-2xl" />
-              <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Fokuszeit heute</p>
-              <p className="text-5xl font-semibold tracking-tight mt-2">6 Std 24 Min</p>
+              <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">{t("demo.employee.home.focusTimeToday")}</p>
+              <p className="text-5xl font-semibold tracking-tight mt-2">{t("demo.employee.home.focusTimeValue")}</p>
               <div className="flex items-center gap-2 mt-3 text-sm">
                 <TrendingUp className="h-4 w-4 text-success" />
-                <span className="text-success font-medium">22 Min mehr</span>
-                <span className="text-muted-foreground">als gestern</span>
+                <span className="text-success font-medium">{t("demo.employee.home.moreMinutes")}</span>
+                <span className="text-muted-foreground">{t("demo.employee.home.thanYesterday")}</span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div className="surface-card p-4">
-                <div className="flex items-center gap-2 mb-1.5"><Smartphone className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Abgezogene Zeit</span></div>
-                <p className="text-2xl font-semibold">14 Min</p>
+                <div className="flex items-center gap-2 mb-1.5"><Smartphone className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">{t("demo.employee.home.deductedTime")}</span></div>
+                <p className="text-2xl font-semibold">{t("demo.employee.home.deductedValue")}</p>
               </div>
               <div className="surface-card p-4">
-                <div className="flex items-center gap-2 mb-1.5"><Trophy className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">Team-Platz</span></div>
-                <p className="text-2xl font-semibold">{ownRank}. von {demoTeams.length}</p>
+                <div className="flex items-center gap-2 mb-1.5"><Trophy className="h-4 w-4 text-muted-foreground" /><span className="text-xs text-muted-foreground">{t("demo.employee.home.teamRank")}</span></div>
+                <p className="text-2xl font-semibold">{t("demo.employee.home.teamRankValue", { rank: ownRank, total: demoTeams.length })}</p>
               </div>
             </div>
 
@@ -83,10 +88,10 @@ export default function DemoEmployee() {
             <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 flex items-start gap-3">
               <Lock className="h-4 w-4 text-primary shrink-0 mt-0.5" />
               <div className="space-y-1.5">
-                <p className="text-xs font-semibold">Deine Privatsphäre ist geschützt 🔒</p>
+                <p className="text-xs font-semibold">{t("demo.employee.home.privacyTitle")}</p>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  <strong className="text-foreground">Nur du</strong> siehst deine persönlichen Daten.
-                  Dein Manager erhält ausschließlich <strong className="text-foreground">anonyme Team-Aggregate</strong>.
+                  <strong className="text-foreground">{t("demo.employee.home.privacyOnlyYou")}</strong> {t("demo.employee.home.privacySeesData")}
+                  {" "}{t("demo.employee.home.privacyManagerGets")} <strong className="text-foreground">{t("demo.employee.home.privacyAnonymData")}</strong>
                 </p>
               </div>
             </div>
@@ -96,14 +101,14 @@ export default function DemoEmployee() {
           <TabsContent value="stats" className="space-y-4">
             <div className="surface-card p-5">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold">Diese Woche</h2>
-                <span className="text-xs text-muted-foreground">Fokusminuten</span>
+                <h2 className="font-semibold">{t("demo.employee.stats.thisWeek")}</h2>
+                <span className="text-xs text-muted-foreground">{t("demo.employee.stats.focusMinutes")}</span>
               </div>
               <div className="h-40">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={week}>
                     <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                    <Tooltip cursor={{ fill: "hsl(var(--muted))", radius: 12 }} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [`${v} min`, "Fokuszeit"]} labelFormatter={() => ""} />
+                    <Tooltip cursor={{ fill: "hsl(var(--muted))", radius: 12 }} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }} formatter={(v: any) => [`${v} ${t("demo.employee.stats.tooltipUnit")}`, t("demo.employee.stats.tooltipLabel")]} labelFormatter={() => ""} />
                     <Bar dataKey="mins" radius={[8, 8, 8, 8]}>
                       {week.map((_, i) => <Cell key={i} fill={i === week.length - 1 ? "hsl(var(--primary))" : "hsl(var(--primary) / 0.35)"} />)}
                     </Bar>
@@ -114,8 +119,8 @@ export default function DemoEmployee() {
 
             <div className="surface-card p-5">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold">Letzte 30 Tage</h2>
-                <span className="text-xs text-success font-medium flex items-center gap-1"><TrendingUp className="h-3 w-3" /> Trend steigend</span>
+                <h2 className="font-semibold">{t("demo.employee.stats.last30days")}</h2>
+                <span className="text-xs text-success font-medium flex items-center gap-1"><TrendingUp className="h-3 w-3" /> {t("demo.employee.stats.trendUp")}</span>
               </div>
               <div className="h-40">
                 <ResponsiveContainer width="100%" height="100%">
@@ -135,30 +140,29 @@ export default function DemoEmployee() {
             </div>
 
             <div className="grid grid-cols-3 gap-3">
-              <Mini icon={Clock} label="Fokus-Zeit Ø" value="6,4 h" />
-              <Mini icon={Smartphone} label="Unlocks Ø" value="42" />
-              <Mini icon={Trophy} label="Streak" value="7 Tage" />
+              <Mini icon={Clock} label={t("demo.employee.stats.avgFocusTime")} value={t("demo.employee.stats.avgFocusValue")} />
+              <Mini icon={Smartphone} label={t("demo.employee.stats.avgUnlocks")} value="42" />
+              <Mini icon={Trophy} label={t("demo.employee.stats.streak")} value={t("demo.employee.stats.streakValue")} />
             </div>
           </TabsContent>
 
           {/* TEAMS */}
           <TabsContent value="teams" className="space-y-4">
-            <h2 className="font-semibold px-1">Euer Team-Ziel</h2>
+            <h2 className="font-semibold px-1">{t("demo.employee.teams.title")}</h2>
             <div className="surface-card p-5">
-              <p className="text-sm font-medium">Team Alpha · Ziel: Ø 5 Std Fokuszeit pro Tag</p>
-              <p className="text-xs text-muted-foreground mb-3">Gewählte Belohnung: zwei Stunden früherer Feierabend</p>
+              <p className="text-sm font-medium">{t("demo.employee.teams.goalLine")}</p>
+              <p className="text-xs text-muted-foreground mb-3">{t("demo.employee.teams.rewardChosen")}</p>
               <div className="h-2.5 rounded-full bg-secondary overflow-hidden" role="progressbar"
-                aria-valuenow={68} aria-valuemin={0} aria-valuemax={100} aria-label="Fortschritt Team-Ziel">
+                aria-valuenow={68} aria-valuemin={0} aria-valuemax={100} aria-label={t("demo.employee.teams.progressAria")}>
                 <div className="h-full rounded-full bg-primary" style={{ width: "68%" }} />
               </div>
-              <p className="text-sm mt-2">68 % erreicht · noch 5 Tage</p>
+              <p className="text-sm mt-2">{t("demo.employee.teams.progressText")}</p>
             </div>
 
             <div className="surface-card p-5">
-              <h3 className="font-semibold mb-2">Was dein Arbeitgeber sieht</h3>
+              <h3 className="font-semibold mb-2">{t("demo.employee.teams.whatEmployerSees")}</h3>
               <p className="text-sm text-muted-foreground">
-                Ausschließlich, ob euer Team die vereinbarte Belohnung freigeschaltet hat. Keine Namen,
-                keine Minuten, keine Durchschnittswerte, keine Rangliste.
+                {t("demo.employee.teams.employerSeesBody")}
               </p>
             </div>
           </TabsContent>
@@ -167,29 +171,29 @@ export default function DemoEmployee() {
           {/* FEATURES */}
           <TabsContent value="features" className="space-y-3">
             <div className="surface-card p-5">
-              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">Anti-Sucht Werkzeuge</p>
-              <h2 className="text-xl font-semibold tracking-tight">Werde weniger abhängig vom Handy.</h2>
+              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">{t("demo.employee.features.eyebrow")}</p>
+              <h2 className="text-xl font-semibold tracking-tight">{t("demo.employee.features.title")}</h2>
               <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-                Optionale Features – aktiviere nur, was zu dir passt. Alles freiwillig.
+                {t("demo.employee.features.subtitle")}
               </p>
             </div>
-            <FeatureCard icon={Timer} title="30-Sek Öffnungs-Timer" desc="Bevor sich Instagram, TikTok & Co. öffnen, läuft ein kurzer Timer. So gewinnst du Zeit zur bewussten Entscheidung." on tag="Beliebt" />
-            <FeatureCard icon={ScanLine} title="Physische NFC-Sperre (Brick)" desc="Social-Apps öffnen sich nur, wenn du deinen Brick (NFC-Chip) aktiv mit dem Handy berührst." on tag="Brick kompatibel" />
-            <FeatureCard icon={MoonStar} title="Graustufen während der Arbeit" desc="Dein Handy wird automatisch grau – bunte Reize verlieren ihre Anziehungskraft." />
-            <FeatureCard icon={Clock} title="Scroll-Stopper nach 2 Minuten" desc="Sanfte Erinnerung, sobald du länger als 2 Minuten in einer Social-App bist." />
+            <FeatureCard icon={Timer} title={t("demo.employee.features.timer.title")} desc={t("demo.employee.features.timer.desc")} on tag={t("demo.employee.features.timer.tag")} />
+            <FeatureCard icon={ScanLine} title={t("demo.employee.features.brick.title")} desc={t("demo.employee.features.brick.desc")} on tag={t("demo.employee.features.brick.tag")} />
+            <FeatureCard icon={MoonStar} title={t("demo.employee.features.grayscale.title")} desc={t("demo.employee.features.grayscale.desc")} />
+            <FeatureCard icon={Clock} title={t("demo.employee.features.scrollStopper.title")} desc={t("demo.employee.features.scrollStopper.desc")} />
           </TabsContent>
 
           {/* EINSTELLUNGEN */}
           <TabsContent value="settings" className="space-y-4">
             <section className="surface-card p-5">
-              <h2 className="font-semibold flex items-center gap-2 mb-4"><Shield className="h-4 w-4 text-primary" />Profil</h2>
-              <Field label="Name" value="Alex Beispiel" />
-              <Field label="E-Mail" value="alex@beispiel-gmbh.de" />
-              <Field label="Team" value="Team Gamma" />
+              <h2 className="font-semibold flex items-center gap-2 mb-4"><Shield className="h-4 w-4 text-primary" />{t("demo.employee.settings.profile")}</h2>
+              <Field label={t("demo.employee.settings.name")} value="Alex Beispiel" />
+              <Field label={t("demo.employee.settings.email")} value="alex@beispiel-gmbh.de" />
+              <Field label={t("demo.employee.settings.team")} value="Team Gamma" />
             </section>
 
             <section className="surface-card p-5">
-              <h2 className="font-semibold flex items-center gap-2 mb-4"><Smartphone className="h-4 w-4 text-primary" />Erlaubte Apps</h2>
+              <h2 className="font-semibold flex items-center gap-2 mb-4"><Smartphone className="h-4 w-4 text-primary" />{t("demo.employee.settings.allowedApps")}</h2>
               <div className="flex flex-wrap gap-2">
                 {allowedApps.map((a) => (
                   <span key={a} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-success/10 text-success text-xs font-medium">
@@ -200,7 +204,7 @@ export default function DemoEmployee() {
             </section>
 
             <section className="surface-card p-5">
-              <h2 className="font-semibold flex items-center gap-2 mb-4"><Globe className="h-4 w-4 text-destructive" />Blockierte Websites</h2>
+              <h2 className="font-semibold flex items-center gap-2 mb-4"><Globe className="h-4 w-4 text-destructive" />{t("demo.employee.settings.blockedSites")}</h2>
               <div className="flex flex-wrap gap-2">
                 {blockedSites.map((w) => (
                   <span key={w} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-destructive/10 text-destructive text-xs font-medium">{w}</span>
@@ -209,10 +213,10 @@ export default function DemoEmployee() {
             </section>
 
             <section className="surface-card p-5">
-              <h2 className="font-semibold flex items-center gap-2 mb-4"><Bell className="h-4 w-4 text-primary" />Benachrichtigungen</h2>
-              <ToggleRow label="Tägliche Zusammenfassung" on />
-              <ToggleRow label="Challenge-Erinnerungen" on />
-              <ToggleRow label="Team-Ranking" />
+              <h2 className="font-semibold flex items-center gap-2 mb-4"><Bell className="h-4 w-4 text-primary" />{t("demo.employee.settings.notifications")}</h2>
+              <ToggleRow label={t("demo.employee.settings.dailySummary")} on />
+              <ToggleRow label={t("demo.employee.settings.challengeReminders")} on />
+              <ToggleRow label={t("demo.employee.settings.teamRanking")} />
             </section>
           </TabsContent>
         </Tabs>
