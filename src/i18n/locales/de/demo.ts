@@ -97,7 +97,7 @@ const d: Dict = {
   "demo.manager.overview.oneInfoTitle": "Datenschutz auf einen Blick",
   "demo.manager.overview.oneInfoBody": "Du siehst nur anonymisierte, aggregierte Team-Daten. Individuelle Nutzungsdaten einzelner Mitarbeiter bleiben immer privat.",
   "demo.manager.overview.rewardTeamBlue": "Team Blau",
-  "demo.manager.overview.rewardBenefitEarlyLeave": "Früherer Feierabend am Freitag",
+  "demo.manager.overview.rewardBenefitEarlyLeave": "Massage-Gutschein",
   "demo.manager.overview.rewardTeamAlpha": "Team Alpha",
   "demo.manager.overview.rewardBenefitTeamEvent": "Gemeinsames Team-Event",
   "demo.manager.overview.rewardUnlocked": "Belohnung freigeschaltet",
