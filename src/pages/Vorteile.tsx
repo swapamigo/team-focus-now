@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight, Shield, Lock, Brain, Trophy, EyeOff, Heart, Clock, Users,
-  Gift, Sparkles, CheckCircle2, ShieldCheck, Server, Target,
+  Gift, Sparkles, CheckCircle2, ShieldCheck, Server, Target, Smartphone,
 } from "lucide-react";
 import LandingHeader from "@/components/landing/LandingHeader";
 import Footer from "@/components/landing/Footer";
