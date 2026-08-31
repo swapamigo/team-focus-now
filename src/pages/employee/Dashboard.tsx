@@ -44,20 +44,22 @@ export default function EmployeeDashboard() {
         .order("date");
 
       const ownMap = new Map((own ?? []).map((r: any) => [r.date, r]));
+      // Ohne erfasste Tageszeile gibt es keine Fokuszeit (0), nicht den Maximalwert.
+      const rowFocus = (r: any) =>
+        r ? focusMinutes(Number(r.screen_minutes ?? 0), Number(r.penalty_minutes ?? 0)) : 0;
       setWeek(dates.map((d) => {
         const key = isoDate(d);
-        const r: any = ownMap.get(key);
-        return { date: key, mins: focusMinutes(Number(r?.screen_minutes ?? 0), Number(r?.penalty_minutes ?? 0)), label: formatWeekdayShort(d) };
+        return { date: key, mins: rowFocus(ownMap.get(key)), label: formatWeekdayShort(d) };
       }));
-      setTwoWeek(dates14.map((d) => {
-        const r: any = ownMap.get(isoDate(d));
-        return { label: formatWeekdayShort(d), mins: focusMinutes(Number(r?.screen_minutes ?? 0), Number(r?.penalty_minutes ?? 0)) };
-      }));
+      setTwoWeek(dates14.map((d) => ({
+        label: formatWeekdayShort(d),
+        mins: rowFocus(ownMap.get(isoDate(d))),
+      })));
       const t: any = ownMap.get(today);
       const y: any = ownMap.get(yesterday);
-      setTodayMin(focusMinutes(Number(t?.screen_minutes ?? 0), Number(t?.penalty_minutes ?? 0)));
+      setTodayMin(rowFocus(t));
       setTodayPenalty(Number(t?.penalty_minutes ?? 0));
-      setYesterdayMin(focusMinutes(Number(y?.screen_minutes ?? 0), Number(y?.penalty_minutes ?? 0)));
+      setYesterdayMin(rowFocus(y));
 
       // Nur das eigene Team – keine teamübergreifende Rangliste.
       if (teamId) {
