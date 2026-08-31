@@ -6,8 +6,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { trackClick } from "@/lib/track";
+import { useT } from "@/i18n";
 
 export default function ContactSection() {
+  const t = useT();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
@@ -18,7 +20,7 @@ export default function ContactSection() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !message.trim()) {
-      toast.error("Bitte Name, E-Mail und Nachricht ausfüllen.");
+      toast.error(t("landing.contact.error_required"));
       return;
     }
     setSending(true);
@@ -52,7 +54,7 @@ export default function ContactSection() {
       setName(""); setEmail(""); setCompany(""); setMessage("");
     } catch (err) {
       console.error("contact form failed:", err);
-      toast.error("Senden fehlgeschlagen. Schreib uns gern direkt an joel@teamfokus.app.");
+      toast.error(t("landing.contact.error_send"));
     } finally {
       setSending(false);
     }
@@ -64,11 +66,11 @@ export default function ContactSection() {
         <div className="inline-flex h-12 w-12 rounded-2xl gradient-primary items-center justify-center shadow-glow mb-4">
           <Mail className="h-6 w-6 text-primary-foreground" />
         </div>
-        <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-3">Direkt Kontakt aufnehmen</h2>
+        <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-3">{t("landing.contact.title")}</h2>
         <p className="text-muted-foreground leading-relaxed">
-          Schreib uns – die Nachricht landet direkt bei{" "}
-          <a href="mailto:joel@teamfokus.app" className="text-primary hover:underline">joel@teamfokus.app</a>.
-          Du bekommst sofort eine Bestätigung per E-Mail.
+          {t("landing.contact.desc_prefix")}{" "}
+          <a href="mailto:joel@teamfokus.app" className="text-primary hover:underline">joel@teamfokus.app</a>.{" "}
+          {t("landing.contact.desc_suffix")}
         </p>
       </div>
 
@@ -76,29 +78,29 @@ export default function ContactSection() {
         {sent ? (
           <div className="text-center py-6">
             <CheckCircle2 className="h-10 w-10 text-primary mx-auto mb-3" />
-            <p className="font-semibold mb-1">Nachricht ist unterwegs!</p>
-            <p className="text-sm text-muted-foreground">Wir antworten in der Regel innerhalb eines Werktags.</p>
-            <Button variant="outline" className="mt-5" onClick={() => setSent(false)}>Weitere Nachricht senden</Button>
+            <p className="font-semibold mb-1">{t("landing.contact.sent_title")}</p>
+            <p className="text-sm text-muted-foreground">{t("landing.contact.sent_desc")}</p>
+            <Button variant="outline" className="mt-5" onClick={() => setSent(false)}>{t("landing.contact.sent_again")}</Button>
           </div>
         ) : (
           <form onSubmit={submit} className="grid gap-4">
             <div className="grid sm:grid-cols-2 gap-4">
-              <Input placeholder="Ihr Name" value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" />
-              <Input type="email" placeholder="E-Mail" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
+              <Input placeholder={t("landing.contact.name")} value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" />
+              <Input type="email" placeholder={t("landing.contact.email")} value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
             </div>
-            <Input placeholder="Unternehmen (optional)" value={company} onChange={(e) => setCompany(e.target.value)} autoComplete="organization" />
+            <Input placeholder={t("landing.contact.company")} value={company} onChange={(e) => setCompany(e.target.value)} autoComplete="organization" />
             <Textarea
-              placeholder="Worum geht es? (z. B. Teamgröße, Fragen zum Datenschutz)"
+              placeholder={t("landing.contact.message")}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               rows={5}
             />
             <Button type="submit" size="lg" className="h-12 shadow-glow" disabled={sending}>
               <Send className="mr-1.5 h-4 w-4" />
-              {sending ? "Wird gesendet…" : "Nachricht senden"}
+              {sending ? t("landing.contact.sending") : t("landing.contact.submit")}
             </Button>
             <p className="text-xs text-muted-foreground text-center">
-              Deine Angaben nutzen wir ausschließlich zur Beantwortung deiner Anfrage. EU-Hosting, DSGVO-konform.
+              {t("landing.contact.privacy_note")}
             </p>
           </form>
         )}
