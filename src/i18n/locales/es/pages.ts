@@ -40,6 +40,14 @@ const d: Dict = {
   "pages.vorteile.hero.tag3": "Sin contenidos",
   "pages.vorteile.hero.cta1": "Cómo se protegen tus datos",
   "pages.vorteile.hero.cta2": "Qué ganas tú",
+
+  "pages.vorteile.focus.eyebrow": "Cómo funciona",
+  "pages.vorteile.focus.title": "Una vez por hora concentrado – en lugar de distraído cada 5 minutos.",
+  "pages.vorteile.focus.desc": "No se trata de no tocar nunca el móvil. Se trata de parar el ir y venir constante.",
+  "pages.vorteile.focus.point1": "En lugar de cada 5 minutos: coger el móvil conscientemente una vez por hora.",
+  "pages.vorteile.focus.point2": "Luego haces lo que quieras – incluso cosas privadas – y lo vuelves a dejar durante una hora.",
+  "pages.vorteile.focus.point3": "El reloj de concentración corre mientras trabajas concentrado/a. Cada consulta inconsciente lo detiene.",
+
   "pages.vorteile.privacy.eyebrow": "Tu protección",
   "pages.vorteile.privacy.title": "Nadie ve tus datos. Punto.",
   "pages.vorteile.privacy.desc": "TeamFokus está construido desde cero para minimizar datos. Cuatro garantías en las que puedes confiar.",
