@@ -40,6 +40,14 @@ const d: Dict = {
   "pages.vorteile.hero.tag3": "Keine Inhalte",
   "pages.vorteile.hero.cta1": "So bleiben deine Daten privat",
   "pages.vorteile.hero.cta2": "Was du davon hast",
+
+  "pages.vorteile.focus.eyebrow": "So funktioniert es",
+  "pages.vorteile.focus.title": "Einmal die Stunde fokussiert – statt alle 5 Minuten abgelenkt.",
+  "pages.vorteile.focus.desc": "Es geht nicht darum, dein Handy nie anzufassen. Sondern darum, das ständige Hin-und-her zu stoppen.",
+  "pages.vorteile.focus.point1": "Statt alle 5 Minuten: einmal pro Stunde bewusst ans Handy gehen.",
+  "pages.vorteile.focus.point2": "Dann machst du, was du willst – auch privat – und legst es danach wieder für eine Stunde weg.",
+  "pages.vorteile.focus.point3": "Die Fokus-Uhr läuft, solange du konzentriert arbeitest. Jeder unbewusste Check stoppt sie.",
+
   "pages.vorteile.privacy.eyebrow": "Dein Schutz",
   "pages.vorteile.privacy.title": "Niemand sieht deine Daten. Punkt.",
   "pages.vorteile.privacy.desc": "TeamFokus ist von Grund auf datensparsam gebaut. Vier Garantien, auf die du dich verlassen kannst.",

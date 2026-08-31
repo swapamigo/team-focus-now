@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight, Shield, Lock, Brain, Trophy, EyeOff, Heart, Clock, Users,
-  Gift, Sparkles, CheckCircle2, ShieldCheck, Server,
+  Gift, Sparkles, CheckCircle2, ShieldCheck, Server, Target, Smartphone,
 } from "lucide-react";
 import LandingHeader from "@/components/landing/LandingHeader";
 import Footer from "@/components/landing/Footer";
@@ -107,6 +107,33 @@ export default function Vorteile() {
                 <a href="#vorteile"><Heart className="mr-1.5 h-4 w-4 text-primary" />{t("pages.vorteile.hero.cta2")}</a>
               </Button>
             </div>
+          </div>
+        </section>
+
+        {/* So funktioniert der Fokus */}
+        <section className="container py-16 md:py-20 border-b border-border/40">
+          <div className="max-w-3xl mx-auto text-center mb-10">
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("pages.vorteile.focus.eyebrow")}</p>
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
+              {t("pages.vorteile.focus.title")}
+            </h2>
+            <p className="text-muted-foreground text-base md:text-lg">
+              {t("pages.vorteile.focus.desc")}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+            {[
+              { icon: Clock, text: t("pages.vorteile.focus.point1") },
+              { icon: Smartphone, text: t("pages.vorteile.focus.point2") },
+              { icon: Target, text: t("pages.vorteile.focus.point3") },
+            ].map((p, i) => (
+              <div key={i} className="surface-card p-6 flex items-start gap-4">
+                <div className="inline-flex h-10 w-10 rounded-xl gradient-primary items-center justify-center shrink-0">
+                  <p.icon className="h-5 w-5 text-primary-foreground" />
+                </div>
+                <p className="text-sm md:text-base leading-relaxed">{p.text}</p>
+              </div>
+            ))}
           </div>
         </section>
 
