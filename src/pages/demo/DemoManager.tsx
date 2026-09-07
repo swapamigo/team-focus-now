@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogT
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DemoBanner from "@/components/demo/DemoBanner";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { demoTeams, demoTeamNameKey, demoStats, genYear, MONTH_KEYS } from "@/components/demo/demoData";
+import { demoTeams, demoStats, genScreenTime, MONTH_KEYS } from "@/components/demo/demoData";
 import { toast } from "sonner";
 import {
   Users, Trophy, Activity, TrendingUp, Sparkles, CalendarRange, UserCog,
@@ -44,7 +44,12 @@ export default function DemoManager() {
   const t = useT();
   const [seed, setSeed] = useState(0);
   const monthLabels = useMemo(() => MONTH_KEYS.map((k) => t(k)), [t]);
-  const yearData = useMemo(() => genYear(seed, monthLabels), [seed, monthLabels]);
+  const screenTime = useMemo(() => genScreenTime(seed, monthLabels), [seed, monthLabels]);
+  const screenTimeDrop = useMemo(() => {
+    const first = screenTime[0]?.minutes ?? 0;
+    const last = screenTime[screenTime.length - 1]?.minutes ?? 0;
+    return first ? Math.max(0, Math.round(((first - last) / first) * 100)) : 0;
+  }, [screenTime]);
 
   const statusLabel = (k: string) => t(`demo.manager.challenges.status.${k}`);
   const challengeName = (k: string) => t(`demo.manager.challenges.name.${k}`);
@@ -297,43 +302,6 @@ export default function DemoManager() {
           </TabsContent>
 
           {/* CHALLENGES */}
-          <TabsContent value="challenges" className="space-y-4">
-            <div className="flex justify-end">
-              <Dialog open={openChallenge} onOpenChange={setOpenChallenge}>
-                <DialogTrigger asChild>
-                  <Button size="sm"><Plus className="h-4 w-4 mr-1" />{t("demo.manager.challenges.new")}</Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader><DialogTitle>{t("demo.manager.challenges.newTitle")}</DialogTitle></DialogHeader>
-                  <div className="space-y-3">
-                    <div><Label>{t("demo.manager.teams.name")}</Label><Input value={chName} onChange={(e) => setChName(e.target.value)} placeholder={t("demo.manager.challenges.namePlaceholder")} /></div>
-                    <div><Label>{t("demo.manager.challenges.reward")}</Label><Input value={chReward} onChange={(e) => setChReward(e.target.value)} placeholder={t("demo.manager.challenges.rewardPlaceholder")} /></div>
-                    <div><Label>{t("demo.manager.challenges.startInDays")}</Label><Input type="number" min="0" value={chDays} onChange={(e) => setChDays(e.target.value)} /></div>
-                  </div>
-                  <DialogFooter><Button onClick={createChallenge}>{t("demo.manager.challenges.createBtn")}</Button></DialogFooter>
-                </DialogContent>
-              </Dialog>
-            </div>
-            {challenges.map((c: any) => (
-              <div key={c.key ?? c.name} className="surface-card p-5">
-                <div className="flex items-start justify-between gap-3 mb-2 flex-wrap">
-                  <div>
-                    <h3 className="font-semibold flex items-center gap-2"><Trophy className="h-4 w-4 text-primary" />{c.key ? challengeName(c.key) : c.name}</h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">{c.daysKey ? challengeDays(c.daysKey) : c.days}</p>
-                  </div>
-                  <span className={"text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full font-semibold " +
-                    (c.statusKey === "active" ? "bg-success/15 text-success" : c.statusKey === "planned" ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground")}>
-                    {statusLabel(c.statusKey)}
-                  </span>
-                </div>
-                <p className="text-sm text-muted-foreground mb-3"><span className="text-foreground font-medium">{t("demo.manager.challenges.rewardLabel")}</span> {c.rewardKey ? challengeReward(c.rewardKey) : c.reward}</p>
-                <div className="h-2 rounded-full bg-secondary overflow-hidden">
-                  <div className="h-full gradient-primary transition-all" style={{ width: c.progress + "%" }} />
-                </div>
-              </div>
-            ))}
-          </TabsContent>
-
           {/* EINSTELLUNGEN */}
           <TabsContent value="settings" className="space-y-6">
             <section className="surface-card p-5 md:p-6">
