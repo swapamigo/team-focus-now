@@ -54,3 +54,45 @@ export const demoStats = {
   todayPenalty: 14,
   activeChallenge: "Fokus-Woche · Belohnung: Tankgutschein 50 €",
 };
+
+// ---------------------------------------------------------------------------
+// Gestaffelte Gewinne: nicht linear, aber so, dass Aufsteigen motiviert und
+// auch der letzte Platz noch etwas bekommt.
+const TIER_CURVE = [1, 0.8, 0.5, 0.24, 0.12, 0.08, 0.04];
+
+export function prizeTiers(topPrize: number, places: number): number[] {
+  const out: number[] = [];
+  for (let i = 0; i < places; i++) {
+    const t = places === 1 ? 0 : (i / (places - 1)) * (TIER_CURVE.length - 1);
+    const lo = Math.floor(t), hi = Math.min(TIER_CURVE.length - 1, lo + 1);
+    const frac = TIER_CURVE[lo] + (TIER_CURVE[hi] - TIER_CURVE[lo]) * (t - lo);
+    out.push(Math.max(2, Math.round(topPrize * frac)));
+  }
+  return out;
+}
+
+/** Ø Handy-Bildschirmzeit pro Person und Tag (Minuten) – sinkt über die Monate. */
+export function genScreenTime(seed = 0, monthLabels: string[] = MONTH_KEYS) {
+  const now = new Date();
+  return Array.from({ length: 6 }).map((_, i) => {
+    const d = new Date(now.getFullYear(), now.getMonth() - (5 - i), 1);
+    const p = i / 5;
+    const noise = ((Math.sin((i + seed) * 2.1) + 1) / 2 - 0.5) * 8;
+    return {
+      label: `${monthLabels[d.getMonth()]} ${String(d.getFullYear()).slice(2)}`,
+      minutes: Math.round(192 - p * 66 + noise),
+    };
+  });
+}
+
+/** Anonyme Anzeigenamen – so sehen Kolleg:innen einander in der App. */
+export const demoAnonNames = [
+  { alias: "Blauer Falke", teamId: "3", isMe: true },
+  { alias: "Stiller Kaktus", teamId: "3" },
+  { alias: "Nordlicht", teamId: "3" },
+  { alias: "Turbo-Otter", teamId: "1" },
+  { alias: "Kaffee-Komet", teamId: "1" },
+  { alias: "Leise Welle", teamId: "2" },
+  { alias: "Bergfuchs", teamId: "2" },
+  { alias: "Sonnendeck", teamId: "4" },
+];
