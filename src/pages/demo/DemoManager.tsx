@@ -29,12 +29,6 @@ const initialMembers = [
   { name: "Tim Werner", email: "tim.werner@beispiel.de", team: "Team Delta", roleKey: "demo.manager.role.m" },
 ];
 
-const initialChallenges = [
-  { key: "focusWeek", statusKey: "active", rewardKey: "fuelVoucher", progress: 68, daysKey: "daysLeft5" },
-  { key: "phoneDiet", statusKey: "planned", rewardKey: "teamLunch", progress: 0, daysKey: "startIn12" },
-  { key: "quarterMarathon", statusKey: "finished", rewardKey: "mealVoucher", progress: 100, daysKey: "winnerAlpha" },
-];
-
 const demoWhitelist = {
   apps: ["Microsoft Teams", "Slack", "Outlook", "Notion", "Figma"],
   blockedWebsites: ["instagram.com", "tiktok.com", "youtube.com", "x.com", "reddit.com"],
@@ -51,44 +45,17 @@ export default function DemoManager() {
     return first ? Math.max(0, Math.round(((first - last) / first) * 100)) : 0;
   }, [screenTime]);
 
-  const statusLabel = (k: string) => t(`demo.manager.challenges.status.${k}`);
-  const challengeName = (k: string) => t(`demo.manager.challenges.name.${k}`);
-  const challengeReward = (k: string) => t(`demo.manager.challenges.reward.${k}`);
-  const challengeDays = (k: string) => t(`demo.manager.challenges.days.${k}`);
   const roleLabel = (k: string) => t(k);
 
   // Interactive demo state
   const [members, setMembers] = useState(initialMembers);
   const [teamsList, setTeamsList] = useState(demoTeams.map((tm) => ({ id: tm.id, name: tm.name, color: tm.color, members: tm.members, avgMin: tm.avgMin, isOwn: tm.isOwn })));
-  const [challenges, setChallenges] = useState(initialChallenges);
 
-  // dialog states
-  const [openChallenge, setOpenChallenge] = useState(false);
-  const [chName, setChName] = useState("");
-  const [chReward, setChReward] = useState("");
-  const [chDays, setChDays] = useState("7");
 
-  const [openTeam, setOpenTeam] = useState(false);
-  const [teamName, setTeamName] = useState("");
-  const [teamColor, setTeamColor] = useState("#6366f1");
 
   const [openInvite, setOpenInvite] = useState(false);
   const [inviteName, setInviteName] = useState("");
   const [inviteTeam, setInviteTeam] = useState("Team Alpha");
-
-  const createChallenge = () => {
-    if (!chName.trim()) return toast.error(t("demo.manager.toast.nameMissing"));
-    setChallenges([{ key: `custom-${Date.now()}`, name: chName, statusKey: "planned", reward: chReward || t("demo.manager.dialog.teamRewardDefault"), progress: 0, days: t("demo.manager.dialog.startInDays", { days: chDays }) } as any, ...challenges]);
-    setOpenChallenge(false); setChName(""); setChReward(""); setChDays("7");
-    toast.success(t("demo.manager.toast.challengeCreated"));
-  };
-
-  const createTeam = () => {
-    if (!teamName.trim()) return toast.error(t("demo.manager.toast.nameMissing"));
-    setTeamsList([...teamsList, { id: `t-${Date.now()}`, name: teamName, color: teamColor, members: 0, avgMin: 0, isOwn: false }]);
-    setOpenTeam(false); setTeamName(""); setTeamColor("#6366f1");
-    toast.success(t("demo.manager.toast.teamCreated"));
-  };
 
   const invite = () => {
     if (!inviteName.trim()) return toast.error(t("demo.manager.toast.nameMissing"));
