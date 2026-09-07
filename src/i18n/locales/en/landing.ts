@@ -125,7 +125,7 @@ const d: Dict = {
   "landing.privacy.codetermination.desc": "Co-determination taken into account (§ 96 ArbVG, § 87 BetrVG). Templates for a works agreement, DPIA, DPA and employee info sheet are included.",
   "landing.privacy.codetermination.link": "Legal compliance in the DACH region & works council acceptance",
   "landing.rewards.eyebrow": "Rewards",
-  "landing.rewards.title": "What the winning team gets.",
+  "landing.rewards.title": "What you get at the end of the month.",
   "landing.rewards.item1": "Meal voucher",
   "landing.rewards.item2": "Fuel voucher",
   "landing.rewards.item3": "Event tickets",

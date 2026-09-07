@@ -125,7 +125,7 @@ const d: Dict = {
   "landing.privacy.codetermination.desc": "Mitbestimmung berücksichtigt (§ 96 ArbVG, § 87 BetrVG). Vorlagen für Betriebsvereinbarung, DSFA, AVV und Mitarbeiter-Infoblatt sind inklusive.",
   "landing.privacy.codetermination.link": "Rechtliche Compliance im DACH-Raum & Betriebsrat-Akzeptanz",
   "landing.rewards.eyebrow": "Belohnungen",
-  "landing.rewards.title": "Was das Gewinner-Team bekommt.",
+  "landing.rewards.title": "Was du am Monatsende bekommst.",
   "landing.rewards.item1": "Essensgutschein",
   "landing.rewards.item2": "Tankgutschein",
   "landing.rewards.item3": "Event-Tickets",

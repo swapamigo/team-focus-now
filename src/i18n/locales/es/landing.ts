@@ -125,7 +125,7 @@ const d: Dict = {
   "landing.privacy.codetermination.desc": "Se tiene en cuenta la representación de los trabajadores conforme a la normativa aplicable. Se incluyen plantillas de acuerdo de empresa, EIPD, contrato de encargado del tratamiento y hoja informativa para empleados.",
   "landing.privacy.codetermination.link": "Cumplimiento legal en el ámbito germano y aceptación por el comité de empresa",
   "landing.rewards.eyebrow": "Recompensas",
-  "landing.rewards.title": "Lo que recibe el equipo ganador.",
+  "landing.rewards.title": "Lo que recibes a final de mes.",
   "landing.rewards.item1": "Vale de comida",
   "landing.rewards.item2": "Vale de gasolina",
   "landing.rewards.item3": "Entradas a eventos",
