@@ -351,6 +351,12 @@ const d: Dict = {
   "landing.interruption.study": "Demostrado en este estudio.",
   "landing.interruption.alt_desktop": "Cómo ocurre una interrupción: 1 segundo en el móvil provoca 23 minutos de foco perdido",
   "landing.interruption.alt_mobile": "Cómo ocurre una interrupción (vista móvil): 1 segundo en el móvil provoca 23 minutos de foco perdido",
+
+  "landing.rewards.staggered_title": "Premios escalonados: todos los puestos ganan",
+  "landing.rewards.staggered_desc": "Ejemplo con premio principal de 50 €: 1.º = 50 €, 2.º = 40 €, 3.º = 25 €, 4.º = 12 €, 5.º = 6 €, 6.º = 4 €, 7.º = 2 €. Incluso el último puesto recibe algo.",
+  "landing.rewards.auto_title": "Automático a final de mes",
+  "landing.rewards.auto_desc": "Tu premio aparece automáticamente en la app a final de mes y se abona desde allí, sin hablar con tu responsable.",
+  "landing.rewards.manager_blind": "Tu responsable ni siquiera sabe quién ha ganado.",
 };
 
 export default d;
