@@ -125,7 +125,7 @@ const d: Dict = {
   "landing.privacy.codetermination.desc": "Mitbestimmung berücksichtigt (§ 96 ArbVG, § 87 BetrVG). Vorlagen für Betriebsvereinbarung, DSFA, AVV und Mitarbeiter-Infoblatt sind inklusive.",
   "landing.privacy.codetermination.link": "Rechtliche Compliance im DACH-Raum & Betriebsrat-Akzeptanz",
   "landing.rewards.eyebrow": "Belohnungen",
-  "landing.rewards.title": "Was das Gewinner-Team bekommt.",
+  "landing.rewards.title": "Was du am Monatsende bekommst.",
   "landing.rewards.item1": "Essensgutschein",
   "landing.rewards.item2": "Tankgutschein",
   "landing.rewards.item3": "Event-Tickets",
@@ -351,6 +351,12 @@ const d: Dict = {
   "landing.interruption.study": "Bewiesen in dieser Studie.",
   "landing.interruption.alt_desktop": "Ablauf einer Unterbrechung: 1 Sekunde am Handy führt zu 23 Minuten verlorener Fokuszeit",
   "landing.interruption.alt_mobile": "Ablauf einer Unterbrechung (mobile Ansicht): 1 Sekunde am Handy führt zu 23 Minuten verlorener Fokuszeit",
+
+  "landing.rewards.staggered_title": "Gestaffelte Gewinne – jeder Platz gewinnt",
+  "landing.rewards.staggered_desc": "Beispiel bei 50 € Hauptgewinn: Platz 1 = 50 €, Platz 2 = 40 €, Platz 3 = 25 €, Platz 4 = 12 €, Platz 5 = 6 €, Platz 6 = 4 €, Platz 7 = 2 €. Auch der letzte Platz bekommt etwas.",
+  "landing.rewards.auto_title": "Automatisch am Monatsende",
+  "landing.rewards.auto_desc": "Dein Gewinn erscheint am Monatsende automatisch in der App und wird von dort ausgezahlt – ohne Gespräch mit dem Manager.",
+  "landing.rewards.manager_blind": "Dein Manager weiß nicht einmal, wer gewonnen hat.",
 };
 
 export default d;

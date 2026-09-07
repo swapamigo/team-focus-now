@@ -1,15 +1,18 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DemoBanner from "@/components/demo/DemoBanner";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { demoTeams, demoTeamNameKey, genWeek, DAY_KEYS } from "@/components/demo/demoData";
+import { demoTeams, demoTeamNameKey, genWeek, DAY_KEYS, prizeTiers, demoAnonNames } from "@/components/demo/demoData";
 import {
   Trophy, Smartphone, TrendingDown, TrendingUp, Lock, Sparkles, Users, Home,
   BarChart3, Settings as Cog, Bell, CheckCircle2, Globe, Shield, Clock,
-  Timer, ScanLine, MoonStar,
+  Timer, ScanLine, MoonStar, Gift, BellRing, Pencil,
 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 import { Bar, BarChart, ResponsiveContainer, XAxis, Tooltip, Cell, Area, AreaChart } from "recharts";
 import Seo from "@/components/Seo";
 import { useT } from "@/i18n";
@@ -27,6 +30,11 @@ export default function DemoEmployee() {
   const dayLabels = useMemo(() => DAY_KEYS.map((k) => t(k)), [t]);
   const week = useMemo(() => genWeek(seed, dayLabels), [seed, dayLabels]);
   const ownRank = demoTeams.findIndex((tm) => tm.isOwn) + 1 || 3;
+  const places = demoAnonNames.length;
+  const tiers = useMemo(() => prizeTiers(50, places), [places]);
+  const myPlace = 3;
+  const [alias, setAlias] = useState("Blauer Falke");
+  const [aliasDraft, setAliasDraft] = useState("Blauer Falke");
 
   return (
     <div className="min-h-screen bg-background pb-12">
@@ -56,6 +64,7 @@ export default function DemoEmployee() {
             <TabsTrigger value="home"><Home className="h-4 w-4 mr-1.5" />{t("demo.employee.tabs.today")}</TabsTrigger>
             <TabsTrigger value="stats"><BarChart3 className="h-4 w-4 mr-1.5" />{t("demo.employee.tabs.stats")}</TabsTrigger>
             <TabsTrigger value="teams"><Trophy className="h-4 w-4 mr-1.5" />{t("demo.employee.tabs.teams")}</TabsTrigger>
+            <TabsTrigger value="prizes"><Gift className="h-4 w-4 mr-1.5" />{t("demo.employee.tabs.prizes")}</TabsTrigger>
             <TabsTrigger value="features"><Sparkles className="h-4 w-4 mr-1.5" />{t("demo.employee.tabs.features")}</TabsTrigger>
             <TabsTrigger value="settings"><Cog className="h-4 w-4 mr-1.5" />{t("demo.employee.tabs.settings")}</TabsTrigger>
           </TabsList>
@@ -160,6 +169,29 @@ export default function DemoEmployee() {
             </div>
 
             <div className="surface-card p-5">
+              <h3 className="font-semibold mb-1">{t("demo.employee.teams.anonTitle")}</h3>
+              <p className="text-xs text-muted-foreground mb-3">{t("demo.employee.teams.anonNote")}</p>
+              <ul className="divide-y divide-border/40">
+                {demoAnonNames.map((m) => {
+                  const team = demoTeams.find((tm) => tm.id === m.teamId);
+                  const label = m.isMe ? alias : m.alias;
+                  return (
+                    <li key={m.alias} className="flex items-center gap-3 py-2.5">
+                      <span className="h-8 w-8 rounded-lg shrink-0" style={{ background: team?.color }} aria-hidden="true" />
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium truncate">
+                          {label}
+                          {m.isMe && <span className="ml-2 text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-primary/15 text-primary font-semibold">{t("demo.employee.teams.you")}</span>}
+                        </p>
+                        <p className="text-xs text-muted-foreground truncate">{t(demoTeamNameKey(m.teamId))}</p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <div className="surface-card p-5">
               <h3 className="font-semibold mb-2">{t("demo.employee.teams.whatEmployerSees")}</h3>
               <p className="text-sm text-muted-foreground">
                 {t("demo.employee.teams.employerSeesBody")}
@@ -167,6 +199,39 @@ export default function DemoEmployee() {
             </div>
           </TabsContent>
 
+
+          {/* GEWINNE */}
+          <TabsContent value="prizes" className="space-y-4">
+            <div className="rounded-2xl border border-success/30 bg-success/5 p-4 flex items-start gap-3">
+              <BellRing className="h-4 w-4 text-success shrink-0 mt-0.5" />
+              <div>
+                <p className="text-sm font-semibold">{t("demo.employee.notify.title")}</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {t("demo.employee.notify.body", { place: myPlace, amount: tiers[myPlace - 1] })}
+                </p>
+              </div>
+            </div>
+
+            <div className="surface-card p-5">
+              <h2 className="font-semibold">{t("demo.employee.prizes.title")}</h2>
+              <p className="text-xs text-muted-foreground mt-1 mb-3">{t("demo.employee.prizes.subtitle")}</p>
+              <ul className="divide-y divide-border/40">
+                {tiers.map((amount, i) => {
+                  const mine = i + 1 === myPlace;
+                  return (
+                    <li key={i} className={"flex items-center justify-between gap-3 py-2.5 px-2 rounded-lg " + (mine ? "bg-primary/10" : "")}>
+                      <span className="text-sm font-medium">
+                        {t("demo.employee.prizes.place", { place: i + 1 })}
+                        {mine && <span className="ml-2 text-[10px] uppercase tracking-wider text-primary font-semibold">{t("demo.employee.prizes.yourPlace")}</span>}
+                      </span>
+                      <span className="text-sm font-semibold tabular-nums">{amount} €</span>
+                    </li>
+                  );
+                })}
+              </ul>
+              <p className="text-xs text-muted-foreground mt-4 leading-relaxed">{t("demo.employee.prizes.autoNote")}</p>
+            </div>
+          </TabsContent>
 
           {/* FEATURES */}
           <TabsContent value="features" className="space-y-3">
@@ -187,7 +252,20 @@ export default function DemoEmployee() {
           <TabsContent value="settings" className="space-y-4">
             <section className="surface-card p-5">
               <h2 className="font-semibold flex items-center gap-2 mb-4"><Shield className="h-4 w-4 text-primary" />{t("demo.employee.settings.profile")}</h2>
-              <Field label={t("demo.employee.settings.name")} value="Alex Beispiel" />
+              <div className="py-2.5 border-b border-border/40">
+                <Label className="text-sm text-muted-foreground">{t("demo.employee.settings.anonName")}</Label>
+                <div className="flex gap-2 mt-1.5">
+                  <Input value={aliasDraft} onChange={(e) => setAliasDraft(e.target.value)} className="h-9" />
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => { setAlias(aliasDraft.trim() || alias); toast.success(t("demo.employee.toast.nameSaved")); }}
+                  >
+                    <Pencil className="h-3.5 w-3.5 mr-1.5" />{t("demo.employee.settings.saveName")}
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1.5">{t("demo.employee.settings.anonNameHint")}</p>
+              </div>
               <Field label={t("demo.employee.settings.email")} value="alex@beispiel-gmbh.de" />
               <Field label={t("demo.employee.settings.team")} value="Team Gamma" />
             </section>

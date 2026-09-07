@@ -125,7 +125,7 @@ const d: Dict = {
   "landing.privacy.codetermination.desc": "Co-determination taken into account (§ 96 ArbVG, § 87 BetrVG). Templates for a works agreement, DPIA, DPA and employee info sheet are included.",
   "landing.privacy.codetermination.link": "Legal compliance in the DACH region & works council acceptance",
   "landing.rewards.eyebrow": "Rewards",
-  "landing.rewards.title": "What the winning team gets.",
+  "landing.rewards.title": "What you get at the end of the month.",
   "landing.rewards.item1": "Meal voucher",
   "landing.rewards.item2": "Fuel voucher",
   "landing.rewards.item3": "Event tickets",
@@ -351,6 +351,12 @@ const d: Dict = {
   "landing.interruption.study": "Proven in this study.",
   "landing.interruption.alt_desktop": "How an interruption unfolds: 1 second on the phone leads to 23 minutes of lost focus time",
   "landing.interruption.alt_mobile": "How an interruption unfolds (mobile view): 1 second on the phone leads to 23 minutes of lost focus time",
+
+  "landing.rewards.staggered_title": "Tiered prizes – every place wins",
+  "landing.rewards.staggered_desc": "Example with a €50 top prize: 1st = €50, 2nd = €40, 3rd = €25, 4th = €12, 5th = €6, 6th = €4, 7th = €2. Even last place gets something.",
+  "landing.rewards.auto_title": "Automatic at the end of the month",
+  "landing.rewards.auto_desc": "Your prize appears automatically in the app at the end of the month and is paid out from there – no conversation with your manager.",
+  "landing.rewards.manager_blind": "Your manager doesn't even know who won.",
 };
 
 export default d;

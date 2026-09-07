@@ -55,9 +55,25 @@ export default function RewardsSection() {
           ))}
         </div>
 
-        <p className="text-center text-xs text-muted-foreground mt-8 text-white/60">
+        <div className="grid md:grid-cols-2 gap-4 max-w-5xl mx-auto mt-8">
+          <div className="glow-card p-5">
+            <p className="text-sm font-semibold mb-1.5">{t("landing.rewards.staggered_title")}</p>
+            <p className="text-xs text-white/70 leading-relaxed">{t("landing.rewards.staggered_desc")}</p>
+          </div>
+          <div className="glow-card p-5">
+            <p className="text-sm font-semibold mb-1.5">{t("landing.rewards.auto_title")}</p>
+            <p className="text-xs text-white/70 leading-relaxed">{t("landing.rewards.auto_desc")}</p>
+          </div>
+        </div>
+
+        <p className="text-center text-sm md:text-base font-semibold text-white mt-6">
+          {t("landing.rewards.manager_blind")}
+        </p>
+
+        <p className="text-center text-xs mt-3 text-white/60">
           {t("landing.rewards.cycle_prefix")} <span className="text-white font-medium">{t("landing.rewards.cycle_value")}</span>.
         </p>
+
       </div>
     </section>
   );

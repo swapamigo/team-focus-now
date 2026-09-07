@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogT
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DemoBanner from "@/components/demo/DemoBanner";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { demoTeams, demoTeamNameKey, demoStats, genYear, MONTH_KEYS } from "@/components/demo/demoData";
+import { demoTeams, demoStats, genScreenTime, MONTH_KEYS } from "@/components/demo/demoData";
 import { toast } from "sonner";
 import {
   Users, Trophy, Activity, TrendingUp, Sparkles, CalendarRange, UserCog,
@@ -29,12 +29,6 @@ const initialMembers = [
   { name: "Tim Werner", email: "tim.werner@beispiel.de", team: "Team Delta", roleKey: "demo.manager.role.m" },
 ];
 
-const initialChallenges = [
-  { key: "focusWeek", statusKey: "active", rewardKey: "fuelVoucher", progress: 68, daysKey: "daysLeft5" },
-  { key: "phoneDiet", statusKey: "planned", rewardKey: "teamLunch", progress: 0, daysKey: "startIn12" },
-  { key: "quarterMarathon", statusKey: "finished", rewardKey: "mealVoucher", progress: 100, daysKey: "winnerAlpha" },
-];
-
 const demoWhitelist = {
   apps: ["Microsoft Teams", "Slack", "Outlook", "Notion", "Figma"],
   blockedWebsites: ["instagram.com", "tiktok.com", "youtube.com", "x.com", "reddit.com"],
@@ -44,46 +38,24 @@ export default function DemoManager() {
   const t = useT();
   const [seed, setSeed] = useState(0);
   const monthLabels = useMemo(() => MONTH_KEYS.map((k) => t(k)), [t]);
-  const yearData = useMemo(() => genYear(seed, monthLabels), [seed, monthLabels]);
+  const screenTime = useMemo(() => genScreenTime(seed, monthLabels), [seed, monthLabels]);
+  const screenTimeDrop = useMemo(() => {
+    const first = screenTime[0]?.minutes ?? 0;
+    const last = screenTime[screenTime.length - 1]?.minutes ?? 0;
+    return first ? Math.max(0, Math.round(((first - last) / first) * 100)) : 0;
+  }, [screenTime]);
 
-  const statusLabel = (k: string) => t(`demo.manager.challenges.status.${k}`);
-  const challengeName = (k: string) => t(`demo.manager.challenges.name.${k}`);
-  const challengeReward = (k: string) => t(`demo.manager.challenges.reward.${k}`);
-  const challengeDays = (k: string) => t(`demo.manager.challenges.days.${k}`);
   const roleLabel = (k: string) => t(k);
 
   // Interactive demo state
   const [members, setMembers] = useState(initialMembers);
   const [teamsList, setTeamsList] = useState(demoTeams.map((tm) => ({ id: tm.id, name: tm.name, color: tm.color, members: tm.members, avgMin: tm.avgMin, isOwn: tm.isOwn })));
-  const [challenges, setChallenges] = useState(initialChallenges);
 
-  // dialog states
-  const [openChallenge, setOpenChallenge] = useState(false);
-  const [chName, setChName] = useState("");
-  const [chReward, setChReward] = useState("");
-  const [chDays, setChDays] = useState("7");
 
-  const [openTeam, setOpenTeam] = useState(false);
-  const [teamName, setTeamName] = useState("");
-  const [teamColor, setTeamColor] = useState("#6366f1");
 
   const [openInvite, setOpenInvite] = useState(false);
   const [inviteName, setInviteName] = useState("");
   const [inviteTeam, setInviteTeam] = useState("Team Alpha");
-
-  const createChallenge = () => {
-    if (!chName.trim()) return toast.error(t("demo.manager.toast.nameMissing"));
-    setChallenges([{ key: `custom-${Date.now()}`, name: chName, statusKey: "planned", reward: chReward || t("demo.manager.dialog.teamRewardDefault"), progress: 0, days: t("demo.manager.dialog.startInDays", { days: chDays }) } as any, ...challenges]);
-    setOpenChallenge(false); setChName(""); setChReward(""); setChDays("7");
-    toast.success(t("demo.manager.toast.challengeCreated"));
-  };
-
-  const createTeam = () => {
-    if (!teamName.trim()) return toast.error(t("demo.manager.toast.nameMissing"));
-    setTeamsList([...teamsList, { id: `t-${Date.now()}`, name: teamName, color: teamColor, members: 0, avgMin: 0, isOwn: false }]);
-    setOpenTeam(false); setTeamName(""); setTeamColor("#6366f1");
-    toast.success(t("demo.manager.toast.teamCreated"));
-  };
 
   const invite = () => {
     if (!inviteName.trim()) return toast.error(t("demo.manager.toast.nameMissing"));
@@ -167,91 +139,78 @@ export default function DemoManager() {
         <Tabs defaultValue="overview" className="w-full">
           <TabsList className="mb-6 flex w-full overflow-x-auto">
             <TabsTrigger value="overview"><CalendarRange className="h-4 w-4 mr-1.5" />{t("demo.manager.tabs.overview")}</TabsTrigger>
-            <TabsTrigger value="teams"><Users className="h-4 w-4 mr-1.5" />{t("demo.manager.tabs.teams")}</TabsTrigger>
-            <TabsTrigger value="challenges"><Trophy className="h-4 w-4 mr-1.5" />{t("demo.manager.tabs.challenges")}</TabsTrigger>
+            <TabsTrigger value="teams"><Users className="h-4 w-4 mr-1.5" />{t("demo.manager.tabs.people")}</TabsTrigger>
             <TabsTrigger value="settings"><Cog className="h-4 w-4 mr-1.5" />{t("demo.manager.tabs.settings")}</TabsTrigger>
           </TabsList>
 
-          {/* ÜBERSICHT */}
+          {/* ÜBERSICHT – ausschließlich Unternehmenswerte */}
           <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-2 gap-3">
-              <Stat icon={Users} label={t("demo.manager.overview.members")} value={demoStats.memberCount.toString()} />
-              <Stat icon={Trophy} label={t("demo.manager.overview.teams")} value={String(teamsList.length)} />
+              <Stat icon={Users} label={t("demo.manager.overview.signedUp")} value={demoStats.memberCount.toString()} />
+              <Stat icon={Mail} label={t("demo.manager.overview.invited")} value={String(members.length + demoStats.memberCount)} />
             </div>
 
             <section className="surface-card p-5 md:p-6">
-              <h2 className="font-semibold flex items-center gap-2 mb-1"><Shield className="h-4 w-4 text-primary" /> {t("demo.manager.overview.oneInfoTitle")}</h2>
-              <p className="text-sm text-muted-foreground mb-4">
-                {t("demo.manager.overview.oneInfoBody")}
-              </p>
-              <ul className="space-y-3">
-                {[
-                  { name: t("demo.manager.overview.rewardTeamBlue"), benefit: t("demo.manager.overview.rewardBenefitEarlyLeave") },
-                  { name: t("demo.manager.overview.rewardTeamAlpha"), benefit: t("demo.manager.overview.rewardBenefitTeamEvent") },
-                ].map((r) => (
-                  <li key={r.name} className="rounded-xl border border-success/30 bg-success/5 p-4">
-                    <p className="font-semibold">{r.name}</p>
-                    <p className="text-sm text-success font-medium">{t("demo.manager.overview.rewardUnlocked")}</p>
-                    <p className="text-sm text-muted-foreground mt-1">{t("demo.manager.overview.chosenBenefit", { benefit: r.benefit })}</p>
-                  </li>
-                ))}
-              </ul>
+              <div className="flex items-start justify-between gap-3 flex-wrap mb-1">
+                <h2 className="font-semibold flex items-center gap-2"><Smartphone className="h-4 w-4 text-primary" /> {t("demo.manager.overview.screenTimeTitle")}</h2>
+                <span className="text-xs text-success font-medium flex items-center gap-1">
+                  <TrendingUp className="h-3 w-3 rotate-180" /> {t("demo.manager.overview.screenTimeTrend", { percent: screenTimeDrop })}
+                </span>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">{t("demo.manager.overview.screenTimeSub")}</p>
+              <div className="h-48">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={screenTime}>
+                    <defs>
+                      <linearGradient id="mgrGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.35} />
+                        <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                    <YAxis hide domain={[0, "dataMax + 30"]} />
+                    <Tooltip
+                      contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }}
+                      formatter={(v: any) => [`${v} ${t("demo.manager.overview.screenTimeUnit")}`, t("demo.manager.overview.screenTimeTitle")]}
+                    />
+                    <Area type="monotone" dataKey="minutes" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#mgrGrad)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </section>
+
+            <section className="surface-card p-5 md:p-6">
+              <h2 className="font-semibold flex items-center gap-2 mb-1"><Shield className="h-4 w-4 text-primary" /> {t("demo.manager.overview.companyOnlyTitle")}</h2>
+              <p className="text-sm text-muted-foreground">{t("demo.manager.overview.companyOnlyBody")}</p>
+            </section>
+
+            <section className="surface-card p-5 md:p-6">
+              <h2 className="font-semibold flex items-center gap-2 mb-1"><Trophy className="h-4 w-4 text-primary" /> {t("demo.manager.overview.rewardsInfoTitle")}</h2>
+              <p className="text-sm text-muted-foreground">{t("demo.manager.overview.rewardsInfoBody")}</p>
             </section>
 
             <section className="surface-card p-5 md:p-6">
               <h2 className="font-semibold mb-3">{t("demo.manager.overview.notVisibleTitle")}</h2>
               <ul className="grid sm:grid-cols-2 gap-y-1.5 gap-x-4 text-sm text-muted-foreground">
                 {[
+                  t("demo.manager.overview.notVisible.winners"),
+                  t("demo.manager.overview.notVisible.teamResults"),
                   t("demo.manager.overview.notVisible.names"),
                   t("demo.manager.overview.notVisible.focusTimes"),
                   t("demo.manager.overview.notVisible.usageMinutes"),
-                  t("demo.manager.overview.notVisible.teamAverages"),
                   t("demo.manager.overview.notVisible.rankings"),
                   t("demo.manager.overview.notVisible.appsWebsites"),
                   t("demo.manager.overview.notVisible.messages"),
                   t("demo.manager.overview.notVisible.location"),
-                  t("demo.manager.overview.notVisible.missedGoal"),
                 ].map((x) => <li key={x}>· {x}</li>)}
               </ul>
             </section>
           </TabsContent>
 
 
-          {/* TEAMS */}
+          {/* MITARBEITENDE – einladen & importieren */}
           <TabsContent value="teams" className="space-y-6">
-            <section className="surface-card p-5 md:p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold">{t("demo.manager.teams.title")}</h2>
-                <Dialog open={openTeam} onOpenChange={setOpenTeam}>
-                  <DialogTrigger asChild>
-                    <Button size="sm" variant="outline"><Plus className="h-4 w-4 mr-1" />{t("demo.manager.teams.team")}</Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader><DialogTitle>{t("demo.manager.teams.newTeam")}</DialogTitle></DialogHeader>
-                    <div className="space-y-3">
-                      <div><Label>{t("demo.manager.teams.name")}</Label><Input value={teamName} onChange={(e) => setTeamName(e.target.value)} placeholder={t("demo.manager.teams.namePlaceholder")} /></div>
-                      <div><Label>{t("demo.manager.teams.color")}</Label><Input type="color" value={teamColor} onChange={(e) => setTeamColor(e.target.value)} className="h-10 w-20 p-1" /></div>
-                    </div>
-                    <DialogFooter><Button onClick={createTeam}>{t("demo.manager.teams.create")}</Button></DialogFooter>
-                  </DialogContent>
-                </Dialog>
-              </div>
-              <ul className="space-y-2">
-                {teamsList.map((tm) => (
-                  <li key={tm.id} className="flex items-center gap-3 p-3 rounded-xl bg-secondary/60">
-                    <span className="h-8 w-8 rounded-lg grid place-items-center text-xs font-semibold text-white" style={{ background: tm.color }}>{tm.name.slice(0, 2).toUpperCase()}</span>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate">{t(demoTeamNameKey(tm.id))}</p>
-                      <p className="text-xs text-muted-foreground">{t("demo.manager.teams.memberCount", { count: tm.members })}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <p className="text-xs text-muted-foreground mt-3">
-                {t("demo.manager.teams.averagesHidden")}
-              </p>
 
-            </section>
 
             <section className="surface-card p-5 md:p-6">
               <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
@@ -310,43 +269,6 @@ export default function DemoManager() {
           </TabsContent>
 
           {/* CHALLENGES */}
-          <TabsContent value="challenges" className="space-y-4">
-            <div className="flex justify-end">
-              <Dialog open={openChallenge} onOpenChange={setOpenChallenge}>
-                <DialogTrigger asChild>
-                  <Button size="sm"><Plus className="h-4 w-4 mr-1" />{t("demo.manager.challenges.new")}</Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader><DialogTitle>{t("demo.manager.challenges.newTitle")}</DialogTitle></DialogHeader>
-                  <div className="space-y-3">
-                    <div><Label>{t("demo.manager.teams.name")}</Label><Input value={chName} onChange={(e) => setChName(e.target.value)} placeholder={t("demo.manager.challenges.namePlaceholder")} /></div>
-                    <div><Label>{t("demo.manager.challenges.reward")}</Label><Input value={chReward} onChange={(e) => setChReward(e.target.value)} placeholder={t("demo.manager.challenges.rewardPlaceholder")} /></div>
-                    <div><Label>{t("demo.manager.challenges.startInDays")}</Label><Input type="number" min="0" value={chDays} onChange={(e) => setChDays(e.target.value)} /></div>
-                  </div>
-                  <DialogFooter><Button onClick={createChallenge}>{t("demo.manager.challenges.createBtn")}</Button></DialogFooter>
-                </DialogContent>
-              </Dialog>
-            </div>
-            {challenges.map((c: any) => (
-              <div key={c.key ?? c.name} className="surface-card p-5">
-                <div className="flex items-start justify-between gap-3 mb-2 flex-wrap">
-                  <div>
-                    <h3 className="font-semibold flex items-center gap-2"><Trophy className="h-4 w-4 text-primary" />{c.key ? challengeName(c.key) : c.name}</h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">{c.daysKey ? challengeDays(c.daysKey) : c.days}</p>
-                  </div>
-                  <span className={"text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full font-semibold " +
-                    (c.statusKey === "active" ? "bg-success/15 text-success" : c.statusKey === "planned" ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground")}>
-                    {statusLabel(c.statusKey)}
-                  </span>
-                </div>
-                <p className="text-sm text-muted-foreground mb-3"><span className="text-foreground font-medium">{t("demo.manager.challenges.rewardLabel")}</span> {c.rewardKey ? challengeReward(c.rewardKey) : c.reward}</p>
-                <div className="h-2 rounded-full bg-secondary overflow-hidden">
-                  <div className="h-full gradient-primary transition-all" style={{ width: c.progress + "%" }} />
-                </div>
-              </div>
-            ))}
-          </TabsContent>
-
           {/* EINSTELLUNGEN */}
           <TabsContent value="settings" className="space-y-6">
             <section className="surface-card p-5 md:p-6">
