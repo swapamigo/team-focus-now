@@ -232,7 +232,7 @@ const d: Dict = {
   "landing.studies.study1.source": "Mark, Gudith & Klocke (2008), The Cost of Interrupted Work, CHI Conference",
   "landing.studies.study2.stat": "22 %",
   "landing.studies.study2.headline": "Digitaler Stress ist messbar",
-  "landing.studies.study2.body": "Eine Meta-Analyse im Journal »Frontiers in Psychiatry« verbindet problematische Smartphone-Nutzung direkt mit höherem Stress­level, Schlafproblemen und depressiver Symptomatik – besonders im Arbeits­kontext.",
+  "landing.studies.study2.body": "Digitaler Stress erklärt 22 % der Unterschiede in emotionaler Erschöpfung. Bei hoher Belastung berichten über 50 % der Beschäftigten von Rücken- oder Kopfschmerzen.",
   "landing.studies.study2.source": "Gimpel et al., Hans-Böckler-Stiftung, repräsentative Befragung von 2.640 Erwerbstätigen in Deutschland",
   "landing.studies.study3.stat": "3h 15min",
   "landing.studies.study3.headline": "durchschnittliche tägliche Smartphone-Nutzung",
