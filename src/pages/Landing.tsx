@@ -22,12 +22,15 @@ import RewardsSection from "@/components/landing/RewardsSection";
 import HabitFeatures from "@/components/landing/HabitFeatures";
 
 import LandingHeader from "@/components/landing/LandingHeader";
+import EmployeeAppPreview from "@/components/landing/EmployeeAppPreview";
+import ManagerVisibility from "@/components/landing/ManagerVisibility";
+import BlockerComparison from "@/components/landing/BlockerComparison";
+
 import Studies from "@/components/landing/Studies";
 import WorksCouncil from "@/components/landing/WorksCouncil";
 import PrivacySection from "@/components/landing/PrivacySection";
 import focusedImg from "@/assets/employee-focused.jpg";
 import stressedImg from "@/assets/employee-stressed.jpg";
-import heroPhonesBg from "@/assets/team-throwing-phones.png.asset.json";
 import step1Img from "@/assets/tf_step1.png.asset.json";
 import step2Img from "@/assets/tf_step2.png.asset.json";
 import step3Img from "@/assets/tf_step_teamdaten.png.asset.json";
@@ -110,72 +113,81 @@ export default function Landing() {
       <LandingHeader onDemo={() => { trackClick("cta:demo", "Demo ansehen"); setDemoOpen(true); }} onBookCall={() => openCallBooking("landing")} />
 
       <main>
-      {/* Hero — Eigenverantwortung statt Handyverbot */}
+      {/* Hero — Leg das Handy weg. Dein Chef zahlt dafür. */}
       <section className="relative overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-80"
-          style={{ backgroundImage: `url(${heroPhonesBg.url})` }}
-          aria-hidden
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/80 to-background pointer-events-none" />
         <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
         <div className="absolute inset-0 gradient-hero opacity-60 pointer-events-none" />
-        <div className="container relative pt-16 pb-12 md:pt-24 md:pb-16 text-center animate-fade-in">
-          <div className="inline-flex items-center gap-2 rounded-full border-2 border-primary/40 bg-primary/10 backdrop-blur px-5 py-2 text-sm font-semibold text-primary mb-3 shadow-glow">
-            <Sparkles className="h-4 w-4" />
-            {t("landing.hero.badge")}
-          </div>
-          <div className="mb-6">
-            <span className="inline-flex items-center rounded-full border border-border/60 bg-background/60 backdrop-blur px-3 py-1 text-[11px] font-medium text-muted-foreground">
-              {t("landing.hero.pilot_badge")}
-            </span>
-          </div>
+        <div className="container relative pt-14 pb-12 md:pt-20 md:pb-16 animate-fade-in">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center max-w-6xl mx-auto">
+            {/* Text */}
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 rounded-full border-2 border-primary/40 bg-primary/10 backdrop-blur px-5 py-2 text-sm font-semibold text-primary mb-3 shadow-glow">
+                <Sparkles className="h-4 w-4" />
+                {t("landing.hero.badge")}
+              </div>
+              <div className="mb-5">
+                <span className="inline-flex items-center rounded-full border border-border/60 bg-background/60 backdrop-blur px-3 py-1 text-[11px] font-medium text-muted-foreground">
+                  {t("landing.hero.pilot_badge")}
+                </span>
+              </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight mb-6 leading-[1.05]">
-            {t("landing.hero.title_line1")}<br />
-            <span className="text-gradient animate-gradient-x">{t("landing.hero.title_line2")}</span>
-          </h1>
-          <p className="mx-auto max-w-xl text-base sm:text-lg md:text-xl text-muted-foreground mb-4 leading-relaxed px-2">
-            {t("landing.hero.subtitle")}
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-3 px-4 mt-8">
-            <Button size="lg" className="h-14 px-8 text-base shadow-glow w-full sm:w-auto" onClick={() => { trackClick("cta:demo", "Demo ansehen"); setDemoOpen(true); }}>
-              <Sparkles className="mr-2 h-5 w-5" />
-              {t("common.buttons.demo")}
-              <ArrowRight className="ml-1 h-4 w-4" />
-            </Button>
-            <Button asChild size="lg" variant="outline" className="h-14 px-8 text-base w-full sm:w-auto">
-              <Link to="/fuer-mitarbeitende">
-                <Heart className="mr-2 h-5 w-5" />
-                {t("landing.hero.cta_employee_benefit")}
-              </Link>
-            </Button>
-          </div>
-
-          {/* Trust-Leiste direkt unter den CTAs */}
-          <div className="mt-8 max-w-3xl mx-auto px-4 space-y-3">
-            <div className="inline-flex items-center gap-3 rounded-2xl border border-success/30 bg-success/5 backdrop-blur px-5 py-3 text-left">
-              <Lock className="h-5 w-5 text-success shrink-0" />
-              <p className="text-sm md:text-base text-foreground/90">
-                {t("landing.hero.trust1")}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-5 leading-[1.05]">
+                {t("landing.hero.title_line1")}<br />
+                <span className="text-gradient animate-gradient-x">{t("landing.hero.title_line2")}</span>
+              </h1>
+              <p className="max-w-xl mx-auto lg:mx-0 text-base sm:text-lg text-muted-foreground leading-relaxed">
+                {t("landing.hero.subtitle")}
               </p>
+
+              <div className="flex flex-col sm:flex-row lg:justify-start justify-center gap-3 mt-7">
+                <Button
+                  size="lg"
+                  className="h-14 px-8 text-base shadow-glow w-full sm:w-auto"
+                  onClick={() => { trackClick("cta:demo", "So funktioniert das Spiel"); setDemoOpen(true); }}
+                >
+                  <Sparkles className="mr-2 h-5 w-5" />
+                  {t("landing.hero.cta_primary")}
+                  <ArrowRight className="ml-1 h-4 w-4" />
+                </Button>
+                <Button asChild size="lg" variant="outline" className="h-14 px-8 text-base w-full sm:w-auto">
+                  <Link to="/fuer-mitarbeitende">
+                    <Heart className="mr-2 h-5 w-5" />
+                    {t("landing.hero.cta_employee_benefit")}
+                  </Link>
+                </Button>
+              </div>
+
+              {/* Drei Vertrauenszeilen */}
+              <ul className="mt-7 space-y-2.5 text-left max-w-xl mx-auto lg:mx-0">
+                {[
+                  { icon: Eye, text: t("landing.hero.trust1") },
+                  { icon: Clock, text: t("landing.hero.trust2") },
+                  { icon: Smartphone, text: t("landing.hero.trust3") },
+                ].map((it) => (
+                  <li key={it.text} className="flex items-start gap-3 rounded-xl border border-border/50 bg-card/60 backdrop-blur px-4 py-2.5">
+                    <it.icon className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                    <span className="text-sm text-foreground/90 leading-relaxed">{it.text}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="inline-flex items-center gap-3 rounded-2xl border border-primary/30 bg-primary/5 backdrop-blur px-5 py-3 text-left">
-              <Smartphone className="h-5 w-5 text-primary shrink-0" />
-              <p className="text-sm md:text-base text-foreground/90">
-                {t("landing.hero.trust2")}
-              </p>
+
+            {/* App-Ansicht */}
+            <div className="order-last">
+              <EmployeeAppPreview />
             </div>
           </div>
-
-
         </div>
       </section>
 
+      {/* Was dein Chef sieht */}
+      <ManagerVisibility />
 
+      {/* Warum Sperren allein nicht reicht */}
+      <BlockerComparison />
 
       {/* Einstiege je Zielgruppe */}
+
       <section className="container py-10 md:py-14 border-b border-border/40" id="einstiege">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
           {[
