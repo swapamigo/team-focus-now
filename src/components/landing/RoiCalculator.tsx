@@ -8,7 +8,7 @@ import { TrendingDown, TrendingUp, Info, Sparkles, Download } from "lucide-react
 import jsPDF from "jspdf";
 import { useT, useI18n } from "@/i18n";
 
-const REDUCTION = 0.35;
+const REDUCTION = 0.25;
 const WORKING_DAYS = 250;
 
 const localeMap: Record<string, string> = { de: "de-DE", en: "en-US", es: "es-ES" };
@@ -22,7 +22,7 @@ export default function RoiCalculator() {
   const locale = localeMap[lang] || "de-DE";
   const [employees, setEmployees] = useState(25);
   const [hourlyCost, setHourlyCost] = useState(35);
-  const [hoursPerYear, setHoursPerYear] = useState(720);
+  const [hoursPerYear, setHoursPerYear] = useState(300);
 
   const fmtEUR = (n: number, prefix: string = "") => {
     const formatted = new Intl.NumberFormat(locale, { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
@@ -335,15 +335,7 @@ export default function RoiCalculator() {
         <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("landing.roi.eyebrow")}</p>
         <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">{t("landing.roi.title")}</h2>
         <p className="mt-4 text-muted-foreground text-lg">
-          {t("landing.roi.subtitle")}{" "}
-          <a 
-            href="https://steeringpoint.ie/worklife/how-does-smartphone-use-impact-the-workplace#:~:text=Smartphones%20are%20the%20ultimate%20office%20distraction%20%E2%80%93%E2%80%93%20which%20is%20why%20they%20are%20a%20problem%20for%20employers.%20The%20average%20employee%20loses%20720%20work%20hours%20due%20to%20distraction%20every%20year%20%5B15%5D.%20Those%20lost%20hours%20are%20felt%20in%20profits.%20As%20such%2C%20it%E2%80%99s%20no%20surprise%20that%20businesses%20have%20tried%20to%20fix%20the%20problem"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            {t("landing.roi.view_study")}
-          </a>
+          {t("landing.roi.subtitle")}
         </p>
       </div>
 
@@ -449,6 +441,12 @@ export default function RoiCalculator() {
             <p className="text-xs uppercase tracking-widest text-destructive font-semibold mb-2">{t("landing.roi.option_a_label")}</p>
             <p className="text-base font-semibold mb-1">{t("landing.roi.option_a_title")}</p>
             <p className="text-sm text-muted-foreground">{t("landing.roi.option_a_desc")}</p>
+            <p className="text-[11px] text-muted-foreground mt-2">
+              {t("landing.roi.source")}:{" "}
+              <a href="https://www.emerald.com/intr/article/34/7/24/1219667/Personal-use-of-smartphones-in-the-workplace-and" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground">
+                {t("landing.roi.option_a_source")}
+              </a>
+            </p>
           </div>
           <div className="surface-card p-5 border-primary/40 ring-1 ring-primary/20">
             <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-2">{t("landing.roi.option_b_label")}</p>
