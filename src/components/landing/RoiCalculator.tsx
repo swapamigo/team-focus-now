@@ -337,6 +337,8 @@ export default function RoiCalculator() {
         <p className="mt-4 text-muted-foreground text-lg">
           {t("landing.roi.subtitle")}
         </p>
+        <p className="mt-2 text-xs text-muted-foreground">{t("landing.roi.estimate_note")}</p>
+
       </div>
 
       <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-6">
@@ -420,6 +422,8 @@ export default function RoiCalculator() {
               <p className="text-sm text-muted-foreground mt-2">
                 ≈ <strong className="text-foreground">{t("landing.roi.per_month", { amount: fmtEUR(savingsPerMonth, "+") })}</strong> – {t("landing.roi.revenue_increase_note")}
               </p>
+              <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">{t("landing.roi.revenue_disclaimer")}</p>
+
               <p className="text-xs text-muted-foreground mt-3 flex items-start gap-1.5">
                 <Sparkles className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />
                 {t("landing.roi.practice_note")}
