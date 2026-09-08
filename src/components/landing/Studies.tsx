@@ -11,7 +11,7 @@ export default function Studies() {
       headline: t("landing.studies.study1.headline"),
       body: t("landing.studies.study1.body"),
       source: t("landing.studies.study1.source"),
-      href: "https://neurosciencenews.com/smartphone-notifications-cognition-22048/",
+      href: "https://www.ics.uci.edu/~gmark/chi08-mark.pdf",
     },
     {
       icon: HeartPulse,
@@ -19,7 +19,7 @@ export default function Studies() {
       headline: t("landing.studies.study2.headline"),
       body: t("landing.studies.study2.body"),
       source: t("landing.studies.study2.source"),
-      href: "https://www.frontiersin.org/articles/10.3389/fpsyt.2019.00821/full",
+      href: "https://www.boeckler.de/fpdf/HBS-007024/p_fofoe_WP_101_2018.pdf",
     },
     {
       icon: Smartphone,
@@ -33,9 +33,10 @@ export default function Studies() {
       icon: BookOpen,
       stat: t("landing.studies.study4.stat"),
       headline: t("landing.studies.study4.headline"),
-      body: t("landing.studies.study4.body"),
-      source: t("landing.studies.study4.source"),
-      href: "https://en.wikipedia.org/wiki/Nudge_theory",
+      body: "",
+      note: t("landing.studies.study4.note"),
+      source: "",
+      href: "",
     },
   ];
 
@@ -61,13 +62,18 @@ export default function Studies() {
                 <h3 className="font-semibold text-base md:text-lg leading-tight">{s.headline}</h3>
               </div>
             </div>
-            <p className="text-sm text-muted-foreground mt-4 leading-relaxed">{s.body}</p>
-            <p className="text-[11px] text-muted-foreground italic mt-4 pt-4 border-t border-border/50">
-              {t("landing.studies.source_label")}{" "}
-              <a href={s.href} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 not-italic hover:text-foreground">
-                {s.source}
-              </a>
-            </p>
+            {s.body ? <p className="text-sm text-muted-foreground mt-4 leading-relaxed">{s.body}</p> : null}
+            {s.source && s.href ? (
+              <p className="text-[11px] text-muted-foreground italic mt-4 pt-4 border-t border-border/50">
+                {t("landing.studies.source_label")}{" "}
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 not-italic hover:text-foreground">
+                  {s.source}
+                </a>
+              </p>
+            ) : null}
+            {s.note ? (
+              <p className="text-[11px] text-muted-foreground mt-4 pt-4 border-t border-border/50 leading-relaxed">{s.note}</p>
+            ) : null}
           </article>
         ))}
       </div>

@@ -65,9 +65,9 @@ export default function Landing() {
         { icon: Shield, text: t("landing.why.comparison.us.item1") },
         { icon: Clock, text: t("landing.why.comparison.us.item2") },
         { icon: Trophy, text: t("landing.why.comparison.us.item3") },
-        { icon: Heart, text: t("landing.why.comparison.us.item4") },
         { icon: TrendingUp, text: t("landing.why.comparison.us.item5") },
-      ],
+      ].filter((it) => it.text),
+
     },
   };
   // Der Sprung in die App erfolgt nur über den expliziten Header-Button.
@@ -121,10 +121,16 @@ export default function Landing() {
         <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
         <div className="absolute inset-0 gradient-hero opacity-60 pointer-events-none" />
         <div className="container relative pt-16 pb-12 md:pt-24 md:pb-16 text-center animate-fade-in">
-          <div className="inline-flex items-center gap-2 rounded-full border-2 border-primary/40 bg-primary/10 backdrop-blur px-5 py-2 text-sm font-semibold text-primary mb-6 shadow-glow">
+          <div className="inline-flex items-center gap-2 rounded-full border-2 border-primary/40 bg-primary/10 backdrop-blur px-5 py-2 text-sm font-semibold text-primary mb-3 shadow-glow">
             <Sparkles className="h-4 w-4" />
             {t("landing.hero.badge")}
           </div>
+          <div className="mb-6">
+            <span className="inline-flex items-center rounded-full border border-border/60 bg-background/60 backdrop-blur px-3 py-1 text-[11px] font-medium text-muted-foreground">
+              {t("landing.hero.pilot_badge")}
+            </span>
+          </div>
+
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight mb-6 leading-[1.05]">
             {t("landing.hero.title_line1")}<br />
             <span className="text-gradient animate-gradient-x">{t("landing.hero.title_line2")}</span>
@@ -287,9 +293,9 @@ export default function Landing() {
           <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">{t("landing.why.eyebrow")}</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">{t("landing.why.title")}</h2>
           <p className="mt-4 text-muted-foreground text-base md:text-lg">
-            {t("landing.why.desc_prefix")}{" "}
-            <a href="https://www.amazon.es/Leading-yourself-ADHD-fighting-yourself/dp/B0GX9F2LGX" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground">Chris Sorg</a>{t("landing.why.desc_suffix")}
+            {t("landing.why.desc_prefix")}
           </p>
+
         </div>
         <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
           <div className="glow-card overflow-hidden border-destructive/20 bg-destructive/[0.02]">
