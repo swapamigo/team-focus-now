@@ -180,8 +180,12 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Es sind die 85 Unterbrechungen */}
+      <UnlockFacts />
+
       {/* Was dein Chef sieht */}
       <ManagerVisibility />
+
 
       {/* Warum Sperren allein nicht reicht */}
       <BlockerComparison />
