@@ -364,8 +364,6 @@ const d: Dict = {
   "landing.hero.trust2": "Gemessen wird nur während der Arbeitszeit. Danach zeichnet die App nichts auf.",
   "landing.hero.trust3": "Kein Verbot. Das Handy bleibt bei dir, Arbeits-Apps sind freigegeben.",
   "landing.app_preview.you": "Du",
-  "landing.app_preview.clock_label": "Fokus-Uhr läuft",
-  "landing.app_preview.clock_note": "Heute gesammelte Fokuszeit",
   "landing.app_preview.points_label": "Punkte diese Woche",
   "landing.app_preview.rank_label": "Dein Platz",
   "landing.app_preview.ranking_label": "Ranking (anonyme Namen)",

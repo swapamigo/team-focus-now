@@ -364,8 +364,6 @@ const d: Dict = {
   "landing.hero.trust2": "Solo se mide durante la jornada laboral. Después la app no registra nada.",
   "landing.hero.trust3": "Sin prohibiciones. El móvil se queda contigo y las apps de trabajo están habilitadas.",
   "landing.app_preview.you": "Tú",
-  "landing.app_preview.clock_label": "Reloj de foco en marcha",
-  "landing.app_preview.clock_note": "Tiempo de foco acumulado hoy",
   "landing.app_preview.points_label": "Puntos esta semana",
   "landing.app_preview.rank_label": "Tu posición",
   "landing.app_preview.ranking_label": "Ranking (nombres anónimos)",
