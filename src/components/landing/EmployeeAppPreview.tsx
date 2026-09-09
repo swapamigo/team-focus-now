@@ -1,4 +1,4 @@
-import { Clock, Trophy, Moon } from "lucide-react";
+import { Smartphone, Trophy, Clock } from "lucide-react";
 import { useT } from "@/i18n";
 
 export default function EmployeeAppPreview() {
@@ -15,17 +15,15 @@ export default function EmployeeAppPreview() {
     <div className="mx-auto w-full max-w-sm">
       <div className="surface-card-elevated rounded-[2rem] p-4 border border-border/60 shadow-glow">
         <div className="rounded-[1.5rem] bg-secondary/40 p-4 space-y-4">
-          {/* Fokus-Uhr */}
+          {/* Griffe zum Handy heute */}
           <div className="rounded-2xl bg-card p-4 border border-border/50">
             <div className="flex items-center gap-2 text-xs text-muted-foreground uppercase tracking-widest font-semibold">
-              <Clock className="h-3.5 w-3.5 text-primary" />
-              {t("landing.app_preview.clock_label")}
+              <Smartphone className="h-3.5 w-3.5 text-primary" />
+              {t("landing.app_preview.unlocks_label")}
             </div>
-            <p className="mt-2 text-4xl font-semibold tabular-nums tracking-tight text-gradient">03:42:18</p>
-            <div className="mt-3 h-1.5 rounded-full bg-secondary overflow-hidden">
-              <div className="h-full w-[68%] gradient-primary rounded-full" />
-            </div>
-            <p className="mt-2 text-[11px] text-muted-foreground">{t("landing.app_preview.clock_note")}</p>
+            <p className="mt-2 text-5xl font-semibold tabular-nums tracking-tight text-gradient">11</p>
+            <p className="mt-2 text-sm text-muted-foreground tabular-nums">{t("landing.app_preview.unlocks_rate")}</p>
+            <p className="mt-1 text-[11px] text-muted-foreground">{t("landing.app_preview.best_hour")}</p>
           </div>
 
           {/* Punktestand */}
@@ -64,9 +62,9 @@ export default function EmployeeAppPreview() {
             </ul>
           </div>
 
-          {/* Pausiert-Hinweis */}
+          {/* Hinweis Arbeitszeit */}
           <div className="flex items-center gap-2 rounded-2xl border border-border/50 bg-card px-4 py-3">
-            <Moon className="h-4 w-4 text-muted-foreground shrink-0" />
+            <Clock className="h-4 w-4 text-muted-foreground shrink-0" />
             <p className="text-xs text-muted-foreground">{t("landing.app_preview.paused_note")}</p>
           </div>
         </div>
