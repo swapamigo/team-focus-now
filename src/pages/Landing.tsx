@@ -25,6 +25,9 @@ import LandingHeader from "@/components/landing/LandingHeader";
 import EmployeeAppPreview from "@/components/landing/EmployeeAppPreview";
 import ManagerVisibility from "@/components/landing/ManagerVisibility";
 import BlockerComparison from "@/components/landing/BlockerComparison";
+import UnlockFacts from "@/components/landing/UnlockFacts";
+import PointsTable from "@/components/landing/PointsTable";
+
 
 import Studies from "@/components/landing/Studies";
 import WorksCouncil from "@/components/landing/WorksCouncil";
