@@ -361,7 +361,9 @@ export default function Landing() {
       <PrivacySection />
       <SocietyHealth />
       <HabitFeatures />
+      <PointsTable />
       <RewardsSection />
+
 
 
       {/* Setup */}
