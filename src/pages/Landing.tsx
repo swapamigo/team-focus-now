@@ -38,6 +38,7 @@ import step1Img from "@/assets/tf_step1.png.asset.json";
 import step2Img from "@/assets/tf_step2.png.asset.json";
 import step3Img from "@/assets/tf_step_teamdaten.png.asset.json";
 import step4Img from "@/assets/tf_step_belohnung.png.asset.json";
+import heroOfficeImg from "@/assets/hero-office.png.asset.json";
 
 
 
@@ -118,8 +119,15 @@ export default function Landing() {
       <main>
       {/* Hero — Leg das Handy weg. Dein Chef zahlt dafür. */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
-        <div className="absolute inset-0 gradient-hero opacity-60 pointer-events-none" />
+        <div
+          className="absolute inset-0 bg-cover bg-right bg-no-repeat pointer-events-none"
+          style={{ backgroundImage: `url(${heroOfficeImg.url})` }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40 pointer-events-none" />
+        <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none" />
+        <div className="absolute inset-0 gradient-hero opacity-30 pointer-events-none" />
         <div className="container relative pt-14 pb-12 md:pt-20 md:pb-16 animate-fade-in">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center max-w-6xl mx-auto">
             {/* Text */}
