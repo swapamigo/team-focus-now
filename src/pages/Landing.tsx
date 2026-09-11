@@ -124,10 +124,10 @@ export default function Landing() {
           style={{ backgroundImage: `url(${heroOfficeImg.url})` }}
           aria-hidden
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background from-30% via-background/70 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none" />
         <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none" />
-        <div className="absolute inset-0 gradient-hero opacity-30 pointer-events-none" />
+        <div className="absolute inset-0 gradient-hero opacity-20 pointer-events-none" />
         <div className="container relative pt-14 pb-12 md:pt-20 md:pb-16 animate-fade-in">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center max-w-6xl mx-auto">
             {/* Text */}
