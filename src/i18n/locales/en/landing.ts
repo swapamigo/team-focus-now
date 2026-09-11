@@ -412,6 +412,23 @@ const d: Dict = {
   "landing.points.row_more": "more than 15",
   "landing.points.unit": "points",
   "landing.points.note": "The measured average is around four pickups per working hour. Anyone at that level today collects 90 points a day. A perfect working week yields 1,000 points; four of those make a 40-euro voucher.",
+
+  // ===== Posters =====
+  "landing.posters.eyebrow": "Posters for the workplace",
+  "landing.posters.title": "This is how we talk to you",
+  "landing.posters.desc": "These posters go up at work – no ban, no lecturing. Less phone, more for you.",
+  "landing.posters.employer_eyebrow": "Internal promotion",
+  "landing.posters.employer_title": "How to promote TeamFokus to your people",
+  "landing.posters.employer_desc": "Ready-made A3 posters with a QR code for the break room, hallway and notice board. The tone stays voluntary and positive – that is why acceptance is high.",
+  "landing.posters.kit_title": "Five designs, one QR code",
+  "landing.posters.kit_desc": "Print-ready in A3, easy to combine with your own notice. Every design states clearly: the employer sees no personal data.",
+  "landing.posters.download": "Download posters as PDF",
+  "landing.posters.download_note": "5 designs, A3, print-ready.",
+  "landing.posters.alt1": "Poster: Up to 50 euros a month just for less phone",
+  "landing.posters.alt2": "Poster: Is phone addiction like smoking? We motivate you",
+  "landing.posters.alt3": "Poster: Off the clock. In your head too. Less phone, more life",
+  "landing.posters.alt4": "Poster: Scroll less together, win together",
+  "landing.posters.alt5": "Poster: Get your focus back. Less distraction, more you",
 };
 
 export default d;

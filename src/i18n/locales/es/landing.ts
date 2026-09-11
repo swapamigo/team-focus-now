@@ -412,6 +412,23 @@ const d: Dict = {
   "landing.points.row_more": "más de 15",
   "landing.points.unit": "puntos",
   "landing.points.note": "El promedio medido es de unas cuatro veces por hora de trabajo. Quien esté ahí hoy acumula 90 puntos al día. Una semana laboral perfecta da 1.000 puntos; cuatro de ellas, un vale de 40 euros.",
+
+  // ===== Carteles =====
+  "landing.posters.eyebrow": "Carteles para la empresa",
+  "landing.posters.title": "Así te hablamos",
+  "landing.posters.desc": "Estos carteles se cuelgan en la empresa: sin prohibiciones ni sermones. Menos móvil, más para ti.",
+  "landing.posters.employer_eyebrow": "Comunicación interna",
+  "landing.posters.employer_title": "Así presenta TeamFokus a su plantilla",
+  "landing.posters.employer_desc": "Carteles A3 listos para imprimir con código QR para la sala de descanso, el pasillo y el tablón. El tono es voluntario y positivo: por eso la aceptación es alta.",
+  "landing.posters.kit_title": "Cinco diseños, un código QR",
+  "landing.posters.kit_desc": "Listos para imprimir en A3 y combinables con su propio aviso. Cada diseño lo dice claro: la empresa no ve datos personales.",
+  "landing.posters.download": "Descargar carteles en PDF",
+  "landing.posters.download_note": "5 diseños, A3, listos para imprimir.",
+  "landing.posters.alt1": "Cartel: hasta 50 € al mes solo por usar menos el móvil",
+  "landing.posters.alt2": "Cartel: ¿la adicción al móvil es como fumar? Te motivamos",
+  "landing.posters.alt3": "Cartel: fin de jornada, también en la cabeza. Menos móvil, más vida",
+  "landing.posters.alt4": "Cartel: menos scroll juntos, ganar juntos",
+  "landing.posters.alt5": "Cartel: recupera tu foco. Menos distracción, más tú",
 };
 
 export default d;
