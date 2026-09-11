@@ -10,6 +10,7 @@ import Footer from "@/components/landing/Footer";
 import Seo from "@/components/Seo";
 import DemoLeadDialog from "@/components/landing/DemoLeadDialog";
 import RoiCalculator from "@/components/landing/RoiCalculator";
+import PosterGallery from "@/components/landing/PosterGallery";
 import { openCallBooking, trackClick } from "@/lib/track";
 import heroImg from "@/assets/team-meeting-office.png.asset.json";
 import { useT } from "@/i18n";
@@ -166,6 +167,9 @@ export default function Arbeitgeber() {
             </Button>
           </div>
         </section>
+
+        {/* Plakate zur internen Vermarktung */}
+        <PosterGallery variant="employer" />
 
         {/* ROI */}
         <RoiCalculator />
