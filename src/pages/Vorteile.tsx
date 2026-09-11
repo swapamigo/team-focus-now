@@ -14,6 +14,7 @@ import familyImg from "@/assets/happy-family-dinner.jpg";
 import giftImg from "@/assets/monthly-gift.jpg";
 import societyImg from "@/assets/smartphone-gesellschaftliches-problem.png.asset.json";
 import k5Img from "@/assets/anonymisierung-k5.png.asset.json";
+import PosterGallery from "@/components/landing/PosterGallery";
 import { useT } from "@/i18n";
 
 export default function Vorteile() {
@@ -109,6 +110,9 @@ export default function Vorteile() {
             </div>
           </div>
         </section>
+
+        {/* Plakate */}
+        <PosterGallery variant="employee" />
 
         {/* So funktioniert der Fokus */}
         <section className="container py-16 md:py-20 border-b border-border/40">

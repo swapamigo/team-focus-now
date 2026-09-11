@@ -412,6 +412,23 @@ const d: Dict = {
   "landing.points.row_more": "mehr als 15",
   "landing.points.unit": "Punkte",
   "landing.points.note": "Der gemessene Durchschnitt liegt bei rund vier Griffen pro Arbeitsstunde. Wer da heute steht, sammelt 90 Punkte am Tag. Eine perfekte Arbeitswoche bringt 1.000 Punkte, vier davon einen 40-Euro-Gutschein.",
+
+  // ===== Plakate =====
+  "landing.posters.eyebrow": "Plakate für den Betrieb",
+  "landing.posters.title": "So sprechen wir dich an",
+  "landing.posters.desc": "Diese Plakate hängen im Betrieb – kein Verbot, keine Belehrung. Weniger ans Handy, mehr für dich.",
+  "landing.posters.employer_eyebrow": "Vermarktung im Betrieb",
+  "landing.posters.employer_title": "So bewerben Sie TeamFokus bei Ihren Mitarbeitenden",
+  "landing.posters.employer_desc": "Fertige A3-Plakate mit QR-Code für Pausenraum, Flur und Aushang. Die Ansprache bleibt freiwillig und positiv – das ist der Grund für die hohe Akzeptanz.",
+  "landing.posters.kit_title": "Fünf Motive, ein QR-Code",
+  "landing.posters.kit_desc": "Druckfertig in A3, wahlweise mit Ihrem Aushang kombinierbar. Jedes Motiv nennt klar: Der Arbeitgeber sieht keine persönlichen Daten.",
+  "landing.posters.download": "Plakate als PDF herunterladen",
+  "landing.posters.download_note": "5 Motive, A3, druckfertig.",
+  "landing.posters.alt1": "Plakat: Bis zu 50 € im Monat nur durch weniger Handy",
+  "landing.posters.alt2": "Plakat: Handysucht ist wie Rauchen? Wir motivieren dich",
+  "landing.posters.alt3": "Plakat: Feierabend. Auch im Kopf. Weniger Handy, mehr Leben",
+  "landing.posters.alt4": "Plakat: Zusammen weniger scrollen, zusammen gewinnen",
+  "landing.posters.alt5": "Plakat: Hol dir deinen Fokus zurück. Weniger Ablenkung, mehr du",
 };
 
 export default d;
