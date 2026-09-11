@@ -120,7 +120,7 @@ export default function Landing() {
       {/* Hero — Leg das Handy weg. Dein Chef zahlt dafür. */}
       <section className="relative overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-right bg-no-repeat pointer-events-none"
+          className="absolute inset-y-0 right-0 w-full lg:w-[62%] bg-no-repeat bg-right-top bg-cover lg:bg-[length:auto_100%] pointer-events-none"
           style={{ backgroundImage: `url(${heroOfficeImg.url})` }}
           aria-hidden
         />
