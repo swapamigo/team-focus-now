@@ -13,6 +13,10 @@ function initial(): State {
   return { unlocks: 8, roundSettled: false, alias: "Blauer Falke", balance: 1600, receipts: [], rewards: [
     { id: "amazon", title: "Amazon-Gutschein · 10 €", description: "Ein kleiner Wunsch, erfüllt.", points: 1000, kind: "voucher", active: true },
     { id: "massage", title: "Massage-Gutschein · 20 €", description: "Eine Pause nur für dich.", points: 2000, kind: "wellbeing", active: true },
+    { id: "amazon40", title: "Amazon-Gutschein · 40 €", description: "Für deinen nächsten Wunsch.", points: 4000, kind: "voucher", active: true },
+    { id: "amazon50", title: "Amazon-Gutschein · 50 €", description: "Für deinen nächsten großen Wunsch.", points: 5000, kind: "voucher", active: true },
+    { id: "massage50", title: "Massage-Gutschein · 50 €", description: "Zeit zum Entspannen.", points: 5000, kind: "wellbeing", active: true },
+    { id: "fuel50", title: "Tankgutschein · 50 €", description: "Beispiel: Unternehmensrabatt. 50 € Gutscheinwert für 4.000 Punkte.", points: 4000, kind: "voucher", active: true },
     { id: "time", title: "2 Stunden früher Feierabend", description: "Termin mit deinem Manager vereinbaren.", points: 3000, kind: "time", active: true },
   ] };
 }
@@ -20,9 +24,9 @@ function initial(): State {
 function localizedReward(reward: Reward): Reward {
   const lang = document.documentElement.lang;
   const defaults = initial().rewards.find((r) => r.id === reward.id);
-  const titles = lang === "en" ? ["Amazon voucher · €10", "Massage voucher · €20", "Leave work 2 hours early"] : lang === "es" ? ["Vale de Amazon · 10 €", "Vale de masaje · 20 €", "Salir del trabajo 2 horas antes"] : null;
-  const descriptions = lang === "en" ? ["A little wish, fulfilled.", "A break just for you.", "Arrange the date with your manager."] : lang === "es" ? ["Un pequeño deseo cumplido.", "Un descanso solo para ti.", "Acuerda la fecha con tu responsable."] : null;
-  const index = ["amazon", "massage", "time"].indexOf(reward.id);
+  const titles = lang === "en" ? ["Amazon voucher · €10", "Massage voucher · €20", "Leave work 2 hours early", "Amazon voucher · €40", "Amazon voucher · €50", "Massage voucher · €50", "Fuel voucher · €50"] : lang === "es" ? ["Vale de Amazon · 10 €", "Vale de masaje · 20 €", "Salir del trabajo 2 horas antes", "Vale de Amazon · 40 €", "Vale de Amazon · 50 €", "Vale de masaje · 50 €", "Vale de combustible · 50 €"] : null;
+  const descriptions = lang === "en" ? ["A little wish, fulfilled.", "A break just for you.", "Arrange the date with your manager.", "For your next wish.", "For your next big wish.", "Time to unwind.", "Example company discount: €50 face value for 4,000 points."] : lang === "es" ? ["Un pequeño deseo cumplido.", "Un descanso solo para ti.", "Acuerda la fecha con tu responsable.", "Para tu próximo deseo.", "Para tu próximo gran deseo.", "Tiempo para relajarte.", "Ejemplo de descuento de empresa: un vale de 50 € por 4.000 puntos."] : null;
+  const index = ["amazon", "massage", "time", "amazon40", "amazon50", "massage50", "fuel50"].indexOf(reward.id);
   if (!defaults || !titles || !descriptions || index < 0) return reward;
   return { ...reward, title: reward.title === defaults.title ? titles[index] : reward.title, description: reward.description === defaults.description ? descriptions[index] : reward.description };
 }
@@ -31,7 +35,14 @@ function read(): State {
   try {
     const raw = localStorage.getItem(KEY);
     const parsed = raw ? schema.safeParse(JSON.parse(raw)) : null;
-    if (parsed?.success) return parsed.data as State;
+    if (parsed?.success) {
+      const state = parsed.data as State;
+      // Add new examples without resetting balances, receipts, or edited rewards.
+      for (const reward of initial().rewards.filter((r) => ["amazon40", "amazon50", "massage50", "fuel50"].includes(r.id))) {
+        if (!state.rewards.some((r) => r.id === reward.id)) state.rewards.push(reward);
+      }
+      return state;
+    }
   } catch { /* A demo can start again if its optional browser storage is invalid. */ }
   return initial();
 }

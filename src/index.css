@@ -213,3 +213,14 @@
   .animate-float { animation: float-y 6s ease-in-out infinite; }
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 }
+
+/* Lightweight depth: CSS only, with static accessible reduced-motion fallback. */
+.hero-phone-stage { perspective: 1100px; position: relative; }
+.hero-phone-stage::before { content: ""; position: absolute; inset: 12% -6%; border-radius: 50%; background: radial-gradient(ellipse, hsl(var(--primary) / .19), transparent 70%); filter: blur(24px); pointer-events: none; }
+.hero-phone { position: relative; transform: rotateX(var(--phone-x, 3deg)) rotateY(var(--phone-y, -7deg)); transition: transform .35s ease-out, box-shadow .35s ease; box-shadow: 8px 10px 0 -3px hsl(var(--primary) / .18), 18px 30px 65px -20px hsl(var(--primary) / .3), inset 0 0 0 3px hsl(var(--primary) / .06); }
+.hero-phone-camera { width: 52px; height: 5px; border-radius: 10px; margin: -6px auto 8px; background: hsl(var(--foreground) / .15); }
+.hero-phone:focus-within { transform: rotateX(0) rotateY(0); }
+.reward-showcase { transition: transform .25s ease, box-shadow .25s ease; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .reward-showcase:hover { transform: translateY(-5px); box-shadow: 0 14px 30px -15px hsl(var(--primary) / .3); } }
+@media (max-width: 639px) { .hero-phone { transform: none; box-shadow: 4px 7px 0 -2px hsl(var(--primary) / .15), 0 20px 45px -20px hsl(var(--primary) / .3); } }
+@media (prefers-reduced-motion: reduce) { .hero-phone, .reward-showcase { transform: none !important; transition: none !important; } }
