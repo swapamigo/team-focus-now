@@ -1,72 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, CalendarClock } from "lucide-react";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import Logo from "@/components/Logo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { openCallBooking } from "@/lib/track";
-import { useT } from "@/i18n";
+import { useFocusText } from "@/i18n/focus";
 
-export default function LandingHeader({ onDemo, onBookCall }: { onDemo: () => void; onBookCall?: () => void }) {
-  const t = useT();
+export default function LandingHeader({ onDemo }: { onDemo: () => void; onBookCall?: () => void }) {
+  const { t } = useFocusText();
   const [open, setOpen] = useState(false);
-  const handleBookCall = onBookCall ?? (() => openCallBooking("header"));
-
-  const navItems = [
-    { href: "/fuer-mitarbeitende", label: t("common.nav.employees") },
-    { href: "/fuer-arbeitgeber", label: t("common.nav.employers") },
-    { href: "/#roi", label: t("common.nav.roi") },
-    { href: "/fuer-betriebsrat", label: t("common.nav.works_council") },
-    { href: "/datenschutz", label: t("common.nav.privacy") },
-    { href: "/einfuehrung", label: t("common.nav.onboarding") },
-  ];
-
-  return (
-    <header className="sticky top-0 z-50 glass border-b border-border/40">
-      <div className="container flex h-16 items-center justify-between gap-3">
-        <Link to="/" className="flex items-center shrink-0"><Logo withWordmark /></Link>
-
-        <nav className="hidden lg:flex items-center gap-7 text-sm text-muted-foreground">
-          {navItems.map((n) => (
-            <Link key={n.href} to={n.href} className="hover:text-foreground transition-colors">{n.label}</Link>
-          ))}
-        </nav>
-
-        <div className="hidden sm:flex items-center gap-2">
-          <LanguageSwitcher />
-          <Button variant="ghost" size="sm" onClick={handleBookCall}>
-            <CalendarClock className="mr-1.5 h-4 w-4" />{t("common.buttons.book_call")}
-          </Button>
-          <Button size="sm" className="shadow-sm" onClick={onDemo}>{t("common.buttons.demo")}</Button>
-        </div>
-
-
-        <div className="sm:hidden flex items-center gap-1">
-          <LanguageSwitcher compact />
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label={t("common.aria.open_menu")}><Menu className="h-5 w-5" /></Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-72">
-              <div className="flex flex-col gap-1 mt-6">
-                {navItems.map((n) => (
-                  <Link key={n.href} to={n.href} onClick={() => setOpen(false)}
-                    className="px-3 py-3 rounded-lg hover:bg-secondary text-sm font-medium">
-                    {n.label}
-                  </Link>
-                ))}
-                <div className="border-t border-border my-3" />
-                <Button variant="ghost" onClick={() => { setOpen(false); handleBookCall(); }}>
-                  <CalendarClock className="mr-1.5 h-4 w-4" />{t("common.buttons.book_call")}
-                </Button>
-                <Button onClick={() => { setOpen(false); onDemo(); }}>{t("common.buttons.demo")}</Button>
-
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
-    </header>
-  );
+  const items = [{ href: "/#rewards", text: t("rewards") }, { href: "/datenschutz", text: t("privacy") }, { href: "/fuer-arbeitgeber", text: t("companies") }];
+  return <header className="sticky top-0 z-50 bg-background/90 backdrop-blur-xl border-b border-border/40"><div className="container h-16 flex items-center justify-between gap-3"><Link to="/" aria-label="TeamFokus"><Logo withWordmark /></Link><nav className="hidden md:flex gap-7 text-sm text-muted-foreground">{items.map((item) => <a key={item.href} href={item.href} className="hover:text-primary">{item.text}</a>)}</nav><div className="flex items-center gap-2"><LanguageSwitcher compact /><Button size="sm" className="hidden sm:inline-flex" onClick={onDemo}>{t("demo")}</Button><Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><Button className="md:hidden" variant="ghost" size="icon" aria-label="Menu"><Menu className="w-5 h-5" /></Button></SheetTrigger><SheetContent className="w-72"><SheetTitle>TeamFokus</SheetTitle><nav className="flex flex-col gap-5 mt-8">{items.map((item) => <a key={item.href} href={item.href} onClick={() => setOpen(false)}>{item.text}</a>)}<Button onClick={() => { setOpen(false); onDemo(); }}>{t("demo")}</Button></nav></SheetContent></Sheet></div></div></header>;
 }

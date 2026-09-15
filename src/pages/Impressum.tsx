@@ -1,21 +1,15 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Building2, Mail, Phone, Scale } from "lucide-react";
+import { ArrowLeft, Building2, Mail, Scale } from "lucide-react";
 import Logo from "@/components/Logo";
 import Seo from "@/components/Seo";
 import { useT } from "@/i18n";
 
 const company = {
-  name: "TeamFokus GmbH",
-  street: "Königstraße 42",
-  zipCity: "90402 Nürnberg",
-  country: "Deutschland",
-  phone: "+49 911 1234567",
+  name: "Joel Schöppe",
   email: "joel@teamfokus.app",
-  managingDirector: "Joel Schöppe",
-  registerCourt: "Amtsgericht Nürnberg",
-  registerNumber: "HRB 42 1337",
-  vatId: "DE 345 678 901",
 };
+
+// A verified service address can be added once supplied by the owner.
 
 export default function Impressum() {
   const t = useT();
@@ -57,9 +51,7 @@ export default function Impressum() {
                 <h2 className="font-semibold mb-1">{t("pages.impressum.provider")}</h2>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   <strong className="text-foreground">{company.name}</strong><br />
-                  {company.street}<br />
-                  {company.zipCity}<br />
-                  {company.country}
+                  TeamFokus
                 </p>
               </div>
 
@@ -68,39 +60,13 @@ export default function Impressum() {
                   <h3 className="text-xs uppercase tracking-wider text-primary font-semibold mb-1">{t("pages.impressum.contact")}</h3>
                   <ul className="text-sm text-muted-foreground space-y-1">
                     <li className="flex items-center gap-2">
-                      <Phone className="h-3.5 w-3.5" />
-                      <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="hover:text-foreground transition-colors">{company.phone}</a>
-                    </li>
-                    <li className="flex items-center gap-2">
                       <Mail className="h-3.5 w-3.5" />
                       <a href={`mailto:${company.email}`} className="hover:text-foreground transition-colors">{company.email}</a>
                     </li>
                   </ul>
                 </div>
-                <div>
-                  <h3 className="text-xs uppercase tracking-wider text-primary font-semibold mb-1">{t("pages.impressum.registerTax")}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {company.registerCourt}<br />
-                    {company.registerNumber}<br />
-                    {t("pages.impressum.vatPrefix")} {company.vatId}
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-xs uppercase tracking-wider text-primary font-semibold mb-1">{t("pages.impressum.management")}</h3>
-                <p className="text-sm text-muted-foreground">{company.managingDirector}</p>
               </div>
             </div>
-          </section>
-
-          <section className="surface-card p-6 md:p-7">
-            <h2 className="font-semibold mb-3">{t("pages.impressum.responsibleTitle")}</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Joel Schöppe<br />
-              TeamFokus GmbH<br />
-              {company.street}, {company.zipCity}, {company.country}
-            </p>
           </section>
 
           <section className="surface-card p-6 md:p-7">
@@ -111,22 +77,6 @@ export default function Impressum() {
             </div>
           </section>
 
-          <section className="surface-card p-6 md:p-7">
-            <h2 className="font-semibold mb-3">{t("pages.impressum.disputeTitle")}</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {t("pages.impressum.dispute.p1.pre")}
-              {" "}
-              <a
-                href="https://ec.europa.eu/consumers/odr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                https://ec.europa.eu/consumers/odr
-              </a>.
-              {" "}{t("pages.impressum.dispute.p1.post")}
-            </p>
-          </section>
         </div>
       </main>
     </div>

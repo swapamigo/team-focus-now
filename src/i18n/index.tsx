@@ -1,9 +1,8 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { dictionaries } from "./dict";
-import { initialLang, langFromCountry, langFromNavigator, readStoredLang, storeLang } from "./detect";
+import { initialLang, storeLang } from "./detect";
 import type { Lang } from "./types";
 import { LANGS } from "./types";
-import { getVisitorGeo } from "@/lib/geo";
 
 export type { Lang };
 export { LANGS };
@@ -36,27 +35,11 @@ function interpolate(value: string, vars?: Record<string, string | number>) {
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>(() => initialLang());
-  const explicit = useRef<boolean>(!!readStoredLang());
-
-  // Standortbasierte Verfeinerung, wenn keine explizite Wahl/Browser-Sprache vorliegt.
-  useEffect(() => {
-    if (explicit.current || langFromNavigator()) return;
-    let cancelled = false;
-    getVisitorGeo().then((geo) => {
-      if (cancelled) return;
-      setLangState(langFromCountry(geo.country_code));
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
   useEffect(() => {
     if (typeof document !== "undefined") document.documentElement.lang = lang;
   }, [lang]);
 
   const setLang = useCallback((l: Lang) => {
-    explicit.current = true;
     storeLang(l);
     setLangState(l);
   }, []);

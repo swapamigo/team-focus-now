@@ -38,10 +38,6 @@ export default function ManagerOnboarding() {
       if (error) throw error;
 
       toast.success(t("onboarding.manager.workspace_created_toast"));
-      const { error: seedErr } = await supabase.functions.invoke("seed-demo", {
-        body: { company_id: companyId },
-      });
-      if (seedErr) console.warn("Seed:", seedErr);
 
       // Hard-Reload, damit Auth-Context und Routen sauber neu initialisieren.
       window.location.replace("/manager");
