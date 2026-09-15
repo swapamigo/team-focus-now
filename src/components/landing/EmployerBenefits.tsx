@@ -1,6 +1,7 @@
-import { ArrowUpRight, Brain, Heart, ShieldCheck, TrendingUp } from "lucide-react";
+import { ArrowUpRight, Brain, Gift, Heart, ShieldCheck, TrendingUp } from "lucide-react";
 import Reveal from "./Reveal";
 import DepthCard from "./DepthCard";
+import EmployerRoiCalculator from "./EmployerRoiCalculator";
 import { useFocusText } from "@/i18n/focus";
 
 const sources = [
@@ -12,27 +13,28 @@ const sources = [
 export default function EmployerBenefits() {
   const { t } = useFocusText();
   const openResearch = () => document.getElementById("employer-research")?.setAttribute("open", "");
-  return <div data-testid="employer-benefits" className="my-9 space-y-5">
-    <div className="grid md:grid-cols-2 gap-5">
+  return <div data-testid="employer-benefits" className="mt-10 sm:mt-14 mb-9 space-y-10 sm:space-y-14">
+    <div className="grid md:grid-cols-3 gap-5">
       <Reveal><DepthCard className="p-6 sm:p-7">
         <Brain className="h-6 w-6 text-primary mb-5" aria-hidden="true" />
         <h2 className="text-xl font-semibold tracking-tight">{t("employerFocusTitle")}</h2>
         <p className="text-sm text-muted-foreground leading-relaxed mt-3">{t("employerFocusBody")}</p>
-        <div className="rounded-2xl bg-primary/5 p-4 mt-5">
-          <p className="text-3xl font-semibold tracking-tight text-primary">{t("employerFocusStat")}</p>
-          <p className="text-xs text-muted-foreground leading-relaxed mt-2">{t("employerFocusStatContext")}</p>
-          <a href="#employer-research" onClick={openResearch} className="inline-block text-xs text-primary underline underline-offset-4 mt-3">{t("employerSource")} · Iqbal & Horvitz</a>
-        </div>
+        <a href="#employer-research" onClick={openResearch} className="inline-block text-xs text-primary underline underline-offset-4 mt-4">{t("employerSource")} · Iqbal & Horvitz</a>
       </DepthCard></Reveal>
       <Reveal delay={70}><DepthCard className="p-6 sm:p-7">
         <TrendingUp className="h-6 w-6 text-primary mb-5" aria-hidden="true" />
         <h2 className="text-xl font-semibold tracking-tight">{t("employerRoiTitle")}</h2>
         <p className="text-sm text-muted-foreground leading-relaxed mt-3">{t("employerRoiBody")}</p>
-        <p className="font-medium text-sm leading-relaxed mt-5">{t("employerRoiEquation")}</p>
-        <p className="text-xs text-muted-foreground leading-relaxed mt-3">{t("employerRoiContext")}</p>
-        <a href="#employer-research" onClick={openResearch} className="inline-block text-xs text-primary underline underline-offset-4 mt-3">{t("employerSource")} · Altmann et al.</a>
+        <a href="#employer-research" onClick={openResearch} className="inline-block text-xs text-primary underline underline-offset-4 mt-4">{t("employerSource")} · Altmann et al.</a>
+      </DepthCard></Reveal>
+      <Reveal delay={140}><DepthCard className="p-6 sm:p-7">
+        <Gift className="h-6 w-6 text-primary mb-5" aria-hidden="true" />
+        <h2 className="text-xl font-semibold tracking-tight">{t("employerBudgetTitle")}</h2>
+        <p className="text-sm text-muted-foreground leading-relaxed mt-3">{t("employerBudgetBody")}</p>
       </DepthCard></Reveal>
     </div>
+    <Reveal><div className="max-w-2xl"><h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">{t("employerProfitTitle")}</h2><p className="text-sm sm:text-base text-muted-foreground leading-relaxed mt-4">{t("employerProfitBody")}</p></div></Reveal>
+    <Reveal><EmployerRoiCalculator /></Reveal>
     <Reveal><section className="rounded-3xl border border-primary/10 bg-primary/5 p-6 sm:p-7">
       <Heart className="h-6 w-6 text-primary mb-5" aria-hidden="true" />
       <h2 className="text-xl font-semibold tracking-tight">{t("employerWellbeingTitle")}</h2>

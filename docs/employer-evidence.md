@@ -10,4 +10,18 @@ The page explains interruption costs, potential business value and employee well
 
 The old “23 minutes until full concentration after every interruption” claim is not reinstated. The previously cited Mark, Gudith & Klocke CHI 2008 paper does not support that number; it reports stress and effort effects, with faster completion and no quality difference in its task. The uploaded project summary independently flags the same attribution problem.
 
-The ROI passage is an economic condition: realised benefits must exceed software and reward costs. No numerical profit lift, addiction treatment or proven TeamFokus outcome is advertised. Healthy habits are framed as a voluntary product goal.
+The ROI passage is an economic condition: realised benefits must exceed software, reward and implementation costs. No measured profit lift, addiction treatment or proven TeamFokus outcome is advertised. Healthy habits are framed as a voluntary product goal.
+
+## Editable business case
+
+The company page now includes a local scenario calculator. Following section 9.10 of the uploaded project summary, it uses **avoided active unlocks**, not screen time or an assumed recovery time. The customer supplies the economic value of an avoided unlock. This value must represent additional earnings after incremental costs, or costs actually avoided. It is not a scientific constant or a measured product outcome. No fixed reduction rate or study-derived time multiplier is used.
+
+- Monthly benefit = participating employees × assumed avoided unlocks per workday × workdays × customer's value per avoided unlock.
+- Monthly cost = participants × (reward purchase costs + software costs) + other team costs.
+- Net value = benefit − cost; ROI = net value / cost × 100.
+- Break-even = cost / (participants × workdays × value per unlock), rounded up to a whole daily unlock in the UI.
+- Defaults are explicitly examples, not price commitments: 25 participants, 10 fewer unlocks, €0.50 of estimated value per unlock, 20 workdays, €50 rewards and €5 software per participant, €0 shared overhead. They yield €2,500 estimated benefit, €1,375 costs, €1,125 net and 81.8% illustrative ROI. These figures are **not forecasts**.
+- All costs can be changed. Shared overhead is counted once; help text covers administration, additional charges and a monthly share of implementation. Reward acquisition cost, including partner discounts, is separate from face value and the shop's point price.
+- Zero benefit shows a loss, zero costs leave the ROI percentage undefined, and zero value per unlock cannot cover nonzero costs. Invalid or blank costs suppress the result. Inputs stay in component state; they are not submitted or saved.
+
+The page clearly states that TeamFokus counts active unlocks and does not measure time savings, errors or profit. Research details remain collapsed, with source links beside the corresponding business arguments. The large 10–15-minute statistic has been removed from the sales cards; its original scope remains in the research notes.
