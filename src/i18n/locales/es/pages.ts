@@ -273,7 +273,7 @@ const d: Dict = {
   "pages.impressum.seo.description": "Aviso legal de TeamFokus: información según el § 5 TMG, contacto, registro mercantil y responsable.",
   "pages.impressum.back": "Volver",
   "pages.impressum.title": "Aviso legal",
-  "pages.impressum.subtitle": "Información según el § 5 TMG (ley alemana de telemedios).",
+  "pages.impressum.subtitle": "Información sobre el proveedor de TeamFokus.",
   "pages.impressum.lawNote": "",
   "pages.impressum.provider": "Proveedor del servicio",
   "pages.impressum.contact": "Contacto",

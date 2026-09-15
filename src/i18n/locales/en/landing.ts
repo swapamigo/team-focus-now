@@ -362,7 +362,6 @@ const d: Dict = {
   "landing.hero.cta_employee_benefit": "What's in it for me?",
   "landing.hero.trust1": "Your boss can't see how you're doing. Not even your position.",
   "landing.hero.trust2": "Measured only during working hours. After that the app records nothing.",
-  "landing.hero.trust3": "No ban. Your phone stays with you, work apps are whitelisted.",
   "landing.app_preview.you": "You",
   "landing.app_preview.points_label": "Points this week",
   "landing.app_preview.rank_label": "Your position",

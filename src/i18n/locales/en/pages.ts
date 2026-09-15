@@ -267,7 +267,7 @@ const d: Dict = {
   "pages.impressum.seo.description": "TeamFokus legal notice: information pursuant to § 5 TMG (German Telemedia Act), contact, commercial register, and responsible party.",
   "pages.impressum.back": "Back",
   "pages.impressum.title": "Legal Notice",
-  "pages.impressum.subtitle": "Information pursuant to § 5 TMG (German Telemedia Act).",
+  "pages.impressum.subtitle": "Information about the provider of TeamFokus.",
   "pages.impressum.lawNote": "This legal notice is governed by German law.",
   "pages.impressum.provider": "Service provider",
   "pages.impressum.contact": "Contact",

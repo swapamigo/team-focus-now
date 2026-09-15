@@ -273,7 +273,7 @@ const d: Dict = {
   "pages.impressum.seo.description": "Impressum von TeamFokus: Angaben gemäß § 5 TMG, Kontakt, Handelsregister und Verantwortlicher.",
   "pages.impressum.back": "Zurück",
   "pages.impressum.title": "Impressum",
-  "pages.impressum.subtitle": "Angaben gemäß § 5 TMG.",
+  "pages.impressum.subtitle": "Angaben zum Anbieter von TeamFokus.",
   "pages.impressum.lawNote": "",
   "pages.impressum.provider": "Diensteanbieter",
   "pages.impressum.contact": "Kontakt",

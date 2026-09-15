@@ -1,54 +1,38 @@
-import { useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { initAutoTracking } from "@/lib/track";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Landing from "./pages/Landing";
-import AuthPage from "./pages/auth/AuthPage";
-import RoleSelect from "./pages/onboarding/RoleSelect";
-import ManagerOnboarding from "./pages/onboarding/ManagerOnboarding";
-import EmployeeOnboarding from "./pages/onboarding/EmployeeOnboarding";
-import AppShell from "./components/app/AppShell";
-import EmployeeDashboard from "./pages/employee/Dashboard";
-import TeamsPage from "./pages/employee/Teams";
-import SettingsPage from "./pages/employee/Settings";
-import FeaturesPage from "./pages/employee/Features";
-import PrivacyInfo from "./pages/employee/PrivacyInfo";
-import ManagerShell from "./components/app/ManagerShell";
-import ManagerDashboard from "./pages/manager/Dashboard";
-import ManagerTeamsCombined from "./pages/manager/TeamsCombined";
-import ManagerSettingsCombined from "./pages/manager/SettingsCombined";
-import ManagerMembers from "./pages/manager/Members";
-import ManagerInvites from "./pages/manager/Invites";
-import ManagerChallenges from "./pages/manager/Challenges";
-import ManagerRules from "./pages/manager/Rules";
-import EmployeeRules from "./pages/employee/Rules";
+import FocusInfo from "./pages/FocusInfo";
+import CompanySuggestion from "./pages/CompanySuggestion";
+const FocusEmployee = lazy(() => import("./pages/employee/FocusEmployee"));
+const FocusManager = lazy(() => import("./pages/manager/FocusManager"));
+const AuthPage = lazy(() => import("./pages/auth/AuthPage"));
+const RoleSelect = lazy(() => import("./pages/onboarding/RoleSelect"));
+const ManagerOnboarding = lazy(() => import("./pages/onboarding/ManagerOnboarding"));
+const EmployeeOnboarding = lazy(() => import("./pages/onboarding/EmployeeOnboarding"));
 import ProtectedRoute from "./components/app/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 import JoinByCode from "./pages/JoinByCode";
-import DemoEmployee from "./pages/demo/DemoEmployee";
-import DemoManager from "./pages/demo/DemoManager";
-import Waitlist from "./pages/Waitlist";
-import Trust from "./pages/Trust";
-import Akzeptanz from "./pages/Akzeptanz";
-import Vorteile from "./pages/Vorteile";
-import Arbeitgeber from "./pages/Arbeitgeber";
-import Einfuehrung from "./pages/Einfuehrung";
+const DemoEmployee = lazy(() => import("./pages/demo/DemoEmployee"));
+const DemoManager = lazy(() => import("./pages/demo/DemoManager"));
 import Impressum from "./pages/Impressum";
 import Unsubscribe from "./pages/Unsubscribe";
 
 
-import AdminLayout from "./pages/admin/AdminLayout";
-import AdminLeads from "./pages/admin/AdminLeads";
-import AdminAnalytics from "./pages/admin/AdminAnalytics";
+const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
+const AdminLeads = lazy(() => import("./pages/admin/AdminLeads"));
+const AdminAnalytics = lazy(() => import("./pages/admin/AdminAnalytics"));
 import OAuthConsent from "./pages/OAuthConsent";
 
 const queryClient = new QueryClient();
 
 function TrackingProvider() {
-  useEffect(() => initAutoTracking(), []);
+  const { pathname } = useLocation();
+  useEffect(() => { if (!window.location.hash) window.scrollTo(0, 0); return initAutoTracking(); }, [pathname]);
   return null;
 }
 
@@ -59,6 +43,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <TrackingProvider />
+        <Suspense fallback={<div className="min-h-screen grid place-items-center" role="status">TeamFokus …</div>}>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<AuthPage mode="login" />} />
@@ -67,18 +52,19 @@ const App = () => (
           <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
 
           {/* Public demo (no auth) */}
-          <Route path="/demo/employee" element={<DemoEmployee />} />
-          <Route path="/demo/manager" element={<DemoManager />} />
+          <Route path="/demo/employee/*" element={<DemoEmployee />} />
+          <Route path="/demo/manager/*" element={<DemoManager />} />
 
           {/* Waitlist (public) */}
-          <Route path="/waitlist" element={<Waitlist />} />
+          <Route path="/waitlist" element={<CompanySuggestion />} />
+          <Route path="/unternehmen-vorschlagen" element={<CompanySuggestion />} />
 
           {/* Öffentliche Informationsarchitektur (kanonische URLs) */}
-          <Route path="/fuer-mitarbeitende" element={<Vorteile />} />
-          <Route path="/fuer-arbeitgeber" element={<Arbeitgeber />} />
-          <Route path="/fuer-betriebsrat" element={<Akzeptanz />} />
-          <Route path="/datenschutz" element={<Trust />} />
-          <Route path="/einfuehrung" element={<Einfuehrung />} />
+          <Route path="/fuer-mitarbeitende" element={<FocusInfo />} />
+          <Route path="/fuer-arbeitgeber" element={<FocusInfo />} />
+          <Route path="/fuer-betriebsrat" element={<FocusInfo />} />
+          <Route path="/datenschutz" element={<FocusInfo />} />
+          <Route path="/einfuehrung" element={<FocusInfo />} />
 
           {/* Alte URLs → Weiterleitung auf die kanonische Seite */}
           <Route path="/vorteile" element={<Navigate to="/fuer-mitarbeitende" replace />} />
@@ -95,26 +81,15 @@ const App = () => (
           <Route path="/onboarding/manager" element={<ProtectedRoute requireOnboarded={false}><ManagerOnboarding /></ProtectedRoute>} />
           <Route path="/onboarding/employee" element={<ProtectedRoute requireOnboarded={false}><EmployeeOnboarding /></ProtectedRoute>} />
 
-          <Route path="/app" element={<ProtectedRoute requireRole="employee"><AppShell /></ProtectedRoute>}>
-            <Route index element={<EmployeeDashboard />} />
-            <Route path="stats" element={<Navigate to="/app" replace />} />
-            <Route path="teams" element={<TeamsPage />} />
-            <Route path="rules" element={<EmployeeRules />} />
-            <Route path="features" element={<FeaturesPage />} />
-            <Route path="settings" element={<SettingsPage />} />
-            <Route path="privacy" element={<PrivacyInfo />} />
-          </Route>
-
-          <Route path="/manager" element={<ProtectedRoute requireRole="manager"><ManagerShell /></ProtectedRoute>}>
-            <Route index element={<ManagerDashboard />} />
-            <Route path="teams" element={<ManagerTeamsCombined />} />
-            <Route path="members" element={<ManagerMembers />} />
-            <Route path="invites" element={<ManagerInvites />} />
-            <Route path="challenges" element={<ManagerChallenges />} />
-            <Route path="leads" element={<Navigate to="/admin/leads" replace />} />
-            <Route path="rules" element={<ManagerRules />} />
-            <Route path="settings" element={<ManagerSettingsCombined />} />
-          </Route>
+          <Route path="/app/stats" element={<Navigate to="/app/progress" replace />} />
+          <Route path="/app/teams" element={<Navigate to="/app/ranking" replace />} />
+          <Route path="/app/privacy" element={<Navigate to="/datenschutz" replace />} />
+          <Route path="/app/*" element={<ProtectedRoute requireRole="employee"><FocusEmployee /></ProtectedRoute>} />
+          <Route path="/manager/teams" element={<Navigate to="/manager" replace />} />
+          <Route path="/manager/members" element={<Navigate to="/manager" replace />} />
+          <Route path="/manager/challenges" element={<Navigate to="/manager/rewards" replace />} />
+          <Route path="/manager/leads" element={<Navigate to="/admin/leads" replace />} />
+          <Route path="/manager/*" element={<ProtectedRoute requireRole="manager"><FocusManager /></ProtectedRoute>} />
 
           {/* Admin-only area (separate shell, no employee/manager nav) */}
           <Route path="/admin" element={<AdminLayout />}>
@@ -127,6 +102,7 @@ const App = () => (
           <Route path="/index" element={<Navigate to="/" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </Suspense>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

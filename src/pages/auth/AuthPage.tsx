@@ -59,7 +59,7 @@ export default function AuthPage({ mode }: Props) {
           email, password,
           options: {
             emailRedirectTo: window.location.origin,
-            data: { display_name: name || email.split("@")[0] },
+            data: { display_name: name.trim() || `Fokus-${crypto.randomUUID().slice(0, 8)}` },
           },
         });
         if (error) throw error;

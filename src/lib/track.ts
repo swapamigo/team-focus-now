@@ -1,6 +1,7 @@
 // Lightweight, DSGVO-freundliches Link-Tracking (keine Cookies, keine Namen, keine IP-Speicherung).
 import { supabase } from "@/integrations/supabase/client";
 
+const marketingPath = (path: string) => ["/", "/fuer-mitarbeitende", "/fuer-arbeitgeber", "/fuer-betriebsrat", "/einfuehrung"].includes(path);
 const SESSION_KEY = "tf_track_session";
 
 export function getSessionId(): string {
@@ -35,9 +36,12 @@ const cut = (v: string | null | undefined, max: number) =>
   v ? v.slice(0, max) : null;
 
 export async function trackEvent(input: TrackInput): Promise<void> {
+  const path = window.location.pathname;
+  if (!marketingPath(path)) return;
   try {
     const { getVisitorGeo } = await import("@/lib/geo");
     const geo = await getVisitorGeo();
+    if (window.location.pathname !== path) return;
     await supabase.from("link_events").insert({
       event_type: input.event_type ?? "click",
       link_id: cut(input.link_id, 200) ?? "unknown",
@@ -75,6 +79,7 @@ function slug(text: string) {
  * Rückgabe: Cleanup-Funktion.
  */
 export function initAutoTracking(): () => void {
+  if (!marketingPath(window.location.pathname)) return () => {};
   const start = Date.now();
   let sent = false;
 
