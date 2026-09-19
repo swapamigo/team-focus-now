@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, ArrowUpRight, Fuel, Gift, Leaf, LockKeyhole, Plus, Sparkles, Trophy } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Fuel, Gift, Leaf, LockKeyhole, Plus, ShieldCheck, Sparkles, Trophy } from "lucide-react";
 import Seo from "@/components/Seo";
 import LandingHeader from "@/components/landing/LandingHeader";
 import Footer from "@/components/landing/Footer";
@@ -26,7 +26,7 @@ export default function Landing() {
         <div className="hero-light" aria-hidden="true" />
         <div className="container relative max-w-6xl py-14 md:py-20 grid lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-16 items-center">
           <Reveal>
-            <p className="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-card/70 text-primary text-xs font-semibold px-3 py-2 mb-6 shadow-sm"><Sparkles className="w-3.5 h-3.5" aria-hidden="true" />{t("heroBadge")}</p>
+            <p className="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-card/70 text-primary text-xs font-semibold px-3 py-2 mb-6 shadow-sm"><ShieldCheck className="w-3.5 h-3.5" aria-hidden="true" />{t("heroBadge")}</p>
             <h1 className="text-[2.35rem] sm:text-5xl xl:text-6xl leading-[1.04] tracking-tight font-semibold">{t("hero1")}<br /><span className="text-gradient">{t("hero2")}</span></h1>
             <p className="text-lg text-muted-foreground max-w-md leading-relaxed mt-6">{t("heroBody")}</p>
             <p className="font-semibold text-primary mt-5 mb-7">{t("weeklyValue")}</p>

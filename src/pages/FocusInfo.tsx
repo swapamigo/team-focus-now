@@ -20,7 +20,7 @@ export default function FocusInfo() {
   const title: FocusKey = privacy ? "privateTitle" : employee ? "hero2" : employer ? "employerHero" : "companyBenefit";
   const body: FocusKey = privacy ? "privateBody" : employee ? "heroBody" : employer ? "employerIntro" : "companyDetail";
   const items: { icon: typeof Gift; title: FocusKey; body: FocusKey }[] = privacy ? [
-    { icon: Smartphone, title: "faq1", body: "answer1" }, { icon: ShieldCheck, title: "privacy", body: "managerPrivate" }, { icon: Gift, title: "receiptTitle", body: "answer3" },
+    { icon: Smartphone, title: "faq1", body: "answer1" }, { icon: ShieldCheck, title: "privacy", body: "privacyShort" }, { icon: Gift, title: "receiptTitle", body: "answer3" },
   ] : [{ icon: Smartphone, title: "personalCard", body: "personalBody" }, { icon: Gift, title: "rewardSection", body: "shopNote" }, { icon: ShieldCheck, title: "privacy", body: "privateBody" }];
   return <div className="min-h-screen">
     <Seo title={`TeamFokus · ${t(title)}`} description={t(body)} path={pathname} />
