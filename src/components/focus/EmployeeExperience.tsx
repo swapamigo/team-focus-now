@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { ArrowDownRight, ChartNoAxesCombined, Check, Gift, Home, Leaf, Pencil, Smartphone, Trophy } from "lucide-react";
+import { ArrowDownRight, ChartNoAxesCombined, Check, Gift, Home, Leaf, Pencil, Shirt, Smartphone, Trophy } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -131,7 +131,7 @@ export default function EmployeeExperience({ data, actions, demo, view = "today"
         <section className="rounded-2xl bg-primary/5 border border-primary/10 p-6"><p className="text-sm text-muted-foreground">{t("balance")}</p><p className="text-4xl font-semibold text-primary mt-2" data-testid="balance">{number(data.balance)} <span className="text-lg">{t("points")}</span></p><p className="text-sm mt-2 text-muted-foreground">{t("neverExpire")}</p></section>
         <p className="text-sm text-muted-foreground">{t("shopNote")}</p>
         <div className="grid sm:grid-cols-2 gap-4">{data.rewards.map((reward) => {
-          const Icon = reward.kind === "time" ? Home : reward.kind === "wellbeing" ? Leaf : Gift;
+          const Icon = reward.kind === "time" ? Home : reward.kind === "wellbeing" ? Leaf : reward.kind === "merch" ? Shirt : Gift;
           return <article key={reward.id} className="surface-card p-6 flex flex-col" data-testid="shop-reward"><div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary grid place-items-center mb-5"><Icon className="w-6 h-6" /></div><h2 className="font-semibold text-lg">{reward.title}</h2><p className="text-sm text-muted-foreground mt-2 mb-5 flex-1">{reward.description}</p><p className="font-semibold mb-3">{number(reward.points)} {t("points")}</p><Button disabled={data.balance < reward.points} onClick={() => setSelected({ reward, requestId: crypto.randomUUID() })}>{data.balance < reward.points ? t("missing", { points: number(reward.points - data.balance) }) : t("redeem")}</Button></article>;
         })}</div>
         {!data.rewards.length && <p className="surface-card p-6 text-sm text-muted-foreground">{t("noRewards")}</p>}

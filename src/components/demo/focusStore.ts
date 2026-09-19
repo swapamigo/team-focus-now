@@ -4,7 +4,7 @@ import { rankPlayers, validReward, weekPoints, roundPoints, type EmployeeData, t
 
 const KEY = "teamfokus-demo-v3";
 const CHANGED = "teamfokus-demo-changed";
-const rewardSchema = z.object({ id: z.string(), title: z.string().min(1).max(100), description: z.string().max(500), points: z.number().int().positive().max(1000000), kind: z.enum(["voucher", "wellbeing", "time"]), active: z.boolean() });
+const rewardSchema = z.object({ id: z.string(), title: z.string().min(1).max(100), description: z.string().max(500), points: z.number().int().positive().max(1000000), kind: z.enum(["voucher", "wellbeing", "time", "merch"]), active: z.boolean() });
 const receiptSchema = z.object({ code: z.string(), alias: z.string(), title: z.string(), description: z.string(), created_at: z.string(), fulfilled_at: z.string().nullable(), requestId: z.string() });
 const schema = z.object({ unlocks: z.number().int().min(0).max(40).default(8), roundSettled: z.boolean().default(false), alias: z.string().min(1).max(30), balance: z.number().finite().nonnegative(), rewards: z.array(rewardSchema), receipts: z.array(receiptSchema) });
 type State = { unlocks: number; roundSettled: boolean; alias: string; balance: number; rewards: Reward[]; receipts: (Receipt & { requestId: string })[] };
@@ -17,6 +17,7 @@ function initial(): State {
     { id: "amazon50", title: "Amazon-Gutschein · 50 €", description: "Für deinen nächsten großen Wunsch.", points: 5000, kind: "voucher", active: true },
     { id: "massage50", title: "Massage-Gutschein · 50 €", description: "Zeit zum Entspannen.", points: 5000, kind: "wellbeing", active: true },
     { id: "fuel50", title: "Tankgutschein · 50 €", description: "Beispiel: Unternehmensrabatt. 50 € Gutscheinwert für 4.000 Punkte.", points: 4000, kind: "voucher", active: true },
+    { id: "merch-hoodie", title: "Firmen-Hoodie", description: "Dein Hoodie mit Firmenlogo. Größe mit deinem Manager abstimmen.", points: 1500, kind: "merch", active: true },
     { id: "time", title: "2 Stunden früher Feierabend", description: "Termin mit deinem Manager vereinbaren.", points: 3000, kind: "time", active: true },
   ] };
 }
@@ -24,9 +25,9 @@ function initial(): State {
 function localizedReward(reward: Reward): Reward {
   const lang = document.documentElement.lang;
   const defaults = initial().rewards.find((r) => r.id === reward.id);
-  const titles = lang === "en" ? ["Amazon voucher · €10", "Massage voucher · €20", "Leave work 2 hours early", "Amazon voucher · €40", "Amazon voucher · €50", "Massage voucher · €50", "Fuel voucher · €50"] : lang === "es" ? ["Vale de Amazon · 10 €", "Vale de masaje · 20 €", "Salir del trabajo 2 horas antes", "Vale de Amazon · 40 €", "Vale de Amazon · 50 €", "Vale de masaje · 50 €", "Vale de combustible · 50 €"] : null;
-  const descriptions = lang === "en" ? ["A little wish, fulfilled.", "A break just for you.", "Arrange the date with your manager.", "For your next wish.", "For your next big wish.", "Time to unwind.", "Example company discount: €50 face value for 4,000 points."] : lang === "es" ? ["Un pequeño deseo cumplido.", "Un descanso solo para ti.", "Acuerda la fecha con tu responsable.", "Para tu próximo deseo.", "Para tu próximo gran deseo.", "Tiempo para relajarte.", "Ejemplo de descuento de empresa: un vale de 50 € por 4.000 puntos."] : null;
-  const index = ["amazon", "massage", "time", "amazon40", "amazon50", "massage50", "fuel50"].indexOf(reward.id);
+  const titles = lang === "en" ? ["Amazon voucher · €10", "Massage voucher · €20", "Leave work 2 hours early", "Amazon voucher · €40", "Amazon voucher · €50", "Massage voucher · €50", "Fuel voucher · €50", "Company hoodie"] : lang === "es" ? ["Vale de Amazon · 10 €", "Vale de masaje · 20 €", "Salir del trabajo 2 horas antes", "Vale de Amazon · 40 €", "Vale de Amazon · 50 €", "Vale de masaje · 50 €", "Vale de combustible · 50 €", "Sudadera de empresa"] : null;
+  const descriptions = lang === "en" ? ["A little wish, fulfilled.", "A break just for you.", "Arrange the date with your manager.", "For your next wish.", "For your next big wish.", "Time to unwind.", "Example company discount: €50 face value for 4,000 points.", "Your hoodie with the company logo. Agree on your size with your manager."] : lang === "es" ? ["Un pequeño deseo cumplido.", "Un descanso solo para ti.", "Acuerda la fecha con tu responsable.", "Para tu próximo deseo.", "Para tu próximo gran deseo.", "Tiempo para relajarte.", "Ejemplo de descuento de empresa: un vale de 50 € por 4.000 puntos.", "Tu sudadera con el logo de la empresa. Consulta la talla con tu responsable."] : null;
+  const index = ["amazon", "massage", "time", "amazon40", "amazon50", "massage50", "fuel50", "merch-hoodie"].indexOf(reward.id);
   if (!defaults || !titles || !descriptions || index < 0) return reward;
   return { ...reward, title: reward.title === defaults.title ? titles[index] : reward.title, description: reward.description === defaults.description ? descriptions[index] : reward.description };
 }
@@ -38,7 +39,7 @@ function read(): State {
     if (parsed?.success) {
       const state = parsed.data as State;
       // Add new examples without resetting balances, receipts, or edited rewards.
-      for (const reward of initial().rewards.filter((r) => ["amazon40", "amazon50", "massage50", "fuel50"].includes(r.id))) {
+      for (const reward of initial().rewards.filter((r) => ["amazon40", "amazon50", "massage50", "fuel50", "merch-hoodie"].includes(r.id))) {
         if (!state.rewards.some((r) => r.id === reward.id)) state.rewards.push(reward);
       }
       return state;

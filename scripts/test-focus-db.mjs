@@ -25,6 +25,7 @@ try {
   for (const table of ['user_allowed_apps','user_work_schedules','user_breaks','high_focus_periods','team_goals']) await db.exec(`create table if not exists public.${table}(id uuid)`);
   await db.exec('grant all on all tables in schema public to authenticated; grant all on all tables in schema public to service_role;');
   await db.exec(readFileSync(new URL('../supabase/migrations/20260914120000_focus_unlock_rewards.sql',import.meta.url),'utf8'));
+  await db.exec(readFileSync(new URL('../supabase/migrations/20260919170000_focus_merch_rewards.sql',import.meta.url),'utf8'));
   const people=[1,2,...Array.from({length:14},(_,i)=>100+i),...Array.from({length:4},(_,i)=>200+i)];
   for (const n of people) await query("insert into auth.users(id,email,raw_user_meta_data) values($1,$2,'{\"display_name\":\"Private legal name\"}')",[id(n),`user${n}@example.test`]);
   await query("insert into companies(id,name,slug,owner_id) values($1,'Company A','a',$2),($3,'Company B','b',$4)",[c1,manager,c2,otherManager]);
@@ -121,6 +122,16 @@ try {
     await query('delete from auth.users where id=$1',[id(100)]);
     assert.equal((await query('select * from focus_days where user_id=$1',[id(100)])).length,0);
     assert.equal((await query('select * from focus_receipts where user_id=$1',[id(100)])).length,0);
+  });
+  await check('managers can price merch and employees can see it in the shop',async()=>{
+    await actor(otherManager,()=>query("select focus_save_reward($1,null,'Company hoodie','Company logo',1500,'merch',true)",[c2]));
+    const merch=(await query("select id,kind,points from focus_rewards where company_id=$1 and title='Company hoodie'",[c2]))[0];
+    assert.equal(merch.kind,'merch'); assert.equal(merch.points,1500);
+    const [{payload}]=await actor(id(200),()=>query('select focus_employee($1) as payload',[c2]));
+    assert.ok(payload.rewards.some(item=>item.id===merch.id && item.kind==='merch' && item.points===1500));
+    await actor(id(200),()=>denied(()=>query("select focus_save_reward($1,$2,'Company hoodie','Company logo',1,'merch',true)",[c2,merch.id])));
+    await actor(otherManager,()=>query("select focus_save_reward($1,$2,'Company hoodie','Company logo',1800,'merch',true)",[c2,merch.id]));
+    assert.equal((await query('select points from focus_rewards where id=$1',[merch.id]))[0].points,1800);
   });
   console.log(`${checks} database integration checks passed.`);
 } catch(error) { console.error(error.message); if(error.position) console.error(`SQL position: ${error.position}`); process.exitCode=1; }

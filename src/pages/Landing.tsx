@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, ArrowUpRight, Fuel, Gift, Leaf, LockKeyhole, Plus, ShieldCheck, Sparkles, Trophy } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Fuel, Gift, Leaf, LockKeyhole, Plus, ShieldCheck, Shirt, Sparkles, Trophy } from "lucide-react";
 import Seo from "@/components/Seo";
 import LandingHeader from "@/components/landing/LandingHeader";
 import Footer from "@/components/landing/Footer";
@@ -17,6 +17,7 @@ export default function Landing() {
     { icon: Gift, key: "giftExample", value: 50, points: 5000, tone: "voucher" },
     { icon: Leaf, key: "massageExample", value: 50, points: 5000, tone: "wellbeing" },
     { icon: Fuel, key: "fuelExample", value: 50, points: 4000, tone: "fuel" },
+    { icon: Shirt, key: "merchExample", value: null, points: 1500, tone: "merch" },
   ] as const;
   return <div className="min-h-screen bg-background">
     <Seo title={`TeamFokus · ${t("hero1")} ${t("hero2")}`} description={t("heroBody")} path="/" />
@@ -46,13 +47,14 @@ export default function Landing() {
       </section>
       <section id="rewards" className="container max-w-5xl pb-14 md:pb-20 scroll-mt-24">
         <Reveal><h2 className="text-3xl font-semibold tracking-tight">{t("rewardSection")}</h2><p className="text-sm text-muted-foreground mt-3">{t("rewardExamples")}</p></Reveal>
-        <div className="grid md:grid-cols-3 gap-5 mt-7">{rewards.map(({ icon: Icon, key, value, points, tone }, index) => <Reveal key={key} delay={index * 70}>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-7">{rewards.map(({ icon: Icon, key, value, points, tone }, index) => <Reveal key={key} delay={index * 70}>
           <DepthCard>
             <Link to="/demo/employee/shop" className="reward-link">
-              <div className="voucher-scene" data-tone={tone} aria-hidden="true"><div className="voucher-orbit" /><div className="voucher-ticket"><small>TeamFokus</small><Icon /><span>{value} €</span></div></div>
-              <div className="flex items-start justify-between gap-3"><h3 className="font-medium leading-snug">{key === "fuelExample" ? t("fuelExample") : `${t(key)} · ${value} €`}</h3><ArrowUpRight className="w-4 h-4 shrink-0 text-muted-foreground mt-1" aria-hidden="true" /></div>
+              <div className="voucher-scene" data-tone={tone} aria-hidden="true"><div className="voucher-orbit" />{tone === "merch" ? <div className="merch-item"><Icon /><span>✦</span></div> : <div className="voucher-ticket"><small>TeamFokus</small><Icon /><span>{value} €</span></div>}</div>
+              <div className="flex items-start justify-between gap-3"><h3 className="font-medium leading-snug">{key === "fuelExample" || value === null ? t(key) : <>{t(key)} <span className="whitespace-nowrap">· {value} €</span></>}</h3><ArrowUpRight className="w-4 h-4 shrink-0 text-muted-foreground mt-1" aria-hidden="true" /></div>
               <p className="text-primary font-semibold mt-3">{number(points)} {t("points")}</p>
               {key === "fuelExample" && <p className="text-xs text-muted-foreground mt-2">{t("dealExample")}</p>}
+              {key === "merchExample" && <p className="text-xs text-muted-foreground mt-2">{t("merchDescription")}</p>}
             </Link>
           </DepthCard>
         </Reveal>)}</div>

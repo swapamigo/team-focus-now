@@ -20,7 +20,7 @@ export interface UnlockDay { date: string; unlocks: number | null; complete: boo
 export interface Contestant { id: string; alias: string; unlocks: number; ticket: string }
 export interface RankedPlayer extends Contestant { rank: number; selected: boolean; bonus: number }
 export interface RankingRow { alias: string; rank: number; bonus: number; isMe: boolean }
-export interface Reward { id: string; title: string; description: string; points: number; kind: "voucher" | "wellbeing" | "time"; active: boolean }
+export interface Reward { id: string; title: string; description: string; points: number; kind: "voucher" | "wellbeing" | "time" | "merch"; active: boolean }
 export interface Receipt { code: string; alias: string; title: string; description: string; created_at: string; fulfilled_at: string | null }
 export interface EmployeeData {
   alias: string; balance: number; days: UnlockDay[]; previousDays: UnlockDay[];
@@ -54,5 +54,5 @@ export function rankPlayers(players: Contestant[]): RankedPlayer[] {
 export function validReward(reward: Omit<Reward, "id">): boolean {
   return reward.title.trim().length > 0 && reward.title.trim().length <= 100 &&
     reward.description.length <= 500 && Number.isSafeInteger(reward.points) && reward.points > 0 && reward.points <= 1000000 &&
-    ["voucher", "wellbeing", "time"].includes(reward.kind) && typeof reward.active === "boolean";
+    ["voucher", "wellbeing", "time", "merch"].includes(reward.kind) && typeof reward.active === "boolean";
 }
