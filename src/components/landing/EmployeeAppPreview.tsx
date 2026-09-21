@@ -3,6 +3,7 @@ import { Gift, Minus, Plus, Smartphone, Trophy } from "lucide-react";
 import { useFocusText } from "@/i18n/focus";
 import { bonusForRank, dailyPoints, roundPoints } from "@/lib/focusGame";
 import { usePointerDepth } from "@/hooks/usePointerDepth";
+import { useScrollDepth } from "@/hooks/useScrollDepth";
 
 export default function EmployeeAppPreview() {
   const { t, number } = useFocusText();
@@ -12,7 +13,9 @@ export default function EmployeeAppPreview() {
   const bonus = unlocks < 8 ? bonusForRank(unlocks + 1) : 0;
   const points = roundPoints(personal + bonus);
   const pointer = usePointerDepth();
+  useScrollDepth(pointer.ref);
   return <div {...pointer} className="hero-phone-stage w-full max-w-sm mx-auto">
+    <div className="phone-atmosphere" aria-hidden="true"><div className="phone-aura" /><div className="phone-orbit phone-orbit-back" /><div className="phone-orbit phone-orbit-front" /></div>
     <div className="phone-ground" aria-hidden="true" />
     <div className="hero-phone" data-bonus={bonus > 0}>
       <div className="phone-side-buttons" aria-hidden="true" />
@@ -44,6 +47,6 @@ export default function EmployeeAppPreview() {
         <div className="phone-home-indicator" aria-hidden="true" />
       </div>
     </div>
-    <p className="text-center text-xs text-muted-foreground mt-8">{t("preview")}</p>
+    <p className="phone-caption text-center text-xs text-muted-foreground mt-8">{t("preview")}</p>
   </div>;
 }

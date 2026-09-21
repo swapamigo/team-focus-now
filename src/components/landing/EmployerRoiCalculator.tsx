@@ -1,9 +1,10 @@
-import { useState, type CSSProperties } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import { ArrowDown, ArrowUpRight, ChevronDown, RotateCcw, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useFocusText, type FocusKey } from "@/i18n/focus";
 import { calculateEmployerRoi, ROI_EXAMPLE, type RoiAssumptions } from "@/lib/employerRoi";
+import { useScrollDepth } from "@/hooks/useScrollDepth";
 
 const ranges: { key: keyof RoiAssumptions; label: FocusKey; min: number; max: number; step: number }[] = [
   { key: "employees", label: "roiPeople", min: 5, max: 250, step: 1 },
@@ -20,6 +21,8 @@ const costs: { key: keyof RoiAssumptions; label: FocusKey; max: number; min: num
 
 export default function EmployerRoiCalculator() {
   const { t, number, lang } = useFocusText();
+  const resultScene = useRef<HTMLDivElement>(null);
+  useScrollDepth(resultScene);
   const [assumptions, setAssumptions] = useState<RoiAssumptions>({ ...ROI_EXAMPLE });
   // Keep a draft while typing; an empty or invalid field never produces a misleading result.
   const [drafts, setDrafts] = useState<Partial<Record<keyof RoiAssumptions, string>>>({});
@@ -86,7 +89,7 @@ export default function EmployerRoiCalculator() {
         <p className="text-xs text-muted-foreground leading-relaxed mt-3">{invalid ? t("roiInvalid") : t("roiCostSummary", { days: number(assumptions.workdays), rewards: money(assumptions.rewardsPerPerson), software: money(assumptions.softwarePerPerson), other: money(assumptions.otherCosts) })}</p>
         <Button type="button" variant="ghost" size="sm" className="mt-3 -ml-3 text-xs text-muted-foreground" onClick={reset}><RotateCcw aria-hidden="true" />{t("roiReset")}</Button>
       </div>
-      <div className="roi-result" data-positive={result ? result.net >= 0 : undefined}>
+      <div ref={resultScene} className="roi-depth-scene"><div className="roi-result" data-positive={result ? result.net >= 0 : undefined}>
         <div className="relative">
           <div className="flex justify-between items-start gap-5"><p id="roi-result-label" className="text-sm leading-relaxed text-white/80 max-w-[75%]">{t("roiResult")}</p><ArrowUpRight className="h-6 w-6 text-white/60 shrink-0" aria-hidden="true" /></div>
           <output htmlFor={ids} aria-labelledby="roi-result-label" aria-live="polite" aria-atomic="true" className="block mt-5" data-testid="roi-net">
@@ -101,7 +104,7 @@ export default function EmployerRoiCalculator() {
           <div className="flex items-center justify-between gap-4 border-t border-white/15 pt-5 mt-6"><span className="text-sm text-white/75">{t("roiReturn")}</span><span className="font-semibold text-xl tabular-nums" data-testid="roi-percent">{result?.roi === null || result?.roi === undefined ? "—" : `${new Intl.NumberFormat(lang, { maximumFractionDigits: 1, signDisplay: "exceptZero" }).format(result.roi)} %`}</span></div>
           <p className="text-sm leading-relaxed mt-5 text-white/85" data-testid="roi-break-even">{result ? result.breakEvenUnlocks === null ? t("roiNoBreakEven") : result.cost === 0 ? t("roiNoCosts") : t("roiBreakEven", { count: number(Math.ceil(result.breakEvenUnlocks)) }) : t("roiInvalid")}</p>
         </div>
-      </div>
+      </div></div>
     </div>
     <p className="text-xs text-muted-foreground leading-relaxed mt-6" id="roi-scope">{t("roiScope")}</p>
     <details className="roi-method mt-3">

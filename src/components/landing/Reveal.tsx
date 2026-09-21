@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import { refreshScrollDepth } from "@/hooks/useScrollDepth";
 
 /** Content is visible by default; motion is only a progressive enhancement. */
 export default function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
@@ -15,6 +16,7 @@ export default function Reveal({ children, className = "", delay = 0 }: { childr
         [{ opacity: 0, transform: "translateY(22px)" }, { opacity: 1, transform: "translateY(0)" }],
         { duration: 650, delay, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" },
       );
+      animation.current?.finished.then(refreshScrollDepth, () => {});
       observer.disconnect();
     }, { threshold: 0.08, rootMargin: "0px 0px -20px 0px" });
     observer.observe(element);
