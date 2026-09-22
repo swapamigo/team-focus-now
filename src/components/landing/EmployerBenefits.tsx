@@ -9,6 +9,9 @@ const sources = [
   { title: "Iqbal & Horvitz · CHI, 2007", href: "https://www.microsoft.com/en-us/research/publication/disruption-recovery-computing-tasks-field-study-analysis-directions/", note: "employerFocusStudy" },
   { title: "Altmann, Trafton & Hambrick · 2014", href: "https://doi.org/10.1037/a0030986", note: "employerErrorStudy" },
   { title: "Brailovskaia et al. · Acta Psychologica, 2024", href: "https://doi.org/10.1016/j.actpsy.2024.104494", note: "employerWellbeingStudy" },
+  { title: "Harbach et al. · SOUPS, 2014", href: "https://www.usenix.org/system/files/conference/soups2014/soups14-paper-harbach.pdf", note: "employerUnlockStudy" },
+  { title: "Harbach, De Luca & Egelman · CHI, 2016", href: "https://research.google/pubs/the-anatomy-of-smartphone-unlocking-a-field-study-of-android-lock-screens/" },
+  { title: "Destatis · 2026", href: "https://www.destatis.de/DE/Presse/Pressemitteilungen/Zahl-der-Woche/2025/PD25_50_p002.html", note: "employerWorkdaysStudy" },
 ] as const;
 
 export default function EmployerBenefits() {
@@ -47,7 +50,7 @@ export default function EmployerBenefits() {
       <summary className="cursor-pointer text-sm font-medium">{t("employerResearch")}</summary>
       <ul className="space-y-4 mt-4">{sources.map((source) => <li key={source.href}>
         <a href={source.href} target="_blank" rel="noopener noreferrer" className="inline-flex gap-1 items-start text-sm text-primary underline underline-offset-4"><span>{source.title}</span><ArrowUpRight className="h-4 w-4 shrink-0" aria-hidden="true" /></a>
-        <p className="text-xs text-muted-foreground leading-relaxed mt-1">{t(source.note)}</p>
+        {"note" in source && <p className="text-xs text-muted-foreground leading-relaxed mt-1">{t(source.note)}</p>}
       </li>)}</ul>
       <p className="text-xs text-muted-foreground leading-relaxed mt-4">{t("employerStudyScope")}</p>
     </details>

@@ -1,32 +1,38 @@
 # Veröffentlichung über GitHub
 
-Das Repository `swapamigo/team-focus-now` ist bereits mit Vercel verbunden.
-Ein Commit auf `main` löst einen neuen Build aus. Nach erfolgreichem Deployment
-ist die Version unter https://team-focus-now.vercel.app erreichbar.
-Ein Update in Lovable ist dafür nicht erforderlich.
+Repository: `swapamigo/team-focus-now`.
 
-## Eigene Domain
+## Hauptdomain auf Hostinger
 
-Stand der Prüfung vom 21. September 2026: `teamfokus.app` liefert noch die
-separate Lovable-Veröffentlichung aus. Die Nameserver gehören zu Name.com.
-Die Domain wurde bisher nicht auf Vercel umgestellt.
+`https://teamfokus.app` wird über den bestehenden Workflow
+`.github/workflows/deploy-hostinger.yml` veröffentlicht. `www.teamfokus.app`
+leitet auf die Hauptdomain weiter. Vercel bleibt davon unabhängig.
 
-Für die einmalige Verbindung:
+1. Geprüfte Änderungen auf `main` veröffentlichen.
+2. In GitHub unter **Actions → Deploy to Hostinger → Run workflow** starten.
+3. Als `ref` den geprüften Commit angeben, um genau diese Fassung zu bauen.
+   Der Standardwert `main` baut den zum Start aktuellen Stand dieses Branches.
+4. Nach erfolgreichem Upload `https://teamfokus.app/version.txt` mit dem
+   gewünschten Commit vergleichen und die geänderte Unterseite prüfen.
 
-1. Im bestehenden Vercel-Projekt unter **Settings → Domains** `teamfokus.app`
-   und `www.teamfokus.app` hinzufügen. Die Hauptdomain festlegen.
-2. Bei Name.com die zugehörigen Web-DNS-Einträge auf die **exakt von Vercel
-   angezeigten Werte** ändern. Bestehende Mail- und Verifizierungseinträge
-   (insbesondere MX und TXT) beibehalten.
-3. Nach erfolgreicher Domain- und HTTPS-Prüfung die Startseite, eine Unterseite
-   wie `/datenschutz` und den Prototyp über die eigene Domain öffnen.
-   Bei aktivierter Anmeldung auch die erlaubten Weiterleitungsadressen
-   der bestehenden Auth-Konfiguration prüfen.
+Der Workflow baut mit `npm ci` und `npm run build`, ergänzt die
+Hostinger-Konfiguration aus `deploy/hostinger/.htaccess` und lädt `dist/`
+über FTPS hoch. Die Zugangsdaten sind bereits als GitHub-Secrets hinterlegt;
+sie gehören nicht in Quellcode oder Protokolle. Eine neue DNS-Umstellung oder
+eine Veröffentlichung in Lovable ist für Inhaltsupdates nicht erforderlich.
 
-Erst dann zeigt die eigene Domain automatisch die GitHub-Veröffentlichungen.
-Der bestehende Supabase-Dienst und die GitHub-Verbindung zu Lovable müssen
-dafür nicht entfernt werden.
+Wichtig beim erneuten Ausführen eines älteren Jobs: Wurde er mit `ref: main`
+gestartet, lädt `actions/checkout` wieder den aktuellen Stand von `main`.
+Ein erneuter Lauf ist dann keine Wiederherstellung des alten Website-Stands.
+Für eine gezielte Wiederherstellung einen neuen manuellen Lauf mit dem
+gewünschten vollständigen Commit-SHA starten.
 
-Referenzen: [Vercel Git-Deployments](https://vercel.com/docs/git),
-[Vercel Domains](https://vercel.com/docs/domains/working-with-domains/add-a-domain),
-[Lovable GitHub-Synchronisierung](https://docs.lovable.dev/integrations/github).
+## Separate Vercel-Veröffentlichung
+
+Ein Commit auf `main` löst zusätzlich einen Vercel-Build aus. Die unabhängige
+Adresse ist `https://team-focus-now.vercel.app`. `vercel.json` konfiguriert
+dort die Weiterleitung für Unterseiten; Hostinger nutzt die separate
+`.htaccess`. Die Hauptdomain bleibt bei Hostinger.
+
+Der bestehende Supabase-Dienst und die Authentifizierungsverbindungen werden
+bei einer Frontend-Veröffentlichung nicht migriert oder abgeschaltet.
