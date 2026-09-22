@@ -1,0 +1,38 @@
+# TeamFokus - Hostinger (Apache/LiteSpeed) config
+# Wird beim Deploy nach dist/ kopiert. vercel.json bleibt fuer Vercel zustaendig.
+Options -MultiViews
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 1) www -> Hauptdomain (https://teamfokus.app), inkl. HTTPS
+  RewriteCond %{HTTP_HOST} ^www\.teamfokus\.app$ [NC]
+  RewriteRule ^ https://teamfokus.app%{REQUEST_URI} [R=301,L]
+
+  # 2) HTTP -> HTTPS nur fuer die echte Domain (Vorschau-Domain bleibt unberuehrt)
+  RewriteCond %{HTTP_HOST} ^teamfokus\.app$ [NC]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://teamfokus.app%{REQUEST_URI} [R=301,L]
+
+  # 3) SPA-Fallback: alles, was keine echte Datei/kein Ordner ist, an index.html
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule ^ /index.html [L]
+</IfModule>
+
+# Caching: gehashte Assets lange, index.html nie
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2?|png|jpe?g|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "^(index\.html|sitemap\.xml|robots\.txt|llms\.txt)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml text/plain application/xml
+</IfModule>
