@@ -281,9 +281,10 @@
 .voucher-ticket small { font-size: 10px; font-weight: 600; letter-spacing: .02em; }
 .voucher-ticket svg { position: absolute; left: 16px; bottom: 15px; width: 26px; height: 26px; stroke-width: 1.4; }
 .voucher-ticket span { position: absolute; right: 16px; bottom: 10px; font-size: 28px; font-weight: 600; letter-spacing: -.04em; }
-.faq-list details { padding: 18px 20px; border-radius: 18px; border: 1px solid transparent; transition: background .2s ease, border-color .2s ease; }
+.faq-list { perspective: 1200px; }
+.faq-list details { padding: 18px 20px; border-radius: 18px; border: 1px solid transparent; transform: translateY(calc(var(--scene-progress, 0) * -7px)) rotateX(calc(var(--scene-progress, 0) * -3deg)); transform-origin: 50% 0; transition: transform .4s cubic-bezier(.2,.8,.2,1), background .2s ease, border-color .2s ease, box-shadow .3s ease; }
 .faq-list details + details { margin-top: 4px; }
-.faq-list details[open] { background: hsl(var(--card)); border-color: hsl(var(--border) / .7); }
+.faq-list details[open], .faq-list details:focus-within { transform: none; background: hsl(var(--card)); border-color: hsl(var(--border) / .7); box-shadow: 0 3px 0 hsl(var(--primary) / .045), 0 16px 28px -22px hsl(var(--primary) / .25); }
 .faq-list summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .faq-list summary::-webkit-details-marker { display: none; }
 .faq-list summary svg { flex-shrink: 0; transition: transform .25s ease; }
@@ -308,6 +309,64 @@
 .roi-mobile-summary[data-positive="true"] strong { color: #17694c; }
 .roi-mobile-summary[data-positive="false"] strong { color: #a33b1c; }
 .roi-mobile-summary strong { overflow-wrap: anywhere; min-width: 0; }
+
+/* Shared spatial scenes keep foreground text separate from decorative motion. */
+.spatial-section { --scene-tint: var(--primary); position: relative; isolation: isolate; perspective: 1400px; border-radius: 30px; }
+.spatial-section[data-tone="mint"] { --scene-tint: 162 58% 37%; }
+.spatial-backdrop { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: -1; }
+.spatial-halo { position: absolute; right: -15%; top: -65%; width: 80%; height: 230%; background: radial-gradient(ellipse, hsl(var(--scene-tint) / .16), transparent 66%); transform: translate3d(calc(var(--scene-progress, 0) * 25px), calc(var(--scene-progress, 0) * -36px), 0); transition: transform .6s ease-out; }
+.spatial-ribbon { position: absolute; right: -4%; top: 48%; width: 62%; height: 190%; border: 1px solid hsl(var(--scene-tint) / .12); border-radius: 50%; transform: translateY(-50%) rotateX(58deg) rotateZ(calc(20deg - var(--scene-progress, 0) * 24deg)); transition: transform .6s ease-out; }
+.spatial-surface { display: grid; grid-template-columns: minmax(0, 1fr) 128px; align-items: center; gap: 32px; padding: clamp(24px, 3.4vw, 40px); border: 1px solid hsl(var(--scene-tint) / .13); border-radius: inherit; background: linear-gradient(125deg, hsl(var(--card) / .95), hsl(var(--scene-tint) / .035)); box-shadow: inset 0 1px 0 hsl(var(--card)), 0 3px 0 hsl(var(--scene-tint) / .025), 0 20px 40px -32px hsl(var(--scene-tint) / .28); transform: translate3d(0, calc(var(--scene-progress, 0) * -10px), 0) rotateX(calc(var(--scene-progress, 0) * -1.8deg)); transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+.spatial-section:has(:focus-visible) > .spatial-surface { transform: none; }
+.spatial-copy { position: relative; z-index: 1; min-width: 0; }
+.spatial-emblem { position: relative; justify-self: center; width: 128px; height: 128px; perspective: 800px; pointer-events: none; transform: translateY(calc(var(--scene-progress, 0) * -22px)); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.emblem-plate { position: absolute; inset: 16%; display: grid; place-items: center; border: 1px solid #ffffffdc; border-radius: 28%; color: hsl(var(--scene-tint)); background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--scene-tint) / .17)); box-shadow: inset 0 1px 0 #fff, 4px 3px 0 hsl(var(--scene-tint) / .16), 8px 6px 0 hsl(var(--scene-tint) / .05), 14px 24px 25px -15px hsl(var(--scene-tint) / .3); transform: rotateX(calc(12deg - var(--scene-progress, 0) * 18deg + var(--tilt-x, 0deg))) rotateY(calc(-20deg + var(--scene-progress, 0) * 24deg + var(--tilt-y, 0deg))) rotateZ(calc(-7deg + var(--scene-progress, 0) * 9deg)); transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+.emblem-plate::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(125deg, transparent 30%, #ffffff65 31%, #ffffff10 52%, transparent 53%); pointer-events: none; }
+.emblem-plate svg { position: relative; z-index: 1; width: 48%; height: 48%; }
+.emblem-orbit { position: absolute; inset: 0; border: 1px solid hsl(var(--scene-tint) / .22); border-radius: 50%; transform: rotateX(62deg) rotateZ(calc(-16deg - var(--scene-progress, 0) * 50deg)); transition: transform .6s ease-out; }
+.emblem-shadow { position: absolute; bottom: 1%; left: 15%; width: 70%; height: 15%; border-radius: 50%; background: radial-gradient(ellipse, hsl(var(--scene-tint) / .22), transparent 70%); transform: translateY(calc(var(--scene-progress, 0) * 12px)) scale(calc(1 + var(--scene-progress, 0) * .15)); transition: transform .5s ease-out; }
+.emblem-dot { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 30% 25%, #fff, hsl(var(--scene-tint) / .65)); box-shadow: 2px 4px 6px hsl(var(--scene-tint) / .12); transition: transform .55s ease-out; }
+.emblem-dot-near { left: 2%; bottom: 17%; transform: translate3d(calc(var(--scene-progress, 0) * -12px), calc(var(--scene-progress, 0) * 18px), 8px); }
+.emblem-dot-far { right: 2%; top: 10%; width: 8px; height: 8px; opacity: .6; transform: translate3d(calc(var(--scene-progress, 0) * 8px), calc(var(--scene-progress, 0) * -14px), -8px); }
+.spatial-intro { overflow: clip; overflow-clip-margin: 12px; }
+.spatial-intro .spatial-surface { grid-template-columns: minmax(0, 1fr) 180px; padding: 12px 0; border: 0; background: transparent; box-shadow: none; transform: none; }
+.spatial-intro .spatial-emblem { width: 180px; height: 180px; }
+.spatial-intro .spatial-halo { right: -25%; width: 65%; opacity: .7; }
+.spatial-intro .spatial-ribbon { right: -8%; width: 34%; opacity: .65; }
+.spatial-compact .spatial-surface { grid-template-columns: minmax(0, 1fr) 92px; gap: 18px; }
+.spatial-compact .spatial-emblem { width: 92px; height: 92px; }
+.footer-stage { position: relative; isolation: isolate; overflow: clip; }
+.footer-horizon { position: absolute; inset: 0; pointer-events: none; perspective: 800px; background: linear-gradient(180deg, transparent, hsl(var(--primary) / .025)); }
+.footer-horizon > span { position: absolute; width: min(850px, 130vw); height: 240px; left: 50%; top: 65%; border-radius: 50%; border: 1px solid hsl(var(--primary) / .1); box-shadow: 0 0 0 30px hsl(var(--primary) / .018), 0 0 0 60px hsl(var(--primary) / .009); transform: translate(-50%, -40%) rotateX(74deg) rotateZ(calc(-8deg - var(--scene-progress, 0) * 10deg)) translateY(calc(var(--scene-progress, 0) * 35px)); transition: transform .65s ease-out; }
+.footer-links a { position: relative; transition: color .2s ease, transform .25s ease; }
+.footer-links a::after { content: ""; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: hsl(var(--primary) / .5); transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
+.footer-links a:focus-visible::after { transform: scaleX(1); }
+.back-to-top { display: grid; place-items: center; align-self: center; flex-shrink: 0; width: 46px; height: 46px; border: 1px solid hsl(var(--primary) / .15); border-radius: 16px; color: hsl(var(--primary)); background: linear-gradient(145deg, hsl(var(--card)), hsl(var(--primary) / .05)); box-shadow: inset 0 1px 0 #fff, 0 3px 0 hsl(var(--primary) / .1), 0 12px 20px -14px hsl(var(--primary) / .35); transition: transform .25s ease, box-shadow .25s ease; }
+.back-to-top:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) {
+  .footer-links a:hover { color: hsl(var(--primary)); transform: translateY(-2px); }
+  .footer-links a:hover::after { transform: scaleX(1); }
+  .back-to-top:hover { transform: translateY(-3px) rotateX(12deg); box-shadow: inset 0 1px 0 #fff, 0 4px 0 hsl(var(--primary) / .12), 0 16px 24px -14px hsl(var(--primary) / .35); }
+  .marketing-site :is(a, button).bg-primary:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 #ffffff35, 0 3px 0 hsl(var(--primary) / .3), 0 12px 20px -10px hsl(var(--primary) / .45); }
+}
+.marketing-site :is(a, button).bg-primary:active, .back-to-top:active { transform: translateY(1px) scale(.98); }
+@media (max-width: 767px) {
+  .spatial-intro .spatial-surface { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .spatial-intro .spatial-emblem { width: 88px; height: 88px; grid-row: 1; justify-self: start; }
+  .spatial-intro .spatial-halo { width: 100%; right: -30%; }
+  .spatial-emblem { transform: translateY(calc(var(--scene-progress, 0) * -10px)); }
+}
+@media (max-width: 479px) {
+  .spatial-panel .spatial-surface { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 24px; transform: translateY(calc(var(--scene-progress, 0) * -5px)); }
+  .spatial-panel .spatial-emblem { width: 74px; height: 74px; grid-row: 1; justify-self: start; }
+  .back-to-top { align-self: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spatial-surface, .spatial-halo, .spatial-emblem, .emblem-plate, .emblem-shadow, .emblem-dot, .faq-list details, .footer-links a, .footer-horizon > span, .back-to-top, .marketing-site :is(a, button).bg-primary { transform: none !important; transition: none !important; }
+  .spatial-ribbon, .emblem-orbit { display: none; }
+  .footer-horizon > span { transform: translate(-50%, -40%) rotateX(74deg) !important; }
+  .footer-links a::after { transition: none; }
+}
 @media (min-width: 1024px) { .roi-mobile-summary { display: none; } }
 @media (prefers-reduced-motion: reduce) { .roi-bar > div, .roi-assumptions summary > svg { transition: none; } }
 @media (hover: hover) and (pointer: fine) { .depth-scene:hover .depth-card { box-shadow: 0 18px 36px -20px hsl(226 45% 35% / .3); } .reward-link:hover .voucher-ticket, .reward-link:focus-visible .voucher-ticket { transform: rotateX(4deg) rotateY(-4deg) rotateZ(-2deg) translateY(-3px); } }

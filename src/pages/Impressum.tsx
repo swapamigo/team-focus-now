@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Building2, Mail, Scale } from "lucide-react";
-import Logo from "@/components/Logo";
+import LandingHeader from "@/components/landing/LandingHeader";
+import Footer from "@/components/landing/Footer";
+import SpatialPanel from "@/components/landing/SpatialPanel";
 import Seo from "@/components/Seo";
 import { useT } from "@/i18n";
 
@@ -13,33 +15,27 @@ const company = {
 
 export default function Impressum() {
   const t = useT();
+  const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-background">
+    <div className="marketing-site min-h-screen bg-background">
       <Seo
         title={t("pages.impressum.seo.title")}
         description={t("pages.impressum.seo.description")}
         path="/impressum"
       />
 
-      <header className="border-b border-border/40">
-        <div className="container py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center"><Logo withWordmark /></Link>
-          <Link to="/" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5">
-            <ArrowLeft className="h-4 w-4" /> {t("pages.impressum.back")}
-          </Link>
-        </div>
-      </header>
+      <LandingHeader onDemo={() => navigate("/demo/employee")} />
 
       <main className="container py-12 md:py-16 max-w-3xl">
-        <div className="text-center mb-12">
-          <div className="inline-flex h-14 w-14 rounded-2xl gradient-primary items-center justify-center shadow-glow mb-5">
-            <Scale className="h-7 w-7 text-primary-foreground" />
-          </div>
+        <Link to="/" className="mb-7 text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5">
+          <ArrowLeft className="h-4 w-4" /> {t("pages.impressum.back")}
+        </Link>
+        <SpatialPanel variant="intro" icon={Scale} className="mb-12">
           <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">{t("pages.impressum.title")}</h1>
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
             {t("pages.impressum.subtitle")}
           </p>
-        </div>
+        </SpatialPanel>
 
         <div className="grid gap-4">
           <section className="surface-card p-6 md:p-7 flex gap-4">
@@ -79,6 +75,7 @@ export default function Impressum() {
 
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

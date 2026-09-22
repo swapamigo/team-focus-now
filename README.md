@@ -18,8 +18,11 @@ Betreuer: Hr. Aburaia.
 - `npm run dev`
 
 ## Demo
-Eine lauffähige Demo-Instanz ist über Lovable abrufbar. 
-Link: https://teamfocus.lovable.app
+Website und Prototyp: https://team-focus-now.vercel.app
+
+Änderungen auf dem GitHub-Branch `main` werden automatisch über Vercel
+veröffentlicht. Dafür ist kein Publish-Schritt in Lovable notwendig.
+Die Verbindung der eigenen Domain ist in [docs/deployment.md](docs/deployment.md) beschrieben.
 
 ## Abgabestand
 Tag `v1.0-abgabe` markiert den Stand der Bachelorarbeit.

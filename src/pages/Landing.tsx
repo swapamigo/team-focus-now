@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, Fuel, Gift, Leaf, LockKeyhole, Plus, ShieldCheck, Shirt, Sparkles, Trophy } from "lucide-react";
 import Seo from "@/components/Seo";
@@ -6,12 +7,16 @@ import Footer from "@/components/landing/Footer";
 import EmployeeAppPreview from "@/components/landing/EmployeeAppPreview";
 import Reveal from "@/components/landing/Reveal";
 import DepthCard from "@/components/landing/DepthCard";
+import SpatialPanel from "@/components/landing/SpatialPanel";
+import { refreshScrollDepth, useScrollDepth } from "@/hooks/useScrollDepth";
 import ShareCompany from "@/components/focus/ShareCompany";
 import { useFocusText } from "@/i18n/focus";
 
 export default function Landing() {
   const { t, number } = useFocusText();
   const navigate = useNavigate();
+  const faqScene = useRef<HTMLDivElement>(null);
+  useScrollDepth(faqScene);
   const questions = [["faq1", "answer1"], ["faq2", "answer2"], ["faq3", "answer3"], ["faq4", "answer4"]] as const;
   const rewards = [
     { icon: Gift, key: "giftExample", value: 50, points: 5000, tone: "voucher" },
@@ -19,7 +24,7 @@ export default function Landing() {
     { icon: Fuel, key: "fuelExample", value: 50, points: 4000, tone: "fuel" },
     { icon: Shirt, key: "merchExample", value: null, points: 1500, tone: "merch" },
   ] as const;
-  return <div className="min-h-screen bg-background">
+  return <div className="marketing-site min-h-screen bg-background">
     <Seo title={`TeamFokus · ${t("hero1")} ${t("hero2")}`} description={t("heroBody")} path="/" />
     <LandingHeader onDemo={() => navigate("/demo/employee")} />
     <main>
@@ -59,8 +64,8 @@ export default function Landing() {
           </DepthCard>
         </Reveal>)}</div>
       </section>
-      <section className="container max-w-5xl pb-14 md:pb-20"><Reveal><div className="rounded-3xl bg-primary/5 border border-primary/10 p-7 md:p-10 flex gap-5 items-start"><LockKeyhole className="w-7 h-7 text-primary shrink-0 mt-1" aria-hidden="true" /><div><h2 className="text-2xl font-semibold tracking-tight">{t("privateTitle")}</h2><p className="text-muted-foreground text-sm leading-relaxed max-w-2xl mt-3">{t("privateBody")}</p><Link to="/datenschutz" className="inline-flex gap-2 items-center text-primary text-sm mt-4">{t("privacy")}<ArrowRight className="w-4 h-4" aria-hidden="true" /></Link></div></div></Reveal></section>
-      <section className="container max-w-3xl pb-14 md:pb-20"><Reveal><h2 className="text-3xl font-semibold tracking-tight mb-6">{t("faq")}</h2><div className="faq-list">{questions.map(([q, a]) => <details key={q}><summary className="font-medium cursor-pointer">{t(q)}<Plus className="w-4 h-4 text-muted-foreground" aria-hidden="true" /></summary><p className="text-sm text-muted-foreground leading-relaxed mt-3 pr-4">{t(a)}</p></details>)}</div><p className="text-xs text-muted-foreground mt-6 leading-relaxed">{t("rewardFootnote")}</p></Reveal></section>
+      <section className="container max-w-5xl pb-14 md:pb-20"><Reveal><SpatialPanel icon={LockKeyhole}><h2 className="text-2xl font-semibold tracking-tight">{t("privateTitle")}</h2><p className="text-muted-foreground text-sm leading-relaxed max-w-2xl mt-3">{t("privateBody")}</p><Link to="/datenschutz" className="inline-flex gap-2 items-center text-primary text-sm mt-4">{t("privacy")}<ArrowRight className="w-4 h-4" aria-hidden="true" /></Link></SpatialPanel></Reveal></section>
+      <section className="container max-w-3xl pb-14 md:pb-20"><Reveal><h2 className="text-3xl font-semibold tracking-tight mb-6">{t("faq")}</h2><div ref={faqScene} className="faq-list">{questions.map(([q, a]) => <details key={q} onToggle={refreshScrollDepth}><summary className="font-medium cursor-pointer">{t(q)}<Plus className="w-4 h-4 text-muted-foreground" aria-hidden="true" /></summary><p className="text-sm text-muted-foreground leading-relaxed mt-3 pr-4">{t(a)}</p></details>)}</div><p className="text-xs text-muted-foreground mt-6 leading-relaxed">{t("rewardFootnote")}</p></Reveal></section>
     </main>
     <Footer />
   </div>;

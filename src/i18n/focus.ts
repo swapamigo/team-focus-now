@@ -19,6 +19,8 @@ const copy = {
   previewMore: ["Eine Entsperrung mehr", "One more unlock", "Un desbloqueo más"],
   previewExploreBonus: ["Unter acht Entsperrungen? Entdecke im Beispiel, wie ein möglicher Teambonus deine Punkte ergänzt.", "Fewer than eight unlocks? Explore how a possible team bonus adds to your points in this example.", "¿Menos de ocho desbloqueos? Descubre en el ejemplo cómo un posible bonus del equipo suma puntos."],
   menu: ["Menü", "Menu", "Menú"],
+  backToTop: ["Nach oben", "Back to top", "Volver arriba"],
+  legalNotice: ["Impressum", "Legal notice", "Aviso legal"],
   previewControl: ["Entsperrungen pro Arbeitstag", "Unlocks per workday", "Desbloqueos por día laboral"],
   previewRule: ["Bei diesem Tageswert an allen fünf Arbeitstagen.", "With this daily count on all five workdays.", "Con este recuento en los cinco días laborales."],
   setupTitle: ["Dein Wochenspiel wird vorbereitet.", "Your weekly challenge is being prepared.", "Estamos preparando tu reto semanal."],

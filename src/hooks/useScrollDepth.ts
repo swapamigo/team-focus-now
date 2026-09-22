@@ -4,6 +4,7 @@ type Scene = { visible: boolean; value: string };
 const scenes = new Map<HTMLElement, Scene>();
 let frame = 0;
 let observer: IntersectionObserver | undefined;
+let layoutObserver: ResizeObserver | undefined;
 
 function render() {
   frame = 0;
@@ -42,6 +43,10 @@ function register(element: HTMLElement) {
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
     document.addEventListener("visibilitychange", visibilityChanged);
+    if ("ResizeObserver" in window) {
+      layoutObserver = new ResizeObserver(schedule);
+      layoutObserver.observe(document.body);
+    }
     if ("IntersectionObserver" in window) observer = new IntersectionObserver(entries => {
       for (const entry of entries) {
         const target = entry.target as HTMLElement;
@@ -56,9 +61,11 @@ function register(element: HTMLElement) {
   }
   scenes.set(element, { visible: true, value: "" });
   observer?.observe(element);
+  layoutObserver?.observe(element);
   schedule();
   return () => {
     observer?.unobserve(element);
+    layoutObserver?.unobserve(element);
     scenes.delete(element);
     element.style.removeProperty("--scene-progress");
     element.removeAttribute("data-scroll-visible");
@@ -67,6 +74,7 @@ function register(element: HTMLElement) {
       window.removeEventListener("resize", schedule);
       document.removeEventListener("visibilitychange", visibilityChanged);
       observer?.disconnect(); observer = undefined;
+      layoutObserver?.disconnect(); layoutObserver = undefined;
       cancelAnimationFrame(frame); frame = 0;
     }
   };

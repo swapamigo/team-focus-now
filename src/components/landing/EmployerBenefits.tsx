@@ -2,6 +2,7 @@ import { ArrowUpRight, Brain, Gift, Heart, ShieldCheck, TrendingUp } from "lucid
 import Reveal from "./Reveal";
 import DepthCard from "./DepthCard";
 import EmployerRoiCalculator from "./EmployerRoiCalculator";
+import SpatialPanel from "./SpatialPanel";
 import { useFocusText } from "@/i18n/focus";
 
 const sources = [
@@ -35,13 +36,12 @@ export default function EmployerBenefits() {
     </div>
     <Reveal><div className="max-w-2xl"><h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">{t("employerProfitTitle")}</h2><p className="text-sm sm:text-base text-muted-foreground leading-relaxed mt-4">{t("employerProfitBody")}</p></div></Reveal>
     <Reveal><EmployerRoiCalculator /></Reveal>
-    <Reveal><section className="rounded-3xl border border-primary/10 bg-primary/5 p-6 sm:p-7">
-      <Heart className="h-6 w-6 text-primary mb-5" aria-hidden="true" />
+    <Reveal><section><SpatialPanel icon={Heart} tone="mint">
       <h2 className="text-xl font-semibold tracking-tight">{t("employerWellbeingTitle")}</h2>
       <p className="text-sm text-muted-foreground leading-relaxed mt-3">{t("employerWellbeingBody")}</p>
       <p className="text-sm leading-relaxed mt-3">{t("employerHabits")}</p>
       <a href="#employer-research" onClick={openResearch} className="inline-block text-xs text-primary underline underline-offset-4 mt-3">{t("employerSource")} · Ruhr-Universität Bochum</a>
-    </section></Reveal>
+    </SpatialPanel></section></Reveal>
     <div className="flex items-start gap-3 px-1 py-2"><ShieldCheck className="h-5 w-5 shrink-0 text-primary mt-0.5" aria-hidden="true" /><p className="text-sm text-muted-foreground leading-relaxed">{t("employerPrivacy")}</p></div>
     <details id="employer-research" className="group border-y py-4 scroll-mt-24">
       <summary className="cursor-pointer text-sm font-medium">{t("employerResearch")}</summary>
