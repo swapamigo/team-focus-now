@@ -1,0 +1,58 @@
+# Manuelle Veröffentlichung von teamfokus.app auf Hostinger.
+# Auslösen: GitHub → Actions → "Deploy to Hostinger" → "Run workflow".
+# Vercel (team-focus-now.vercel.app) baut weiterhin unabhängig davon bei jedem Push.
+name: Deploy to Hostinger
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch, Tag oder Commit, der veröffentlicht werden soll"
+        required: true
+        default: main
+
+concurrency:
+  group: hostinger-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: hostinger-production
+      url: https://teamfokus.app
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        # Öffentliche Supabase-Konfiguration kommt aus der eingecheckten .env
+        run: npm run build
+
+      - name: Add Hostinger server config
+        run: |
+          cp deploy/hostinger/.htaccess dist/.htaccess
+          echo "$(git rev-parse --short HEAD) $(date -u +%FT%TZ)" > dist/version.txt
+          test -f dist/index.html
+
+      - name: Upload via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./dist/
+          # Pfad relativ zum FTP-Konto (Konto ist auf public_html von teamfokus.app beschränkt)
+          server-dir: ./
+          dangerous-clean-slate: false
