@@ -3,6 +3,11 @@
 Options -MultiViews
 DirectoryIndex index.html
 
+# Versteckte Dateien (z. B. .ftp-deploy-sync-state.json, .htaccess) nicht ausliefern
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
