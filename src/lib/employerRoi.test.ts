@@ -2,57 +2,65 @@ import { describe, expect, it } from "vitest";
 import { calculateEmployerRoi, ROI_EXAMPLE, ROI_WORKDAYS } from "./employerRoi";
 
 describe("employer ROI scenarios", () => {
-  it("explains the default 100-person scenario using current and target unlocks", () => {
+  it("uses the points curve, €4 software and a capped team pool for 100 people", () => {
     const result = calculateEmployerRoi(ROI_EXAMPLE)!;
     expect(ROI_WORKDAYS).toBe(21);
     expect(result.fewerUnlocks).toBe(10);
     expect(result.avoidedUnlocks).toBe(21000);
     expect(result.benefit).toBe(10500);
-    expect(result.cost).toBe(5500);
-    expect(result.net).toBe(5000);
-    expect(result.roi).toBeCloseTo(90.90909);
-    expect(Math.ceil(result.breakEvenUnlocks!)).toBe(6);
-    expect(calculateEmployerRoi({ ...ROI_EXAMPLE, targetUnlocks: 45 })!.net).toBeLessThan(0);
-    expect(calculateEmployerRoi({ ...ROI_EXAMPLE, targetUnlocks: 44 })!.net).toBeGreaterThan(0);
+    expect(result.personalPerPerson).toBe(2.5);
+    expect(result.bonusPool).toBe(100);
+    expect(result.rewardsPerPerson).toBe(3.5);
+    expect(result.cost).toBe(750);
+    expect(result.net).toBe(9750);
+    expect(result.roi).toBe(1300);
   });
 
-  it("scales to 1,000 people without changing the return percentage", () => {
-    const result = calculateEmployerRoi({ ...ROI_EXAMPLE, employees: 1000 })!;
-    expect(result.net).toBe(50000);
-    expect(result.cost).toBe(55000);
-    expect(result.roi).toBe(calculateEmployerRoi(ROI_EXAMPLE)!.roi);
+  it("increases rewards at every lower target above eight, with a €40 personal cap", () => {
+    let previous = calculateEmployerRoi(ROI_EXAMPLE)!.rewardCost;
+    for (let targetUnlocks = 39; targetUnlocks >= 8; targetUnlocks--) {
+      const next = calculateEmployerRoi({ ...ROI_EXAMPLE, targetUnlocks })!;
+      expect(next.rewardCost).toBeGreaterThan(previous);
+      previous = next.rewardCost;
+    }
+    const maximum = calculateEmployerRoi({ ...ROI_EXAMPLE, targetUnlocks: 8 })!;
+    expect(maximum.personalPerPerson).toBe(40);
+    expect(maximum.rewardCost).toBe(4100);
+    expect(calculateEmployerRoi({ ...ROI_EXAMPLE, targetUnlocks: 0 })!.rewardCost).toBe(maximum.rewardCost);
   });
 
-  it("accounts for discounted rewards and values as small as one cent", () => {
-    const discounted = calculateEmployerRoi({ ...ROI_EXAMPLE, rewardsPerPerson: 40 })!;
-    expect(discounted.cost).toBe(4500);
-    expect(discounted.net).toBe(6000);
-    expect(calculateEmployerRoi({ ...ROI_EXAMPLE, valuePerUnlock: 0.01 })!.benefit).toBe(210);
+  it("never gives a full team bonus to more than ten participants", () => {
+    const large = calculateEmployerRoi({ ...ROI_EXAMPLE, employees: 1000 })!;
+    expect(large.bonusPool).toBe(100);
+    expect(large.cost).toBe(6600);
+    expect(large.net).toBe(98400);
+    const small = calculateEmployerRoi({ ...ROI_EXAMPLE, employees: 5, targetUnlocks: 8 })!;
+    expect(small.bonusPool).toBe(50);
+    expect(small.rewardsPerPerson).toBe(50);
   });
 
-  it("shows losses and undefined ratios without inventing a positive result", () => {
+  it("recomputes variable costs to find the first attainable break-even target", () => {
+    for (const currentUnlocks of [3, 8, 16, 50, 150]) {
+      const input = { ...ROI_EXAMPLE, currentUnlocks, targetUnlocks: 0 };
+      const result = calculateEmployerRoi(input)!;
+      const outcomes = Array.from({ length: currentUnlocks + 1 }, (_, reduction) =>
+        calculateEmployerRoi({ ...input, targetUnlocks: currentUnlocks - reduction })!.net);
+      const first = outcomes.findIndex((net) => net >= 0);
+      expect(result.breakEvenUnlocks).toBe(first < 0 ? null : first);
+    }
     expect(calculateEmployerRoi({ ...ROI_EXAMPLE, targetUnlocks: 50 })!.roi).toBe(-100);
-    const noValue = calculateEmployerRoi({ ...ROI_EXAMPLE, valuePerUnlock: 0 })!;
-    expect(noValue.net).toBe(-5500);
-    expect(noValue.breakEvenUnlocks).toBeNull();
-    const free = calculateEmployerRoi({ ...ROI_EXAMPLE, rewardsPerPerson: 0, softwarePerPerson: 0 })!;
-    expect(free.roi).toBeNull();
-    expect(free.breakEvenUnlocks).toBe(0);
-    const unattainable = calculateEmployerRoi({ ...ROI_EXAMPLE, currentUnlocks: 2, targetUnlocks: 0 })!;
-    expect(unattainable.breakEvenUnlocks).toBeGreaterThan(2);
+    expect(calculateEmployerRoi({ ...ROI_EXAMPLE, currentUnlocks: 2, targetUnlocks: 0 })!.breakEvenUnlocks).toBeNull();
   });
 
-  it("rejects impossible reductions and out-of-range inputs", () => {
-    for (const [key, value] of Object.entries({ employees: 1001, currentUnlocks: -1, targetUnlocks: 51, valuePerUnlock: NaN, rewardsPerPerson: Infinity, softwarePerPerson: -5 })) {
+  it("rejects values below 50 cents, invalid counts and impossible targets", () => {
+    for (const [key, value] of Object.entries({ employees: 1001, currentUnlocks: -1, targetUnlocks: 51, valuePerUnlock: NaN, softwarePerPerson: Infinity })) {
       expect(calculateEmployerRoi({ ...ROI_EXAMPLE, [key]: value })).toBeNull();
     }
+    for (const valuePerUnlock of [0, 0.49, 10.01]) expect(calculateEmployerRoi({ ...ROI_EXAMPLE, valuePerUnlock })).toBeNull();
     expect(calculateEmployerRoi({ ...ROI_EXAMPLE, employees: 4 })).toBeNull();
     expect(calculateEmployerRoi({ ...ROI_EXAMPLE, employees: 5.5 })).toBeNull();
     expect(calculateEmployerRoi({ ...ROI_EXAMPLE, targetUnlocks: 1.5 })).toBeNull();
     expect(calculateEmployerRoi({ ...ROI_EXAMPLE, currentUnlocks: 151 })).toBeNull();
-    expect(calculateEmployerRoi({ ...ROI_EXAMPLE, valuePerUnlock: 10.01 })).toBeNull();
-    expect(calculateEmployerRoi({ ...ROI_EXAMPLE, rewardsPerPerson: 50.01 })).toBeNull();
     expect(calculateEmployerRoi({ ...ROI_EXAMPLE, softwarePerPerson: 1001 })).toBeNull();
-    expect(calculateEmployerRoi({ ...ROI_EXAMPLE, employees: 5, currentUnlocks: 0, targetUnlocks: 0 })!.benefit).toBe(0);
   });
 });

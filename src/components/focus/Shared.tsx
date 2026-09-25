@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Copy, Download, LogOut, Share2, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Check, Copy, Download, LogOut, Share2, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import Logo from "@/components/Logo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -41,7 +41,17 @@ export function PrivacyNote({ manager = false }: { manager?: boolean }) {
 
 export function ReceiptView({ receipt, demo }: { receipt: Receipt; demo: boolean }) {
   const { t, date } = useFocusText();
-  const content = [demo ? t("receiptDemo") : "TeamFokus", t("receiptTitle"), receipt.title, receipt.description, `${t("alias")}: ${receipt.alias}`, `${t("code")}: ${receipt.code}`, `${t("receiptDate")}: ${date(receipt.created_at)}`, receipt.fulfilled_at ? t("fulfilled") : t("issued")].filter(Boolean).join("\n");
+  // Never present a locally generated sample as a real, redeemable voucher.
+  const voucher = receipt.voucher?.demo === demo ? receipt.voucher : null;
+  const content = [demo ? t("receiptDemo") : "TeamFokus", t("receiptTitle"), receipt.title, receipt.description,
+    voucher ? `${t("voucherCode")}: ${voucher.code}` : "", voucher && demo ? t("voucherDemoHelp") : "",
+    `${t("alias")}: ${receipt.alias}`, `${t("code")}: ${receipt.code}`, `${t("receiptDate")}: ${date(receipt.created_at)}`,
+    t(voucher ? "voucherReady" : receipt.fulfilled_at ? "fulfilled" : "issued")].filter(Boolean).join("\n");
+  const copyCode = async () => {
+    if (!voucher) return;
+    try { await navigator.clipboard.writeText(voucher.code); toast.success(t("voucherCopied")); }
+    catch { toast.error(t("error")); }
+  };
   const copy = async () => { try { await navigator.clipboard.writeText(content); toast.success(t("copied")); } catch { toast.error(t("error")); } };
   const share = async () => {
     if (!navigator.share) return copy();
@@ -54,11 +64,19 @@ export function ReceiptView({ receipt, demo }: { receipt: Receipt; demo: boolean
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
   return <div className="space-y-4" data-testid="receipt">
-    <p className="text-sm text-muted-foreground">{t("receiptHelp")}</p>
-    <textarea aria-label={t("receiptTitle")} readOnly value={content} rows={9} className="w-full rounded-xl border border-border p-4 bg-secondary/30 text-sm resize-none" />
+    {voucher ? <>
+      <p className="text-sm text-muted-foreground leading-relaxed">{t(demo ? "voucherDemoHelp" : "voucherHelp")}</p>
+      <div className="voucher-code-card">
+        <p className="flex items-center gap-2 text-sm font-medium text-primary"><Check className="h-4 w-4" aria-hidden="true" />{t("voucherReady")}</p>
+        <p id="voucher-code-label" className="text-xs text-muted-foreground mt-5">{t("voucherCode")}</p>
+        <code aria-labelledby="voucher-code-label" className="block text-lg sm:text-xl font-semibold tracking-wide break-all mt-2 select-all" data-testid="voucher-code">{voucher.code}</code>
+        <Button className="w-full mt-5" onClick={copyCode}><Copy className="h-4 w-4 mr-2" />{t("voucherCopy")}</Button>
+      </div>
+      <details className="text-sm"><summary className="cursor-pointer text-muted-foreground">{t("voucherDetails")}</summary><textarea aria-label={t("receiptTitle")} readOnly value={content} rows={10} className="w-full rounded-xl border p-4 bg-secondary/30 text-xs resize-none mt-3" /></details>
+    </> : <><p className="text-sm text-muted-foreground">{t("receiptHelp")}</p><textarea aria-label={t("receiptTitle")} readOnly value={content} rows={9} className="w-full rounded-xl border border-border p-4 bg-secondary/30 text-sm resize-none" /></>}
     <div className="flex flex-wrap gap-2">
-      <Button size="sm" onClick={share}><Share2 className="h-4 w-4 mr-2" />{t("share")}</Button>
-      <Button size="sm" variant="outline" onClick={copy}><Copy className="h-4 w-4 mr-2" />{t("copy")}</Button>
+      <Button size="sm" variant={voucher ? "outline" : "default"} onClick={share}><Share2 className="h-4 w-4 mr-2" />{t("share")}</Button>
+      {!voucher && <Button size="sm" variant="outline" onClick={copy}><Copy className="h-4 w-4 mr-2" />{t("copy")}</Button>}
       <Button size="sm" variant="outline" onClick={download}><Download className="h-4 w-4 mr-2" />{t("download")}</Button>
     </div>
   </div>;

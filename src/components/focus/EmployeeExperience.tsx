@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { NavLink } from "react-router-dom";
-import { ArrowDownRight, ChartNoAxesCombined, Check, Gift, Home, Leaf, Pencil, Shirt, Smartphone, Trophy } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ChartNoAxesCombined, Check, Gift, Home, Leaf, Pencil, ShieldCheck, Shirt, Smartphone, Sparkles, Trophy } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -20,7 +20,7 @@ export interface EmployeeActions {
   signOut?: () => void;
 }
 
-export default function EmployeeExperience({ data, actions, demo, view = "today", demoRound }: { data: EmployeeData; actions: EmployeeActions; demo: boolean; view?: string; demoRound?: { unlocks: number; settled: boolean } }) {
+export default function EmployeeExperience({ data, actions, demo, view = "today", demoRound, focusTools }: { data: EmployeeData; actions: EmployeeActions; demo: boolean; view?: string; demoRound?: { unlocks: number; settled: boolean }; focusTools?: ReactNode }) {
   const { t, number, date } = useFocusText();
   const base = demo ? "/demo/employee" : "/app";
   const [selected, setSelected] = useState<{ reward: Reward; requestId: string } | null>(null);
@@ -40,6 +40,7 @@ export default function EmployeeExperience({ data, actions, demo, view = "today"
     { id: "today", to: base, icon: Home, label: t("today") },
     { id: "progress", to: `${base}/progress`, icon: ChartNoAxesCombined, label: t("progress") },
     { id: "ranking", to: `${base}/ranking`, icon: Trophy, label: t("ranking") },
+    ...(demo && focusTools ? [{ id: "tools", to: `${base}/tools`, icon: Sparkles, label: t("focusTools") }] : []),
     { id: "shop", to: `${base}/shop`, icon: Gift, label: t("shop") },
   ];
   const purchase = async () => {
@@ -60,10 +61,10 @@ export default function EmployeeExperience({ data, actions, demo, view = "today"
     <div className="max-w-3xl mx-auto px-4 sm:px-6">
       <header className="pt-7 pb-6">
         <div className="flex items-center gap-2 text-sm text-muted-foreground"><p>{t("greeting", { alias: data.alias })}</p><button aria-label={t("editAlias")} onClick={() => { setAlias(data.alias); setAliasOpen(true); }}><Pencil className="w-3.5 h-3.5" /></button></div>
-        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight mt-2">{t(view === "shop" ? "shopTitle" : view === "ranking" ? "rankTitle" : view === "progress" ? "progressTitle" : "todayTitle")}</h1>
+        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight mt-2">{t(view === "shop" ? "shopTitle" : view === "tools" ? "focusToolsTitle" : view === "ranking" ? "rankTitle" : view === "progress" ? "progressTitle" : "todayTitle")}</h1>
       </header>
       <nav aria-label={t("employee")} className="fixed bottom-0 inset-x-0 z-40 border-t bg-card/95 backdrop-blur sm:static sm:border sm:rounded-2xl sm:mb-6 safe-bottom">
-        <div className="grid grid-cols-4 max-w-3xl mx-auto p-1.5 gap-1">{tabs.map((tab) => <NavLink key={tab.id} to={tab.to} end className={cn("flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-3 rounded-xl text-[11px] sm:text-sm font-medium", view === tab.id ? "bg-primary/10 text-primary" : "text-muted-foreground")}><tab.icon className="h-4 w-4" />{tab.label}</NavLink>)}</div>
+        <div className={cn("grid max-w-3xl mx-auto p-1.5 gap-1", tabs.length === 5 ? "grid-cols-5" : "grid-cols-4")}>{tabs.map((tab) => <NavLink key={tab.id} to={tab.to} end className={cn("flex min-w-0 flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-3 rounded-xl text-[11px] sm:text-sm font-medium", view === tab.id ? "bg-primary/10 text-primary" : "text-muted-foreground")}><tab.icon className="h-4 w-4 shrink-0" /><span className="min-w-0 text-center leading-tight break-words">{tab.label}</span></NavLink>)}</div>
       </nav>
 
       {view === "today" && <div className="space-y-4">
@@ -88,7 +89,10 @@ export default function EmployeeExperience({ data, actions, demo, view = "today"
           <Button asChild variant="secondary"><NavLink to={`${base}/shop`}>{t("openShop")}</NavLink></Button>
         </section>
         <PrivacyNote />
+        {demo && focusTools && <NavLink to={`${base}/tools`} className="surface-card p-5 flex gap-4 items-center group"><ShieldCheck className="h-6 w-6 text-primary shrink-0" /><span className="flex-1"><span className="block text-xs text-primary font-semibold">{t("focusOptional")}</span><span className="block font-medium mt-1">{t("focusTry")}</span></span><ArrowRight className="h-4 w-4 text-primary motion-safe:group-hover:translate-x-1 transition-transform" /></NavLink>}
       </div>}
+
+      {demo && view === "tools" && focusTools}
 
       {view === "progress" && <div className="space-y-4">
         {improvement !== null && improvement > 0 && <div className="rounded-2xl bg-primary/5 p-5 text-primary flex items-center gap-2 font-medium"><ArrowDownRight className="w-5 h-5" />{t("fewer", { percent: number(Math.round(improvement)) })}</div>}
@@ -135,11 +139,11 @@ export default function EmployeeExperience({ data, actions, demo, view = "today"
           return <article key={reward.id} className="surface-card p-6 flex flex-col" data-testid="shop-reward"><div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary grid place-items-center mb-5"><Icon className="w-6 h-6" /></div><h2 className="font-semibold text-lg">{reward.title}</h2><p className="text-sm text-muted-foreground mt-2 mb-5 flex-1">{reward.description}</p><p className="font-semibold mb-3">{number(reward.points)} {t("points")}</p><Button disabled={data.balance < reward.points} onClick={() => setSelected({ reward, requestId: crypto.randomUUID() })}>{data.balance < reward.points ? t("missing", { points: number(reward.points - data.balance) }) : t("redeem")}</Button></article>;
         })}</div>
         {!data.rewards.length && <p className="surface-card p-6 text-sm text-muted-foreground">{t("noRewards")}</p>}
-        {data.receipts.length > 0 && <section><h2 className="font-semibold mb-3">{t("receipts")}</h2><ul className="space-y-2">{data.receipts.map((r) => <li key={r.code}><button className="surface-card p-4 w-full text-left flex justify-between gap-3" onClick={() => setReceipt(r)}><span><span className="block font-medium">{r.title}</span><span className="text-xs text-muted-foreground">{date(r.created_at)}</span></span><span className="text-xs text-primary shrink-0">{t(r.fulfilled_at ? "fulfilled" : "issued")}</span></button></li>)}</ul></section>}
+        {data.receipts.length > 0 && <section><h2 className="font-semibold mb-3">{t("receipts")}</h2><ul className="space-y-2">{data.receipts.map((r) => <li key={r.code}><button className="surface-card p-4 w-full text-left flex justify-between gap-3" onClick={() => setReceipt(r)}><span><span className="block font-medium">{r.title}</span><span className="text-xs text-muted-foreground">{date(r.created_at)}</span></span><span className="text-xs text-primary shrink-0">{t(r.voucher?.demo === demo ? "voucherReady" : r.fulfilled_at ? "fulfilled" : "issued")}</span></button></li>)}</ul></section>}
       </div>}
     </div>
     <Dialog open={!!selected} onOpenChange={(open) => { if (!open && !busy) setSelected(null); }}><DialogContent className="max-h-[90dvh] overflow-y-auto break-words"><DialogHeader><DialogTitle>{t("confirmPurchase")}</DialogTitle><DialogDescription>{selected?.reward.title}</DialogDescription></DialogHeader><p className="text-2xl font-semibold">{number(selected?.reward.points ?? 0)} {t("points")}</p><p className="text-sm text-muted-foreground">{t("remaining", { points: number(Math.max(0, data.balance - (selected?.reward.points ?? 0))) })}</p><div className="flex justify-end gap-2"><Button variant="outline" disabled={busy} onClick={() => setSelected(null)}>{t("cancel")}</Button><Button disabled={busy} onClick={purchase}>{t(busy ? "saving" : "confirm")}</Button></div></DialogContent></Dialog>
-    <Dialog open={!!receipt} onOpenChange={(open) => { if (!open) setReceipt(null); }}><DialogContent className="max-h-[90dvh] overflow-y-auto break-words"><DialogHeader><DialogTitle>{t("receiptTitle")}</DialogTitle><DialogDescription>{receipt?.title}</DialogDescription></DialogHeader>{receipt && <ReceiptView receipt={receipt} demo={demo} />}</DialogContent></Dialog>
+    <Dialog open={!!receipt} onOpenChange={(open) => { if (!open) setReceipt(null); }}><DialogContent className="max-h-[90dvh] overflow-y-auto break-words"><DialogHeader><DialogTitle>{t(receipt?.voucher?.demo === demo ? "voucherTitle" : "receiptTitle")}</DialogTitle><DialogDescription>{receipt?.title}</DialogDescription></DialogHeader>{receipt && <ReceiptView receipt={receipt} demo={demo} />}</DialogContent></Dialog>
     <Dialog open={aliasOpen} onOpenChange={setAliasOpen}><DialogContent className="max-h-[90dvh] overflow-y-auto break-words"><DialogHeader><DialogTitle>{t("editAlias")}</DialogTitle><DialogDescription>{t("privacyShort")}</DialogDescription></DialogHeader><form onSubmit={saveAlias} className="space-y-4"><Label htmlFor="focus-alias">{t("alias")}</Label><Input id="focus-alias" required maxLength={30} value={alias} onChange={(e) => setAlias(e.target.value)} /><Button type="submit" disabled={busy}>{t(busy ? "saving" : "save")}</Button></form></DialogContent></Dialog>
   </div>;
 }

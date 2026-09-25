@@ -42,11 +42,12 @@ export default function Landing() {
           <Reveal delay={100}><EmployeeAppPreview /></Reveal>
         </div>
       </section>
-      <section className="container max-w-5xl py-12 md:py-16 grid md:grid-cols-2 gap-5">
-        {[{ icon: Sparkles, title: "personalCard", body: "personalBody", value: 1000 }, { icon: Trophy, title: "bonusCard", body: "bonusBody", value: 250 }].map((card, index) => <Reveal key={card.title} delay={index * 70}>
-          <DepthCard className="p-7 md:p-8">
-            <div className="flex justify-between gap-3 mb-5"><card.icon className="w-6 h-6 text-primary" aria-hidden="true" /><span className="text-primary text-sm font-semibold">{card.title === "bonusCard" ? "+" : ""}{number(card.value)} {t("points")}</span></div>
-            <h2 className="text-xl font-semibold">{t(card.title as "personalCard" | "bonusCard")}</h2><p className="text-muted-foreground text-sm leading-relaxed mt-3">{t(card.body as "personalBody" | "bonusBody")}</p>
+      <section className="container max-w-5xl py-12 md:py-16 grid md:grid-cols-3 gap-5">
+        {([{ icon: Sparkles, title: "personalCard", body: "personalBody", value: 1000 }, { icon: Trophy, title: "bonusCard", body: "bonusBody", value: 250 }, { icon: LockKeyhole, title: "focusToolsTitle", body: "focusToolsBody", value: null }] as const).map((card, index) => <Reveal key={card.title} delay={index * 70}>
+          <DepthCard className="p-6 md:p-7 h-full">
+            <div className="flex justify-between gap-3 mb-5"><card.icon className="w-6 h-6 text-primary shrink-0" aria-hidden="true" /><span className="text-primary text-sm font-semibold">{card.value === null ? t("focusOptional") : <>{card.title === "bonusCard" ? "+" : ""}{number(card.value)} {t("points")}</>}</span></div>
+            <h2 className="text-xl font-semibold">{t(card.title)}</h2><p className="text-muted-foreground text-sm leading-relaxed mt-3">{t(card.body)}</p>
+            {card.value === null && <Link to="/demo/employee/tools" className="inline-flex items-center gap-2 text-sm text-primary mt-4">{t("focusTry")}<ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" /></Link>}
           </DepthCard>
         </Reveal>)}
       </section>

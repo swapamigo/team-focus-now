@@ -21,7 +21,11 @@ export interface Contestant { id: string; alias: string; unlocks: number; ticket
 export interface RankedPlayer extends Contestant { rank: number; selected: boolean; bonus: number }
 export interface RankingRow { alias: string; rank: number; bonus: number; isMe: boolean }
 export interface Reward { id: string; title: string; description: string; points: number; kind: "voucher" | "wellbeing" | "time" | "merch"; active: boolean }
-export interface Receipt { code: string; alias: string; title: string; description: string; created_at: string; fulfilled_at: string | null }
+export interface Receipt {
+  code: string; alias: string; title: string; description: string; created_at: string; fulfilled_at: string | null;
+  // Real codes must be supplied by an authenticated server, never generated here.
+  voucher?: { code: string; demo: boolean };
+}
 export interface EmployeeData {
   alias: string; balance: number; days: UnlockDay[]; previousDays: UnlockDay[];
   ranking: RankingRow[]; rankingWeek: string | null;

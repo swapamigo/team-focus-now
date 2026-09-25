@@ -10,8 +10,7 @@ const fields: Record<Field, { label: FocusKey; min: number; max: number; step: n
   employees: { label: "roiPeople", min: 5, max: 1000, step: 1 },
   currentUnlocks: { label: "roiCurrent", min: 0, max: 150, step: 1 },
   targetUnlocks: { label: "roiTarget", min: 0, max: 150, step: 1 },
-  valuePerUnlock: { label: "roiValue", min: 0, max: 10, step: 0.01 },
-  rewardsPerPerson: { label: "roiRewards", min: 0, max: 50, step: 0.01 },
+  valuePerUnlock: { label: "roiValue", min: 0.5, max: 10, step: 0.01 },
   softwarePerPerson: { label: "roiSoftware", min: 0, max: 1000, step: 0.01 },
 };
 const validValue = (key: Field, value: string) => {
@@ -41,8 +40,7 @@ export default function EmployerRoiCalculator() {
   const ratio = result ? Math.max(result.benefit, result.cost, 1) : 1;
   const netText = result ? money(result.net, true) : "—";
   const breakEven = !result ? error : result.cost === 0 ? t("roiNoCosts")
-    : result.breakEvenUnlocks === null ? t("roiNoBreakEven")
-    : result.breakEvenUnlocks > assumptions.currentUnlocks ? t("roiUnreachable")
+    : result.breakEvenUnlocks === null ? t("roiUnreachable")
     : t("roiBreakEven", { count: number(Math.ceil(result.breakEvenUnlocks)) });
 
   const input = (key: Field, helpId?: string) => {
@@ -107,13 +105,14 @@ export default function EmployerRoiCalculator() {
             <div className="roi-control-heading"><label htmlFor="roi-valuePerUnlock">{t("roiValue")}</label>{input("valuePerUnlock", "roi-value-help")}</div>
             {slider("valuePerUnlock", "roi-value-help")}
             <p id="roi-value-help" className="text-sm text-muted-foreground leading-relaxed mt-1">{t("roiValueHelp")}</p>
-            <p className="roi-value-example mt-3">{t("roiValueExample")}</p>
+            <div className="roi-value-example mt-3"><p>{t("roiValueExample")}</p><a href="#employer-research" onClick={() => document.getElementById("employer-research")?.setAttribute("open", "")} className="inline-block text-primary underline underline-offset-4 mt-2">{t("employerSource")} · Screen Education, 2021</a></div>
           </div>
 
           <div className="roi-cost-inputs">
             <h3 className="font-semibold text-base mb-4">{t("roiAssumptions")}</h3>
-            <div className="roi-control-heading"><label htmlFor="roi-rewardsPerPerson">{t("roiRewards")}</label>{input("rewardsPerPerson", "roi-rewards-help")}</div>
-            <p id="roi-rewards-help" className="text-sm text-muted-foreground leading-relaxed mt-3">{t("roiRewardsHelp")}</p>
+            <div className="roi-control-heading"><p id="roi-rewards-label" className="font-medium">{t("roiRewards")}</p><output htmlFor="roi-employees roi-targetUnlocks" aria-labelledby="roi-rewards-label" aria-live="polite" className="text-3xl font-semibold text-primary tabular-nums whitespace-nowrap" data-testid="roi-rewards">{result ? money(result.rewardsPerPerson) : "—"}</output></div>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-3">{t("roiRewardsHelp")}</p>
+            <p className="text-xs text-muted-foreground leading-relaxed mt-2" data-testid="roi-reward-pool">{result ? t("roiRewardPool", { personal: money(result.personalPerPerson), bonus: money(result.bonusPool) }) : "—"}</p>
             <div className="roi-control-heading mt-5"><label htmlFor="roi-softwarePerPerson">{t("roiSoftware")}</label>{input("softwarePerPerson", "roi-software-help")}</div>
             <p id="roi-software-help" className="text-xs text-muted-foreground leading-relaxed mt-2">{t("roiSoftwareHelp")}</p>
             <p className="flex items-center gap-2 text-sm font-medium mt-5"><CalendarDays className="w-4 h-4 shrink-0 text-primary" aria-hidden="true" />{t("roiWorkdays", { days: number(ROI_WORKDAYS) })}</p>
@@ -144,7 +143,7 @@ export default function EmployerRoiCalculator() {
             <div className="border-t border-white/15 pt-5 mt-6 text-sm text-white/75 leading-relaxed" data-testid="roi-calculation">
               <p>{t("roiCalculationTitle")}</p>
               <p className="mt-2 text-white font-medium">{result ? t("roiCalculation", { people: number(assumptions.employees), count: number(result.fewerUnlocks), days: number(ROI_WORKDAYS), value: money(assumptions.valuePerUnlock), total: money(result.benefit) }) : "—"}</p>
-              <p className="mt-2">{result ? t("roiCostCalculation", { people: number(assumptions.employees), rewards: money(assumptions.rewardsPerPerson), software: money(assumptions.softwarePerPerson), total: money(result.cost) }) : "—"}</p>
+              <p className="mt-2">{result ? t("roiCostCalculation", { rewards: money(result.rewardCost), software: money(result.softwareCost), total: money(result.cost) }) : "—"}</p>
             </div>
           </div>
         </div>

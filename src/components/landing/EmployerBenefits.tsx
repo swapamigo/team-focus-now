@@ -6,6 +6,7 @@ import SpatialPanel from "./SpatialPanel";
 import { useFocusText } from "@/i18n/focus";
 
 const sources = [
+  { title: "Screen Education & InnovateMR · 2021", href: "https://www.screeneducation.org/uploads/1/1/6/6/116602217/manager_survey_report.pdf", note: "employerPhoneTimeStudy" },
   { title: "Iqbal & Horvitz · CHI, 2007", href: "https://www.microsoft.com/en-us/research/publication/disruption-recovery-computing-tasks-field-study-analysis-directions/", note: "employerFocusStudy" },
   { title: "Altmann, Trafton & Hambrick · 2014", href: "https://doi.org/10.1037/a0030986", note: "employerErrorStudy" },
   { title: "Brailovskaia et al. · Acta Psychologica, 2024", href: "https://doi.org/10.1016/j.actpsy.2024.104494", note: "employerWellbeingStudy" },
