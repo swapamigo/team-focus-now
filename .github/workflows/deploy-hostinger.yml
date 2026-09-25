@@ -1,9 +1,10 @@
-# Manuelle Veröffentlichung von teamfokus.app auf Hostinger.
-# Auslösen: GitHub → Actions → "Deploy to Hostinger" → "Run workflow".
-# Vercel (team-focus-now.vercel.app) baut weiterhin unabhängig davon bei jedem Push.
+# Aktuelle Website bei jedem Push auf main; manueller Rollback bleibt möglich.
+# Vercel veröffentlicht unabhängig davon den festgelegten Bachelor-Abgabestand.
 name: Deploy to Hostinger
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       ref:
@@ -24,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.ref }}
+          ref: ${{ inputs.ref || github.sha }}
 
       - uses: actions/setup-node@v4
         with:

@@ -1,6 +1,20 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "node scripts/build-bachelor.mjs install",
+  "buildCommand": "node scripts/build-bachelor.mjs build",
+  "outputDirectory": ".vercel-bachelor/source/dist",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/version.txt",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    },
+    {
+      "source": "/build-info.json",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    }
   ]
 }
