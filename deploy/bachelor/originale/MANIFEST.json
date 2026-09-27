@@ -1,0 +1,191 @@
+{
+  "snapshot_commit": "dfc11c3765f82dbf470d440a9b771bfd46785f9a",
+  "description": "Vom Eigentuemer bereitgestellte Originaldateien der externen Lovable-Assets. Sie werden beim Vercel-Build nach dist-bachelor/<destination> kopiert. Das Abgabearchiv site.tar.gz bleibt unveraendert.",
+  "provided_by": "Joel Schoeppe (Eigentuemer), 2026-09-27; Groesse und SHA-256 mit dem Lovable-Original abgeglichen",
+  "files": [
+    {
+      "file": "anonymisierung-k5.png",
+      "asset_id": "1bb8bd14-b54d-4a08-a986-d893bcef76bb",
+      "destination": "__l5e/assets-v1/1bb8bd14-b54d-4a08-a986-d893bcef76bb/anonymisierung-k5.png",
+      "size": 1298786,
+      "content_type": "image/png",
+      "sha256": "2d353e3b3a8ead4353ff346a2785cc1ed8f1dd06241df977ba3de2e333536335"
+    },
+    {
+      "file": "avv.pdf",
+      "asset_id": "88838355-5f55-4958-8f61-1910f3f84729",
+      "destination": "__l5e/assets-v1/88838355-5f55-4958-8f61-1910f3f84729/avv.pdf",
+      "size": 76296,
+      "content_type": "application/pdf",
+      "sha256": "159bdc2fc36047acaa1ff42c4f751937dfbf7ff125b688833b807b4db31a9e68"
+    },
+    {
+      "file": "infoblatt.pdf",
+      "asset_id": "13cb98b2-8884-4bc6-8126-2c2fd5aead46",
+      "destination": "__l5e/assets-v1/13cb98b2-8884-4bc6-8126-2c2fd5aead46/infoblatt.pdf",
+      "size": 56307,
+      "content_type": "application/pdf",
+      "sha256": "1caeabaf68be744aa9be3dbd3137a79af2d5775fa440c4c123d88363f84a7a44"
+    },
+    {
+      "file": "starter-kit.zip",
+      "asset_id": "1b3028fb-43d8-4571-816b-f175401fdd02",
+      "destination": "__l5e/assets-v1/1b3028fb-43d8-4571-816b-f175401fdd02/starter-kit.zip",
+      "size": 215122,
+      "content_type": "application/zip",
+      "sha256": "abebe9dfe9f690843c5b9ff6b87de5710467a8315e0e7750929adbd8ba1f798d"
+    },
+    {
+      "file": "vvt.pdf",
+      "asset_id": "ac8acbdd-f896-4c25-be51-e9e36222131b",
+      "destination": "__l5e/assets-v1/ac8acbdd-f896-4c25-be51-e9e36222131b/vvt.pdf",
+      "size": 57866,
+      "content_type": "application/pdf",
+      "sha256": "8c69789460ca84d459af9ea8152de128eece89a4badcec49c26168dde64c63af"
+    },
+    {
+      "file": "hero-bg.png",
+      "asset_id": "1f93177a-d914-48b4-884a-141a366e0500",
+      "destination": "__l5e/assets-v1/1f93177a-d914-48b4-884a-141a366e0500/hero-bg.png",
+      "size": 1163493,
+      "content_type": "image/png",
+      "sha256": "e1442890b1272e362903b004c9dd9eeaeed6e8f4f6c561e86bd9db3f113530f5"
+    },
+    {
+      "file": "interruption-cycle-desktop.png",
+      "asset_id": "056fd18e-4aef-42db-8e61-12a40130180c",
+      "destination": "__l5e/assets-v1/056fd18e-4aef-42db-8e61-12a40130180c/interruption-cycle-desktop.png",
+      "size": 497087,
+      "content_type": "image/png",
+      "sha256": "18a7e9c85a48bb7754d045f0b5616d792455c577539bed7e5b59991177883213"
+    },
+    {
+      "file": "interruption-cycle-mobile-v2.png",
+      "asset_id": "5bdefd98-8be1-47f1-b35b-ac6dda3b2cc0",
+      "destination": "__l5e/assets-v1/5bdefd98-8be1-47f1-b35b-ac6dda3b2cc0/interruption-cycle-mobile-v2.png",
+      "size": 1101673,
+      "content_type": "image/png",
+      "sha256": "8f63ee46c9c02dcfb1035b7fb2a041ee1149aac71d45410b87dc0c0602842b46"
+    },
+    {
+      "file": "smartphone-gesellschaftliches-problem.png",
+      "asset_id": "6b2022c7-4986-4444-a5c4-54061a103c36",
+      "destination": "__l5e/assets-v1/6b2022c7-4986-4444-a5c4-54061a103c36/smartphone-gesellschaftliches-problem.png",
+      "size": 1602740,
+      "content_type": "image/png",
+      "sha256": "e2b023a07311aeadf49c05d11cb2bb444e2e274f324d017ef4cf05a72f245527"
+    },
+    {
+      "file": "team-throwing-phones.png",
+      "asset_id": "00ae1f2c-0e20-43b7-8ce0-4d201f8b8298",
+      "destination": "__l5e/assets-v1/00ae1f2c-0e20-43b7-8ce0-4d201f8b8298/team-throwing-phones.png",
+      "size": 2240584,
+      "content_type": "image/png",
+      "sha256": "082e7c980d93bab0006d83b695d3220ab77171f8df525a9fcf35ac608e37d011"
+    },
+    {
+      "file": "tf_step1.png",
+      "asset_id": "5abc60e7-6fa7-4f71-9977-86f6606f077f",
+      "destination": "__l5e/assets-v1/5abc60e7-6fa7-4f71-9977-86f6606f077f/tf_step1.png",
+      "size": 400262,
+      "content_type": "image/png",
+      "sha256": "9e25dbb84de8f0e69a6bec55b4baacd199c6b96f4ab0788073d193e19974aed3"
+    },
+    {
+      "file": "tf_step2.png",
+      "asset_id": "99c147ee-d6c6-438c-9241-c0d3cf108b88",
+      "destination": "__l5e/assets-v1/99c147ee-d6c6-438c-9241-c0d3cf108b88/tf_step2.png",
+      "size": 368855,
+      "content_type": "image/png",
+      "sha256": "d78b39e7c08d0217fef89ad0a6eb413da6c9a68701db1e3cf595fb2d9b2f01e4"
+    },
+    {
+      "file": "tf_step_belohnung.png",
+      "asset_id": "56d2b1b6-8c94-4f86-807a-df31943f8529",
+      "destination": "__l5e/assets-v1/56d2b1b6-8c94-4f86-807a-df31943f8529/tf_step_belohnung.png",
+      "size": 1584657,
+      "content_type": "image/png",
+      "sha256": "683828c9dcdae9dd143443d9c5ce09155633fd534b69e7296af82cd075890e23"
+    },
+    {
+      "file": "tf_step_teamdaten.png",
+      "asset_id": "9c6670dd-b496-409f-98f7-92955eb6ff94",
+      "destination": "__l5e/assets-v1/9c6670dd-b496-409f-98f7-92955eb6ff94/tf_step_teamdaten.png",
+      "size": 1538582,
+      "content_type": "image/png",
+      "sha256": "4297faaf216663199a92f8e6cc229906495ffb89e4b531f6f7dc980876c91c7a"
+    }
+  ],
+  "still_missing": [
+    {
+      "file": "betriebsvereinbarung.pdf",
+      "asset_id": "117d9e83-eea9-4369-afc2-b124f693881b",
+      "destination": "__l5e/assets-v1/117d9e83-eea9-4369-afc2-b124f693881b/betriebsvereinbarung.pdf",
+      "size": 61735,
+      "referenced_in_built_site": false
+    },
+    {
+      "file": "dsfa.pdf",
+      "asset_id": "4fff4897-2976-4bea-908d-f2a7d82267da",
+      "destination": "__l5e/assets-v1/4fff4897-2976-4bea-908d-f2a7d82267da/dsfa.pdf",
+      "size": 57621,
+      "referenced_in_built_site": true
+    },
+    {
+      "file": "hero-team.png",
+      "asset_id": "7fb75ca6-aa4b-45bd-a1ca-683860a69fb8",
+      "destination": "__l5e/assets-v1/7fb75ca6-aa4b-45bd-a1ca-683860a69fb8/hero-team.png",
+      "size": 1163493,
+      "referenced_in_built_site": false
+    },
+    {
+      "file": "interruption-cycle-mobile.png",
+      "asset_id": "c03a0587-8b25-41be-9f0c-1ea0c492444a",
+      "destination": "__l5e/assets-v1/c03a0587-8b25-41be-9f0c-1ea0c492444a/interruption-cycle-mobile.png",
+      "size": 234531,
+      "referenced_in_built_site": false
+    },
+    {
+      "file": "Rechtliche_Compliance_DACH-Raum.pdf",
+      "asset_id": "72be5935-85c0-4d74-895f-532dc20e6042",
+      "destination": "__l5e/assets-v1/72be5935-85c0-4d74-895f-532dc20e6042/Rechtliche_Compliance_DACH-Raum.pdf",
+      "size": 22976,
+      "referenced_in_built_site": false
+    },
+    {
+      "file": "teamfocus-overview.png",
+      "asset_id": "2eb7d08e-36ac-499d-8d4d-2ab32a2257da",
+      "destination": "__l5e/assets-v1/2eb7d08e-36ac-499d-8d4d-2ab32a2257da/teamfocus-overview.png",
+      "size": 1877549,
+      "referenced_in_built_site": false
+    },
+    {
+      "file": "tf_step3.png",
+      "asset_id": "e2a0a5d6-6341-4ee7-a185-8518bb434acb",
+      "destination": "__l5e/assets-v1/e2a0a5d6-6341-4ee7-a185-8518bb434acb/tf_step3.png",
+      "size": 373108,
+      "referenced_in_built_site": false
+    },
+    {
+      "file": "tf_step4.png",
+      "asset_id": "4a9e5c0a-2750-4d3a-80df-47e0fbbf0245",
+      "destination": "__l5e/assets-v1/4a9e5c0a-2750-4d3a-80df-47e0fbbf0245/tf_step4.png",
+      "size": 324882,
+      "referenced_in_built_site": false
+    },
+    {
+      "file": "tf_step5.png",
+      "asset_id": "05fc1b76-1099-434d-8a40-9bc1a40ad774",
+      "destination": "__l5e/assets-v1/05fc1b76-1099-434d-8a40-9bc1a40ad774/tf_step5.png",
+      "size": 355807,
+      "referenced_in_built_site": false
+    },
+    {
+      "file": "tf_step6.png",
+      "asset_id": "d76ccbb3-4160-4d66-ac53-7461a09f7341",
+      "destination": "__l5e/assets-v1/d76ccbb3-4160-4d66-ac53-7461a09f7341/tf_step6.png",
+      "size": 335379,
+      "referenced_in_built_site": false
+    }
+  ]
+}
