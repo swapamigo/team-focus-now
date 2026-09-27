@@ -114,6 +114,22 @@
       "size": 1538582,
       "content_type": "image/png",
       "sha256": "4297faaf216663199a92f8e6cc229906495ffb89e4b531f6f7dc980876c91c7a"
+    },
+    {
+      "file": "dsfa.pdf",
+      "asset_id": "4fff4897-2976-4bea-908d-f2a7d82267da",
+      "destination": "__l5e/assets-v1/4fff4897-2976-4bea-908d-f2a7d82267da/dsfa.pdf",
+      "size": 57621,
+      "content_type": "application/pdf",
+      "sha256": "38fb0b68e9b431b080c50377cd6f21bb3e0455318a1da5d9201e42270c571cbc"
+    },
+    {
+      "file": "hero-team.png",
+      "asset_id": "7fb75ca6-aa4b-45bd-a1ca-683860a69fb8",
+      "destination": "__l5e/assets-v1/7fb75ca6-aa4b-45bd-a1ca-683860a69fb8/hero-team.png",
+      "size": 1163493,
+      "content_type": "image/png",
+      "sha256": "e1442890b1272e362903b004c9dd9eeaeed6e8f4f6c561e86bd9db3f113530f5"
     }
   ],
   "still_missing": [
@@ -122,20 +138,6 @@
       "asset_id": "117d9e83-eea9-4369-afc2-b124f693881b",
       "destination": "__l5e/assets-v1/117d9e83-eea9-4369-afc2-b124f693881b/betriebsvereinbarung.pdf",
       "size": 61735,
-      "referenced_in_built_site": false
-    },
-    {
-      "file": "dsfa.pdf",
-      "asset_id": "4fff4897-2976-4bea-908d-f2a7d82267da",
-      "destination": "__l5e/assets-v1/4fff4897-2976-4bea-908d-f2a7d82267da/dsfa.pdf",
-      "size": 57621,
-      "referenced_in_built_site": true
-    },
-    {
-      "file": "hero-team.png",
-      "asset_id": "7fb75ca6-aa4b-45bd-a1ca-683860a69fb8",
-      "destination": "__l5e/assets-v1/7fb75ca6-aa4b-45bd-a1ca-683860a69fb8/hero-team.png",
-      "size": 1163493,
       "referenced_in_built_site": false
     },
     {
@@ -187,5 +189,9 @@
       "size": 335379,
       "referenced_in_built_site": false
     }
+  ],
+  "notes": [
+    "hero-team.png ist laut Lovable-Original bytegleich mit hero-bg.png (gleiche Groesse und SHA-256).",
+    "Alle vom Build referenzierten Assets sind vorhanden; still_missing enthaelt nur nicht referenzierte Dateien."
   ]
 }
