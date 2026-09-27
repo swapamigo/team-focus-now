@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 .vercel-bachelor/
+dist-bachelor/
 *.local
 
 # Editor directories and files

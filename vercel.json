@@ -1,9 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "installCommand": "node scripts/build-bachelor.mjs install",
-  "buildCommand": "node scripts/build-bachelor.mjs build",
-  "outputDirectory": ".vercel-bachelor/source/dist",
+  "installCommand": "",
+  "buildCommand": "node scripts/publish-bachelor.mjs",
+  "outputDirectory": "dist-bachelor",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
