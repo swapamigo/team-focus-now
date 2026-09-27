@@ -1,7 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, rmSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync } from "node:fs";
+import { dirname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // Publish the reviewed historical output without rebuilding it in Vercel.
@@ -34,4 +34,31 @@ if (!existsSync(join(output, "index.html")) ||
   throw new Error("The extracted site is not the expected bachelor version.");
 }
 
-console.log(`Publishing reviewed bachelor version ${snapshot.commit} (${paths.length} files).`);
+// Owner-provided originals of the external Lovable assets (see originale/MANIFEST.json).
+// They are copied to the paths the historical build already references.
+// The reviewed archive above stays unchanged.
+const originalsDir = join(archiveDir, "originale");
+const manifestPath = join(originalsDir, "MANIFEST.json");
+let originals = 0;
+if (existsSync(manifestPath)) {
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  if (manifest.snapshot_commit !== snapshot.commit) {
+    throw new Error("The originals manifest belongs to a different snapshot.");
+  }
+  for (const entry of manifest.files) {
+    const destination = normalize(entry.destination);
+    if (!destination.startsWith("__l5e/assets-v1/") || destination.split("/").includes("..")) {
+      throw new Error(`Invalid destination for ${entry.file}.`);
+    }
+    const data = readFileSync(join(originalsDir, entry.file));
+    const hash = createHash("sha256").update(data).digest("hex");
+    if (data.length !== entry.size || hash !== entry.sha256) {
+      throw new Error(`Original ${entry.file} does not match its manifest.`);
+    }
+    mkdirSync(dirname(join(output, destination)), { recursive: true });
+    copyFileSync(join(originalsDir, entry.file), join(output, destination));
+    originals += 1;
+  }
+}
+
+console.log(`Publishing reviewed bachelor version ${snapshot.commit} (${paths.length} files, ${originals} original assets).`);
