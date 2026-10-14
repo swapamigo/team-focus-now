@@ -3,6 +3,7 @@ import { ArrowDown, ArrowUpRight, Gift, ShieldCheck, Smartphone, TrendingUp } fr
 import Seo from "@/components/Seo";
 import LandingHeader from "@/components/landing/LandingHeader";
 import EmployerBenefits from "@/components/landing/EmployerBenefits";
+import StoryVideo from "@/components/landing/StoryVideo";
 import Reveal from "@/components/landing/Reveal";
 import DepthCard from "@/components/landing/DepthCard";
 import SpatialPanel from "@/components/landing/SpatialPanel";
@@ -35,6 +36,7 @@ export default function FocusInfo() {
           <Button asChild size="lg" variant="outline"><Link to="/demo/manager">{t("demo")}</Link></Button>
         </div>}
       </SpatialPanel></Reveal>
+      {employer && <div className="mt-10 sm:mt-14"><StoryVideo audience="employer" /></div>}
       {employer ? <EmployerBenefits /> : <div className="grid md:grid-cols-3 gap-4 my-9">{items.map((item) => <Reveal key={item.title}><DepthCard className="p-6"><item.icon className="h-6 w-6 text-primary mb-5" /><h2 className="font-semibold">{t(item.title)}</h2><p className="text-sm text-muted-foreground leading-relaxed mt-3">{t(item.body)}</p></DepthCard></Reveal>)}</div>}
       {employee ? <ShareCompany /> : employer ? <section><SpatialPanel icon={Gift}>
         <h2 className="text-2xl font-semibold tracking-tight">{t("employerCtaTitle")}</h2>

@@ -8,6 +8,7 @@ import EmployeeAppPreview from "@/components/landing/EmployeeAppPreview";
 import Reveal from "@/components/landing/Reveal";
 import DepthCard from "@/components/landing/DepthCard";
 import SpatialPanel from "@/components/landing/SpatialPanel";
+import StoryVideo from "@/components/landing/StoryVideo";
 import { refreshScrollDepth, useScrollDepth } from "@/hooks/useScrollDepth";
 import ShareCompany from "@/components/focus/ShareCompany";
 import { useFocusText } from "@/i18n/focus";
@@ -42,6 +43,9 @@ export default function Landing() {
           <Reveal delay={100}><EmployeeAppPreview /></Reveal>
         </div>
       </section>
+      <div className="container max-w-5xl pt-12 md:pt-16">
+        <StoryVideo audience="employee" />
+      </div>
       <section className="container max-w-5xl py-12 md:py-16 grid md:grid-cols-3 gap-5">
         {([{ icon: Sparkles, title: "personalCard", body: "personalBody", value: 1000 }, { icon: Trophy, title: "bonusCard", body: "bonusBody", value: 250 }, { icon: LockKeyhole, title: "focusToolsTitle", body: "focusToolsBody", value: null }] as const).map((card, index) => <Reveal key={card.title} delay={index * 70}>
           <DepthCard className="p-6 md:p-7 h-full">
