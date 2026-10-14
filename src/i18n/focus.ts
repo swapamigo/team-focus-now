@@ -2,6 +2,13 @@ import { useI18n } from "@/i18n";
 
 // All new public and app surfaces share the same German, English and Spanish copy.
 const copy = {
+  videoEyebrow: ["TeamFokus im Video", "TeamFokus on video", "TeamFokus en vídeo"],
+  employeeVideoTitle: ["Dein Arbeitsalltag mit TeamFokus.", "Your workday with TeamFokus.", "Tu jornada con TeamFokus."],
+  employeeVideoBody: ["Entdecke im Video, wie TeamFokus dich dabei unterstützt, bewusster mit deinem Smartphone umzugehen und dir Prämien zu verdienen.", "See how TeamFokus helps you build more mindful phone habits and earn rewards.", "Descubre cómo TeamFokus te ayuda a usar el móvil de forma más consciente y a ganar premios."],
+  employerVideoTitle: ["TeamFokus für Ihr Unternehmen.", "TeamFokus for your company.", "TeamFokus para tu empresa."],
+  employerVideoBody: ["Lernen Sie TeamFokus aus Unternehmenssicht kennen: ein kurzer Einblick, bevor Sie die Vorteile und Ihr Potenzial im ROI-Rechner entdecken.", "Get a quick introduction to TeamFokus from a company perspective, then explore the benefits and your potential return in the ROI calculator.", "Conoce TeamFokus desde la perspectiva de la empresa y después explora sus ventajas y el retorno potencial en la calculadora de ROI."],
+  videoOpen: ["Video direkt öffnen", "Open video directly", "Abrir el vídeo directamente"],
+  videoLanguage: ["Deutsch", "German", "Alemán"],
   roiRewardPool: ["Davon {personal} persönlich pro Person. Zusätzlich sind für das gesamte Team bis zu {bonus} Bonus eingeplant – verteilt auf höchstens zehn Personen.", "This includes {personal} personally per employee. Up to {bonus} extra is budgeted for the entire team, shared by at most ten people.", "Incluye {personal} personales por participante. Se presupuestan hasta {bonus} adicionales para todo el equipo, repartidos entre un máximo de diez personas."],
   employerPhoneTimeStudy: ["US-Befragung von 369 Führungskräften (2021): geschätzte 2,5 Stunden private Smartphone-Nutzung pro Arbeitstag. Befragt wurden Führungskräfte, die private Handynutzung in ihrem Team bereits wahrnahmen; die Zeit wurde nicht gemessen. Kein allgemeiner Arbeitsplatzdurchschnitt.", "US survey of 369 managers (2021): an estimated 2.5 hours of personal smartphone use per workday. Respondents already believed some staff used phones privately at work; usage time was not measured. Not a universal workplace average.", "Encuesta estadounidense a 369 responsables (2021): estimación de 2,5 horas de uso personal del móvil por jornada. Ya percibían uso privado en su equipo; no se midió el tiempo. No es una media laboral universal."],
   focusTools: ["Fokus", "Focus", "Foco"],
